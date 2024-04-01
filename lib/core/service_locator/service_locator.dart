@@ -38,7 +38,6 @@ loadAllInformation() async {
 }
 
 void setupInitialMockData() async {
-  await getMyProfileRepository().deleteUserProfileByNameOrEmail(name: 'Victor');
   getMyProfileRepository().saveUserProfile(
     User(
       name: 'Victor',
@@ -51,7 +50,8 @@ void setupInitialMockData() async {
 }
 
 void registerServices() {
-  locator.registerSingleton<MyProfileApi>(MyProfileApiDBImpl(connection: getDatabaseService()));
+  locator.registerSingleton<Connection>(Connection());
+  locator.registerSingleton<MyProfileApi>(MyProfileApiBackImpl());
   locator.registerSingleton<MyProfileRepository>(MyProfileRepositoryImpl(usersApi: getMyProfileApi()));
   locator.registerSingleton<MyProfileService>(MyProfileService(myProfileRepository: getMyProfileRepository()));
   locator.registerSingleton<HomeApi>(HomeApiImpl(connection: getDatabaseService()));

@@ -57,10 +57,10 @@ emotion_codes_v = {
         }
         emotion_codes_i = {
             0: "angry",
-            1: "disgusted",
             2: "fearful",
             3: "happy",
             4: "sad",
-            5: "surprise",
             6: "neutral"
+            1: "disgusted",
+            5: "surprise",
         }

@@ -68,7 +68,6 @@ class SecuritySettingPage extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 24.0),
                     );
                     if (!response) return;
-                    getMyProfileService().deleteUserProfileByNameOrEmail(name: getMyProfileService().userProfile?.name, email: getMyProfileService().userProfile?.email);
                     getMyProfileService().userProfile = null;
                     if (context.mounted) context.goNamed(HomeRoute.home.data.name);
                   },

@@ -1,53 +1,36 @@
-import 'package:drift/drift.dart';
+import 'package:harmoni/core/connection/connection.dart';
 import 'package:harmoni/core/helpers/database.dart';
-import 'package:harmoni/features/my_profile/model/mapper.dart';
+import 'package:harmoni/core/service_locator/service_locator.dart';
 
 import '../../model/model/user_model.dart';
 
 abstract class MyProfileApi {
-  Future<void> saveUserProfile(User user);
+  Future<void> signUp(User user);
+  Future<void> signIn(User user);
 
-  Future<UserTableData?> getUserProfileByName(String name);
+  Future<User?> getUserProfile();
 
-  Future<UserTableData?> getUserProfileByEmail(String email);
-
-  Future<void> deleteUserByNameOrEmail({String? name, String? email});
-
-  Future<void> updateUserProfile(User user);
 }
 
-class MyProfileApiDBImpl implements MyProfileApi {
-  MyProfileApiDBImpl({required Database connection}) : _connection = connection;
-
-  final Database _connection;
+class MyProfileApiBackImpl implements MyProfileApi {
+  final String _myProfileBaseUrl = '${getConnectionService().getBaseUrl()}/myProfile';
+  final String _userBaseUrl = '${getConnectionService().getBaseUrl()}/user';
 
   @override
-  Future<void> saveUserProfile(User user) async {
-    await _connection.userTable.insert().insert(user.toEntity());
+  Future<User?> getUserProfile() {
+    var connection = getConnectionService();
+
   }
 
   @override
-  Future<void> updateUserProfile(User user) async {
-    await _connection.userTable.update().replace(user.toEntity());
+  Future<void> signUp(User user) {
+    // TODO: implement saveUserProfile
+    throw UnimplementedError();
   }
 
   @override
-  Future<void> deleteUserByNameOrEmail({String? name, String? email}) async {
-    if (name != null) {
-      _connection.userTable.deleteWhere((tbl) => tbl.name.equals(name));
-    }
-    if (email != null) {
-      _connection.userTable.deleteWhere((tbl) => tbl.email.equals(email));
-    }
-  }
-
-  @override
-  Future<UserTableData?> getUserProfileByEmail(String email) async {
-    return (_connection.select(_connection.userTable)..where((u) => u.email.equals(email))).get().then((value) => value.firstOrNull);
-  }
-
-  @override
-  Future<UserTableData?> getUserProfileByName(String name) async {
-    return (_connection.select(_connection.userTable)..where((u) => u.name.equals(name))).get().then((value) => value.firstOrNull);
+  Future<void> signIn(User user) {
+    // TODO: implement signIn
+    throw UnimplementedError();
   }
 }
