@@ -19,7 +19,7 @@ class MyProfileApiBackImpl implements MyProfileApi {
   @override
   Future<User?> getUserProfile() {
     var connection = getConnectionService();
-
+    throw UnimplementedError();
   }
 
   @override
@@ -34,3 +34,5 @@ class MyProfileApiBackImpl implements MyProfileApi {
     throw UnimplementedError();
   }
 }
+
+// git commit -m "feat: some changes in front project" --date
