@@ -20,7 +20,7 @@ class Connection {
             logI('GET $url performed successfully :: data: ${response.data}');
             return response;
           }
-          logE('GET $url failed with status code ${response.statusCode}');
+          logW('GET $url failed with status code ${response.statusCode}');
           return response;
         },
       );
@@ -36,7 +36,7 @@ class Connection {
             logI('GET $url performed successfully :: data: ${response.data}');
             return response;
           }
-          logE('GET $url failed with status code ${response.statusCode}');
+          logW('GET $url failed with status code ${response.statusCode}');
           return response;
         },
       );
@@ -52,7 +52,7 @@ class Connection {
             logI('GET $url performed successfully :: data: ${response.data}');
             return response;
           }
-          logE('GET $url failed with status code ${response.statusCode}');
+          logW('GET $url failed with status code ${response.statusCode}');
           return response;
         },
       );
@@ -68,7 +68,7 @@ class Connection {
             logI('GET $url performed successfully :: data: ${response.data}');
             return response;
           }
-          logE('GET $url failed with status code ${response.statusCode}');
+          logW('GET $url failed with status code ${response.statusCode}');
           return response;
         },
       );
