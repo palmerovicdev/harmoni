@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(Harmoni());
+void main() => runApp(const Harmoni());
 
 class Harmoni extends StatelessWidget {
+  const Harmoni({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Material App Bar'),
+          title: const Text('Material App Bar'),
         ),
-        body: Center(
-          child: Container(
-            child: Text('Hello World'),
-          ),
+        body: const Center(
+          child: Text('Hello World'),
         ),
       ),
     );
