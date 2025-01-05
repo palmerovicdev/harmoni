@@ -13,7 +13,6 @@ GoRouter router = GoRouter(
   restorationScopeId: 'router',
   initialLocation: HomeRoute.home.data.path,
   observers: kDebugMode ? [GoRouterObserver()] : [],
-  //TODO 1/8/25 palmerodev : add observer with message brokers
   routes: [
     GoRoute(
       path: HomeRoute.home.data.path,
