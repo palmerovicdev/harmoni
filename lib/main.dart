@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmoni/features/my_profile/presentation/page/init_page.dart';
 
 void main() => runApp(const Harmoni());
 
@@ -10,14 +11,7 @@ class Harmoni extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
+      home: InitPage(),
     );
   }
 }

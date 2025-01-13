@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart';
-import 'package:drift_flutter/drift_flutter.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:drift_postgres/drift_postgres.dart';
+import 'package:postgres/postgres.dart' as pg;
 
-import '../../features/home/model/entity/User.dart';
+import '../../features/home/model/entity/user.dart';
 
 part 'database.g.dart';
 
@@ -17,11 +17,12 @@ class Database extends _$Database {
 }
 
 QueryExecutor _openConnection() {
-  const String databaseName = 'harmoni';
-  return driftDatabase(
-    name: databaseName,
-    native: const DriftNativeOptions(
-      databaseDirectory: getApplicationSupportDirectory,
+  return PgDatabase(
+    endpoint: pg.Endpoint(
+      host: 'localhost',
+      database: 'harmoni',
+      username: 'postgres',
+      password: 'postgres',
     ),
   );
 }

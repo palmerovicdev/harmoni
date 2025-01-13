@@ -24,7 +24,8 @@ dependencies:
   animate_do: ^3.3.4
   gap: ^3.0.1
   drift: ^2.23.1
-  drift_flutter: ^0.2.4
+  postgres: ^3.4.8
+  drift_postgres: ^1.3.0
   flutter_animate: ^4.5.2
   path_provider: ^2.1.5
 
@@ -49,3 +50,10 @@ flutter:
     - assets/emoji/kawai_pack/
     - assets/emoji/simple_pack/
     - assets/emoji/halloween_pack/
+    - assets/emoji/cubit_pack/
+    - assets/emoji/shiny_pack/
+    - assets/emoji/simple_2_pack/
+    - assets/emoji/expresive_pack/
+    - assets/emoji/base_simple_pack/
+    - assets/emoji/cube_simple_pack/
+    - assets/images/
