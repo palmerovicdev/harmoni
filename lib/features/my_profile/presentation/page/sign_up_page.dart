@@ -9,8 +9,8 @@ import '../widget/action_button_widget.dart';
 import '../widget/password_input_field_widget.dart';
 import '../widget/terms_and_condition_widget.dart';
 
-class EmailSignUpPage extends StatelessWidget {
-  const EmailSignUpPage({super.key});
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
