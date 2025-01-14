@@ -22,6 +22,9 @@ class Spacer extends StatelessWidget {
 }
 
 enum Space {
+  smaller_small(Spacer(
+    heightPercent: 0.01015625,
+  )),
   small(Spacer(
     heightPercent: 0.0203125,
   )),
@@ -33,6 +36,9 @@ enum Space {
   )),
   extra_large(Spacer(
     heightPercent: 0.1625,
+  )),
+  smaller_small_w(Spacer(
+    widthPercent: 0.01015625,
   )),
   small_w(Spacer(
     widthPercent: 0.0203125,
@@ -47,7 +53,7 @@ enum Space {
     widthPercent: 0.1625,
   ));
 
-  final Spacer grap;
+  final Spacer gap;
 
-  const Space(this.grap);
+  const Space(this.gap);
 }

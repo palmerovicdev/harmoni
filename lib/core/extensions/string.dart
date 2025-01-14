@@ -3,7 +3,7 @@ extension DigitsOnly on String {
 }
 
 extension EmailOnly on String {
-  bool get isEmailOnly => RegExp(r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$').hasMatch(this);
+  bool get isEmailOnly => RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(this);
 }
 
 extension SnakeCaseString on String {

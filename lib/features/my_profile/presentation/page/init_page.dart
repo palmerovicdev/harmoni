@@ -15,18 +15,18 @@ class InitPage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Space.large.grap,
+            Space.large.gap,
             Image.asset(
               Assets.InitPageImage96,
               width: 58,
               height: 58,
             ),
-            Space.large.grap,
+            Space.large.gap,
             Text(
               'Let\'s Get Started!',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
-            Space.small.grap,
+            Space.small.gap,
             SizedBox(
               width: screenWidth * 0.6,
               child: Text(
@@ -38,7 +38,7 @@ class InitPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            Space.medium.grap,
+            Space.medium.gap,
             SizedBox(
               width: screenWidth * 0.85,
               child: OauthAppWidget(
@@ -48,7 +48,7 @@ class InitPage extends StatelessWidget {
                 width: MediaQuery.sizeOf(context).width,
               ),
             ),
-            Space.small.grap,
+            Space.small.gap,
             SizedBox(
               width: screenWidth * 0.85,
               child: OauthAppWidget(
@@ -58,7 +58,7 @@ class InitPage extends StatelessWidget {
                 width: MediaQuery.sizeOf(context).width,
               ),
             ),
-            Space.extra_large.grap,
+            Space.extra_large.gap,
             SizedBox(
               width: screenWidth * 0.85,
               child: ActionButtonWidget(
@@ -67,7 +67,7 @@ class InitPage extends StatelessWidget {
                 onPressed: () {},
               ),
             ),
-            Space.small.grap,
+            Space.small.gap,
             SizedBox(
               width: screenWidth * 0.85,
               child: ActionButtonWidget(
