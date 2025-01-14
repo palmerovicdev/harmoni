@@ -10,26 +10,33 @@ class OauthAppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      ),
-      onPressed: onPressed,
-      child: width > 200
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset(image),
-                const SizedBox(width: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(child: Text('Continue with $type')),
-                  ],
-                ),
-              ],
+    var isCompleteWidget = width > 80;
+    return OutlinedButton.icon(
+      icon: isCompleteWidget
+          ? Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Image.asset(image, width: 32, height: 32),
             )
-          : Center(child: Image.asset(image)),
+          : SizedBox(),
+      style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(isCompleteWidget ? 28 : 20),
+            side: BorderSide(
+              color: Colors.grey
+            )
+          ),
+          alignment: Alignment.centerLeft,
+          padding: !isCompleteWidget ? EdgeInsets.symmetric(vertical: 8, horizontal: 2) : null),
+      onPressed: onPressed,
+      iconAlignment: IconAlignment.start,
+      label: isCompleteWidget
+          ? Center(
+            child: Text('Continue with $type'),
+          )
+          : Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
+              child: Image.asset(image, width: 28, height: 28),
+            ),
     );
   }
 }
