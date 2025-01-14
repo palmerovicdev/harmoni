@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/helpers/logger.dart';
+import '../../../../../core/helpers/logger.dart';
 
 part 'init_event.dart';
 part 'init_state.dart';

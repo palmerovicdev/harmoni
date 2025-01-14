@@ -15,7 +15,7 @@ class OauthAppWidget extends StatelessWidget {
       icon: isCompleteWidget
           ? Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
-              child: Image.asset(image, width: 32, height: 32),
+              child: Image.asset(image, width: 24, height: 24),
             )
           : SizedBox(),
       style: OutlinedButton.styleFrom(
@@ -35,7 +35,7 @@ class OauthAppWidget extends StatelessWidget {
           )
           : Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
-              child: Image.asset(image, width: 28, height: 28),
+              child: Image.asset(image, width: 24, height: 24),
             ),
     );
   }
