@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/action_button_widget.dart';
+import 'package:harmoni/features/my_profile/presentation/widget/gender_selection_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/name_input_field_widget.dart';
 
 import '../../../../core/widgets/spacer.dart';
 
-class NameSettingPage extends StatelessWidget {
-  const NameSettingPage({super.key});
+class GenderPage extends StatelessWidget {
+  const GenderPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +36,11 @@ class NameSettingPage extends StatelessWidget {
                   height: 14,
                   child: const LinearProgressIndicator(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    value: 1 / 7,
+                    value: 2 / 7,
                   ),
                 ),
                 Text(
-                  '1 / 7',
+                  '2 / 7',
                   style: textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -55,7 +56,7 @@ class NameSettingPage extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(left: screenWidth * 0.040625),
                   child: Text(
-                    'What should we call you?',
+                    'What is your gender?',
                     style: textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -69,7 +70,7 @@ class NameSettingPage extends StatelessWidget {
                   child: SizedBox(
                     width: screenWidth * 0.6,
                     child: Text(
-                      'First things first, enter your nickname.',
+                      'Help us tailor your experience.',
                       style: textTheme.bodyMedium?.copyWith(
                         color: Colors.black54,
                         fontWeight: FontWeight.w500,
@@ -79,13 +80,8 @@ class NameSettingPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Space.small.gap,
-              Center(
-                child: SizedBox(
-                  width: screenWidth * 0.85,
-                  child: NameInputFieldWidget(controller: TextEditingController()),
-                ),
-              ),
+              Space.medium.gap,
+              GenderSelectionWidget()
             ],
           ),
           Expanded(child: SizedBox()),

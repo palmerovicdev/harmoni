@@ -23,6 +23,20 @@ class SignInPage extends StatelessWidget {
         children: [
           Space.medium.gap,
           Padding(
+            padding: EdgeInsets.only(left: screenWidth * 0.025),
+            child: SizedBox(
+              width: screenWidth * 0.1,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.arrow_back_ios_new),
+                ),
+              ),
+            ),
+          ),
+          Space.small.gap,
+          Padding(
             padding: EdgeInsets.only(left: screenWidth * 0.040625),
             child: Text(
               'Wellcome Back! 👋',

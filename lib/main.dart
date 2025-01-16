@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmoni/features/my_profile/presentation/page/gender_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/name_setting_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/sign_up_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/init_page.dart';
@@ -13,7 +14,7 @@ class Harmoni extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      home: NameSettingPage(),
+      home: GenderPage(),
     );
   }
 }
