@@ -148,7 +148,7 @@ class SignUpPage extends StatelessWidget {
               ),
             ],
           ),
-          Space.medium.gap,
+          Expanded(child: SizedBox()),
           Center(
             child: SizedBox(
               width: screenWidth * 0.85,
@@ -159,6 +159,7 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
           ),
+          Space.large.gap,
         ],
       ),
     );

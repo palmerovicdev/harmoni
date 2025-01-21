@@ -4,6 +4,7 @@ import '../../../../core/widgets/spacer.dart';
 
 class GenderSelectionWidget extends StatefulWidget {
   const GenderSelectionWidget({super.key, this.onMaleSelected, this.onFemaleSelected, this.onOtherSelected});
+
   final Function()? onMaleSelected;
   final Function()? onFemaleSelected;
   final Function()? onOtherSelected;
@@ -118,7 +119,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
             child: Text(
               'Prefer not to say',
               style: textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w500,
                 color: otherSelected ? colorScheme.onPrimary : null,
               ),
             ),

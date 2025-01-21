@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/action_button_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/gender_selection_widget.dart';
-import 'package:harmoni/features/my_profile/presentation/widget/name_input_field_widget.dart';
 
 import '../../../../core/widgets/spacer.dart';
 
@@ -36,11 +35,11 @@ class GenderPage extends StatelessWidget {
                   height: 14,
                   child: const LinearProgressIndicator(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    value: 2 / 7,
+                    value: 2 / 3,
                   ),
                 ),
                 Text(
-                  '2 / 7',
+                  '2 / 3',
                   style: textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

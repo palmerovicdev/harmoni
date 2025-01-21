@@ -35,11 +35,11 @@ class NameSettingPage extends StatelessWidget {
                   height: 14,
                   child: const LinearProgressIndicator(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    value: 1 / 7,
+                    value: 1 / 3,
                   ),
                 ),
                 Text(
-                  '1 / 7',
+                  '1 / 3',
                   style: textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -97,7 +97,7 @@ class NameSettingPage extends StatelessWidget {
               shouldFocusAttention: true,
             ),
           ),
-          Space.medium.gap,
+          Space.large.gap,
         ],
       ),
     );
