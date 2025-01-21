@@ -15,7 +15,7 @@ class GenderPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Space.medium.gap,
+          Space.large.gap,
           SizedBox(
             width: screenWidth * 0.85,
             child: Row(
@@ -80,7 +80,8 @@ class GenderPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Space.medium.gap,
+              Space.large.gap,
+              Space.large.gap,
               GenderSelectionWidget()
             ],
           ),
@@ -93,7 +94,7 @@ class GenderPage extends StatelessWidget {
               shouldFocusAttention: true,
             ),
           ),
-          Space.medium.gap,
+          Space.large.gap,
         ],
       ),
     );

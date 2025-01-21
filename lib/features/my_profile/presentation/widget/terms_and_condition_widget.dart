@@ -23,9 +23,10 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
     var screenWidth = MediaQuery.sizeOf(context).width;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
-          width: screenWidth * 0.09,
+          width: screenWidth * 0.12,
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Checkbox(

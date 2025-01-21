@@ -14,7 +14,7 @@ class NameSettingPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Space.medium.gap,
+          Space.large.gap,
           SizedBox(
             width: screenWidth * 0.85,
             child: Row(

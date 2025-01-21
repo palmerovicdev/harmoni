@@ -21,7 +21,7 @@ class SignUpPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Space.medium.gap,
+          Space.large.gap,
           Padding(
             padding: EdgeInsets.only(left: screenWidth * 0.025),
             child: SizedBox(
@@ -137,14 +137,14 @@ class SignUpPage extends StatelessWidget {
                 image: Assets.InitPageImage,
                 onPressed: () {},
                 type: 'GitHub',
-                width: 80,
+                width: 50.0,
               ),
               Space.small_w.gap,
               OauthAppWidget(
                 image: Assets.InitPageImage,
                 onPressed: () {},
                 type: 'Google',
-                width: 80,
+                width: 50.0,
               ),
             ],
           ),

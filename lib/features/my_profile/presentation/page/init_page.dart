@@ -16,12 +16,14 @@ class InitPage extends StatelessWidget {
         child: Column(
           children: [
             Space.large.gap,
+            Space.large.gap,
             Image.asset(
               Assets.InitPageImage96,
               width: 58,
               height: 58,
             ),
-            Space.large.gap,
+            Space.medium.gap,
+            Space.small.gap,
             Text(
               'Let\'s Get Started!',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -38,7 +40,7 @@ class InitPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            Space.medium.gap,
+            Space.large.gap,
             SizedBox(
               width: screenWidth * 0.85,
               child: OauthAppWidget(

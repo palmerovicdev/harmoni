@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/spacer.dart';
+
 class OauthAppWidget extends StatelessWidget {
   const OauthAppWidget({
     super.key,
@@ -17,27 +19,54 @@ class OauthAppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var isCompleteWidget = width > 80;
-    return OutlinedButton.icon(
-      icon: isCompleteWidget
-          ? Padding(
+    return isCompleteWidget
+        ? OutlinedButton.icon(
+            icon: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
               child: Image.asset(image, width: 24, height: 24),
-            )
-          : SizedBox(),
-      style: OutlinedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(isCompleteWidget ? 28 : 20), side: BorderSide(color: Colors.grey)),
-          alignment: Alignment.centerLeft,
-          padding: !isCompleteWidget ? EdgeInsets.symmetric(vertical: 8, horizontal: 2) : null),
-      onPressed: onPressed,
-      iconAlignment: IconAlignment.start,
-      label: isCompleteWidget
-          ? Center(
-              child: Text('Continue with $type'),
-            )
-          : Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 6),
-              child: Image.asset(image, width: 24, height: 24),
             ),
-    );
+            style: OutlinedButton.styleFrom(
+              side: BorderSide(color: Colors.black12, width: 1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
+              ),
+              alignment: Alignment.centerLeft,
+            ),
+            onPressed: onPressed,
+            iconAlignment: IconAlignment.start,
+            label: Row(
+              children: [
+                Space.large_w.gap,
+                Text(
+                  'Continue with $type',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+          )
+        : IconButton(
+            style: IconButton.styleFrom(
+              side: BorderSide(color: Colors.black12, width: 1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
+              ),
+            ),
+            onPressed: onPressed,
+            icon: SizedBox(
+              width: width,
+              height: width - 20,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: Image.asset(image),
+                ),
+              ),
+            ),
+          );
   }
 }
