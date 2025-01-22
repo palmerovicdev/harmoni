@@ -25,7 +25,7 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(
+            SizedBox(
           width: screenWidth * 0.12,
           child: FittedBox(
             fit: BoxFit.scaleDown,

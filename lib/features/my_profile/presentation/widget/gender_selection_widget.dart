@@ -20,7 +20,6 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.sizeOf(context).width;
     var textTheme = Theme.of(context).textTheme;
     var colorScheme = Theme.of(context).colorScheme;
     return Column(

@@ -15,7 +15,6 @@ class _AgeSelectionWidgetState extends State<AgeSelectionWidget> {
   @override
   Widget build(BuildContext context) {
     var colorScheme = Theme.of(context).colorScheme;
-    var textTheme = Theme.of(context).textTheme;
     return Stack(
       alignment: Alignment.center,
       children: [
