@@ -41,7 +41,7 @@ class _AgeSelectionWidgetState extends State<AgeSelectionWidget> {
         SizedBox(
           height: 300,
           child: ListWheelScrollView.useDelegate(
-            perspective: 0.01,
+            perspective: 0.006,
             diameterRatio: 3,
             overAndUnderCenterOpacity: 0.8,
             physics: const FixedExtentScrollPhysics(),

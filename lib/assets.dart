@@ -156,6 +156,8 @@ class Assets {
 
   static const Simple2PackAngry = 'assets/emoji/simple_2_pack/simple_2_pack_angry.png';
 
+  static const Simple2PackGreat = 'assets/emoji/simple_2_pack/simple_2_pack_great.png';
+
   static const Simple2PackGood32 = 'assets/emoji/simple_2_pack/simple_2_pack_good_32.png';
 
   static const Simple2PackGood64 = 'assets/emoji/simple_2_pack/simple_2_pack_good_64.png';
@@ -167,6 +169,10 @@ class Assets {
   static const Simple2PackAngry32 = 'assets/emoji/simple_2_pack/simple_2_pack_angry_32.png';
 
   static const Simple2PackAngry64 = 'assets/emoji/simple_2_pack/simple_2_pack_angry_64.png';
+
+  static const Simple2PackGreat32 = 'assets/emoji/simple_2_pack/simple_2_pack_great_32.png';
+
+  static const Simple2PackGreat64 = 'assets/emoji/simple_2_pack/simple_2_pack_great_64.png';
 
   static const Simple2PackNotGood = 'assets/emoji/simple_2_pack/simple_2_pack_not_good.png';
 
@@ -297,4 +303,8 @@ class Assets {
   static const InitPageImage = 'assets/images/init_page_image.png';
 
   static const InitPageImage96 = 'assets/images/init_page_image_96.png';
+
+  static const FinishedIcon = 'assets/general/finished_icon.png';
+
+  static const FinishedIcon64 = 'assets/general/finished_icon_64.png';
 }
