@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmoni/features/my_profile/presentation/page/age_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/sign_up_page.dart';
 
 void main() => runApp(const Harmoni());
@@ -11,7 +12,7 @@ class Harmoni extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      home: SignUpPage(),
+      home: AgePage(),
     );
   }
 }
