@@ -18,13 +18,14 @@ class SignInPage extends StatelessWidget {
     var screenWidth = MediaQuery.sizeOf(context).width;
     var textTheme = Theme.of(context).textTheme;
     var colorScheme = Theme.of(context).colorScheme;
+    var width = screenWidth * 0.08125;
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Space.large.gap,
           Padding(
-            padding: EdgeInsets.only(left: screenWidth * 0.025),
+            padding: EdgeInsets.only(left: screenWidth * 0.05),
             child: SizedBox(
               width: screenWidth * 0.1,
               child: FittedBox(
@@ -38,7 +39,7 @@ class SignInPage extends StatelessWidget {
           ),
           Space.small.gap,
           Padding(
-            padding: EdgeInsets.only(left: screenWidth * 0.040625),
+            padding: EdgeInsets.only(left: width),
             child: Text(
               'Wellcome Back! 👋',
               style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -46,7 +47,7 @@ class SignInPage extends StatelessWidget {
           ),
           Space.smaller_small.gap,
           Padding(
-            padding: EdgeInsets.only(left: screenWidth * 0.040625),
+            padding: EdgeInsets.only(left: width),
             child: SizedBox(
               width: screenWidth * 0.6,
               child: Text(
@@ -61,7 +62,7 @@ class SignInPage extends StatelessWidget {
           ),
           Space.small.gap,
           Padding(
-            padding: EdgeInsets.only(left: screenWidth * 0.040625),
+            padding: EdgeInsets.only(left: width),
             child: Text(
               'Email',
               style: textTheme.bodyLarge?.copyWith(
@@ -72,12 +73,12 @@ class SignInPage extends StatelessWidget {
           ),
           Space.smaller_small.gap,
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.040625),
+            padding: EdgeInsets.symmetric(horizontal: width),
             child: EmailInputFieldWidget(controller: TextEditingController()),
           ),
           Space.small.gap,
           Padding(
-            padding: EdgeInsets.only(left: screenWidth * 0.040625),
+            padding: EdgeInsets.only(left: width),
             child: Text(
               'Password',
               style: textTheme.bodyLarge?.copyWith(
@@ -88,12 +89,12 @@ class SignInPage extends StatelessWidget {
           ),
           Space.smaller_small.gap,
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.040625),
+            padding: EdgeInsets.symmetric(horizontal: width),
             child: PasswordInputFieldWidget(controller: TextEditingController()),
           ),
           Space.small.gap,
           Padding(
-            padding: EdgeInsets.only(left: screenWidth * 0.040625),
+            padding: EdgeInsets.only(left: width),
             child: TermsAndConditionWidget(),
           ),
           Space.medium.gap,
@@ -106,7 +107,7 @@ class SignInPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: screenWidth * 0.25,
+                width: screenWidth * 0.22,
                 child: Divider(
                   thickness: 1,
                   color: colorScheme.primary,
@@ -122,7 +123,7 @@ class SignInPage extends StatelessWidget {
               ),
               Space.small_w.gap,
               SizedBox(
-                width: screenWidth * 0.25,
+                width: screenWidth * 0.22,
                 child: Divider(
                   thickness: 1,
                   color: colorScheme.primary,

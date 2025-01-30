@@ -39,7 +39,7 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
           ),
         ),
         SizedBox(
-          width: screenWidth * 0.82,
+          width: screenWidth * 0.75,
           child: Wrap(
             children: [
               RichText(
