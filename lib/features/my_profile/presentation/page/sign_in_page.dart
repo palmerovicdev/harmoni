@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/already_have_account_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/email_input_field_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/oauth_app_widget.dart';
@@ -29,7 +30,7 @@ class SignInPage extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () => context.pop(),
                   icon: const Icon(Icons.arrow_back_ios_new),
                 ),
               ),
@@ -98,7 +99,7 @@ class SignInPage extends StatelessWidget {
           Space.medium.gap,
           SizedBox(
             width: screenWidth,
-            child: AlreadyHaveAccountWidget(),
+            child: AlreadyHaveAccountOrNotWidget(isSignUp: false,),
           ),
           Space.medium.gap,
           Row(

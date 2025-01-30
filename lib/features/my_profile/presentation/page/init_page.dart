@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:harmoni/assets.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/action_button_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/oauth_app_widget.dart';
 
 import '../../../../core/widgets/spacer.dart';
+import '../../../../router/general_routes.dart';
 
 class InitPage extends StatelessWidget {
   const InitPage({super.key});
@@ -45,7 +47,7 @@ class InitPage extends StatelessWidget {
               width: screenWidth * 0.85,
               child: OauthAppWidget(
                 image: Assets.InitPageImage,
-                onPressed: () {},
+                onPressed: () {}, //TODO 1/27/25 palmerodev : add Google OAuth logic
                 type: 'Google',
                 width: MediaQuery.sizeOf(context).width,
               ),
@@ -55,7 +57,7 @@ class InitPage extends StatelessWidget {
               width: screenWidth * 0.85,
               child: OauthAppWidget(
                 image: Assets.InitPageImage,
-                onPressed: () {},
+                onPressed: () {}, //TODO 1/27/25 palmerodev : add GitHub OAuth logic
                 type: 'GitHub',
                 width: MediaQuery.sizeOf(context).width,
               ),
@@ -66,7 +68,7 @@ class InitPage extends StatelessWidget {
               child: ActionButtonWidget(
                 text: "Sign Up",
                 shouldFocusAttention: true,
-                onPressed: () {},
+                onPressed: () => context.pushNamed(MyProfileRoute.signUp.data.name),
               ),
             ),
             Space.small.gap,
@@ -74,7 +76,7 @@ class InitPage extends StatelessWidget {
               width: screenWidth * 0.85,
               child: ActionButtonWidget(
                 text: "Log In",
-                onPressed: () {},
+                onPressed: () => context.pushNamed(MyProfileRoute.signIn.data.name),
               ),
             )
           ],

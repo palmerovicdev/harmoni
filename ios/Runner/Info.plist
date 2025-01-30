@@ -34,6 +34,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSFileProtectionComplete</key>
+    <string>NSFileProtectionCompleteUntilFirstUserAuthentication</string>
+    <key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

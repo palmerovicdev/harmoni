@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/already_have_account_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/email_input_field_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/oauth_app_widget.dart';
+import 'package:harmoni/router/general_routes.dart';
 
 import '../../../../assets.dart';
 import '../../../../core/widgets/spacer.dart';
@@ -29,7 +31,7 @@ class SignUpPage extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () => context.pop(),
                   icon: const Icon(Icons.arrow_back_ios_new),
                 ),
               ),
@@ -98,7 +100,7 @@ class SignUpPage extends StatelessWidget {
           Space.medium.gap,
           SizedBox(
             width: screenWidth,
-            child: AlreadyHaveAccountWidget(),
+            child: AlreadyHaveAccountOrNotWidget(isSignUp: true,),
           ),
           Space.medium.gap,
           Row(

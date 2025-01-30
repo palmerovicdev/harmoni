@@ -1,6 +1,13 @@
 import 'package:flutter/foundation.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:harmoni/features/home/presentation/page/home_page.dart';
+import 'package:harmoni/features/my_profile/presentation/page/age_page.dart';
+import 'package:harmoni/features/my_profile/presentation/page/gender_page.dart';
+import 'package:harmoni/features/my_profile/presentation/page/init_page.dart';
+import 'package:harmoni/features/my_profile/presentation/page/name_setting_page.dart';
+import 'package:harmoni/features/my_profile/presentation/page/sign_in_page.dart';
+import 'package:harmoni/features/my_profile/presentation/page/sign_up_page.dart';
 import 'package:harmoni/router/router_observer.dart';
 
 import 'general_routes.dart';
@@ -17,7 +24,37 @@ GoRouter router = GoRouter(
     GoRoute(
       path: HomeRoute.home.data.path,
       name: HomeRoute.home.data.name,
-      pageBuilder: (context, state) => MaterialPage(child: Container()),
+      pageBuilder: (context, state) => MaterialPage(child: HomePage()),
+    ),
+    GoRoute(
+      path: MyProfileRoute.init.data.path,
+      name: MyProfileRoute.init.data.name,
+      pageBuilder: (context, state) => MaterialPage(child: InitPage()),
+    ),
+    GoRoute(
+      path: MyProfileRoute.signIn.data.path,
+      name: MyProfileRoute.signIn.data.name,
+      pageBuilder: (context, state) => MaterialPage(child: SignInPage()),
+    ),
+    GoRoute(
+      path: MyProfileRoute.signUp.data.path,
+      name: MyProfileRoute.signUp.data.name,
+      pageBuilder: (context, state) => MaterialPage(child: SignUpPage()),
+    ),
+    GoRoute(
+      path: MyProfileRoute.name.data.path,
+      name: MyProfileRoute.name.data.name,
+      pageBuilder: (context, state) => MaterialPage(child: NameSettingPage()),
+    ),
+    GoRoute(
+      path: MyProfileRoute.age.data.path,
+      name: MyProfileRoute.age.data.name,
+      pageBuilder: (context, state) => MaterialPage(child: AgePage()),
+    ),
+    GoRoute(
+      path: MyProfileRoute.gender.data.path,
+      name: MyProfileRoute.gender.data.name,
+      pageBuilder: (context, state) => MaterialPage(child: GenderPage()),
     ),
   ],
 );

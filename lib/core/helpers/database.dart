@@ -1,8 +1,11 @@
-import 'package:drift/drift.dart';
-import 'package:drift_postgres/drift_postgres.dart';
-import 'package:postgres/postgres.dart' as pg;
+import 'dart:io';
 
-import '../../features/home/model/entity/user.dart';
+import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
+
+import '../../features/my_profile/model/entity/user.dart';
 
 part 'database.g.dart';
 
@@ -14,15 +17,21 @@ class Database extends _$Database {
 
   @override
   int get schemaVersion => _databaseVersion;
+
 }
 
-QueryExecutor _openConnection() {
-  return PgDatabase(
-    endpoint: pg.Endpoint(
-      host: 'localhost',
-      database: 'harmoni',
-      username: 'postgres',
-      password: 'postgres',
-    ),
+LazyDatabase _openConnection() {
+  return LazyDatabase(
+    () async {
+      return NativeDatabase(
+        File(
+          p.join(
+            (await getApplicationDocumentsDirectory()).path,
+            'db.sqlite',
+          ),
+        ),
+        logStatements: true,
+      );
+    },
   );
 }
