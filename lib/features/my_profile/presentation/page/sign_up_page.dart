@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/already_have_account_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/email_input_field_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/oauth_app_widget.dart';
-import 'package:harmoni/router/general_routes.dart';
 
 import '../../../../assets.dart';
+import '../../../../core/widgets/pop_widget.dart';
 import '../../../../core/widgets/spacer.dart';
 import '../widget/action_button_widget.dart';
 import '../widget/password_input_field_widget.dart';
@@ -25,19 +24,7 @@ class SignUpPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Space.large.gap,
-          Padding(
-            padding: EdgeInsets.only(left: screenWidth * 0.05),
-            child: SizedBox(
-              width: screenWidth * 0.1,
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: IconButton(
-                  onPressed: () => context.pop(),
-                  icon: const Icon(Icons.arrow_back_ios_new),
-                ),
-              ),
-            ),
-          ),
+          PopWidget(),
           Space.small.gap,
           Padding(
             padding: EdgeInsets.only(left: width),
@@ -101,7 +88,9 @@ class SignUpPage extends StatelessWidget {
           Space.medium.gap,
           SizedBox(
             width: screenWidth,
-            child: AlreadyHaveAccountOrNotWidget(isSignUp: true,),
+            child: AlreadyHaveAccountOrNotWidget(
+              isSignUp: true,
+            ),
           ),
           Space.medium.gap,
           Row(

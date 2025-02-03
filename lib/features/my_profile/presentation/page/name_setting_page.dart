@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:harmoni/core/widgets/pop_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/action_button_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/name_input_field_widget.dart';
+import 'package:harmoni/router/general_routes.dart';
 
 import '../../../../core/widgets/spacer.dart';
 
@@ -20,15 +23,8 @@ class NameSettingPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: screenWidth * 0.1,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.arrow_back_ios_new),
-                    ),
-                  ),
+                PopWidget(
+                  shouldAddPadding: false,
                 ),
                 SizedBox(
                   width: screenWidth * 0.5,
@@ -52,37 +48,32 @@ class NameSettingPage extends StatelessWidget {
             children: [
               Space.medium.gap,
               Center(
-                child: Padding(
-                  padding: EdgeInsets.only(left: screenWidth * 0.040625),
-                  child: Text(
-                    'What should we call you?',
-                    style: textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Space.smaller_small.gap,
-              Center(
-                child: Padding(
-                  padding: EdgeInsets.only(left: screenWidth * 0.040625),
-                  child: SizedBox(
-                    width: screenWidth * 0.6,
-                    child: Text(
-                      'First things first, enter your nickname.',
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                child: Text(
+                  'What should we call you?',
+                  style: textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               Space.small.gap,
               Center(
                 child: SizedBox(
-                  width: screenWidth * 0.85,
+                  width: screenWidth * 0.6,
+                  child: Text(
+                    'First things first, enter your nickname.',
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: Colors.black54,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              Space.small.gap,
+              Space.small.gap,
+              Center(
+                child: SizedBox(
+                  width: screenWidth * 0.8,
                   child: NameInputFieldWidget(controller: TextEditingController()),
                 ),
               ),
@@ -90,10 +81,10 @@ class NameSettingPage extends StatelessWidget {
           ),
           Expanded(child: SizedBox()),
           SizedBox(
-            width: screenWidth * 0.85,
+            width: screenWidth * 0.80,
             child: ActionButtonWidget(
               text: 'Continue',
-              onPressed: () {},
+              onPressed: () => context.pushNamed(MyProfileRoute.gender.name),
               shouldFocusAttention: true,
             ),
           ),

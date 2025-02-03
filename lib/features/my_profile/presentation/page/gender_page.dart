@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:harmoni/core/widgets/pop_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/action_button_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/gender_selection_widget.dart';
+import 'package:harmoni/features/my_profile/service/my_profile_service.dart';
+import 'package:harmoni/router/general_routes.dart';
 
 import '../../../../core/widgets/spacer.dart';
 
@@ -11,6 +15,7 @@ class GenderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.sizeOf(context).width;
     var textTheme = Theme.of(context).textTheme;
+    var width = screenWidth * 0.08125;
     return Scaffold(
       body: Column(
         children: [
@@ -20,15 +25,8 @@ class GenderPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: screenWidth * 0.1,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.arrow_back_ios_new),
-                    ),
-                  ),
+                PopWidget(
+                  shouldAddPadding: false,
                 ),
                 SizedBox(
                   width: screenWidth * 0.5,
@@ -52,30 +50,24 @@ class GenderPage extends StatelessWidget {
             children: [
               Space.medium.gap,
               Center(
-                child: Padding(
-                  padding: EdgeInsets.only(left: screenWidth * 0.040625),
-                  child: Text(
-                    'What is your gender?',
-                    style: textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                child: Text(
+                  'What is your gender?',
+                  style: textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               Space.smaller_small.gap,
               Center(
-                child: Padding(
-                  padding: EdgeInsets.only(left: screenWidth * 0.040625),
-                  child: SizedBox(
-                    width: screenWidth * 0.6,
-                    child: Text(
-                      'Help us tailor your experience.',
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.center,
+                child: SizedBox(
+                  width: screenWidth * 0.6,
+                  child: Text(
+                    'Help us tailor your experience.',
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: Colors.black54,
+                      fontWeight: FontWeight.w500,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -86,10 +78,10 @@ class GenderPage extends StatelessWidget {
           ),
           Expanded(child: SizedBox()),
           SizedBox(
-            width: screenWidth * 0.85,
+            width: screenWidth * 0.8,
             child: ActionButtonWidget(
               text: 'Continue',
-              onPressed: () {},
+              onPressed: () => context.pushNamed(MyProfileRoute.age.name),
               shouldFocusAttention: true,
             ),
           ),
