@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/widgets/spacer.dart';
 
 class GenderSelectionWidget extends StatefulWidget {
-  const GenderSelectionWidget({super.key, this.onMaleSelected, this.onFemaleSelected, this.onOtherSelected});
+  const GenderSelectionWidget({super.key, this.onMGenderSelected});
 
-  final Function()? onMaleSelected;
-  final Function()? onFemaleSelected;
-  final Function()? onOtherSelected;
+  final Function(String gender)? onMGenderSelected;
 
   @override
   State<GenderSelectionWidget> createState() => _GenderSelectionWidgetState();
@@ -37,7 +35,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                       femaleSelected = false;
                       otherSelected = false;
                     });
-                    widget.onMaleSelected?.call();
+                    widget.onMGenderSelected?.call(Gender.male.name);
                   },
                   icon: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -72,7 +70,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                       femaleSelected = true;
                       otherSelected = false;
                     });
-                    widget.onFemaleSelected?.call();
+                    widget.onMGenderSelected?.call(Gender.female.name);
                   },
                   icon: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -107,7 +105,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
               femaleSelected = false;
               otherSelected = true;
             });
-            widget.onOtherSelected?.call();
+            widget.onMGenderSelected?.call(Gender.other.name);
           },
           style: TextButton.styleFrom(
             backgroundColor: otherSelected ? colorScheme.primary : null,
@@ -128,3 +126,5 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
     );
   }
 }
+
+enum Gender { male, female, other }
