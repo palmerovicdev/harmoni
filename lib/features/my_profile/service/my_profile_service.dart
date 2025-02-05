@@ -2,7 +2,6 @@ import 'package:crypt/crypt.dart';
 import 'package:drift/drift.dart';
 import 'package:harmoni/core/extensions/string.dart';
 import 'package:harmoni/core/helpers/database.dart';
-import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/features/my_profile/data/repository/my_profile_repository.dart';
 
 import '../model/entity/user.dart';
@@ -13,9 +12,9 @@ class MyProfileService {
 
   MyProfileService({required MyProfileRepository myProfileRepository}) : _myProfileRepository = myProfileRepository;
 
-  init(String name) async {
-    var db = getDatabaseService();
-    await initializeUserFromDb(db, name);
+  init(UserData? user) async {
+    if (user == null) return;
+    userProfile = UserInfo.fromJson(user.toJson());
   }
 
   Future<void> initializeUserFromDb(Database db, String name) async {

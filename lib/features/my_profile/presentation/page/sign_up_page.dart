@@ -28,6 +28,13 @@ class SignUpPage extends StatelessWidget {
       builder: (context, state) {
         var passwordEditingController = TextEditingController();
         var emailEditingController = TextEditingController();
+        if (state is SignUpInProgress) {
+          return Scaffold( //TODO 2/5/25 palmerodev : add loading screen
+            body: Center(
+              child: Text('Loading'),
+            ),
+          );
+        }
         return Scaffold(
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
