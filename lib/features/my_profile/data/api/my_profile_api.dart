@@ -7,6 +7,8 @@ abstract class MyProfileApi {
   Future<void> saveUserProfile(UserInfo user);
 
   Future<UserData?> getUserProfileByName(String name);
+
+  Future<UserData?> getUserProfileByEmail(String email);
 }
 
 class MyProfileApiDBImpl implements MyProfileApi {
@@ -24,6 +26,11 @@ class MyProfileApiDBImpl implements MyProfileApi {
       age: user.age ?? 0,
       avatar: user.avatar ?? '',
     ));
+  }
+
+  @override
+  Future<UserData?> getUserProfileByEmail(String email) async {
+    return (_connection.select(_connection.user)..where((u) => u.email.equals(email))).getSingleOrNull();
   }
 
   @override

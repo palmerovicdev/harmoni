@@ -77,9 +77,18 @@ class MyProfileService {
     userProfile!.avatar = avatar;
   }
 
-  bool validateEmail(String email) => email.isEmailOnly;
+  Future<String> validateEmail(String email) async {
+    var result = email.isEmailOnly;
+    if (!result) return 'invalid';
+    var userProfile = await getUserProfileByEmail(email);
+    return userProfile == null ? 'repeated' : 'success';
+  }
 
   String hashPassword(String password) => Crypt.sha256(password, rounds: 10000, salt: "miSaltSeguro").toString();
 
   bool validatePassword(String password, String hashedPassword) => Crypt(hashedPassword) == password;
+
+  Future<UserData?> getUserProfileByEmail(String email) async {
+    return await _myProfileRepository.getUserProfileByEmail(email);
+  }
 }

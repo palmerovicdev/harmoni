@@ -7,6 +7,8 @@ abstract class MyProfileRepository {
   Future<void> saveUserProfile(UserInfo user);
 
   Future<UserData?> getUserProfileByName(String name);
+
+  Future<UserData?> getUserProfileByEmail(String email);
 }
 
 class MyProfileRepositoryImpl implements MyProfileRepository {
@@ -17,6 +19,11 @@ class MyProfileRepositoryImpl implements MyProfileRepository {
   @override
   Future<void> saveUserProfile(UserInfo user) async {
     await _usersApi.saveUserProfile(user);
+  }
+
+  @override
+  Future<UserData?> getUserProfileByEmail(String email) async {
+    return await _usersApi.getUserProfileByEmail(email);
   }
 
   @override
