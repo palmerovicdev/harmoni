@@ -90,7 +90,8 @@ class GenderPage extends StatelessWidget {
                 child: ActionButtonWidget(
                   text: 'Continue',
                   onPressed: () {
-                    if (state is GenderSelected) {
+                    if (state is GenderSelected) {//TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to
+                      // settings page
                       context.pushNamed(MyProfileRoute.age.name);
                     } else {
                       showErrorDialog(context, 'Please, select a gender');

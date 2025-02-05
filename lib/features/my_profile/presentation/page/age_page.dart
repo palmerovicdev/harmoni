@@ -5,6 +5,7 @@ import 'package:harmoni/features/my_profile/presentation/state_management/age/ag
 import 'package:harmoni/features/my_profile/presentation/widget/action_button_widget.dart';
 
 import '../../../../core/helpers/utils.dart';
+import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/widgets/spacer.dart';
 import '../../../../router/general_routes.dart';
 import '../widget/age_selection_widget.dart';
@@ -100,7 +101,9 @@ class AgePage extends StatelessWidget {
                   onPressed: () {
                     context.read<AgeCubit>().setAge(fixedExtentScrollController.selectedItem + 12);
                     if (state is AgeSelected) {
-                      context.pushNamed(MyProfileRoute.gender.name); //TODO 2/5/25 palmerodev : change to success page
+                      getMyProfileService().saveUserProfile();
+                      context.pushNamed(MyProfileRoute.gender.name);//TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to
+                      // settings page
                     } else {
                       showErrorDialog(context, 'Please, enter a valid age');
                     }
