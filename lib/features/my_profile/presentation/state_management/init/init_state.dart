@@ -1,4 +1,4 @@
-part of 'init_bloc.dart';
+part of 'init_cubit.dart';
 
 sealed class InitState extends Equatable {
   const InitState();

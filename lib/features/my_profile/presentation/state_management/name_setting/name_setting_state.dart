@@ -1,6 +1,17 @@
-part of 'name_setting_bloc.dart';
+part of 'name_setting_cubit.dart';
 
-@immutable
-sealed class NameSettingState {}
+sealed class NameSettingState extends Equatable {
+  const NameSettingState();
+}
 
-final class NameSettingInitial extends NameSettingState {}
+final class NameSettingInitial extends NameSettingState {
+  @override
+  List<Object> get props => [];
+}
+
+final class NameSettingValid extends NameSettingState with EquatableMixin {
+  final String? name;
+  const NameSettingValid({this.name});
+  @override
+  List<Object?> get props => [name];
+}

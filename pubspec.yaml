@@ -26,6 +26,7 @@ dependencies:
   drift: ^2.23.1
   flutter_animate: ^4.5.2
   path_provider: ^2.1.5
+  crypt: ^4.3.1
 
 dev_dependencies:
   flutter_test:
