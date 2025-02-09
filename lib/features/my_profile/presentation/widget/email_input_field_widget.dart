@@ -31,7 +31,7 @@ class _EmailInputFieldWidgetState extends State<EmailInputFieldWidget> {
         widget.onChanged?.call(isValid);
       }),
       decoration: InputDecoration(
-        errorText: !isValid ? 'Invalid email' : null,
+        errorText: !isValid ? 'Email invalido.' : null,
         errorBorder: OutlineInputBorder(
           borderSide: !isValid ? BorderSide(color: Colors.red) : BorderSide.none,
           borderRadius: BorderRadius.circular(12),

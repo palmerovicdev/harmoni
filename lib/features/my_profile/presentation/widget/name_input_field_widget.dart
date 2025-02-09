@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 
+import '../../service/my_profile_service.dart';
+
 class NameInputFieldWidget extends StatefulWidget {
   const NameInputFieldWidget({
     super.key,
@@ -27,7 +29,7 @@ class _NameInputFieldWidgetState extends State<NameInputFieldWidget> {
           isValid = true;
           return;
         }
-        isValid = await getMyProfileService().validateName(value);
+        isValid = await getMyProfileService().validateName(value) == NameValidationResult.success.name;
         widget.onChanged?.call(isValid);
       }),
       textAlign: TextAlign.center,
@@ -38,7 +40,7 @@ class _NameInputFieldWidgetState extends State<NameInputFieldWidget> {
         contentPadding: EdgeInsets.symmetric(vertical: 24),
         filled: true,
         fillColor: Theme.of(context).colorScheme.surfaceContainer,
-        errorText: !isValid ? 'Invalid email' : null,
+        errorText: !isValid ? 'Nombre invalido. Debe contener sólo letras y el primer carácter debe ser mayúscula.' : null,
         errorBorder: OutlineInputBorder(
           borderSide: !isValid ? BorderSide(color: Colors.red) : BorderSide.none,
           borderRadius: BorderRadius.circular(12),
