@@ -109,7 +109,7 @@ class AgePage extends StatelessWidget {
                       getMyProfileService().saveUserProfile();
                       isFromSettings
                           ? context.pushNamed(MyProfileRoute.allDone.data.name)
-                          : context.pushNamed(MyProfileRoute.gender.data.name);
+                          : context.pushNamed(HomeRoute.home.data.name);
                       //TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to settings page
                     } else {
                       showErrorDialog(context, 'Por favor, introduzca una edad valida');
