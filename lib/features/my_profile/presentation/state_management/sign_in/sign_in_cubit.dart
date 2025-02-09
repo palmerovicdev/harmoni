@@ -16,7 +16,7 @@ class SignInCubit extends Cubit<SignInState> {
       emit(SignInFailed(reason: 'email'));
       return;
     }
-    var isValidPassword = myProfileService.validatePassword(password, user?.password ?? '');
+    var isValidPassword = myProfileService.matchPassword(password, user?.password ?? '');
     if (!isValidPassword) {
       emit(SignInFailed(reason: 'password'));
       return;
