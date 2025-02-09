@@ -8,11 +8,11 @@ import 'package:harmoni/features/my_profile/presentation/widget/gender_selection
 import 'package:harmoni/router/general_routes.dart';
 
 import '../../../../core/helpers/utils.dart';
-import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/widgets/spacer.dart';
 
 class GenderPage extends StatelessWidget {
   const GenderPage({super.key, this.isFromSettings = false});
+
   final bool isFromSettings;
 
   @override
@@ -91,10 +91,11 @@ class GenderPage extends StatelessWidget {
                 child: ActionButtonWidget(
                   text: 'Continue',
                   onPressed: () {
-                    if (state is GenderSelected) {//TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to
+                    if (state is GenderSelected) {
+                      //TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to
                       // settings page
                       var cubit = context.read<GenderSelectionCubit>();
-                      isFromSettings ? cubit.updateGender(state.gender) : cubit.setGender(state.gender);
+                      cubit.updateGender(state.gender);
                       isFromSettings ? context.pushNamed(HomeRoute.home.name) : context.pushNamed(MyProfileRoute.age.name, extra: false); //TODO 2/8/25 palmerodev : change to
                     } else {
                       showErrorDialog(context, 'Por favor, elija su genero');
