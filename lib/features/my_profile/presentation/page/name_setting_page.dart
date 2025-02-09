@@ -9,6 +9,7 @@ import 'package:harmoni/features/my_profile/presentation/widget/name_input_field
 import 'package:harmoni/router/general_routes.dart';
 
 import '../../../../core/widgets/spacer.dart';
+import '../../service/my_profile_service.dart';
 
 class NameSettingPage extends StatelessWidget {
   const NameSettingPage({super.key, this.isFromSettings = false});
@@ -94,15 +95,19 @@ class NameSettingPage extends StatelessWidget {
                 width: screenWidth * 0.80,
                 child: ActionButtonWidget(
                   text: isFromSettings ? 'Guardar' : 'Continuar',
-                  onPressed: () {
+                  onPressed: () async {
                     var cubit = context.read<NameSettingCubit>();
+                    var result = await cubit.validateName(nameController.text);
+                    if (result != NameValidationResult.success.name) {
+                      showErrorDialog(context, 'Por favor, introduzca un nombre valido.${result == NameValidationResult.repeated.name ? ' Este nombre ya ha sido registrado antes'
+                          '.' : 'El nombre no es válido.'}');
+                      return;
+                    }
                     isFromSettings ? cubit.updateName(nameController.text) : cubit.setName(nameController.text);
                     if (state is NameSettingValid) {
                       //TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to
                       // settings page
                       isFromSettings ? context.pushNamed(HomeRoute.home.name) : context.pushNamed(MyProfileRoute.gender.name); //TODO 2/8/25 palmerodev : change to settings page
-                    } else {
-                      showErrorDialog(context, 'Por favor, introduzca un nombre valido');
                     }
                   },
                   shouldFocusAttention: true,

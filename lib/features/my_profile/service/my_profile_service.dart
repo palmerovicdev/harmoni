@@ -42,11 +42,11 @@ class MyProfileService {
     return await _myProfileRepository.getUserProfileByName(name);
   }
 
-  Future<bool> validateName(String name) async {
+  Future<String> validateName(String name) async {
     var isNameValid = name.isLettersOnlyAndFistCharacterUpperCase;
-    if (!isNameValid) return false;
+    if (!isNameValid) return NameValidationResult.invalid.name;
     var userProfile = await getUserProfileByName(name);
-    return userProfile == null;
+    return userProfile == null? NameValidationResult.success.name : NameValidationResult.repeated.name;
   }
 
   setName(String name) {
@@ -106,3 +106,5 @@ class MyProfileService {
 enum EmailValidationResult { invalid, repeated, success }
 
 enum PasswordValidationResult { invalid, tooShort, tooLong, success}
+
+enum NameValidationResult { invalid, repeated, success }

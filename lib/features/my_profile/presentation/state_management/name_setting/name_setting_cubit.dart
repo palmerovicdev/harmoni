@@ -7,20 +7,21 @@ part 'name_setting_state.dart';
 class NameSettingCubit extends Cubit<NameSettingState> {
   NameSettingCubit() : super(NameSettingInitial());
 
+  Future<String> validateName(String name) async {
+    var myProfileService = getMyProfileService();
+    return await myProfileService.validateName(name);
+  }
+
   setName(String name) async {
     var myProfileService = getMyProfileService();
-    if (await myProfileService.validateName(name)) {
-      myProfileService.setName(name);
-      emit(NameSettingValid(name: name));
-    }
+    myProfileService.setName(name);
+    emit(NameSettingValid(name: name));
   }
 
   updateName(String text) async {
     var myProfileService = getMyProfileService();
-    if (await myProfileService.validateName(text)) {
-      myProfileService.setName(text);
-      myProfileService.saveUserProfile();
-      emit(NameSettingValid(name: text));
-    }
+    myProfileService.setName(text);
+    myProfileService.saveUserProfile();
+    emit(NameSettingValid(name: text));
   }
 }
