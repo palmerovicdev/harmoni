@@ -37,7 +37,7 @@ class SignInPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: width),
                 child: Text(
-                  'Wellcome Back! 👋',
+                  'Hola otra vez! 👋',
                   style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -47,7 +47,7 @@ class SignInPage extends StatelessWidget {
                 child: SizedBox(
                   width: screenWidth * 0.6,
                   child: Text(
-                    'Continue tracking your moods.',
+                    'Siga dando seguimiento a sus emociones.',
                     style: textTheme.bodyMedium?.copyWith(
                       color: Colors.black54,
                       fontWeight: FontWeight.w500,
@@ -76,7 +76,7 @@ class SignInPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: width),
                 child: Text(
-                  'Password',
+                  'Contraseña',
                   style: textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -113,7 +113,7 @@ class SignInPage extends StatelessWidget {
                   ),
                   Space.small_w.gap,
                   Text(
-                    'or continue with',
+                    'o continue con',
                     style: textTheme.bodyMedium?.copyWith(
                       color: Colors.black54,
                       fontWeight: FontWeight.bold,
@@ -152,12 +152,12 @@ class SignInPage extends StatelessWidget {
               Center(
                 child: SizedBox(
                   width: screenWidth * 0.85,
-                  child: ActionButtonWidget(
+                  child: ActionButtonWidget( //TODO 2/8/25 palmerodev : agregar logica de validacion de email y contraseña y redireccionar a home page
                     text: "Sign In",
                     shouldFocusAttention: true,
                     onPressed: () => { //TODO 2/5/25 palmerodev : change to execute logic for fetching all user profile data and redirect to home page
                       context.read<SignInCubit>().signIn(emailEditingController.text, passwordEditingController.text),
-                      context.pushNamed(MyProfileRoute.name.name),
+                      context.pushNamed(HomeRoute.home.data.name),
                     },
                   ),
                 ),

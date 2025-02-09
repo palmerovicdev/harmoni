@@ -11,7 +11,9 @@ import 'package:harmoni/router/general_routes.dart';
 import '../../../../core/widgets/spacer.dart';
 
 class NameSettingPage extends StatelessWidget {
-  const NameSettingPage({super.key});
+  const NameSettingPage({super.key, this.isFromSettings = false});
+
+  final bool isFromSettings;
 
   @override
   Widget build(BuildContext context) {
@@ -24,38 +26,40 @@ class NameSettingPage extends StatelessWidget {
           body: Column(
             children: [
               Space.large.gap,
-              SizedBox(
-                width: screenWidth * 0.85,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    PopWidget(
-                      shouldAddPadding: false,
-                    ),
-                    SizedBox(
-                      width: screenWidth * 0.5,
-                      height: 14,
-                      child: const LinearProgressIndicator(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        value: 1 / 3,
+              isFromSettings
+                  ? SizedBox()
+                  : SizedBox(
+                      width: screenWidth * 0.85,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          PopWidget(
+                            shouldAddPadding: false,
+                          ),
+                          SizedBox(
+                            width: screenWidth * 0.5,
+                            height: 14,
+                            child: const LinearProgressIndicator(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              value: 1 / 3,
+                            ),
+                          ),
+                          Text(
+                            '1 / 3',
+                            style: textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Text(
-                      '1 / 3',
-                      style: textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Space.medium.gap,
                   Center(
                     child: Text(
-                      'What should we call you?',
+                      'Como deberíamos llamarlo?',
                       style: textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -66,7 +70,7 @@ class NameSettingPage extends StatelessWidget {
                     child: SizedBox(
                       width: screenWidth * 0.6,
                       child: Text(
-                        'First things first, enter your nickname.',
+                        'Primero lo primero, introduzca su nombre.',
                         style: textTheme.bodyMedium?.copyWith(
                           color: Colors.black54,
                           fontWeight: FontWeight.w500,
@@ -89,14 +93,16 @@ class NameSettingPage extends StatelessWidget {
               SizedBox(
                 width: screenWidth * 0.80,
                 child: ActionButtonWidget(
-                  text: 'Continue',
+                  text: isFromSettings ? 'Guardar' : 'Continuar',
                   onPressed: () {
-                    context.read<NameSettingCubit>().setName(nameController.text);
-                    if (state is NameSettingValid) { //TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to
+                    var cubit = context.read<NameSettingCubit>();
+                    isFromSettings ? cubit.updateName(nameController.text) : cubit.setName(nameController.text);
+                    if (state is NameSettingValid) {
+                      //TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to
                       // settings page
-                      context.pushNamed(MyProfileRoute.gender.name);
+                      isFromSettings ? context.pushNamed(HomeRoute.home.name) : context.pushNamed(MyProfileRoute.gender.name); //TODO 2/8/25 palmerodev : change to settings page
                     } else {
-                      showErrorDialog(context, 'Please, enter a valid name');
+                      showErrorDialog(context, 'Por favor, introduzca un nombre valido');
                     }
                   },
                   shouldFocusAttention: true,

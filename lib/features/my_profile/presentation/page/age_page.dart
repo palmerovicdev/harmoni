@@ -11,7 +11,9 @@ import '../../../../router/general_routes.dart';
 import '../widget/age_selection_widget.dart';
 
 class AgePage extends StatelessWidget {
-  const AgePage({super.key});
+  const AgePage({super.key, this.isFromSettings = false});
+
+  final bool isFromSettings;
 
   @override
   Widget build(BuildContext context) {
@@ -25,38 +27,40 @@ class AgePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Space.large.gap,
-              SizedBox(
-                width: screenWidth * 0.85,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: screenWidth * 0.1,
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.arrow_back_ios_new),
-                        ),
+              isFromSettings
+                  ? SizedBox()
+                  : SizedBox(
+                      width: screenWidth * 0.85,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: screenWidth * 0.1,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.arrow_back_ios_new),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth * 0.5,
+                            height: 14,
+                            child: const LinearProgressIndicator(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              value: 3 / 3,
+                            ),
+                          ),
+                          Text(
+                            '3 / 3',
+                            style: textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      width: screenWidth * 0.5,
-                      height: 14,
-                      child: const LinearProgressIndicator(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        value: 3 / 3,
-                      ),
-                    ),
-                    Text(
-                      '3 / 3',
-                      style: textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -65,7 +69,7 @@ class AgePage extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.only(left: screenWidth * 0.040625),
                       child: Text(
-                        'How old are you?',
+                        'Cual es su edad?',
                         style: textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -79,7 +83,7 @@ class AgePage extends StatelessWidget {
                       child: SizedBox(
                         width: screenWidth * 0.6,
                         child: Text(
-                          'We\'d like to know more about you.',
+                          'Nos gustaria saber mas acerca de usted.',
                           style: textTheme.bodyMedium?.copyWith(
                             color: Colors.black54,
                             fontWeight: FontWeight.w500,
@@ -97,15 +101,19 @@ class AgePage extends StatelessWidget {
               SizedBox(
                 width: screenWidth * 0.85,
                 child: ActionButtonWidget(
-                  text: 'Continue',
+                  text: isFromSettings ? 'Guardar' : 'Continuar',
                   onPressed: () {
-                    context.read<AgeCubit>().setAge(fixedExtentScrollController.selectedItem + 12);
+                    var cubit = context.read<AgeCubit>();
+                    isFromSettings ? cubit.updateAge(fixedExtentScrollController.selectedItem + 12) : cubit.setAge(fixedExtentScrollController.selectedItem + 12);
                     if (state is AgeSelected) {
                       getMyProfileService().saveUserProfile();
-                      context.pushNamed(MyProfileRoute.gender.name);//TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to
+                      isFromSettings
+                          ? context.pushNamed(HomeRoute.home.name)
+                          : context.pushNamed( //TODO 2/8/25 palmerodev : if it is not an update redirect to finished page
+                              MyProfileRoute.gender.name); //TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to
                       // settings page
                     } else {
-                      showErrorDialog(context, 'Please, enter a valid age');
+                      showErrorDialog(context, 'Por favor, introduzca una edad valida');
                     }
                   },
                   shouldFocusAttention: true,

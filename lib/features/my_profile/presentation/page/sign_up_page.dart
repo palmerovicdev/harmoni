@@ -29,9 +29,10 @@ class SignUpPage extends StatelessWidget {
         var passwordEditingController = TextEditingController();
         var emailEditingController = TextEditingController();
         if (state is SignUpInProgress) {
-          return Scaffold( //TODO 2/5/25 palmerodev : add loading screen
+          return Scaffold(
+            //TODO 2/5/25 palmerodev : add loading screen
             body: Center(
-              child: Text('Loading'),
+              child: Text('Cargando'),
             ),
           );
         }
@@ -45,7 +46,7 @@ class SignUpPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: width),
                 child: Text(
-                  'Join Harmony Today ✨',
+                  'Unase a Harmoni hoy ✨',
                   style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -55,7 +56,7 @@ class SignUpPage extends StatelessWidget {
                 child: SizedBox(
                   width: screenWidth * 0.6,
                   child: Text(
-                    'Start tracking your moods.',
+                    'Comience a dar seguimiento a sus emociones.',
                     style: textTheme.bodyMedium?.copyWith(
                       color: Colors.black54,
                       fontWeight: FontWeight.w500,
@@ -84,7 +85,7 @@ class SignUpPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: width),
                 child: Text(
-                  'Password',
+                  'Contraseña',
                   style: textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -121,7 +122,7 @@ class SignUpPage extends StatelessWidget {
                   ),
                   Space.small_w.gap,
                   Text(
-                    'or continue with',
+                    'o continue con',
                     style: textTheme.bodyMedium?.copyWith(
                       color: Colors.black54,
                       fontWeight: FontWeight.bold,
@@ -166,9 +167,12 @@ class SignUpPage extends StatelessWidget {
                     onPressed: () {
                       context.read<SignUpCubit>().signUp(emailEditingController.text, passwordEditingController.text);
                       if (state is SignUpSuccess) {
-                        context.pushNamed(MyProfileRoute.init.name);
+                        context.push(MyProfileRoute.name.data.path, extra: 'false');
                       } else {
-                        showErrorDialog(context, 'Please, enter a valid email.${state is SignUpFailure && state.isInvalidEmail ? ' This email is already registered.' : ''}');
+                        showErrorDialog(
+                            context,
+                            'Por favor, introduzca un email valido.${state is SignUpFailure && state.isInvalidEmail ? ' Este email ya ha sido registrado '
+                                'antes.' : ''}');
                       }
                     },
                   ),

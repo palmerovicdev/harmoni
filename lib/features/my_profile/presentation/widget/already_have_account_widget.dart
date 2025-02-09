@@ -21,7 +21,7 @@ class _AlreadyHaveAccountOrNotWidgetState extends State<AlreadyHaveAccountOrNotW
       text: TextSpan(
         children: [
           TextSpan(
-            text: widget.isSignUp ? 'Already have an account? ' : 'Don\'t have an account? ',
+            text: widget.isSignUp ? 'Ya posee una cuenta? ' : 'No posee una cuenta? ',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Colors.black54,
                   fontWeight: FontWeight.w500,

@@ -14,4 +14,13 @@ class NameSettingCubit extends Cubit<NameSettingState> {
       emit(NameSettingValid(name: name));
     }
   }
+
+  updateName(String text) async {
+    var myProfileService = getMyProfileService();
+    if (await myProfileService.validateName(text)) {
+      myProfileService.setName(text);
+      myProfileService.saveUserProfile();
+      emit(NameSettingValid(name: text));
+    }
+  }
 }

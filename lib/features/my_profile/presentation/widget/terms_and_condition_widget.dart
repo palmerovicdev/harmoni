@@ -46,14 +46,14 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: 'I agree to Harmoni ',
+                      text: 'Estoy de acuerdo con los ',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Colors.black54,
                             fontWeight: FontWeight.w500,
                           ),
                     ),
                     TextSpan(
-                      text: 'Terms & Conditions',
+                      text: 'Terminos & Condiciones',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.w500,
@@ -64,14 +64,14 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
                         },
                     ),
                     TextSpan(
-                      text: ' and ',
+                      text: ' y la ',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Colors.black54,
                             fontWeight: FontWeight.w500,
                           ),
                     ),
                     TextSpan(
-                      text: 'Privacy Policy',
+                      text: 'Politica de Privacidad',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.w500,
@@ -80,6 +80,13 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
                         ..onTap = () {
                           safePrint('Tap');
                         },
+                    ),
+                    TextSpan(
+                      text: ' de Harmoni ',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),

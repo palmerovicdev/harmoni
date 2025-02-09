@@ -27,14 +27,14 @@ class InitPage extends StatelessWidget {
             Space.medium.gap,
             Space.small.gap,
             Text(
-              'Let\'s Get Started!',
+              'Comencemos!',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             Space.small.gap,
             SizedBox(
               width: screenWidth * 0.6,
               child: Text(
-                'Welcome to the Harmoni app, let\'s drive into your account',
+                'Bienvenido a Harmony, comencemos a configurar su cuenta',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Colors.black54,
                       fontWeight: FontWeight.w500,

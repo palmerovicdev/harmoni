@@ -44,6 +44,7 @@ class _AgeSelectionWidgetState extends State<AgeSelectionWidget> {
             perspective: 0.006,
             diameterRatio: 3,
             overAndUnderCenterOpacity: 0.8,
+            controller: widget.fixedExtentScrollController,
             physics: const FixedExtentScrollPhysics(),
             itemExtent: 68,
             childDelegate: ListWheelChildBuilderDelegate(

@@ -17,7 +17,6 @@ class GenderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.sizeOf(context).width;
     var textTheme = Theme.of(context).textTheme;
-    var width = screenWidth * 0.08125;
     return BlocBuilder<GenderSelectionCubit, GenderSelectionState>(
       builder: (context, state) {
         return Scaffold(
@@ -55,7 +54,7 @@ class GenderPage extends StatelessWidget {
                   Space.medium.gap,
                   Center(
                     child: Text(
-                      'What is your gender?',
+                      'Cual es su genero?',
                       style: textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -66,7 +65,7 @@ class GenderPage extends StatelessWidget {
                     child: SizedBox(
                       width: screenWidth * 0.6,
                       child: Text(
-                        'Help us tailor your experience.',
+                        'Ayúdenos a mejorar su experiencia.',
                         style: textTheme.bodyMedium?.copyWith(
                           color: Colors.black54,
                           fontWeight: FontWeight.w500,
@@ -94,7 +93,7 @@ class GenderPage extends StatelessWidget {
                       // settings page
                       context.pushNamed(MyProfileRoute.age.name);
                     } else {
-                      showErrorDialog(context, 'Please, select a gender');
+                      showErrorDialog(context, 'Por favor, introduzca un genero valido');
                     }
                   },
                   shouldFocusAttention: true,

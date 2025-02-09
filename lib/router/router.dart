@@ -44,12 +44,18 @@ GoRouter router = GoRouter(
     GoRoute(
       path: MyProfileRoute.name.data.path,
       name: MyProfileRoute.name.data.name,
-      pageBuilder: (context, state) => MaterialPage(child: NameSettingPage()),
+      pageBuilder: (context, state) {
+        final isFromSettings = state.extra == 'true';
+        return MaterialPage(child: NameSettingPage(isFromSettings: isFromSettings,));
+      },
     ),
     GoRoute(
       path: MyProfileRoute.age.data.path,
       name: MyProfileRoute.age.data.name,
-      pageBuilder: (context, state) => MaterialPage(child: AgePage()),
+      pageBuilder: (context, state) {
+        final isFromSettings = state.extra == 'true';
+        return MaterialPage(child: AgePage());
+      }
     ),
     GoRoute(
       path: MyProfileRoute.gender.data.path,
