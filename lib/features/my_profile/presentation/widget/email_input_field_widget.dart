@@ -1,3 +1,5 @@
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
+
 import 'package:flutter/material.dart';
 import 'package:harmoni/core/extensions/string.dart';
 
@@ -22,6 +24,9 @@ class _EmailInputFieldWidgetState extends State<EmailInputFieldWidget> {
   Widget build(BuildContext context) {
     return TextField(
       controller: widget.controller,
+      onEditingComplete: () {
+        widget.onChanged ?.call(widget.controller.text.isEmailOnly);
+      },
       onChanged: (value) => setState(() {
         if (value.isEmpty) {
           isValid = true;

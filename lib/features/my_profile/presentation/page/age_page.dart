@@ -107,10 +107,7 @@ class AgePage extends StatelessWidget {
                     isFromSettings ? cubit.updateAge(fixedExtentScrollController.selectedItem + 12) : cubit.setAge(fixedExtentScrollController.selectedItem + 12);
                     if (state is AgeSelected) {
                       getMyProfileService().saveUserProfile();
-                      isFromSettings
-                          ? context.pushNamed(MyProfileRoute.allDone.data.name)
-                          : context.pushNamed(HomeRoute.home.data.name);
-                      //TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to settings page
+                      isFromSettings ? context.pushNamed(MyProfileRoute.allDone.data.name, extra: true) : context.pushNamed(HomeRoute.home.data.name);
                     } else {
                       showErrorDialog(context, 'Por favor, introduzca una edad valida');
                     }

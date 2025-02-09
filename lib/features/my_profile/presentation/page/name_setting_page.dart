@@ -105,10 +105,7 @@ class NameSettingPage extends StatelessWidget {
                     }
                     isFromSettings ? cubit.updateName(nameController.text) : cubit.setName(nameController.text);
                     if (state is NameSettingValid) {
-                      //TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to
-                      // settings page
-                      isFromSettings ? context.pushNamed(HomeRoute.home.name) : context.pushNamed(MyProfileRoute.gender.name, extra: false); //TODO 2/8/25 palmerodev : change to
-                      // settings page
+                      isFromSettings ? context.pushNamed(MyProfileRoute.allDone.data.name, extra: true) : context.pushNamed(MyProfileRoute.gender.name, extra: false);
                     }
                   },
                   shouldFocusAttention: true,

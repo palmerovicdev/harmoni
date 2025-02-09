@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:harmoni/core/extensions/string.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 
 part 'name_setting_state.dart';

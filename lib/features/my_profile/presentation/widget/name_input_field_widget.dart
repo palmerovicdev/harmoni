@@ -24,12 +24,12 @@ class _NameInputFieldWidgetState extends State<NameInputFieldWidget> {
   Widget build(BuildContext context) {
     return TextField(
       controller: widget.controller,
-      onChanged: (value) => setState(() async {
+      onChanged: (value) => setState(() {
         if (value.isEmpty) {
           isValid = true;
           return;
         }
-        isValid = await getMyProfileService().validateName(value) == NameValidationResult.success.name;
+        isValid = getMyProfileService().validateNameStruct(value);
         widget.onChanged?.call(isValid);
       }),
       textAlign: TextAlign.center,

@@ -77,7 +77,10 @@ class SignUpPage extends StatelessWidget {
               Space.smaller_small.gap,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: width),
-                child: EmailInputFieldWidget(controller: emailEditingController),
+                child: EmailInputFieldWidget(
+                  controller: emailEditingController,
+                  onChanged: (isValid) => context.read<SignUpCubit>().validateEmailStruct(emailEditingController.text),
+                ),
               ),
               Space.small.gap,
               Padding(
@@ -163,6 +166,10 @@ class SignUpPage extends StatelessWidget {
                     text: "Sign Up",
                     shouldFocusAttention: true,
                     onPressed: () async {
+                      if (state is SignUpInvalidEmail) {
+                        showErrorDialog(context, 'Por favor, introduzca un email valido.');
+                        return;
+                      }
                       var isValidEmail = await context.read<SignUpCubit>().validateEmail(emailEditingController.text);
                       if (isValidEmail != EmailValidationResult.success.name) {
                         showErrorDialog(

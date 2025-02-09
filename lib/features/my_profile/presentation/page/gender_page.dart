@@ -92,11 +92,9 @@ class GenderPage extends StatelessWidget {
                   text: 'Continue',
                   onPressed: () {
                     if (state is GenderSelected) {
-                      //TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to
-                      // settings page
                       var cubit = context.read<GenderSelectionCubit>();
                       cubit.updateGender(state.gender);
-                      isFromSettings ? context.pushNamed(HomeRoute.home.name) : context.pushNamed(MyProfileRoute.age.name, extra: false); //TODO 2/8/25 palmerodev : change to
+                      isFromSettings ? context.pushNamed(MyProfileRoute.allDone.data.name, extra: true) : context.pushNamed(MyProfileRoute.age.name, extra: false);
                     } else {
                       showErrorDialog(context, 'Por favor, elija su genero');
                     }

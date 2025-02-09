@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:harmoni/core/extensions/string.dart';
 
 import '../../../../../core/service_locator/service_locator.dart';
 
@@ -15,6 +16,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(SignUpInitial());
     return true;
   }
+
+  void validateEmailStruct(String email) => email.isEmailOnly ? emit(SignUpInvalidEmail()) : emit(SignUpInitial());
 
   Future<String> validateEmail(String email) async {
     var myProfileService = getMyProfileService();

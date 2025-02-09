@@ -7,7 +7,9 @@ import '../../../../router/general_routes.dart';
 import '../widget/action_button_widget.dart';
 
 class AllDonePage extends StatelessWidget {
-  const AllDonePage({super.key});
+  const AllDonePage({super.key, this.isFromSettings = false});
+
+  final bool isFromSettings;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class AllDonePage extends StatelessWidget {
             ),
             Space.medium.gap,
             Text(
-              '¡Todo listo!',
+              isFromSettings ? 'Su cambio ha sido realizado con exito!' : '¡Todo listo!',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             Expanded(child: SizedBox()),
@@ -32,10 +34,10 @@ class AllDonePage extends StatelessWidget {
               child: SizedBox(
                 width: screenWidth * 0.85,
                 child: ActionButtonWidget(
-                  text: "Ir a Inicio",
+                  text: isFromSettings ? 'Volver a settings' : 'Ir a Inicio',
                   shouldFocusAttention: true,
                   onPressed: () => {
-                    context.pushNamed(HomeRoute.home.data.name),
+                    isFromSettings ? context.pushNamed(HomeRoute.home.data.name) : context.pushNamed(HomeRoute.home.data.name), //TODO 2/9/25 palmerodev : cambiar ruta a settings
                   },
                 ),
               ),
