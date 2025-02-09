@@ -10,6 +10,7 @@ import 'package:harmoni/features/my_profile/presentation/page/sign_in_page.dart'
 import 'package:harmoni/features/my_profile/presentation/page/sign_up_page.dart';
 import 'package:harmoni/router/router_observer.dart';
 
+import '../features/my_profile/presentation/page/all_done_page.dart';
 import 'general_routes.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -61,6 +62,11 @@ GoRouter router = GoRouter(
       path: MyProfileRoute.gender.data.path,
       name: MyProfileRoute.gender.data.name,
       pageBuilder: (context, state) => MaterialPage(child: GenderPage()),
+    ),
+    GoRoute(
+      path: MyProfileRoute.allDone.data.path,
+      name: MyProfileRoute.allDone.data.name,
+      pageBuilder: (context, state) => MaterialPage(child: AllDonePage()),
     ),
   ],
 );

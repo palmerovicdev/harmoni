@@ -302,6 +302,10 @@ class Assets {
 
   static const InitPageImage = 'assets/images/init_page_image.png';
 
+  static const AllDoneImage32 = 'assets/images/all_done_image_32.png';
+
+  static const AllDoneImage96 = 'assets/images/all_done_image_96.png';
+
   static const InitPageImage96 = 'assets/images/init_page_image_96.png';
 
   static const FinishedIcon = 'assets/general/finished_icon.png';

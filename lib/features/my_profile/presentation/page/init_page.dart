@@ -34,7 +34,7 @@ class InitPage extends StatelessWidget {
             SizedBox(
               width: screenWidth * 0.6,
               child: Text(
-                'Bienvenido a Harmony, comencemos a configurar su cuenta',
+                'Bienvenido a Harmoni, comencemos a configurar su cuenta',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Colors.black54,
                       fontWeight: FontWeight.w500,

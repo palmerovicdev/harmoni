@@ -46,7 +46,7 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Estoy de acuerdo con los ',
+                      text: 'He leído y acepto los ',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Colors.black54,
                             fontWeight: FontWeight.w500,
@@ -80,13 +80,6 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
                         ..onTap = () {
                           safePrint('Tap');
                         },
-                    ),
-                    TextSpan(
-                      text: ' de Harmoni ',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w500,
-                      ),
                     ),
                   ],
                 ),

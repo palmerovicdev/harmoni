@@ -8,17 +8,22 @@ part 'sign_up_state.dart';
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInitial());
 
-  void signUp(String email, String password) async {
+  bool signUp(String email, String password) {
     emit(SignUpInProgress());
+    getMyProfileService().setEmail(email);
+    getMyProfileService().setPassword(password);
+    emit(SignUpInitial());
+    return true;
+  }
+
+  Future<String> validateEmail(String email) async {
     var myProfileService = getMyProfileService();
-    var isValidEmail = await myProfileService.validateEmail(email);
-    if (isValidEmail == 'success') {
-      getMyProfileService().setEmail(email);
-      getMyProfileService().setPassword(password);
-      emit(SignUpSuccess());
-      return;
-    }
-    if (isValidEmail == 'repeated') emit(SignUpFailure(isInvalidEmail: false));
-    if (isValidEmail == 'invalid') emit(SignUpFailure(isInvalidEmail: true));
+    return await myProfileService.validateEmail(email);
+  }
+
+  String validatePassword(String password) {
+    var myProfileService = getMyProfileService();
+    var isValidPassword = myProfileService.validatePassword(password);
+    return isValidPassword;
   }
 }
