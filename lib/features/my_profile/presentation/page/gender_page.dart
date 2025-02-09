@@ -11,7 +11,8 @@ import '../../../../core/helpers/utils.dart';
 import '../../../../core/widgets/spacer.dart';
 
 class GenderPage extends StatelessWidget {
-  const GenderPage({super.key});
+  const GenderPage({super.key, this.isFromSettings = false});
+  final bool isFromSettings;
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +92,9 @@ class GenderPage extends StatelessWidget {
                   onPressed: () {
                     if (state is GenderSelected) {//TODO 2/5/25 palmerodev : add condition to check if it is an update, and save profiles in case of update, redirect to
                       // settings page
-                      context.pushNamed(MyProfileRoute.age.name);
+                      isFromSettings ? context.pushNamed(HomeRoute.home.name) : context.pushNamed(MyProfileRoute.age.name, extra: false); //TODO 2/8/25 palmerodev : change to
                     } else {
-                      showErrorDialog(context, 'Por favor, introduzca un genero valido');
+                      showErrorDialog(context, 'Por favor, elija su genero');
                     }
                   },
                   shouldFocusAttention: true,

@@ -45,23 +45,16 @@ GoRouter router = GoRouter(
     GoRoute(
       path: MyProfileRoute.name.data.path,
       name: MyProfileRoute.name.data.name,
-      pageBuilder: (context, state) {
-        final isFromSettings = state.extra == 'true';
-        return MaterialPage(child: NameSettingPage(isFromSettings: isFromSettings,));
-      },
+      pageBuilder: (context, state) => MaterialPage(child: NameSettingPage(isFromSettings: state.extra as bool)),
     ),
     GoRoute(
-      path: MyProfileRoute.age.data.path,
-      name: MyProfileRoute.age.data.name,
-      pageBuilder: (context, state) {
-        final isFromSettings = state.extra == 'true';
-        return MaterialPage(child: AgePage());
-      }
-    ),
+        path: MyProfileRoute.age.data.path,
+        name: MyProfileRoute.age.data.name,
+        pageBuilder: (context, state) => MaterialPage(child: AgePage(isFromSettings: state.extra as bool))),
     GoRoute(
       path: MyProfileRoute.gender.data.path,
       name: MyProfileRoute.gender.data.name,
-      pageBuilder: (context, state) => MaterialPage(child: GenderPage()),
+      pageBuilder: (context, state) => MaterialPage(child: GenderPage(isFromSettings: state.extra as bool)),
     ),
     GoRoute(
       path: MyProfileRoute.allDone.data.path,
