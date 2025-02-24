@@ -2,18 +2,47 @@
 class Assets {
   Assets._();
 
-  static const String emojiAngryCircle = 'assets/emoji/angry_circle.svg';
-  static const String emojiDisgustedCircle = 'assets/emoji/disgusted_circle.svg';
-  static const String emojiFearfulCircle = 'assets/emoji/fearful_circle.svg';
-  static const String emojiHappyCircle = 'assets/emoji/happy_circle.svg';
-  static const String emojiNeutralCircle = 'assets/emoji/neutral_circle.svg';
-  static const String emojiOtherCircle = 'assets/emoji/other_circle.svg';
-  static const String emojiSadCircle = 'assets/emoji/sad_circle.svg';
+  static const String circleAngryCircle = 'assets/emoji/circle/angry_circle.svg';
+  static const String circleDisgustedCircle = 'assets/emoji/circle/disgusted_circle.svg';
+  static const String circleFearfulCircle = 'assets/emoji/circle/fearful_circle.svg';
+  static const String circleHappyCircle = 'assets/emoji/circle/happy_circle.svg';
+  static const String circleNeutralCircle = 'assets/emoji/circle/neutral_circle.svg';
+  static const String circleOtherCircle = 'assets/emoji/circle/other_circle.svg';
+  static const String circleSadCircle = 'assets/emoji/circle/sad_circle.svg';
+  static const String circleWinkCircle = 'assets/emoji/circle/wink_circle.svg';
+  static const String coreCalendarChecked = 'assets/general/core/calendar_checked.svg';
+  static const String coreCalendarUnchecked = 'assets/general/core/calendar_unchecked.svg';
+  static const String coreChartChecked = 'assets/general/core/chart_checked.svg';
+  static const String coreChartUnchecked = 'assets/general/core/chart_unchecked.svg';
+  static const String coreHomeChecked = 'assets/general/core/home_checked.svg';
+  static const String coreHomeUnchecked = 'assets/general/core/home_unchecked.svg';
+  static const String coreProfileChecked = 'assets/general/core/profile_checked.svg';
+  static const String coreProfileUnchecked = 'assets/general/core/profile_unchecked.svg';
+  static const String coreShare = 'assets/general/core/share.svg';
   static const String generalFinishedIcon = 'assets/general/finished_icon.png';
   static const String generalFinishedIcon64 = 'assets/general/finished_icon_64.png';
+  static const String generalGithub = 'assets/general/github.svg';
+  static const String generalGoogle = 'assets/general/google.svg';
+  static const String ghostAngryGhost = 'assets/emoji/ghost/angry_ghost.svg';
+  static const String ghostDisgustedGhost = 'assets/emoji/ghost/disgusted_ghost.svg';
+  static const String ghostFearfulGhost = 'assets/emoji/ghost/fearful_ghost.svg';
+  static const String ghostHappyGhost = 'assets/emoji/ghost/happy_ghost.svg';
+  static const String ghostNeutralGhost = 'assets/emoji/ghost/neutral_ghost.svg';
+  static const String ghostOtherGhost = 'assets/emoji/ghost/other_ghost.svg';
+  static const String ghostSadGhost = 'assets/emoji/ghost/sad_ghost.svg';
+  static const String ghostWinkGhost = 'assets/emoji/ghost/wink_ghost.svg';
   static const String imagesAllDoneImage32 = 'assets/images/all_done_image_32.png';
   static const String imagesAllDoneImage96 = 'assets/images/all_done_image_96.png';
+  static const String imagesCloudSnow = 'assets/images/cloud_snow.svg';
   static const String imagesInitPageImage = 'assets/images/init_page_image.png';
   static const String imagesInitPageImage96 = 'assets/images/init_page_image_96.png';
+  static const String rectAngryRect = 'assets/emoji/rect/angry_rect.svg';
+  static const String rectDisgustedRect = 'assets/emoji/rect/disgusted_rect.svg';
+  static const String rectFearfulRect = 'assets/emoji/rect/fearful_rect.svg';
+  static const String rectHappyRect = 'assets/emoji/rect/happy_rect.svg';
+  static const String rectNeutralRect = 'assets/emoji/rect/neutral_rect.svg';
+  static const String rectOtherRect = 'assets/emoji/rect/other_rect.svg';
+  static const String rectSadRect = 'assets/emoji/rect/sad_rect.svg';
+  static const String rectWinkRect = 'assets/emoji/rect/wink_rect.svg';
 
 }
