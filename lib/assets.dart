@@ -48,8 +48,6 @@ class Assets {
 
   static const DisgustedCircle = 'assets/emoji/circle/disgusted_circle.svg';
 
-  static const CloudSnow = 'assets/images/cloud_snow.svg';
-
   static const InitPageImage = 'assets/images/init_page_image.png';
 
   static const AllDoneImage32 = 'assets/images/all_done_image_32.png';
@@ -59,6 +57,10 @@ class Assets {
   static const InitPageImage96 = 'assets/images/init_page_image_96.png';
 
   static const Share = 'assets/general/core/share.svg';
+
+  static const Finished = 'assets/general/core/finished.svg';
+
+  static const CloudSnow = 'assets/general/core/cloud_snow.svg';
 
   static const HomeChecked = 'assets/general/core/home_checked.svg';
 
@@ -76,9 +78,9 @@ class Assets {
 
   static const CalendarUnchecked = 'assets/general/core/calendar_unchecked.svg';
 
-  static const Github = 'assets/general/github.svg';
+  static const Github = 'assets/general/oauth/github.svg';
 
-  static const Google = 'assets/general/google.svg';
+  static const Google = 'assets/general/oauth/google.svg';
 
   static const FinishedIcon = 'assets/general/finished_icon.png';
 

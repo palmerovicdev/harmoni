@@ -14,6 +14,8 @@ class Assets {
   static const String coreCalendarUnchecked = 'assets/general/core/calendar_unchecked.svg';
   static const String coreChartChecked = 'assets/general/core/chart_checked.svg';
   static const String coreChartUnchecked = 'assets/general/core/chart_unchecked.svg';
+  static const String coreCloudSnow = 'assets/general/core/cloud_snow.svg';
+  static const String coreFinished = 'assets/general/core/finished.svg';
   static const String coreHomeChecked = 'assets/general/core/home_checked.svg';
   static const String coreHomeUnchecked = 'assets/general/core/home_unchecked.svg';
   static const String coreProfileChecked = 'assets/general/core/profile_checked.svg';
@@ -21,8 +23,6 @@ class Assets {
   static const String coreShare = 'assets/general/core/share.svg';
   static const String generalFinishedIcon = 'assets/general/finished_icon.png';
   static const String generalFinishedIcon64 = 'assets/general/finished_icon_64.png';
-  static const String generalGithub = 'assets/general/github.svg';
-  static const String generalGoogle = 'assets/general/google.svg';
   static const String ghostAngryGhost = 'assets/emoji/ghost/angry_ghost.svg';
   static const String ghostDisgustedGhost = 'assets/emoji/ghost/disgusted_ghost.svg';
   static const String ghostFearfulGhost = 'assets/emoji/ghost/fearful_ghost.svg';
@@ -33,9 +33,10 @@ class Assets {
   static const String ghostWinkGhost = 'assets/emoji/ghost/wink_ghost.svg';
   static const String imagesAllDoneImage32 = 'assets/images/all_done_image_32.png';
   static const String imagesAllDoneImage96 = 'assets/images/all_done_image_96.png';
-  static const String imagesCloudSnow = 'assets/images/cloud_snow.svg';
   static const String imagesInitPageImage = 'assets/images/init_page_image.png';
   static const String imagesInitPageImage96 = 'assets/images/init_page_image_96.png';
+  static const String oauthGithub = 'assets/general/oauth/github.svg';
+  static const String oauthGoogle = 'assets/general/oauth/google.svg';
   static const String rectAngryRect = 'assets/emoji/rect/angry_rect.svg';
   static const String rectDisgustedRect = 'assets/emoji/rect/disgusted_rect.svg';
   static const String rectFearfulRect = 'assets/emoji/rect/fearful_rect.svg';
