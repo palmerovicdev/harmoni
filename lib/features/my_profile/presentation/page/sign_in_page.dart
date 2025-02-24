@@ -23,10 +23,10 @@ class SignInPage extends StatelessWidget {
     var textTheme = Theme.of(context).textTheme;
     var colorScheme = Theme.of(context).colorScheme;
     var width = screenWidth * 0.08125;
+    var passwordEditingController = TextEditingController();
+    var emailEditingController = TextEditingController();
     return BlocBuilder<SignInCubit, SignInState>(
       builder: (context, state) {
-        var passwordEditingController = TextEditingController();
-        var emailEditingController = TextEditingController();
         return Scaffold(
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,15 +134,17 @@ class SignInPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   OauthAppWidget(
-                    image: Assets.InitPageImage,
+                    image: Assets.Github,
                     onPressed: () {},
+                    colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
                     type: 'GitHub',
                     width: 50,
                   ),
                   Space.small_w.gap,
                   OauthAppWidget(
-                    image: Assets.InitPageImage,
+                    image: Assets.Google,
                     onPressed: () {},
+                    colorFilter: ColorFilter.mode(Colors.lightBlueAccent, BlendMode.srcIn),
                     type: 'Google',
                     width: 50,
                   ),
@@ -152,10 +154,12 @@ class SignInPage extends StatelessWidget {
               Center(
                 child: SizedBox(
                   width: screenWidth * 0.85,
-                  child: ActionButtonWidget( //TODO 2/8/25 palmerodev : agregar logica de validacion de email y contraseña y redireccionar a home page
-                    text: "Sign In",
+                  child: ActionButtonWidget(
+                    //TODO 2/8/25 palmerodev : agregar logica de validacion de email y contraseña y redireccionar a home page
+                    text: "Autenticarse",
                     shouldFocusAttention: true,
-                    onPressed: () => { //TODO 2/5/25 palmerodev : change to execute logic for fetching all user profile data and redirect to home page
+                    onPressed: () => {
+                      //TODO 2/5/25 palmerodev : change to execute logic for fetching all user profile data and redirect to home page
                       context.read<SignInCubit>().signIn(emailEditingController.text, passwordEditingController.text),
                       context.pushNamed(HomeRoute.home.data.name),
                     },

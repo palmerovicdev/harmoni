@@ -17,7 +17,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     return true;
   }
 
-  void validateEmailStruct(String email) => email.isEmailOnly ? emit(SignUpInvalidEmail()) : emit(SignUpInitial());
+  void validateEmailStruct(String email) => email.isEmailOnly ? emit(SignUpInitial()) : emit(SignUpInvalidEmail());
 
   Future<String> validateEmail(String email) async {
     var myProfileService = getMyProfileService();

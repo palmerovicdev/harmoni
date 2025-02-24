@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:harmoni/features/my_profile/presentation/state_management/age/age_cubit.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/action_button_widget.dart';
 
-import '../../../../core/helpers/utils.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/widgets/spacer.dart';
 import '../../../../router/general_routes.dart';
@@ -94,7 +93,10 @@ class AgePage extends StatelessWidget {
                     ),
                   ),
                   Space.large.gap,
-                  AgeSelectionWidget(fixedExtentScrollController: fixedExtentScrollController),
+                  AgeSelectionWidget(
+                    fixedExtentScrollController: fixedExtentScrollController,
+                    onChanged: (index) => context.read<AgeCubit>().setAge(index),
+                  ),
                 ],
               ),
               Expanded(child: SizedBox()),
@@ -104,13 +106,9 @@ class AgePage extends StatelessWidget {
                   text: isFromSettings ? 'Guardar' : 'Continuar',
                   onPressed: () {
                     var cubit = context.read<AgeCubit>();
-                    isFromSettings ? cubit.updateAge(fixedExtentScrollController.selectedItem + 12) : cubit.setAge(fixedExtentScrollController.selectedItem + 12);
-                    if (state is AgeSelected) {
-                      getMyProfileService().saveUserProfile();
-                      isFromSettings ? context.pushNamed(MyProfileRoute.allDone.data.name, extra: true) : context.pushNamed(HomeRoute.home.data.name);
-                    } else {
-                      showErrorDialog(context, 'Por favor, introduzca una edad valida');
-                    }
+                    isFromSettings ? cubit.updateAge(fixedExtentScrollController.selectedItem + 12) : cubit.saveAge(fixedExtentScrollController.selectedItem + 12);
+                    getMyProfileService().saveUserProfile();
+                    isFromSettings ? context.pushNamed(MyProfileRoute.allDone.data.name, extra: true) : context.pushNamed(HomeRoute.home.data.name);
                   },
                   shouldFocusAttention: true,
                 ),

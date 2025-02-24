@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../core/widgets/spacer.dart';
 
 class AgeSelectionWidget extends StatefulWidget {
-  const AgeSelectionWidget({super.key, this.fixedExtentScrollController});
+  const AgeSelectionWidget({super.key, this.fixedExtentScrollController, this.onChanged});
 
   final FixedExtentScrollController? fixedExtentScrollController;
+  final Function(int index)? onChanged;
 
   @override
   State<AgeSelectionWidget> createState() => _AgeSelectionWidgetState();

@@ -54,32 +54,32 @@ class MyProfileService {
   }
 
   setName(String name) {
-    if (userProfile == null) return;
+    userProfile ??= UserInfo();
     userProfile!.name = name;
   }
 
   setEmail(String email) {
-    if (userProfile == null) return;
+    userProfile ??= UserInfo();
     userProfile!.email = email;
   }
 
   setPassword(String password) {
-    if (userProfile == null) return;
+    userProfile ??= UserInfo();
     userProfile!.password = hashPassword(password);
   }
 
   setGender(String gender) {
-    if (userProfile == null) return;
+    userProfile ??= UserInfo();
     userProfile!.gender = gender;
   }
 
   setAge(int age) {
-    if (userProfile == null) return;
+    userProfile ??= UserInfo();
     userProfile!.age = age;
   }
 
   setAvatar(String avatar) {
-    if (userProfile == null) return;
+    userProfile ??= UserInfo();
     userProfile!.avatar = avatar;
   }
 

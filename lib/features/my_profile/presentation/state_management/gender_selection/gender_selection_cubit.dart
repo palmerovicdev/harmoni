@@ -15,7 +15,6 @@ class GenderSelectionCubit extends Cubit<GenderSelectionState> {
 
   updateGender(String gender) {
     getMyProfileService().setGender(gender);
-    getMyProfileService().saveUserProfile();
     emit(GenderSelected(gender: gender));
   }
 }

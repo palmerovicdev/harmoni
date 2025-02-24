@@ -27,6 +27,8 @@ dependencies:
   flutter_animate: ^4.5.2
   path_provider: ^2.1.5
   crypt: ^4.3.1
+  flutter_svg: ^2.0.17
+
 
 dev_dependencies:
   flutter_test:
@@ -45,14 +47,11 @@ flutter:
   assets:
     - assets/
     - assets/emoji/
-    - assets/emoji/toon_pack/
-    - assets/emoji/kawai_pack/
-    - assets/emoji/simple_pack/
-    - assets/emoji/halloween_pack/
-    - assets/emoji/cubit_pack/
-    - assets/emoji/shiny_pack/
-    - assets/emoji/simple_2_pack/
-    - assets/emoji/expresive_pack/
-    - assets/emoji/base_simple_pack/
-    - assets/emoji/cube_simple_pack/
+    - assets/emoji/circle/
+    - assets/emoji/ghost/
+    - assets/emoji/rect/
+    - assets/general/
+    - assets/general/core/
+    - assets/general/oauth/
     - assets/images/
+    - pubspec.yaml

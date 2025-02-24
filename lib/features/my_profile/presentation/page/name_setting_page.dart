@@ -98,13 +98,13 @@ class NameSettingPage extends StatelessWidget {
                   onPressed: () async {
                     var cubit = context.read<NameSettingCubit>();
                     var result = await cubit.validateName(nameController.text);
-                    if (result != NameValidationResult.success.name) {
+                    if (result != NameValidationResult.success.name && context.mounted) {
                       showErrorDialog(context, 'Por favor, introduzca un nombre valido.${result == NameValidationResult.repeated.name ? ' Este nombre ya ha sido registrado antes'
                           '.' : 'El nombre no es válido.'}');
                       return;
                     }
                     isFromSettings ? cubit.updateName(nameController.text) : cubit.setName(nameController.text);
-                    if (state is NameSettingValid) {
+                    if (state is NameSettingValid && context.mounted) {
                       isFromSettings ? context.pushNamed(MyProfileRoute.allDone.data.name, extra: true) : context.pushNamed(MyProfileRoute.gender.name, extra: false);
                     }
                   },

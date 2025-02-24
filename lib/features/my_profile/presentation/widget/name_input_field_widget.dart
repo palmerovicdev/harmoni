@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 
-import '../../service/my_profile_service.dart';
-
 class NameInputFieldWidget extends StatefulWidget {
   const NameInputFieldWidget({
     super.key,

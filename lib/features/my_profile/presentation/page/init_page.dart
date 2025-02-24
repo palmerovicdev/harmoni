@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:harmoni/assets.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/action_button_widget.dart';
@@ -19,10 +20,11 @@ class InitPage extends StatelessWidget {
           children: [
             Space.large.gap,
             Space.large.gap,
-            Image.asset(
-              Assets.InitPageImage96,
-              width: 58,
-              height: 58,
+            SvgPicture.asset(
+              Assets.CloudSnow,
+              colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+              width: 96,
+              height: 96,
             ),
             Space.medium.gap,
             Space.small.gap,
@@ -46,9 +48,10 @@ class InitPage extends StatelessWidget {
             SizedBox(
               width: screenWidth * 0.85,
               child: OauthAppWidget(
-                image: Assets.InitPageImage,
+                image: Assets.Google,
                 onPressed: () {}, //TODO 1/27/25 palmerodev : add Google OAuth logic
                 type: 'Google',
+                colorFilter: ColorFilter.mode(Colors.lightBlueAccent, BlendMode.srcIn),
                 width: MediaQuery.sizeOf(context).width,
               ),
             ),
@@ -56,17 +59,18 @@ class InitPage extends StatelessWidget {
             SizedBox(
               width: screenWidth * 0.85,
               child: OauthAppWidget(
-                image: Assets.InitPageImage,
+                image: Assets.Github,
                 onPressed: () {}, //TODO 1/27/25 palmerodev : add GitHub OAuth logic
                 type: 'GitHub',
+                colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
                 width: MediaQuery.sizeOf(context).width,
               ),
             ),
-            Space.extra_large.gap,
+            Space.large.gap,
             SizedBox(
               width: screenWidth * 0.85,
               child: ActionButtonWidget(
-                text: "Sign Up",
+                text: "Crear Cuenta",
                 shouldFocusAttention: true,
                 onPressed: () => context.pushNamed(MyProfileRoute.signUp.data.name),
               ),
@@ -75,7 +79,7 @@ class InitPage extends StatelessWidget {
             SizedBox(
               width: screenWidth * 0.85,
               child: ActionButtonWidget(
-                text: "Log In",
+                text: "Autenticarse",
                 onPressed: () => context.pushNamed(MyProfileRoute.signIn.data.name),
               ),
             )

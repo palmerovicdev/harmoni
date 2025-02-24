@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:harmoni/assets.dart';
 
 import '../../../../core/widgets/spacer.dart';
 
@@ -9,12 +11,14 @@ class OauthAppWidget extends StatelessWidget {
     required this.onPressed,
     this.width = 100,
     required this.type,
+    this.colorFilter,
   });
 
   final String image;
   final String type;
   final Function() onPressed;
   final double width;
+  final ColorFilter? colorFilter;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,12 @@ class OauthAppWidget extends StatelessWidget {
         ? OutlinedButton.icon(
             icon: Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
-              child: Image.asset(image, width: 24, height: 24),
+              child: SvgPicture.asset(
+                width: 24,
+                height: 24,
+                colorFilter: colorFilter ?? ColorFilter.mode(Colors.green, BlendMode.srcIn),
+                image,
+              ),
             ),
             style: OutlinedButton.styleFrom(
               side: BorderSide(color: Colors.black12, width: 1),
@@ -38,7 +47,7 @@ class OauthAppWidget extends StatelessWidget {
               children: [
                 Space.large_w.gap,
                 Text(
-                  'Continue with $type',
+                  'Continuar con $type',
                   style: TextStyle(
                     color: Colors.black87,
                     fontWeight: FontWeight.w700,
@@ -63,7 +72,12 @@ class OauthAppWidget extends StatelessWidget {
                 child: SizedBox(
                   height: 24,
                   width: 24,
-                  child: Image.asset(image),
+                  child: SvgPicture.asset(
+                    width: 16,
+                    height: 16,
+                    colorFilter: colorFilter ?? ColorFilter.mode(Colors.green, BlendMode.srcIn),
+                    image,
+                  ),
                 ),
               ),
             ),

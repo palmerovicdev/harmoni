@@ -8,8 +8,11 @@ class AgeCubit extends Cubit<AgeState> {
   AgeCubit() : super(AgeInitial());
 
   void setAge(int age) {
-    getMyProfileService().setAge(age);
     emit(AgeSelected(age: age));
+  }
+
+  void saveAge(int age) {
+    getMyProfileService().setAge(age);
   }
 
   updateAge(int i) async {

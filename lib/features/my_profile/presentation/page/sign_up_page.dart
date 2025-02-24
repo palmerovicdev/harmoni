@@ -27,10 +27,10 @@ class SignUpPage extends StatelessWidget {
     var colorScheme = Theme.of(context).colorScheme;
     var width = screenWidth * 0.08125;
     var hasReadTermsAndConditions = false;
+    var passwordEditingController = TextEditingController();
+    var emailEditingController = TextEditingController();
     return BlocBuilder<SignUpCubit, SignUpState>(
       builder: (context, state) {
-        var passwordEditingController = TextEditingController();
-        var emailEditingController = TextEditingController();
         if (state is SignUpInProgress) {
           return LoadingWidget();
         }
@@ -79,7 +79,6 @@ class SignUpPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: width),
                 child: EmailInputFieldWidget(
                   controller: emailEditingController,
-                  onChanged: (isValid) => context.read<SignUpCubit>().validateEmailStruct(emailEditingController.text),
                 ),
               ),
               Space.small.gap,
@@ -144,15 +143,17 @@ class SignUpPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   OauthAppWidget(
-                    image: Assets.InitPageImage,
+                    image: Assets.Github,
                     onPressed: () {},
+                    colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
                     type: 'GitHub',
                     width: 50.0,
                   ),
                   Space.small_w.gap,
                   OauthAppWidget(
-                    image: Assets.InitPageImage,
+                    image: Assets.Google,
                     onPressed: () {},
+                    colorFilter: ColorFilter.mode(Colors.lightBlueAccent, BlendMode.srcIn),
                     type: 'Google',
                     width: 50.0,
                   ),
@@ -163,13 +164,9 @@ class SignUpPage extends StatelessWidget {
                 child: SizedBox(
                   width: screenWidth * 0.85,
                   child: ActionButtonWidget(
-                    text: "Sign Up",
+                    text: "Crear Cuenta",
                     shouldFocusAttention: true,
                     onPressed: () async {
-                      if (state is SignUpInvalidEmail) {
-                        showErrorDialog(context, 'Por favor, introduzca un email valido.');
-                        return;
-                      }
                       var isValidEmail = await context.read<SignUpCubit>().validateEmail(emailEditingController.text);
                       if (isValidEmail != EmailValidationResult.success.name) {
                         showErrorDialog(
@@ -196,7 +193,7 @@ class SignUpPage extends StatelessWidget {
                         showErrorDialog(context.mounted ? context : context, 'Ha ocurrido un error al crear su cuenta. Por favor, inténtelo de nuevo más tarde.');
                         return;
                       }
-                      if (context.mounted) context.push(MyProfileRoute.name.data.path, extra: 'false');
+                      if (context.mounted) context.push(MyProfileRoute.name.data.path, extra: false);
                     },
                   ),
                 ),

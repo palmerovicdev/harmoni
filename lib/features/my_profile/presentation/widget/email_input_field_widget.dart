@@ -1,5 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
-
 import 'package:flutter/material.dart';
 import 'package:harmoni/core/extensions/string.dart';
 
@@ -25,7 +23,7 @@ class _EmailInputFieldWidgetState extends State<EmailInputFieldWidget> {
     return TextField(
       controller: widget.controller,
       onEditingComplete: () {
-        widget.onChanged ?.call(widget.controller.text.isEmailOnly);
+        widget.onChanged?.call(widget.controller.text.isEmailOnly);
       },
       onChanged: (value) => setState(() {
         if (value.isEmpty) {
@@ -37,10 +35,12 @@ class _EmailInputFieldWidgetState extends State<EmailInputFieldWidget> {
       }),
       decoration: InputDecoration(
         errorText: !isValid ? 'Email invalido.' : null,
-        errorBorder: OutlineInputBorder(
-          borderSide: !isValid ? BorderSide(color: Colors.red) : BorderSide.none,
-          borderRadius: BorderRadius.circular(12),
-        ),
+        errorBorder: !isValid
+            ? OutlineInputBorder(
+                borderSide: !isValid ? BorderSide(color: Colors.red) : BorderSide.none,
+                borderRadius: BorderRadius.circular(12),
+              )
+            : null,
         filled: true,
         fillColor: Theme.of(context).colorScheme.surfaceContainer,
         border: OutlineInputBorder(
