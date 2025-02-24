@@ -1,0 +1,66 @@
+5 - Fotos 96 x 96
+Secuencias de audio de 4 segundos (2 segundos por ahora)
+
+
+Para lo de arriba, es una secuencia grabada que se particiona en pedazos de 4 segundos, de ahi se recogen las fotos para cada secuencia, se llaman las apis para la emocion de imagen, audio y conjunta y se recogen los datos de las mismas.
+
+
+Cambios que se quieren hacer:
+Cambios en el modelo para aumentar el tamanio de la secuencia de audio.
+
+Todo el tiempo que sea necesario y hacer cortes de 4 segundos sobre eso.
+
+
+***
+Se recive emocion en audio, en imagen y emocion conjunta
+
+
+1- Dividir la grabacion en segmentos dependiendo de la capacidad configuraad. Esta capacidad es configurable por la persona, por segmento son 5 fotos SIEMPRE.
+
+* Limite al tiempo de grabacion.
+
+
+Emociones imagen:
+
+emotion_codes = {
+        0: "angry",
+        1: "disgusted",
+        2: "fearful",
+        3: "happy",
+        4: "sad",
+        5: "surprise",
+        6: "neutral"
+    }
+
+Emociones audio:
+
+emotion_codes = {
+                0: "angry",
+                1: "fearful",
+                2: "happy",
+                3: "sad",
+                4: "neutral",
+                5: "disgusted",
+                6: "other"
+            }
+
+Emociones imagen-audio (multi)
+
+emotion_codes_v = {
+            0: "angry",
+            1: "fearful",
+            2: "happy",
+            3: "sad",
+            4: "neutral",
+            5: "disgusted",
+            6: "other"
+        }
+        emotion_codes_i = {
+            0: "angry",
+            1: "disgusted",
+            2: "fearful",
+            3: "happy",
+            4: "sad",
+            5: "surprise",
+            6: "neutral"
+        }
