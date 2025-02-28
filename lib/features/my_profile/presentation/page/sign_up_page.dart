@@ -5,9 +5,7 @@ import 'package:harmoni/core/widgets/loading_screen.dart';
 import 'package:harmoni/features/my_profile/presentation/state_management/sign_up/sign_up_cubit.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/already_have_account_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/email_input_field_widget.dart';
-import 'package:harmoni/features/my_profile/presentation/widget/oauth_app_widget.dart';
 
-import '../../../../assets.dart';
 import '../../../../core/helpers/utils.dart';
 import '../../../../core/widgets/pop_widget.dart';
 import '../../../../core/widgets/spacer.dart';
@@ -103,6 +101,20 @@ class SignUpPage extends StatelessWidget {
                 child: TermsAndConditionWidget(onChanged: (value) => hasReadTermsAndConditions = value),
               ),
               Space.medium.gap,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: screenWidth * 0.82,
+                    child: Divider(
+                      thickness: 1,
+                      color: colorScheme.primary,
+                    ),
+                  ),
+                ],
+              ),
+              Space.medium.gap,
+              Expanded(child: SizedBox()),
               SizedBox(
                 width: screenWidth,
                 child: AlreadyHaveAccountOrNotWidget(
@@ -110,56 +122,6 @@ class SignUpPage extends StatelessWidget {
                 ),
               ),
               Space.medium.gap,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: screenWidth * 0.22,
-                    child: Divider(
-                      thickness: 1,
-                      color: colorScheme.primary,
-                    ),
-                  ),
-                  Space.small_w.gap,
-                  Text(
-                    'o continue con',
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Space.small_w.gap,
-                  SizedBox(
-                    width: screenWidth * 0.22,
-                    child: Divider(
-                      thickness: 1,
-                      color: colorScheme.primary,
-                    ),
-                  ),
-                ],
-              ),
-              Space.small.gap,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  OauthAppWidget(
-                    image: Assets.Github,
-                    onPressed: () {},
-                    colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
-                    type: 'GitHub',
-                    width: 50.0,
-                  ),
-                  Space.small_w.gap,
-                  OauthAppWidget(
-                    image: Assets.Google,
-                    onPressed: () {},
-                    colorFilter: ColorFilter.mode(Colors.lightBlueAccent, BlendMode.srcIn),
-                    type: 'Google',
-                    width: 50.0,
-                  ),
-                ],
-              ),
-              Expanded(child: SizedBox()),
               Center(
                 child: SizedBox(
                   width: screenWidth * 0.85,

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:harmoni/core/helpers/logger.dart';
@@ -27,7 +25,7 @@ class SignInCubit extends Cubit<SignInState> {
     }
     logI('Start password validation');
     await Future.delayed(const Duration(seconds: 5));
-    var isValidPassword = myProfileService.matchPassword(password, user.password ?? '');
+    var isValidPassword = myProfileService.matchPassword(password, user.password);
     if (!isValidPassword) {
       logI('Password not valid');
       emit(SignInFailed(reason: 'password'));

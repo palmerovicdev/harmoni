@@ -11,6 +11,7 @@ import 'package:harmoni/router/general_routes.dart';
 import '../../../../assets.dart';
 import '../../../../core/helpers/utils.dart';
 import '../../../../core/service_locator/service_locator.dart';
+import '../../../../core/widgets/loading_screen.dart';
 import '../../../../core/widgets/spacer.dart';
 import '../../service/my_profile_service.dart';
 import '../widget/action_button_widget.dart';
@@ -32,8 +33,11 @@ class SignInPage extends StatelessWidget {
       buildWhen: (previous, current) => previous.runtimeType != current.runtimeType,
       builder: (context, state) {
         if (state is SignInInProgress) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Container(
+            color: Colors.white,
+            child: const Center(
+              child: LoadingWidget(),
+            ),
           );
         }
         return Scaffold(
@@ -98,7 +102,20 @@ class SignInPage extends StatelessWidget {
                 child: PasswordInputFieldWidget(controller: passwordEditingController),
               ),
               Space.medium.gap,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: screenWidth * 0.82,
+                    child: Divider(
+                      thickness: 1,
+                      color: colorScheme.primary,
+                    ),
+                  ),
+                ],
+              ),
               Space.medium.gap,
+              Expanded(child: SizedBox()),
               SizedBox(
                 width: screenWidth,
                 child: AlreadyHaveAccountOrNotWidget(
@@ -106,56 +123,6 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               Space.medium.gap,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: screenWidth * 0.22,
-                    child: Divider(
-                      thickness: 1,
-                      color: colorScheme.primary,
-                    ),
-                  ),
-                  Space.small_w.gap,
-                  Text(
-                    'o continue con',
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Space.small_w.gap,
-                  SizedBox(
-                    width: screenWidth * 0.22,
-                    child: Divider(
-                      thickness: 1,
-                      color: colorScheme.primary,
-                    ),
-                  ),
-                ],
-              ),
-              Space.small.gap,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  OauthAppWidget(
-                    image: Assets.Github,
-                    onPressed: () {},
-                    colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
-                    type: 'GitHub',
-                    width: 50,
-                  ),
-                  Space.small_w.gap,
-                  OauthAppWidget(
-                    image: Assets.Google,
-                    onPressed: () {},
-                    colorFilter: ColorFilter.mode(Colors.lightBlueAccent, BlendMode.srcIn),
-                    type: 'Google',
-                    width: 50,
-                  ),
-                ],
-              ),
-              Expanded(child: SizedBox()),
               Center(
                 child: SizedBox(
                   width: screenWidth * 0.85,

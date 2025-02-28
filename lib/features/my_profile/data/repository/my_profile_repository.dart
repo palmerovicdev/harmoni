@@ -35,6 +35,6 @@ class MyProfileRepositoryImpl implements MyProfileRepository {
 
   @override
   Future<void> deleteUserProfileByNameOrEmail({String? name, String? email}) async {
-      await _usersApi.deleteUserByNameOrEmail(name: name, email: email);
+    await _usersApi.deleteUserByNameOrEmail(name: name, email: email);
   }
 }

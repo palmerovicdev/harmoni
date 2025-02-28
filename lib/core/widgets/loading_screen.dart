@@ -3,14 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class LoadingWidget extends StatefulWidget {
-  const LoadingWidget({super.key});
+  const LoadingWidget({super.key, this.text});
+
+  final String? text;
 
   @override
   _LoadingWidgetState createState() => _LoadingWidgetState();
 }
 
 class _LoadingWidgetState extends State<LoadingWidget> {
-  List<String> loadingTexts = ["Cargando", "Cargando.", "Cargando..", "Cargando..."];
   int _currentTextIndex = 0;
 
   @override
@@ -20,6 +21,9 @@ class _LoadingWidgetState extends State<LoadingWidget> {
   }
 
   void _startTextAnimation() {
+    List<String> loadingTexts =
+        widget.text != null ? ["${widget.text}", "${widget.text}.", "${widget.text}..", "${widget.text}..."] : ["Cargando", "Cargando.", "Cargando..", "Cargando..."];
+
     Timer.periodic(Duration(milliseconds: 500), (timer) {
       if (!mounted) {
         timer.cancel();
@@ -33,19 +37,27 @@ class _LoadingWidgetState extends State<LoadingWidget> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> loadingTexts =
+        widget.text != null ? ["${widget.text}", "${widget.text}.", "${widget.text}..", "${widget.text}..."] : ["Cargando", "Cargando.", "Cargando..", "Cargando..."];
+
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.8), // Fondo oscuro con transparencia
+      backgroundColor: Colors.black.withOpacity(0.05),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue), // Color de la animación
+            SizedBox(
+              height: 48,
+              width: 48,
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                strokeWidth: 6,
+              ),
             ),
             SizedBox(height: 20),
             Text(
               loadingTexts[_currentTextIndex],
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ],
         ),

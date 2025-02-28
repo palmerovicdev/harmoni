@@ -45,7 +45,7 @@ class InitPage extends StatelessWidget {
               ),
             ),
             Space.large.gap,
-            SizedBox(
+            /*SizedBox(
               width: screenWidth * 0.85,
               child: OauthAppWidget(
                 image: Assets.Google,
@@ -67,7 +67,9 @@ class InitPage extends StatelessWidget {
                 colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
                 width: MediaQuery.sizeOf(context).width,
               ),
-            ),
+            ),*/
+
+            Expanded(child: SizedBox()),
             Space.large.gap,
             SizedBox(
               width: screenWidth * 0.85,
@@ -84,7 +86,8 @@ class InitPage extends StatelessWidget {
                 text: "Autenticarse",
                 onPressed: () => context.pushNamed(MyProfileRoute.signIn.data.name),
               ),
-            )
+            ),
+            Space.large.gap,
           ],
         ),
       ),
