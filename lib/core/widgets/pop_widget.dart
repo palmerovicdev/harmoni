@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 class PopWidget extends StatelessWidget {
   const PopWidget({super.key, this.shouldAddPadding = true});
+
   final bool shouldAddPadding;
 
   @override

@@ -9,10 +9,12 @@ import 'package:harmoni/features/my_profile/presentation/widget/oauth_app_widget
 import 'package:harmoni/router/general_routes.dart';
 
 import '../../../../assets.dart';
+import '../../../../core/helpers/utils.dart';
+import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/widgets/spacer.dart';
+import '../../service/my_profile_service.dart';
 import '../widget/action_button_widget.dart';
 import '../widget/password_input_field_widget.dart';
-import '../widget/terms_and_condition_widget.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -25,8 +27,15 @@ class SignInPage extends StatelessWidget {
     var width = screenWidth * 0.08125;
     var passwordEditingController = TextEditingController();
     var emailEditingController = TextEditingController();
+    var myProfileService = getMyProfileService();
     return BlocBuilder<SignInCubit, SignInState>(
+      buildWhen: (previous, current) => previous.runtimeType != current.runtimeType,
       builder: (context, state) {
+        if (state is SignInInProgress) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         return Scaffold(
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,11 +97,7 @@ class SignInPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: width),
                 child: PasswordInputFieldWidget(controller: passwordEditingController),
               ),
-              Space.small.gap,
-              Padding(
-                padding: EdgeInsets.only(left: width),
-                child: TermsAndConditionWidget(),
-              ),
+              Space.medium.gap,
               Space.medium.gap,
               SizedBox(
                 width: screenWidth,
@@ -155,13 +160,28 @@ class SignInPage extends StatelessWidget {
                 child: SizedBox(
                   width: screenWidth * 0.85,
                   child: ActionButtonWidget(
-                    //TODO 2/8/25 palmerodev : agregar logica de validacion de email y contraseña y redireccionar a home page
                     text: "Autenticarse",
                     shouldFocusAttention: true,
-                    onPressed: () => {
-                      //TODO 2/5/25 palmerodev : change to execute logic for fetching all user profile data and redirect to home page
-                      context.read<SignInCubit>().signIn(emailEditingController.text, passwordEditingController.text),
-                      context.pushNamed(HomeRoute.home.data.name),
+                    onPressed: () async {
+                      context.read<SignInCubit>().initSignIn();
+                      var validationResult = await myProfileService.validateEmail(emailEditingController.text);
+                      if (validationResult != EmailValidationResult.repeated.name) {
+                        showErrorDialog(
+                            context.mounted ? context : context,
+                            'Por favor, introduzca un email valido.${validationResult == EmailValidationResult.invalid.name ? ' '
+                                'La dirección de correo electrónico no es válida.' : 'No hay ningún usuario registrado con ese email'}');
+                        return;
+                      }
+                      if (context.mounted) {
+                        var result = await context.read<SignInCubit>().signIn(emailEditingController.text, passwordEditingController.text);
+                        if (!result) {
+                          showErrorDialog(context.mounted ? context : context, 'Por favor, introduzca un email y una contraseña validos.');
+                          return;
+                        }
+                        if (context.mounted) {
+                          context.pushNamed(HomeRoute.home.data.name);
+                        }
+                      }
                     },
                   ),
                 ),

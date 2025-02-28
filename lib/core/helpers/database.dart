@@ -17,7 +17,6 @@ class Database extends _$Database {
 
   @override
   int get schemaVersion => _databaseVersion;
-
 }
 
 LazyDatabase _openConnection() {

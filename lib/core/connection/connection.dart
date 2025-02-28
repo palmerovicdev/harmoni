@@ -31,7 +31,7 @@ class Connection {
   Future<Response> post(String url, {dynamic data, Map<String, dynamic>? params, Options? options}) async {
     if (_dio != null) {
       return await _dio!.post(url, data: data, queryParameters: params, options: options).then(
-            (response) {
+        (response) {
           if (response.statusCode.toString().startsWith('2')) {
             logI('GET $url performed successfully :: data: ${response.data}');
             return response;
@@ -47,7 +47,7 @@ class Connection {
   Future<Response> put(String url, {dynamic data, Map<String, dynamic>? params, Options? options}) async {
     if (_dio != null) {
       return await _dio!.put(url, data: data, queryParameters: params, options: options).then(
-            (response) {
+        (response) {
           if (response.statusCode.toString().startsWith('2')) {
             logI('GET $url performed successfully :: data: ${response.data}');
             return response;
@@ -62,8 +62,8 @@ class Connection {
 
   Future<Response> delete(String url, {dynamic data, Map<String, dynamic>? params, Options? options}) async {
     if (_dio != null) {
-      return await _dio!.delete(url,data: data, queryParameters: params, options: options).then(
-            (response) {
+      return await _dio!.delete(url, data: data, queryParameters: params, options: options).then(
+        (response) {
           if (response.statusCode.toString().startsWith('2')) {
             logI('GET $url performed successfully :: data: ${response.data}');
             return response;

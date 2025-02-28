@@ -52,7 +52,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                 ),
                 Space.small.gap,
                 Text(
-                  'Male',
+                  'Hombre',
                   style: textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w400,
                     color: maleSelected ? colorScheme.primary : null,
@@ -87,7 +87,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                 ),
                 Space.small.gap,
                 Text(
-                  'Female',
+                  'Mujer',
                   style: textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w400,
                     color: femaleSelected ? colorScheme.primary : null,
@@ -114,7 +114,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
             child: Text(
-              'Prefer not to say',
+              'Prefiero no decirlo.',
               style: textTheme.bodyLarge?.copyWith(
                 fontWeight: FontWeight.w500,
                 color: otherSelected ? colorScheme.onPrimary : null,

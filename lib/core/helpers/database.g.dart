@@ -7,96 +7,76 @@ class $UserTable extends User with TableInfo<$UserTable, UserData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $UserTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  late final GeneratedColumn<int> id = GeneratedColumn<int>('id', aliasedName, false,
+      hasAutoIncrement: true, type: DriftSqlType.int, requiredDuringInsert: false, defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+  late final GeneratedColumn<String> name = GeneratedColumn<String>('name', aliasedName, false, type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _emailMeta = const VerificationMeta('email');
   @override
-  late final GeneratedColumn<String> email = GeneratedColumn<String>(
-      'email', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _passwordMeta =
-      const VerificationMeta('password');
+  late final GeneratedColumn<String> email = GeneratedColumn<String>('email', aliasedName, false, type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _passwordMeta = const VerificationMeta('password');
   @override
-  late final GeneratedColumn<String> password = GeneratedColumn<String>(
-      'password', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+  late final GeneratedColumn<String> password = GeneratedColumn<String>('password', aliasedName, false, type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _genderMeta = const VerificationMeta('gender');
   @override
-  late final GeneratedColumn<String> gender = GeneratedColumn<String>(
-      'gender', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+  late final GeneratedColumn<String> gender = GeneratedColumn<String>('gender', aliasedName, false, type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _ageMeta = const VerificationMeta('age');
   @override
-  late final GeneratedColumn<int> age = GeneratedColumn<int>(
-      'age', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+  late final GeneratedColumn<int> age = GeneratedColumn<int>('age', aliasedName, false, type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _avatarMeta = const VerificationMeta('avatar');
   @override
-  late final GeneratedColumn<String> avatar = GeneratedColumn<String>(
-      'avatar', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+  late final GeneratedColumn<String> avatar = GeneratedColumn<String>('avatar', aliasedName, false, type: DriftSqlType.string, requiredDuringInsert: true);
+
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, name, email, password, gender, age, avatar];
+  List<GeneratedColumn> get $columns => [id, name, email, password, gender, age, avatar];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'user';
+
   @override
-  VerificationContext validateIntegrity(Insertable<UserData> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(Insertable<UserData> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+      context.handle(_nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('email')) {
-      context.handle(
-          _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
+      context.handle(_emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
     } else if (isInserting) {
       context.missing(_emailMeta);
     }
     if (data.containsKey('password')) {
-      context.handle(_passwordMeta,
-          password.isAcceptableOrUnknown(data['password']!, _passwordMeta));
+      context.handle(_passwordMeta, password.isAcceptableOrUnknown(data['password']!, _passwordMeta));
     } else if (isInserting) {
       context.missing(_passwordMeta);
     }
     if (data.containsKey('gender')) {
-      context.handle(_genderMeta,
-          gender.isAcceptableOrUnknown(data['gender']!, _genderMeta));
+      context.handle(_genderMeta, gender.isAcceptableOrUnknown(data['gender']!, _genderMeta));
     } else if (isInserting) {
       context.missing(_genderMeta);
     }
     if (data.containsKey('age')) {
-      context.handle(
-          _ageMeta, age.isAcceptableOrUnknown(data['age']!, _ageMeta));
+      context.handle(_ageMeta, age.isAcceptableOrUnknown(data['age']!, _ageMeta));
     } else if (isInserting) {
       context.missing(_ageMeta);
     }
     if (data.containsKey('avatar')) {
-      context.handle(_avatarMeta,
-          avatar.isAcceptableOrUnknown(data['avatar']!, _avatarMeta));
+      context.handle(_avatarMeta, avatar.isAcceptableOrUnknown(data['avatar']!, _avatarMeta));
     } else if (isInserting) {
       context.missing(_avatarMeta);
     }
@@ -105,24 +85,18 @@ class $UserTable extends User with TableInfo<$UserTable, UserData> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   UserData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return UserData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      email: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}email'])!,
-      password: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}password'])!,
-      gender: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}gender'])!,
-      age: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}age'])!,
-      avatar: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}avatar'])!,
+      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      email: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}email'])!,
+      password: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}password'])!,
+      gender: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}gender'])!,
+      age: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}age'])!,
+      avatar: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}avatar'])!,
     );
   }
 
@@ -140,14 +114,9 @@ class UserData extends DataClass implements Insertable<UserData> {
   final String gender;
   final int age;
   final String avatar;
-  const UserData(
-      {required this.id,
-      required this.name,
-      required this.email,
-      required this.password,
-      required this.gender,
-      required this.age,
-      required this.avatar});
+
+  const UserData({required this.id, required this.name, required this.email, required this.password, required this.gender, required this.age, required this.avatar});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -173,8 +142,7 @@ class UserData extends DataClass implements Insertable<UserData> {
     );
   }
 
-  factory UserData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory UserData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return UserData(
       id: serializer.fromJson<int>(json['id']),
@@ -186,6 +154,7 @@ class UserData extends DataClass implements Insertable<UserData> {
       avatar: serializer.fromJson<String>(json['avatar']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -200,15 +169,7 @@ class UserData extends DataClass implements Insertable<UserData> {
     };
   }
 
-  UserData copyWith(
-          {int? id,
-          String? name,
-          String? email,
-          String? password,
-          String? gender,
-          int? age,
-          String? avatar}) =>
-      UserData(
+  UserData copyWith({int? id, String? name, String? email, String? password, String? gender, int? age, String? avatar}) => UserData(
         id: id ?? this.id,
         name: name ?? this.name,
         email: email ?? this.email,
@@ -217,6 +178,7 @@ class UserData extends DataClass implements Insertable<UserData> {
         age: age ?? this.age,
         avatar: avatar ?? this.avatar,
       );
+
   UserData copyWithCompanion(UserCompanion data) {
     return UserData(
       id: data.id.present ? data.id.value : this.id,
@@ -244,8 +206,8 @@ class UserData extends DataClass implements Insertable<UserData> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, name, email, password, gender, age, avatar);
+  int get hashCode => Object.hash(id, name, email, password, gender, age, avatar);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -267,6 +229,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
   final Value<String> gender;
   final Value<int> age;
   final Value<String> avatar;
+
   const UserCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -276,6 +239,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
     this.age = const Value.absent(),
     this.avatar = const Value.absent(),
   });
+
   UserCompanion.insert({
     this.id = const Value.absent(),
     required String name,
@@ -290,6 +254,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
         gender = Value(gender),
         age = Value(age),
         avatar = Value(avatar);
+
   static Insertable<UserData> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -310,14 +275,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
     });
   }
 
-  UserCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? name,
-      Value<String>? email,
-      Value<String>? password,
-      Value<String>? gender,
-      Value<int>? age,
-      Value<String>? avatar}) {
+  UserCompanion copyWith({Value<int>? id, Value<String>? name, Value<String>? email, Value<String>? password, Value<String>? gender, Value<int>? age, Value<String>? avatar}) {
     return UserCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -373,11 +331,13 @@ class UserCompanion extends UpdateCompanion<UserData> {
 
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(e);
+
   $DatabaseManager get managers => $DatabaseManager(this);
   late final $UserTable user = $UserTable(this);
+
   @override
-  Iterable<TableInfo<Table, Object?>> get allTables =>
-      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
+  Iterable<TableInfo<Table, Object?>> get allTables => allSchemaEntities.whereType<TableInfo<Table, Object?>>();
+
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [user];
 }
@@ -409,26 +369,20 @@ class $$UserTableFilterComposer extends Composer<_$Database, $UserTable> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get email => $composableBuilder(
-      column: $table.email, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get name => $composableBuilder(column: $table.name, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get password => $composableBuilder(
-      column: $table.password, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get email => $composableBuilder(column: $table.email, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get gender => $composableBuilder(
-      column: $table.gender, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get password => $composableBuilder(column: $table.password, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get age => $composableBuilder(
-      column: $table.age, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get gender => $composableBuilder(column: $table.gender, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get avatar => $composableBuilder(
-      column: $table.avatar, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get age => $composableBuilder(column: $table.age, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get avatar => $composableBuilder(column: $table.avatar, builder: (column) => ColumnFilters(column));
 }
 
 class $$UserTableOrderingComposer extends Composer<_$Database, $UserTable> {
@@ -439,26 +393,20 @@ class $$UserTableOrderingComposer extends Composer<_$Database, $UserTable> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get email => $composableBuilder(
-      column: $table.email, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get name => $composableBuilder(column: $table.name, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get password => $composableBuilder(
-      column: $table.password, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get email => $composableBuilder(column: $table.email, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get gender => $composableBuilder(
-      column: $table.gender, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get password => $composableBuilder(column: $table.password, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get age => $composableBuilder(
-      column: $table.age, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get gender => $composableBuilder(column: $table.gender, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get avatar => $composableBuilder(
-      column: $table.avatar, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get age => $composableBuilder(column: $table.age, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get avatar => $composableBuilder(column: $table.avatar, builder: (column) => ColumnOrderings(column));
 }
 
 class $$UserTableAnnotationComposer extends Composer<_$Database, $UserTable> {
@@ -469,50 +417,31 @@ class $$UserTableAnnotationComposer extends Composer<_$Database, $UserTable> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => column);
+  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get email =>
-      $composableBuilder(column: $table.email, builder: (column) => column);
+  GeneratedColumn<String> get name => $composableBuilder(column: $table.name, builder: (column) => column);
 
-  GeneratedColumn<String> get password =>
-      $composableBuilder(column: $table.password, builder: (column) => column);
+  GeneratedColumn<String> get email => $composableBuilder(column: $table.email, builder: (column) => column);
 
-  GeneratedColumn<String> get gender =>
-      $composableBuilder(column: $table.gender, builder: (column) => column);
+  GeneratedColumn<String> get password => $composableBuilder(column: $table.password, builder: (column) => column);
 
-  GeneratedColumn<int> get age =>
-      $composableBuilder(column: $table.age, builder: (column) => column);
+  GeneratedColumn<String> get gender => $composableBuilder(column: $table.gender, builder: (column) => column);
 
-  GeneratedColumn<String> get avatar =>
-      $composableBuilder(column: $table.avatar, builder: (column) => column);
+  GeneratedColumn<int> get age => $composableBuilder(column: $table.age, builder: (column) => column);
+
+  GeneratedColumn<String> get avatar => $composableBuilder(column: $table.avatar, builder: (column) => column);
 }
 
-class $$UserTableTableManager extends RootTableManager<
-    _$Database,
-    $UserTable,
-    UserData,
-    $$UserTableFilterComposer,
-    $$UserTableOrderingComposer,
-    $$UserTableAnnotationComposer,
-    $$UserTableCreateCompanionBuilder,
-    $$UserTableUpdateCompanionBuilder,
-    (UserData, BaseReferences<_$Database, $UserTable, UserData>),
-    UserData,
-    PrefetchHooks Function()> {
+class $$UserTableTableManager extends RootTableManager<_$Database, $UserTable, UserData, $$UserTableFilterComposer, $$UserTableOrderingComposer, $$UserTableAnnotationComposer,
+    $$UserTableCreateCompanionBuilder, $$UserTableUpdateCompanionBuilder, (UserData, BaseReferences<_$Database, $UserTable, UserData>), UserData, PrefetchHooks Function()> {
   $$UserTableTableManager(_$Database db, $UserTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $$UserTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$UserTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$UserTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () => $$UserTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $$UserTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => $$UserTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> name = const Value.absent(),
@@ -549,9 +478,7 @@ class $$UserTableTableManager extends RootTableManager<
             age: age,
             avatar: avatar,
           ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
-              .toList(),
+          withReferenceMapper: (p0) => p0.map((e) => (e.readTable(table), BaseReferences(db, table, e))).toList(),
           prefetchHooksCallback: null,
         ));
 }
@@ -571,6 +498,8 @@ typedef $$UserTableProcessedTableManager = ProcessedTableManager<
 
 class $DatabaseManager {
   final _$Database _db;
+
   $DatabaseManager(this._db);
+
   $$UserTableTableManager get user => $$UserTableTableManager(_db, _db.user);
 }

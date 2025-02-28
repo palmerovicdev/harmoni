@@ -89,7 +89,7 @@ class GenderPage extends StatelessWidget {
               SizedBox(
                 width: screenWidth * 0.8,
                 child: ActionButtonWidget(
-                  text: 'Continue',
+                  text: 'Continuar',
                   onPressed: () {
                     if (state is GenderSelected) {
                       var cubit = context.read<GenderSelectionCubit>();

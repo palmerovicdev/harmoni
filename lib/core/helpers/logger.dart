@@ -1,49 +1,39 @@
 import 'package:flutter/foundation.dart';
+import 'package:logger/logger.dart';
 
-logI(String value) {
+void logMessage(String type, String value, String color) {
+  if (!kDebugMode) return;
+
   var trace = StackTrace.current.toString().split('\n');
-  var relevantTrace = trace[1];
-  var className = relevantTrace.split('.')[0].trim();
-  var methodName = relevantTrace.split('.')[1].split(' ')[0].trim();
-  var blue = '\x1B[34m';
-  var reset = '\x1B[0m';
+  if (trace.length > 1) {
+    var relevantTrace = trace[2];
+    var match = RegExp(r'#\d+\s+(.+?)\s+\((.+?)\)').firstMatch(relevantTrace);
+
+    if (match != null) {
+      var location = match.group(1) ?? "Unknown";
+      if (kDebugMode) {
+        print('\n ');
+      }
+      debugPrint('$color [$type] $location -> $value ${AnsiColor.ansiDefault}');
+      if (kDebugMode) {
+        print('\n ');
+      }
+      return;
+    }
+  }
   if (kDebugMode) {
-    print('$blue$className::$methodName -> $value$reset');
+    print('\n ');
+  }
+  debugPrint('$color [$type] Unknown -> $value ${AnsiColor.ansiDefault}');
+  if (kDebugMode) {
+    print('\n ');
   }
 }
 
-logE(String value) {
-  var trace = StackTrace.current.toString().split('\n');
-  var relevantTrace = trace[1];
-  var className = relevantTrace.split('.')[0].trim();
-  var methodName = relevantTrace.split('.')[1].trim();
-  var red = '\x1B[31m';
-  var reset = '\x1B[0m';
-  if (kDebugMode) {
-    print('$red$className::$methodName -> $value$reset');
-  }
-}
+void logI(String value) => logMessage("INFO", value, '${AnsiColor.fg(12)}');
 
-logW(String value) {
-  var trace = StackTrace.current.toString().split('\n');
-  var relevantTrace = trace[1];
-  var className = relevantTrace.split('.')[0].trim();
-  var methodName = relevantTrace.split('.')[1].trim();
-  var yellow = '\x1B[33m';
-  var reset = '\x1B[0m';
-  if (kDebugMode) {
-    print('$yellow$className::$methodName -> $value$reset');
-  }
-}
+void logE(String value) => logMessage("ERROR", value, '\x1B[31m');
 
-logS(String value) {
-  var trace = StackTrace.current.toString().split('\n');
-  var relevantTrace = trace[1];
-  var className = relevantTrace.split('.')[0].trim();
-  var methodName = relevantTrace.split('.')[1].trim();
-  var green = '\x1B[32m';
-  var reset = '\x1B[0m';
-  if (kDebugMode) {
-    print('$green$className::$methodName -> $value$reset');
-  }
-}
+void logW(String value) => logMessage("WARNING", value, '\x1B[33m');
+
+void logS(String value) => logMessage("SUCCESS", value, '\x1B[32m');

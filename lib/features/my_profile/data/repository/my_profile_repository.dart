@@ -9,6 +9,8 @@ abstract class MyProfileRepository {
   Future<UserData?> getUserProfileByName(String name);
 
   Future<UserData?> getUserProfileByEmail(String email);
+
+  Future<void> deleteUserProfileByNameOrEmail({String? name, String? email});
 }
 
 class MyProfileRepositoryImpl implements MyProfileRepository {
@@ -29,5 +31,10 @@ class MyProfileRepositoryImpl implements MyProfileRepository {
   @override
   Future<UserData?> getUserProfileByName(String name) async {
     return await _usersApi.getUserProfileByName(name);
+  }
+
+  @override
+  Future<void> deleteUserProfileByNameOrEmail({String? name, String? email}) async {
+      await _usersApi.deleteUserByNameOrEmail(name: name, email: email);
   }
 }

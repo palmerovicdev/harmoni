@@ -99,8 +99,10 @@ class NameSettingPage extends StatelessWidget {
                     var cubit = context.read<NameSettingCubit>();
                     var result = await cubit.validateName(nameController.text);
                     if (result != NameValidationResult.success.name && context.mounted) {
-                      showErrorDialog(context, 'Por favor, introduzca un nombre valido.${result == NameValidationResult.repeated.name ? ' Este nombre ya ha sido registrado antes'
-                          '.' : 'El nombre no es válido.'}');
+                      showErrorDialog(
+                          context,
+                          'Por favor, introduzca un nombre valido.${result == NameValidationResult.repeated.name ? ' Este nombre ya ha sido registrado antes'
+                              '.' : 'El nombre no es válido.'}');
                       return;
                     }
                     isFromSettings ? cubit.updateName(nameController.text) : cubit.setName(nameController.text);

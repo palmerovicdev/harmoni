@@ -9,6 +9,7 @@ class Assets {
   static const String circleNeutralCircle = 'assets/emoji/circle/neutral_circle.svg';
   static const String circleOtherCircle = 'assets/emoji/circle/other_circle.svg';
   static const String circleSadCircle = 'assets/emoji/circle/sad_circle.svg';
+  static const String circleSurpriseCircle = 'assets/emoji/circle/surprise_circle.svg';
   static const String circleWinkCircle = 'assets/emoji/circle/wink_circle.svg';
   static const String coreCalendarChecked = 'assets/general/core/calendar_checked.svg';
   static const String coreCalendarUnchecked = 'assets/general/core/calendar_unchecked.svg';
@@ -30,7 +31,9 @@ class Assets {
   static const String ghostNeutralGhost = 'assets/emoji/ghost/neutral_ghost.svg';
   static const String ghostOtherGhost = 'assets/emoji/ghost/other_ghost.svg';
   static const String ghostSadGhost = 'assets/emoji/ghost/sad_ghost.svg';
+  static const String ghostSupriseGhost = 'assets/emoji/ghost/suprise_ghost.svg';
   static const String ghostWinkGhost = 'assets/emoji/ghost/wink_ghost.svg';
+  static const String harmoniPubspec = 'pubspec.yaml';
   static const String imagesAllDoneImage32 = 'assets/images/all_done_image_32.png';
   static const String imagesAllDoneImage96 = 'assets/images/all_done_image_96.png';
   static const String imagesInitPageImage = 'assets/images/init_page_image.png';
@@ -44,6 +47,6 @@ class Assets {
   static const String rectNeutralRect = 'assets/emoji/rect/neutral_rect.svg';
   static const String rectOtherRect = 'assets/emoji/rect/other_rect.svg';
   static const String rectSadRect = 'assets/emoji/rect/sad_rect.svg';
+  static const String rectSurpriseRect = 'assets/emoji/rect/surprise_rect.svg';
   static const String rectWinkRect = 'assets/emoji/rect/wink_rect.svg';
-
 }

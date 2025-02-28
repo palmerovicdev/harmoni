@@ -49,7 +49,8 @@ class InitPage extends StatelessWidget {
               width: screenWidth * 0.85,
               child: OauthAppWidget(
                 image: Assets.Google,
-                onPressed: () {}, //TODO 1/27/25 palmerodev : add Google OAuth logic
+                onPressed: () {},
+                //TODO 1/27/25 palmerodev : add Google OAuth logic
                 type: 'Google',
                 colorFilter: ColorFilter.mode(Colors.lightBlueAccent, BlendMode.srcIn),
                 width: MediaQuery.sizeOf(context).width,
@@ -60,7 +61,8 @@ class InitPage extends StatelessWidget {
               width: screenWidth * 0.85,
               child: OauthAppWidget(
                 image: Assets.Github,
-                onPressed: () {}, //TODO 1/27/25 palmerodev : add GitHub OAuth logic
+                onPressed: () {},
+                //TODO 1/27/25 palmerodev : add GitHub OAuth logic
                 type: 'GitHub',
                 colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
                 width: MediaQuery.sizeOf(context).width,

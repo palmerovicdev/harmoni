@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:harmoni/features/home/presentation/state_management/home_cubit.dart';
 import 'package:harmoni/features/my_profile/presentation/state_management/gender_selection/gender_selection_cubit.dart';
 import 'package:harmoni/router/router.dart';
+import 'package:logger/logger.dart';
 
+import 'core/helpers/logger.dart';
 import 'core/service_locator/service_locator.dart';
 import 'features/my_profile/presentation/state_management/age/age_cubit.dart';
 import 'features/my_profile/presentation/state_management/init/init_cubit.dart';
@@ -15,6 +17,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   init();
   runApp(const Harmoni());
+  logI('App Start');
 }
 
 init() => setUpLocator();

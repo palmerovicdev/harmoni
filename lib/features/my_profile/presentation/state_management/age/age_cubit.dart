@@ -17,8 +17,8 @@ class AgeCubit extends Cubit<AgeState> {
 
   updateAge(int i) async {
     var myProfileService = getMyProfileService();
-      myProfileService.setAge(i);
-      myProfileService.saveUserProfile();
-      emit(AgeSelected(age: i));
+    myProfileService.setAge(i);
+    myProfileService.saveUserProfile();
+    emit(AgeSelected(age: i));
   }
 }

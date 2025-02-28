@@ -90,7 +90,7 @@ class MyProfileService {
     return userProfile != null ? EmailValidationResult.repeated.name : EmailValidationResult.success.name;
   }
 
-  String hashPassword(String password) => Crypt.sha256(password, rounds: 10000, salt: "miSaltSeguro").toString();
+  String hashPassword(String password) => Crypt.sha256(password, rounds: 1000, salt: "miSaltSeguro").hash;
 
   String validatePassword(String password) {
     var isGreaterThan6Chars = password.length >= 6;
@@ -100,7 +100,10 @@ class MyProfileService {
     return PasswordValidationResult.success.name;
   }
 
-  bool matchPassword(String password, String hashedPassword) => Crypt(hashedPassword) == Crypt(hashPassword(password));
+  bool matchPassword(String password, String hashedPassword) {
+    var isValid = hashedPassword == hashPassword(password);
+    return isValid;
+  }
 
   Future<UserData?> getUserProfileByEmail(String email) async {
     return await _myProfileRepository.getUserProfileByEmail(email);

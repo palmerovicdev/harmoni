@@ -1,5 +1,4 @@
 class Assets {
-
   static const SadRect = 'assets/emoji/rect/sad_rect.svg';
 
   static const WinkRect = 'assets/emoji/rect/wink_rect.svg';
@@ -13,6 +12,8 @@ class Assets {
   static const FearfulRect = 'assets/emoji/rect/fearful_rect.svg';
 
   static const NeutralRect = 'assets/emoji/rect/neutral_rect.svg';
+
+  static const SurpriseRect = 'assets/emoji/rect/surprise_rect.svg';
 
   static const DisgustedRect = 'assets/emoji/rect/disgusted_rect.svg';
 
@@ -30,6 +31,8 @@ class Assets {
 
   static const NeutralGhost = 'assets/emoji/ghost/neutral_ghost.svg';
 
+  static const SupriseGhost = 'assets/emoji/ghost/suprise_ghost.svg';
+
   static const DisgustedGhost = 'assets/emoji/ghost/disgusted_ghost.svg';
 
   static const SadCircle = 'assets/emoji/circle/sad_circle.svg';
@@ -45,6 +48,8 @@ class Assets {
   static const FearfulCircle = 'assets/emoji/circle/fearful_circle.svg';
 
   static const NeutralCircle = 'assets/emoji/circle/neutral_circle.svg';
+
+  static const SurpriseCircle = 'assets/emoji/circle/surprise_circle.svg';
 
   static const DisgustedCircle = 'assets/emoji/circle/disgusted_circle.svg';
 

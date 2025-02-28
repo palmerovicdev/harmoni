@@ -7,7 +7,6 @@ void safePrint(dynamic value) {
   }
 }
 
-
 void showErrorDialog(BuildContext context, String errorMessage) {
   showDialog(
     context: context,

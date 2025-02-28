@@ -167,11 +167,11 @@ class SignUpPage extends StatelessWidget {
                     text: "Crear Cuenta",
                     shouldFocusAttention: true,
                     onPressed: () async {
-                      var isValidEmail = await context.read<SignUpCubit>().validateEmail(emailEditingController.text);
-                      if (isValidEmail != EmailValidationResult.success.name) {
+                      var validationResult = await context.read<SignUpCubit>().validateEmail(emailEditingController.text);
+                      if (validationResult != EmailValidationResult.success.name) {
                         showErrorDialog(
                             context.mounted ? context : context,
-                            'Por favor, introduzca un email valido.${isValidEmail == EmailValidationResult.repeated.name ? ' '
+                            'Por favor, introduzca un email valido.${validationResult == EmailValidationResult.repeated.name ? ' '
                                 'Este email ya ha sido registrado antes.' : 'La dirección de correo electrónico no es válida.'}');
                         return;
                       }
