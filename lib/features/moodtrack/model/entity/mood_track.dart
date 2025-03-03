@@ -3,6 +3,8 @@ import 'package:drift/drift.dart';
 class MoodTrack extends Table {
   IntColumn get id => integer().autoIncrement()();
 
+  IntColumn get userId => integer()();
+
   TextColumn get imageMood => text()();
 
   TextColumn get recordMood => text()();
@@ -14,6 +16,7 @@ class MoodTrack extends Table {
 
 class MoodTrackInfo {
   int? id;
+  int? userId;
   String? imageMood;
   String? recordMood;
   DateTime? createdAt;
@@ -21,6 +24,7 @@ class MoodTrackInfo {
 
   MoodTrackInfo({
     this.id,
+    this.userId,
     this.createdAt,
     this.imageMood,
     this.recordMood,
@@ -30,6 +34,7 @@ class MoodTrackInfo {
   factory MoodTrackInfo.fromJson(Map<String, dynamic> json) {
     return MoodTrackInfo(
       id: json['id'] as int,
+      userId: json['userId'] as int,
       imageMood: json['imageMood'] as String,
       recordMood: json['recordMood'] as String,
       createdAt: DateTime.tryParse(json['createdAt']),
@@ -40,6 +45,7 @@ class MoodTrackInfo {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'userId': userId,
       'imageMood': imageMood,
       'recordMood': recordMood,
       'createdAt': createdAt.toString(),

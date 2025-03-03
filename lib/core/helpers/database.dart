@@ -5,11 +5,12 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
+import '../../features/moodtrack/model/entity/mood_track.dart';
 import '../../features/my_profile/model/entity/user.dart';
 
 part 'database.g.dart';
 
-@DriftDatabase(tables: [User])
+@DriftDatabase(tables: [User, MoodTrack])
 class Database extends _$Database {
   Database() : super(_openConnection());
 
