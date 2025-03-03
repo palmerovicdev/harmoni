@@ -5,10 +5,8 @@ import 'package:harmoni/core/widgets/pop_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/state_management/sign_in/sign_in_cubit.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/already_have_account_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/email_input_field_widget.dart';
-import 'package:harmoni/features/my_profile/presentation/widget/oauth_app_widget.dart';
 import 'package:harmoni/router/general_routes.dart';
 
-import '../../../../assets.dart';
 import '../../../../core/helpers/utils.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/widgets/loading_screen.dart';
