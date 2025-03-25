@@ -3,8 +3,8 @@ import 'package:drift/drift.dart';
 import 'package:harmoni/core/extensions/string.dart';
 import 'package:harmoni/core/helpers/database.dart';
 import 'package:harmoni/features/my_profile/data/repository/my_profile_repository.dart';
+import 'package:harmoni/features/my_profile/model/mapper.dart';
 
-import '../model/entity/user.dart';
 import '../model/model/user_model.dart';
 
 class MyProfileService {
@@ -15,7 +15,7 @@ class MyProfileService {
 
   init(User? user) async {
     if (user == null) return;
-    userProfile = User.fromJson(user.toJson());
+    userProfile = user;
   }
 
   Future<void> initializeUserFromDb(Database db, String name) async {
@@ -27,7 +27,7 @@ class MyProfileService {
           ))
         .getSingle();
 
-    userProfile = User.fromJson(singleUser.toJson());
+    userProfile = singleUser.toModel();
   }
 
   Future<bool> saveUserProfile() async {

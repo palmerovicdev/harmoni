@@ -12,14 +12,14 @@ import 'features/my_profile/presentation/state_management/name_setting/name_sett
 import 'features/my_profile/presentation/state_management/sign_in/sign_in_cubit.dart';
 import 'features/my_profile/presentation/state_management/sign_up/sign_up_cubit.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  init();
+  await init();
   runApp(const Harmoni());
   logI('App Start');
 }
 
-init() => setUpLocator();
+init()  async => await setUpLocator();
 
 class Harmoni extends StatelessWidget {
   const Harmoni({super.key});

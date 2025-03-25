@@ -12,6 +12,8 @@ extension UserMapper on UserTableData {
       gender: gender,
       age: age,
       avatar: avatar,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 }
@@ -26,6 +28,8 @@ extension UserTableMapper on User {
       gender: Value(gender ?? ''),
       age: Value(age ?? 0),
       avatar: Value(avatar ?? ''),
+      createdAt: Value(createdAt ?? DateTime.now()),
+      updatedAt: Value(updatedAt ?? DateTime.now()),
     );
   }
 }

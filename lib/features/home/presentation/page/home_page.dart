@@ -12,9 +12,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var myProfileService = getMyProfileService();
-    if (myProfileService.userProfile == null) {
-      context.goNamed(MyProfileRoute.init.data.name);
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (myProfileService.userProfile == null) {
+        context.goNamed(MyProfileRoute.init.data.name);
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title: Text(

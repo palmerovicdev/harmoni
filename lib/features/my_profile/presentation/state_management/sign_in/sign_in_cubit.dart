@@ -13,6 +13,10 @@ class SignInCubit extends Cubit<SignInState> {
     emit(SignInInProgress());
   }
 
+  void signInError(String reason) {
+    emit(SignInFailed(reason: reason));
+  }
+
   Future<bool> signIn(String email, String password) async {
     logI('Start email validation');
     emit(SignInInProgress());

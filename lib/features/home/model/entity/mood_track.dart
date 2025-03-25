@@ -10,7 +10,7 @@ class MoodTrackTable extends Table {
 
   TextColumn get recordMood => text()();
 
-  DateTimeColumn get createdAt => dateTime().generatedAs(currentDateAndTime)();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 
-  DateTimeColumn get updatedAt => dateTime().generatedAs(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }

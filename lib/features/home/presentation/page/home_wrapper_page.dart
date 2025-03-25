@@ -10,9 +10,9 @@ class HomeWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int _selectedIndex = getHomeService().currentLocationIndex;
+    int selectedIndex = getHomeService().currentLocationIndex;
     return Scaffold(
-      bottomNavigationBar: NavigationMenu(selectedIndex: _selectedIndex),
+      bottomNavigationBar: NavigationMenu(selectedIndex: selectedIndex),
       body: child,
     );
   }

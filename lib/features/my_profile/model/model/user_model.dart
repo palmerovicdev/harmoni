@@ -6,6 +6,8 @@ class User {
   String? gender;
   int? age;
   String? avatar;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   User({
     this.id,
@@ -15,6 +17,8 @@ class User {
     this.gender,
     this.age,
     this.avatar,
+    this.createdAt,
+    this.updatedAt,
   });
 
   User.fromJson(Map<String, dynamic> json) {
@@ -25,6 +29,8 @@ class User {
     gender = json['gender'];
     age = json['age'];
     avatar = json['avatar'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
   }
 
   Map<String, dynamic> toJson() {
@@ -36,6 +42,8 @@ class User {
     data['gender'] = gender;
     data['age'] = age;
     data['avatar'] = avatar;
+    data['createdAt'] = createdAt.toString();
+    data['updatedAt'] = updatedAt.toString();
     return data;
   }
 }

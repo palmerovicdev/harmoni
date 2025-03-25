@@ -49,9 +49,25 @@ class $UserTableTable extends UserTable
   late final GeneratedColumn<String> avatar = GeneratedColumn<String>(
       'avatar', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, name, email, password, gender, age, avatar];
+      [id, name, email, password, gender, age, avatar, createdAt, updatedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -101,6 +117,14 @@ class $UserTableTable extends UserTable
     } else if (isInserting) {
       context.missing(_avatarMeta);
     }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
     return context;
   }
 
@@ -124,6 +148,10 @@ class $UserTableTable extends UserTable
           .read(DriftSqlType.int, data['${effectivePrefix}age'])!,
       avatar: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}avatar'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -141,6 +169,8 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
   final String gender;
   final int age;
   final String avatar;
+  final DateTime createdAt;
+  final DateTime updatedAt;
   const UserTableData(
       {required this.id,
       required this.name,
@@ -148,7 +178,9 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
       required this.password,
       required this.gender,
       required this.age,
-      required this.avatar});
+      required this.avatar,
+      required this.createdAt,
+      required this.updatedAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -159,6 +191,8 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
     map['gender'] = Variable<String>(gender);
     map['age'] = Variable<int>(age);
     map['avatar'] = Variable<String>(avatar);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
@@ -171,6 +205,8 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
       gender: Value(gender),
       age: Value(age),
       avatar: Value(avatar),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
     );
   }
 
@@ -185,6 +221,8 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
       gender: serializer.fromJson<String>(json['gender']),
       age: serializer.fromJson<int>(json['age']),
       avatar: serializer.fromJson<String>(json['avatar']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
   }
   @override
@@ -198,6 +236,8 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
       'gender': serializer.toJson<String>(gender),
       'age': serializer.toJson<int>(age),
       'avatar': serializer.toJson<String>(avatar),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
   }
 
@@ -208,7 +248,9 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
           String? password,
           String? gender,
           int? age,
-          String? avatar}) =>
+          String? avatar,
+          DateTime? createdAt,
+          DateTime? updatedAt}) =>
       UserTableData(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -217,6 +259,8 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
         gender: gender ?? this.gender,
         age: age ?? this.age,
         avatar: avatar ?? this.avatar,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
       );
   UserTableData copyWithCompanion(UserTableCompanion data) {
     return UserTableData(
@@ -227,6 +271,8 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
       gender: data.gender.present ? data.gender.value : this.gender,
       age: data.age.present ? data.age.value : this.age,
       avatar: data.avatar.present ? data.avatar.value : this.avatar,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
   }
 
@@ -239,14 +285,16 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
           ..write('password: $password, ')
           ..write('gender: $gender, ')
           ..write('age: $age, ')
-          ..write('avatar: $avatar')
+          ..write('avatar: $avatar, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, name, email, password, gender, age, avatar);
+  int get hashCode => Object.hash(
+      id, name, email, password, gender, age, avatar, createdAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -257,7 +305,9 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
           other.password == this.password &&
           other.gender == this.gender &&
           other.age == this.age &&
-          other.avatar == this.avatar);
+          other.avatar == this.avatar &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
 }
 
 class UserTableCompanion extends UpdateCompanion<UserTableData> {
@@ -268,6 +318,8 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
   final Value<String> gender;
   final Value<int> age;
   final Value<String> avatar;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
   const UserTableCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -276,6 +328,8 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
     this.gender = const Value.absent(),
     this.age = const Value.absent(),
     this.avatar = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
   });
   UserTableCompanion.insert({
     this.id = const Value.absent(),
@@ -285,6 +339,8 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
     required String gender,
     required int age,
     required String avatar,
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
   })  : name = Value(name),
         email = Value(email),
         password = Value(password),
@@ -299,6 +355,8 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
     Expression<String>? gender,
     Expression<int>? age,
     Expression<String>? avatar,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -308,6 +366,8 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
       if (gender != null) 'gender': gender,
       if (age != null) 'age': age,
       if (avatar != null) 'avatar': avatar,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
     });
   }
 
@@ -318,7 +378,9 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
       Value<String>? password,
       Value<String>? gender,
       Value<int>? age,
-      Value<String>? avatar}) {
+      Value<String>? avatar,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt}) {
     return UserTableCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -327,6 +389,8 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
       gender: gender ?? this.gender,
       age: age ?? this.age,
       avatar: avatar ?? this.avatar,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
@@ -354,6 +418,12 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
     if (avatar.present) {
       map['avatar'] = Variable<String>(avatar.value);
     }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
     return map;
   }
 
@@ -366,7 +436,9 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
           ..write('password: $password, ')
           ..write('gender: $gender, ')
           ..write('age: $age, ')
-          ..write('avatar: $avatar')
+          ..write('avatar: $avatar, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
   }
@@ -412,17 +484,17 @@ class $MoodTrackTableTable extends MoodTrackTable
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
       'created_at', aliasedName, false,
-      generatedAs: GeneratedAs(currentDateAndTime, false),
       type: DriftSqlType.dateTime,
-      requiredDuringInsert: false);
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   static const VerificationMeta _updatedAtMeta =
       const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
       'updated_at', aliasedName, false,
-      generatedAs: GeneratedAs(currentDateAndTime, false),
       type: DriftSqlType.dateTime,
-      requiredDuringInsert: false);
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns =>
       [id, userId, imageMood, recordMood, createdAt, updatedAt];
@@ -519,6 +591,8 @@ class MoodTrackTableData extends DataClass
     map['user_id'] = Variable<int>(userId);
     map['image_mood'] = Variable<String>(imageMood);
     map['record_mood'] = Variable<String>(recordMood);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
@@ -528,6 +602,8 @@ class MoodTrackTableData extends DataClass
       userId: Value(userId),
       imageMood: Value(imageMood),
       recordMood: Value(recordMood),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
     );
   }
 
@@ -571,6 +647,18 @@ class MoodTrackTableData extends DataClass
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
+  MoodTrackTableData copyWithCompanion(MoodTrackTableCompanion data) {
+    return MoodTrackTableData(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      imageMood: data.imageMood.present ? data.imageMood.value : this.imageMood,
+      recordMood:
+          data.recordMood.present ? data.recordMood.value : this.recordMood,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('MoodTrackTableData(')
@@ -604,17 +692,23 @@ class MoodTrackTableCompanion extends UpdateCompanion<MoodTrackTableData> {
   final Value<int> userId;
   final Value<String> imageMood;
   final Value<String> recordMood;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
   const MoodTrackTableCompanion({
     this.id = const Value.absent(),
     this.userId = const Value.absent(),
     this.imageMood = const Value.absent(),
     this.recordMood = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
   });
   MoodTrackTableCompanion.insert({
     this.id = const Value.absent(),
     required int userId,
     required String imageMood,
     required String recordMood,
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
   })  : userId = Value(userId),
         imageMood = Value(imageMood),
         recordMood = Value(recordMood);
@@ -623,12 +717,16 @@ class MoodTrackTableCompanion extends UpdateCompanion<MoodTrackTableData> {
     Expression<int>? userId,
     Expression<String>? imageMood,
     Expression<String>? recordMood,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (userId != null) 'user_id': userId,
       if (imageMood != null) 'image_mood': imageMood,
       if (recordMood != null) 'record_mood': recordMood,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
     });
   }
 
@@ -636,12 +734,16 @@ class MoodTrackTableCompanion extends UpdateCompanion<MoodTrackTableData> {
       {Value<int>? id,
       Value<int>? userId,
       Value<String>? imageMood,
-      Value<String>? recordMood}) {
+      Value<String>? recordMood,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt}) {
     return MoodTrackTableCompanion(
       id: id ?? this.id,
       userId: userId ?? this.userId,
       imageMood: imageMood ?? this.imageMood,
       recordMood: recordMood ?? this.recordMood,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
@@ -660,6 +762,12 @@ class MoodTrackTableCompanion extends UpdateCompanion<MoodTrackTableData> {
     if (recordMood.present) {
       map['record_mood'] = Variable<String>(recordMood.value);
     }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
     return map;
   }
 
@@ -669,7 +777,9 @@ class MoodTrackTableCompanion extends UpdateCompanion<MoodTrackTableData> {
           ..write('id: $id, ')
           ..write('userId: $userId, ')
           ..write('imageMood: $imageMood, ')
-          ..write('recordMood: $recordMood')
+          ..write('recordMood: $recordMood, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
   }
@@ -705,17 +815,17 @@ class $ActivityGroupTableTable extends ActivityGroupTable
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
       'created_at', aliasedName, false,
-      generatedAs: GeneratedAs(currentDateAndTime, false),
       type: DriftSqlType.dateTime,
-      requiredDuringInsert: false);
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   static const VerificationMeta _updatedAtMeta =
       const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
       'updated_at', aliasedName, false,
-      generatedAs: GeneratedAs(currentDateAndTime, false),
       type: DriftSqlType.dateTime,
-      requiredDuringInsert: false);
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns => [id, name, image, createdAt, updatedAt];
   @override
@@ -799,6 +909,8 @@ class ActivityGroupTableData extends DataClass
     map['id'] = Variable<int>(id);
     map['name'] = Variable<String>(name);
     map['image'] = Variable<String>(image);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
@@ -807,6 +919,8 @@ class ActivityGroupTableData extends DataClass
       id: Value(id),
       name: Value(name),
       image: Value(image),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
     );
   }
 
@@ -846,6 +960,16 @@ class ActivityGroupTableData extends DataClass
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
+  ActivityGroupTableData copyWithCompanion(ActivityGroupTableCompanion data) {
+    return ActivityGroupTableData(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      image: data.image.present ? data.image.value : this.image,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('ActivityGroupTableData(')
@@ -876,35 +1000,51 @@ class ActivityGroupTableCompanion
   final Value<int> id;
   final Value<String> name;
   final Value<String> image;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
   const ActivityGroupTableCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.image = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
   });
   ActivityGroupTableCompanion.insert({
     this.id = const Value.absent(),
     required String name,
     required String image,
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
   })  : name = Value(name),
         image = Value(image);
   static Insertable<ActivityGroupTableData> custom({
     Expression<int>? id,
     Expression<String>? name,
     Expression<String>? image,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
       if (image != null) 'image': image,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
     });
   }
 
   ActivityGroupTableCompanion copyWith(
-      {Value<int>? id, Value<String>? name, Value<String>? image}) {
+      {Value<int>? id,
+      Value<String>? name,
+      Value<String>? image,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt}) {
     return ActivityGroupTableCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       image: image ?? this.image,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
@@ -920,6 +1060,12 @@ class ActivityGroupTableCompanion
     if (image.present) {
       map['image'] = Variable<String>(image.value);
     }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
     return map;
   }
 
@@ -928,7 +1074,9 @@ class ActivityGroupTableCompanion
     return (StringBuffer('ActivityGroupTableCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('image: $image')
+          ..write('image: $image, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
   }
@@ -973,17 +1121,17 @@ class $ActivityTableTable extends ActivityTable
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
       'created_at', aliasedName, false,
-      generatedAs: GeneratedAs(currentDateAndTime, false),
       type: DriftSqlType.dateTime,
-      requiredDuringInsert: false);
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   static const VerificationMeta _updatedAtMeta =
       const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
       'updated_at', aliasedName, false,
-      generatedAs: GeneratedAs(currentDateAndTime, false),
       type: DriftSqlType.dateTime,
-      requiredDuringInsert: false);
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns =>
       [id, name, image, activityGroupId, createdAt, updatedAt];
@@ -1080,6 +1228,8 @@ class ActivityTableData extends DataClass
     map['name'] = Variable<String>(name);
     map['image'] = Variable<String>(image);
     map['activity_group_id'] = Variable<int>(activityGroupId);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
@@ -1089,6 +1239,8 @@ class ActivityTableData extends DataClass
       name: Value(name),
       image: Value(image),
       activityGroupId: Value(activityGroupId),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
     );
   }
 
@@ -1132,6 +1284,19 @@ class ActivityTableData extends DataClass
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
+  ActivityTableData copyWithCompanion(ActivityTableCompanion data) {
+    return ActivityTableData(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      image: data.image.present ? data.image.value : this.image,
+      activityGroupId: data.activityGroupId.present
+          ? data.activityGroupId.value
+          : this.activityGroupId,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('ActivityTableData(')
@@ -1165,17 +1330,23 @@ class ActivityTableCompanion extends UpdateCompanion<ActivityTableData> {
   final Value<String> name;
   final Value<String> image;
   final Value<int> activityGroupId;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
   const ActivityTableCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.image = const Value.absent(),
     this.activityGroupId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
   });
   ActivityTableCompanion.insert({
     this.id = const Value.absent(),
     required String name,
     required String image,
     required int activityGroupId,
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
   })  : name = Value(name),
         image = Value(image),
         activityGroupId = Value(activityGroupId);
@@ -1184,12 +1355,16 @@ class ActivityTableCompanion extends UpdateCompanion<ActivityTableData> {
     Expression<String>? name,
     Expression<String>? image,
     Expression<int>? activityGroupId,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
       if (image != null) 'image': image,
       if (activityGroupId != null) 'activity_group_id': activityGroupId,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
     });
   }
 
@@ -1197,12 +1372,16 @@ class ActivityTableCompanion extends UpdateCompanion<ActivityTableData> {
       {Value<int>? id,
       Value<String>? name,
       Value<String>? image,
-      Value<int>? activityGroupId}) {
+      Value<int>? activityGroupId,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt}) {
     return ActivityTableCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       image: image ?? this.image,
       activityGroupId: activityGroupId ?? this.activityGroupId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
@@ -1221,6 +1400,12 @@ class ActivityTableCompanion extends UpdateCompanion<ActivityTableData> {
     if (activityGroupId.present) {
       map['activity_group_id'] = Variable<int>(activityGroupId.value);
     }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
     return map;
   }
 
@@ -1230,7 +1415,9 @@ class ActivityTableCompanion extends UpdateCompanion<ActivityTableData> {
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('image: $image, ')
-          ..write('activityGroupId: $activityGroupId')
+          ..write('activityGroupId: $activityGroupId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
   }
@@ -1276,17 +1463,17 @@ class $MoodActivityRelationTableTable extends MoodActivityRelationTable
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
       'created_at', aliasedName, false,
-      generatedAs: GeneratedAs(currentDateAndTime, false),
       type: DriftSqlType.dateTime,
-      requiredDuringInsert: false);
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   static const VerificationMeta _updatedAtMeta =
       const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
       'updated_at', aliasedName, false,
-      generatedAs: GeneratedAs(currentDateAndTime, false),
       type: DriftSqlType.dateTime,
-      requiredDuringInsert: false);
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns =>
       [id, moodTrackId, activityId, createdAt, updatedAt];
@@ -1376,6 +1563,8 @@ class MoodActivityRelationTableData extends DataClass
     map['id'] = Variable<int>(id);
     map['mood_track_id'] = Variable<int>(moodTrackId);
     map['activity_id'] = Variable<int>(activityId);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
@@ -1384,6 +1573,8 @@ class MoodActivityRelationTableData extends DataClass
       id: Value(id),
       moodTrackId: Value(moodTrackId),
       activityId: Value(activityId),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
     );
   }
 
@@ -1423,6 +1614,19 @@ class MoodActivityRelationTableData extends DataClass
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
+  MoodActivityRelationTableData copyWithCompanion(
+      MoodActivityRelationTableCompanion data) {
+    return MoodActivityRelationTableData(
+      id: data.id.present ? data.id.value : this.id,
+      moodTrackId:
+          data.moodTrackId.present ? data.moodTrackId.value : this.moodTrackId,
+      activityId:
+          data.activityId.present ? data.activityId.value : this.activityId,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('MoodActivityRelationTableData(')
@@ -1454,35 +1658,51 @@ class MoodActivityRelationTableCompanion
   final Value<int> id;
   final Value<int> moodTrackId;
   final Value<int> activityId;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
   const MoodActivityRelationTableCompanion({
     this.id = const Value.absent(),
     this.moodTrackId = const Value.absent(),
     this.activityId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
   });
   MoodActivityRelationTableCompanion.insert({
     this.id = const Value.absent(),
     required int moodTrackId,
     required int activityId,
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
   })  : moodTrackId = Value(moodTrackId),
         activityId = Value(activityId);
   static Insertable<MoodActivityRelationTableData> custom({
     Expression<int>? id,
     Expression<int>? moodTrackId,
     Expression<int>? activityId,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (moodTrackId != null) 'mood_track_id': moodTrackId,
       if (activityId != null) 'activity_id': activityId,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
     });
   }
 
   MoodActivityRelationTableCompanion copyWith(
-      {Value<int>? id, Value<int>? moodTrackId, Value<int>? activityId}) {
+      {Value<int>? id,
+      Value<int>? moodTrackId,
+      Value<int>? activityId,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt}) {
     return MoodActivityRelationTableCompanion(
       id: id ?? this.id,
       moodTrackId: moodTrackId ?? this.moodTrackId,
       activityId: activityId ?? this.activityId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
@@ -1498,6 +1718,12 @@ class MoodActivityRelationTableCompanion
     if (activityId.present) {
       map['activity_id'] = Variable<int>(activityId.value);
     }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
     return map;
   }
 
@@ -1506,7 +1732,9 @@ class MoodActivityRelationTableCompanion
     return (StringBuffer('MoodActivityRelationTableCompanion(')
           ..write('id: $id, ')
           ..write('moodTrackId: $moodTrackId, ')
-          ..write('activityId: $activityId')
+          ..write('activityId: $activityId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
   }
@@ -1578,6 +1806,8 @@ typedef $$UserTableTableCreateCompanionBuilder = UserTableCompanion Function({
   required String gender,
   required int age,
   required String avatar,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
 });
 typedef $$UserTableTableUpdateCompanionBuilder = UserTableCompanion Function({
   Value<int> id,
@@ -1587,6 +1817,8 @@ typedef $$UserTableTableUpdateCompanionBuilder = UserTableCompanion Function({
   Value<String> gender,
   Value<int> age,
   Value<String> avatar,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
 });
 
 final class $$UserTableTableReferences
@@ -1639,6 +1871,12 @@ class $$UserTableTableFilterComposer
   ColumnFilters<String> get avatar => $composableBuilder(
       column: $table.avatar, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+
   Expression<bool> moodTrackTableRefs(
       Expression<bool> Function($$MoodTrackTableTableFilterComposer f) f) {
     final $$MoodTrackTableTableFilterComposer composer = $composerBuilder(
@@ -1690,6 +1928,12 @@ class $$UserTableTableOrderingComposer
 
   ColumnOrderings<String> get avatar => $composableBuilder(
       column: $table.avatar, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 }
 
 class $$UserTableTableAnnotationComposer
@@ -1721,6 +1965,12 @@ class $$UserTableTableAnnotationComposer
 
   GeneratedColumn<String> get avatar =>
       $composableBuilder(column: $table.avatar, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
   Expression<T> moodTrackTableRefs<T extends Object>(
       Expression<T> Function($$MoodTrackTableTableAnnotationComposer a) f) {
@@ -1774,6 +2024,8 @@ class $$UserTableTableTableManager extends RootTableManager<
             Value<String> gender = const Value.absent(),
             Value<int> age = const Value.absent(),
             Value<String> avatar = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
           }) =>
               UserTableCompanion(
             id: id,
@@ -1783,6 +2035,8 @@ class $$UserTableTableTableManager extends RootTableManager<
             gender: gender,
             age: age,
             avatar: avatar,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -1792,6 +2046,8 @@ class $$UserTableTableTableManager extends RootTableManager<
             required String gender,
             required int age,
             required String avatar,
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
           }) =>
               UserTableCompanion.insert(
             id: id,
@@ -1801,6 +2057,8 @@ class $$UserTableTableTableManager extends RootTableManager<
             gender: gender,
             age: age,
             avatar: avatar,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (
@@ -1854,6 +2112,8 @@ typedef $$MoodTrackTableTableCreateCompanionBuilder = MoodTrackTableCompanion
   required int userId,
   required String imageMood,
   required String recordMood,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
 });
 typedef $$MoodTrackTableTableUpdateCompanionBuilder = MoodTrackTableCompanion
     Function({
@@ -1861,6 +2121,8 @@ typedef $$MoodTrackTableTableUpdateCompanionBuilder = MoodTrackTableCompanion
   Value<int> userId,
   Value<String> imageMood,
   Value<String> recordMood,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
 });
 
 final class $$MoodTrackTableTableReferences extends BaseReferences<_$Database,
@@ -2111,24 +2373,32 @@ class $$MoodTrackTableTableTableManager extends RootTableManager<
             Value<int> userId = const Value.absent(),
             Value<String> imageMood = const Value.absent(),
             Value<String> recordMood = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
           }) =>
               MoodTrackTableCompanion(
             id: id,
             userId: userId,
             imageMood: imageMood,
             recordMood: recordMood,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required int userId,
             required String imageMood,
             required String recordMood,
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
           }) =>
               MoodTrackTableCompanion.insert(
             id: id,
             userId: userId,
             imageMood: imageMood,
             recordMood: recordMood,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (
@@ -2207,12 +2477,16 @@ typedef $$ActivityGroupTableTableCreateCompanionBuilder
   Value<int> id,
   required String name,
   required String image,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
 });
 typedef $$ActivityGroupTableTableUpdateCompanionBuilder
     = ActivityGroupTableCompanion Function({
   Value<int> id,
   Value<String> name,
   Value<String> image,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
 });
 
 final class $$ActivityGroupTableTableReferences extends BaseReferences<
@@ -2381,21 +2655,29 @@ class $$ActivityGroupTableTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<String> name = const Value.absent(),
             Value<String> image = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
           }) =>
               ActivityGroupTableCompanion(
             id: id,
             name: name,
             image: image,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String name,
             required String image,
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
           }) =>
               ActivityGroupTableCompanion.insert(
             id: id,
             name: name,
             image: image,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (
@@ -2449,6 +2731,8 @@ typedef $$ActivityTableTableCreateCompanionBuilder = ActivityTableCompanion
   required String name,
   required String image,
   required int activityGroupId,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
 });
 typedef $$ActivityTableTableUpdateCompanionBuilder = ActivityTableCompanion
     Function({
@@ -2456,6 +2740,8 @@ typedef $$ActivityTableTableUpdateCompanionBuilder = ActivityTableCompanion
   Value<String> name,
   Value<String> image,
   Value<int> activityGroupId,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
 });
 
 final class $$ActivityTableTableReferences
@@ -2709,24 +2995,32 @@ class $$ActivityTableTableTableManager extends RootTableManager<
             Value<String> name = const Value.absent(),
             Value<String> image = const Value.absent(),
             Value<int> activityGroupId = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
           }) =>
               ActivityTableCompanion(
             id: id,
             name: name,
             image: image,
             activityGroupId: activityGroupId,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String name,
             required String image,
             required int activityGroupId,
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
           }) =>
               ActivityTableCompanion.insert(
             id: id,
             name: name,
             image: image,
             activityGroupId: activityGroupId,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (
@@ -2808,12 +3102,16 @@ typedef $$MoodActivityRelationTableTableCreateCompanionBuilder
   Value<int> id,
   required int moodTrackId,
   required int activityId,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
 });
 typedef $$MoodActivityRelationTableTableUpdateCompanionBuilder
     = MoodActivityRelationTableCompanion Function({
   Value<int> id,
   Value<int> moodTrackId,
   Value<int> activityId,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
 });
 
 final class $$MoodActivityRelationTableTableReferences extends BaseReferences<
@@ -3057,21 +3355,29 @@ class $$MoodActivityRelationTableTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<int> moodTrackId = const Value.absent(),
             Value<int> activityId = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
           }) =>
               MoodActivityRelationTableCompanion(
             id: id,
             moodTrackId: moodTrackId,
             activityId: activityId,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required int moodTrackId,
             required int activityId,
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
           }) =>
               MoodActivityRelationTableCompanion.insert(
             id: id,
             moodTrackId: moodTrackId,
             activityId: activityId,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (

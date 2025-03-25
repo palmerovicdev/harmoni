@@ -63,6 +63,8 @@ extension ActivityTableMapper on Activity {
       name: Value(name ?? ''),
       image: Value(image ?? ''),
       activityGroupId: Value(activityGroupId),
+      createdAt: Value(createdAt ?? DateTime.now()),
+      updatedAt: Value(updatedAt ?? DateTime.now()),
     );
   }
 }
@@ -73,6 +75,8 @@ extension ActivityGroupTableMapper on ActivityGroup {
       id: Value(id ?? 0),
       name: Value(name ?? ''),
       image: Value(image ?? ''),
+      createdAt: Value(createdAt ?? DateTime.now()),
+      updatedAt: Value(updatedAt ?? DateTime.now()),
     );
   }
 }
@@ -84,6 +88,8 @@ extension MoodTrackTableMapper on MoodTrack {
       userId: Value(userId ?? 0),
       imageMood: Value(imageMood ?? ''),
       recordMood: Value(recordMood ?? ''),
+      createdAt: Value(createdAt ?? DateTime.now()),
+      updatedAt: Value(updatedAt ?? DateTime.now()),
     );
   }
 }
@@ -94,6 +100,8 @@ extension MoodActivityRelationTableMapper on MoodActivityRelation {
       id: Value(id ?? 0),
       moodTrackId: Value(moodTrackId ?? 0),
       activityId: Value(activityId ?? 0),
+      createdAt: Value(createdAt ?? DateTime.now()),
+      updatedAt: Value(updatedAt ?? DateTime.now()),
     );
   }
 }

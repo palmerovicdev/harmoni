@@ -13,7 +13,8 @@ import '../../features/my_profile/presentation/widget/gender_selection_widget.da
 
 final locator = GetIt.instance;
 
-setUpLocator() {
+setUpLocator() async {
+  await deleteDb();
   locator.registerSingleton<Database>(Database());
   locator.registerSingleton<Connection>(Connection());
 
