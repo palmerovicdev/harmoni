@@ -105,8 +105,8 @@ class NameSettingPage extends StatelessWidget {
                               '.' : 'El nombre no es válido.'}');
                       return;
                     }
-                    isFromSettings ? cubit.updateName(nameController.text) : cubit.setName(nameController.text);
-                    if (state is NameSettingValid && context.mounted) {
+                    var response = isFromSettings ? await cubit.updateName(nameController.text) : await cubit.setName(nameController.text);
+                    if (response && context.mounted) {
                       isFromSettings ? context.pushNamed(MyProfileRoute.allDone.data.name, extra: true) : context.pushNamed(MyProfileRoute.gender.name, extra: false);
                     }
                   },

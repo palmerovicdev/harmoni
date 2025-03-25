@@ -36,14 +36,16 @@ class _NameInputFieldWidgetState extends State<NameInputFieldWidget> {
           ),
       decoration: InputDecoration(
         errorStyle: TextStyle(),
-        error: Text(
-          !isValid ? 'Nombre invalido. Debe contener sólo letras y el primer carácter debe ser mayúscula.' : '',
-          softWrap: true,
-          style: TextStyle(
-            color: !isValid ? Colors.red[800] : null,
-          ),
-          textAlign: TextAlign.center,
-        ),
+        error: !isValid
+            ? Text(
+                'Nombre invalido. Debe contener sólo letras y el primer carácter debe ser mayúscula.',
+                softWrap: true,
+                style: TextStyle(
+                  color: Colors.red[800],
+                ),
+                textAlign: TextAlign.center,
+              )
+            : null,
         contentPadding: EdgeInsets.symmetric(vertical: 24),
         filled: true,
         fillColor: Theme.of(context).colorScheme.surfaceContainer,
