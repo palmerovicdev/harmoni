@@ -1,25 +1,13 @@
-import 'package:drift/drift.dart';
 
-class ActivityGroup extends Table {
-  IntColumn get id => integer().autoIncrement()();
 
-  TextColumn get name => text()();
-
-  TextColumn get image => text()();
-
-  DateTimeColumn get createAt => dateTime().generatedAs(currentDateAndTime)();
-
-  DateTimeColumn get updatedAt => dateTime().generatedAs(currentDateAndTime)();
-}
-
-class ActivityGroupInfo {
+class ActivityGroup {
   int? id;
   String? name;
   String? image;
   DateTime? createdAt;
   DateTime? updatedAt;
 
-  ActivityGroupInfo({
+  ActivityGroup({
     this.id,
     this.name,
     this.image,
@@ -27,8 +15,8 @@ class ActivityGroupInfo {
     this.updatedAt,
   });
 
-  factory ActivityGroupInfo.fromJson(Map<String, dynamic> json) {
-    return ActivityGroupInfo(
+  factory ActivityGroup.fromJson(Map<String, dynamic> json) {
+    return ActivityGroup(
       id: json['id'] as int,
       name: json['name'] as String,
       image: json['image'] as String,

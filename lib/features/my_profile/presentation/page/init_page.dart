@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:harmoni/assets.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/action_button_widget.dart';
 
 import '../../../../core/widgets/spacer.dart';
+import '../../../../generated/assets.dart';
 import '../../../../router/general_routes.dart';
 
 class InitPage extends StatelessWidget {
@@ -20,7 +20,7 @@ class InitPage extends StatelessWidget {
             Space.large.gap,
             Space.large.gap,
             SvgPicture.asset(
-              Assets.CloudSnow,
+              Assets.coreCloudSnow,
               colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
               width: 96,
               height: 96,
@@ -44,30 +44,6 @@ class InitPage extends StatelessWidget {
               ),
             ),
             Space.large.gap,
-            /*SizedBox(
-              width: screenWidth * 0.85,
-              child: OauthAppWidget(
-                image: Assets.Google,
-                onPressed: () {},
-                //TODO 1/27/25 palmerodev : add Google OAuth logic
-                type: 'Google',
-                colorFilter: ColorFilter.mode(Colors.lightBlueAccent, BlendMode.srcIn),
-                width: MediaQuery.sizeOf(context).width,
-              ),
-            ),
-            Space.small.gap,
-            SizedBox(
-              width: screenWidth * 0.85,
-              child: OauthAppWidget(
-                image: Assets.Github,
-                onPressed: () {},
-                //TODO 1/27/25 palmerodev : add GitHub OAuth logic
-                type: 'GitHub',
-                colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
-                width: MediaQuery.sizeOf(context).width,
-              ),
-            ),*/
-
             Expanded(child: SizedBox()),
             Space.large.gap,
             SizedBox(

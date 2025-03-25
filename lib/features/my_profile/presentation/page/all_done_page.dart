@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:harmoni/assets.dart';
 
 import '../../../../core/widgets/spacer.dart';
+import '../../../../generated/assets.dart';
 import '../../../../router/general_routes.dart';
 import '../widget/action_button_widget.dart';
 
@@ -20,7 +20,7 @@ class AllDonePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              Assets.AllDoneImage96,
+              Assets.imagesAllDoneImage96,
               width: 58,
               height: 58,
             ),

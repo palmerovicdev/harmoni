@@ -24,7 +24,6 @@ class SignInCubit extends Cubit<SignInState> {
       return false;
     }
     logI('Start password validation');
-    await Future.delayed(const Duration(seconds: 5));
     var isValidPassword = myProfileService.matchPassword(password, user.password);
     if (!isValidPassword) {
       logI('Password not valid');

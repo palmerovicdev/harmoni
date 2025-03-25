@@ -2,13 +2,14 @@ import 'package:harmoni/core/helpers/database.dart';
 import 'package:harmoni/features/my_profile/data/api/my_profile_api.dart';
 
 import '../../model/entity/user.dart';
+import '../../model/model/user_model.dart';
 
 abstract class MyProfileRepository {
-  Future<void> saveUserProfile(UserInfo user);
+  Future<void> saveUserProfile(User user);
 
-  Future<UserData?> getUserProfileByName(String name);
+  Future<UserTableData?> getUserProfileByName(String name);
 
-  Future<UserData?> getUserProfileByEmail(String email);
+  Future<UserTableData?> getUserProfileByEmail(String email);
 
   Future<void> deleteUserProfileByNameOrEmail({String? name, String? email});
 }
@@ -19,17 +20,17 @@ class MyProfileRepositoryImpl implements MyProfileRepository {
   final MyProfileApi _usersApi;
 
   @override
-  Future<void> saveUserProfile(UserInfo user) async {
+  Future<void> saveUserProfile(User user) async {
     await _usersApi.saveUserProfile(user);
   }
 
   @override
-  Future<UserData?> getUserProfileByEmail(String email) async {
+  Future<UserTableData?> getUserProfileByEmail(String email) async {
     return await _usersApi.getUserProfileByEmail(email);
   }
 
   @override
-  Future<UserData?> getUserProfileByName(String name) async {
+  Future<UserTableData?> getUserProfileByName(String name) async {
     return await _usersApi.getUserProfileByName(name);
   }
 

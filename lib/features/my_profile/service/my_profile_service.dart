@@ -5,28 +5,29 @@ import 'package:harmoni/core/helpers/database.dart';
 import 'package:harmoni/features/my_profile/data/repository/my_profile_repository.dart';
 
 import '../model/entity/user.dart';
+import '../model/model/user_model.dart';
 
 class MyProfileService {
-  UserInfo? userProfile;
+  User? userProfile;
   final MyProfileRepository _myProfileRepository;
 
   MyProfileService({required MyProfileRepository myProfileRepository}) : _myProfileRepository = myProfileRepository;
 
-  init(UserData? user) async {
+  init(UserTableData? user) async {
     if (user == null) return;
-    userProfile = UserInfo.fromJson(user.toJson());
+    userProfile = User.fromJson(user.toJson());
   }
 
   Future<void> initializeUserFromDb(Database db, String name) async {
-    if (await db.user.count().getSingle() == 0) return;
+    if (await db.userTable.count().getSingle() == 0) return;
 
-    var singleUser = await (db.select(db.user)
+    var singleUser = await (db.select(db.userTable)
           ..where(
             (tbl) => tbl.name.equals(name),
           ))
         .getSingle();
 
-    userProfile = UserInfo.fromJson(singleUser.toJson());
+    userProfile = User.fromJson(singleUser.toJson());
   }
 
   Future<bool> saveUserProfile() async {
@@ -38,7 +39,7 @@ class MyProfileService {
     return true;
   }
 
-  Future<UserData?> getUserProfileByName(String name) async {
+  Future<UserTableData?> getUserProfileByName(String name) async {
     return await _myProfileRepository.getUserProfileByName(name);
   }
 
@@ -54,32 +55,32 @@ class MyProfileService {
   }
 
   setName(String name) {
-    userProfile ??= UserInfo();
+    userProfile ??= User();
     userProfile!.name = name;
   }
 
   setEmail(String email) {
-    userProfile ??= UserInfo();
+    userProfile ??= User();
     userProfile!.email = email;
   }
 
   setPassword(String password) {
-    userProfile ??= UserInfo();
+    userProfile ??= User();
     userProfile!.password = hashPassword(password);
   }
 
   setGender(String gender) {
-    userProfile ??= UserInfo();
+    userProfile ??= User();
     userProfile!.gender = gender;
   }
 
   setAge(int age) {
-    userProfile ??= UserInfo();
+    userProfile ??= User();
     userProfile!.age = age;
   }
 
   setAvatar(String avatar) {
-    userProfile ??= UserInfo();
+    userProfile ??= User();
     userProfile!.avatar = avatar;
   }
 
@@ -105,7 +106,7 @@ class MyProfileService {
     return isValid;
   }
 
-  Future<UserData?> getUserProfileByEmail(String email) async {
+  Future<UserTableData?> getUserProfileByEmail(String email) async {
     return await _myProfileRepository.getUserProfileByEmail(email);
   }
 }

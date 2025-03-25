@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:harmoni/features/home/presentation/page/home_page.dart';
+import 'package:harmoni/features/home/presentation/page/home_wrapper_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/age_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/gender_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/init_page.dart';
@@ -22,11 +23,17 @@ GoRouter router = GoRouter(
   initialLocation: HomeRoute.home.data.path,
   observers: kDebugMode ? [GoRouterObserver()] : [],
   routes: [
-    GoRoute(
-      path: HomeRoute.home.data.path,
-      name: HomeRoute.home.data.name,
-      pageBuilder: (context, state) => MaterialPage(child: HomePage()),
-    ),
+    ShellRoute(
+        builder: (context, state, child) => HomeWrapperPage(
+              child: child,
+            ),
+        routes: [
+          GoRoute(
+            path: HomeRoute.home.data.path,
+            name: HomeRoute.home.data.name,
+            pageBuilder: (context, state) => MaterialPage(child: HomePage()),
+          ),
+        ]),
     GoRoute(
       path: MyProfileRoute.init.data.path,
       name: MyProfileRoute.init.data.name,
@@ -61,3 +68,14 @@ GoRouter router = GoRouter(
     ),
   ],
 );
+
+var routes = [
+  HomeRoute.home.data.name,
+  MyProfileRoute.init.data.name,
+  MyProfileRoute.signIn.data.name,
+  MyProfileRoute.signUp.data.name,
+  MyProfileRoute.name.data.name,
+  MyProfileRoute.age.data.name,
+  MyProfileRoute.gender.data.name,
+  MyProfileRoute.allDone.data.name,
+];

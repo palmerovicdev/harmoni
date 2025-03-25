@@ -8,7 +8,7 @@ Para lo de arriba, es una secuencia grabada que se particiona en pedazos de 4 se
 Cambios que se quieren hacer:
 Cambios en el modelo para aumentar el tamanio de la secuencia de audio.
 
-Todo el tiempo que sea necesario y hacer cortes de 4 segundos sobre eso.
+el tiempo que sea necesario y hacer cortes de 4 segundos sobre eso.
 
 
 ***

@@ -3,11 +3,12 @@
 part of 'database.dart';
 
 // ignore_for_file: type=lint
-class $UserTable extends User with TableInfo<$UserTable, UserData> {
+class $UserTableTable extends UserTable
+    with TableInfo<$UserTableTable, UserTableData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $UserTable(this.attachedDatabase, [this._alias]);
+  $UserTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -55,9 +56,9 @@ class $UserTable extends User with TableInfo<$UserTable, UserData> {
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'user';
+  static const String $name = 'user_table';
   @override
-  VerificationContext validateIntegrity(Insertable<UserData> instance,
+  VerificationContext validateIntegrity(Insertable<UserTableData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -106,9 +107,9 @@ class $UserTable extends User with TableInfo<$UserTable, UserData> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  UserData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  UserTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return UserData(
+    return UserTableData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
@@ -127,12 +128,12 @@ class $UserTable extends User with TableInfo<$UserTable, UserData> {
   }
 
   @override
-  $UserTable createAlias(String alias) {
-    return $UserTable(attachedDatabase, alias);
+  $UserTableTable createAlias(String alias) {
+    return $UserTableTable(attachedDatabase, alias);
   }
 }
 
-class UserData extends DataClass implements Insertable<UserData> {
+class UserTableData extends DataClass implements Insertable<UserTableData> {
   final int id;
   final String name;
   final String email;
@@ -140,7 +141,7 @@ class UserData extends DataClass implements Insertable<UserData> {
   final String gender;
   final int age;
   final String avatar;
-  const UserData(
+  const UserTableData(
       {required this.id,
       required this.name,
       required this.email,
@@ -161,8 +162,8 @@ class UserData extends DataClass implements Insertable<UserData> {
     return map;
   }
 
-  UserCompanion toCompanion(bool nullToAbsent) {
-    return UserCompanion(
+  UserTableCompanion toCompanion(bool nullToAbsent) {
+    return UserTableCompanion(
       id: Value(id),
       name: Value(name),
       email: Value(email),
@@ -173,10 +174,10 @@ class UserData extends DataClass implements Insertable<UserData> {
     );
   }
 
-  factory UserData.fromJson(Map<String, dynamic> json,
+  factory UserTableData.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return UserData(
+    return UserTableData(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       email: serializer.fromJson<String>(json['email']),
@@ -200,7 +201,7 @@ class UserData extends DataClass implements Insertable<UserData> {
     };
   }
 
-  UserData copyWith(
+  UserTableData copyWith(
           {int? id,
           String? name,
           String? email,
@@ -208,7 +209,7 @@ class UserData extends DataClass implements Insertable<UserData> {
           String? gender,
           int? age,
           String? avatar}) =>
-      UserData(
+      UserTableData(
         id: id ?? this.id,
         name: name ?? this.name,
         email: email ?? this.email,
@@ -217,8 +218,8 @@ class UserData extends DataClass implements Insertable<UserData> {
         age: age ?? this.age,
         avatar: avatar ?? this.avatar,
       );
-  UserData copyWithCompanion(UserCompanion data) {
-    return UserData(
+  UserTableData copyWithCompanion(UserTableCompanion data) {
+    return UserTableData(
       id: data.id.present ? data.id.value : this.id,
       name: data.name.present ? data.name.value : this.name,
       email: data.email.present ? data.email.value : this.email,
@@ -231,7 +232,7 @@ class UserData extends DataClass implements Insertable<UserData> {
 
   @override
   String toString() {
-    return (StringBuffer('UserData(')
+    return (StringBuffer('UserTableData(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('email: $email, ')
@@ -249,7 +250,7 @@ class UserData extends DataClass implements Insertable<UserData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is UserData &&
+      (other is UserTableData &&
           other.id == this.id &&
           other.name == this.name &&
           other.email == this.email &&
@@ -259,7 +260,7 @@ class UserData extends DataClass implements Insertable<UserData> {
           other.avatar == this.avatar);
 }
 
-class UserCompanion extends UpdateCompanion<UserData> {
+class UserTableCompanion extends UpdateCompanion<UserTableData> {
   final Value<int> id;
   final Value<String> name;
   final Value<String> email;
@@ -267,7 +268,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
   final Value<String> gender;
   final Value<int> age;
   final Value<String> avatar;
-  const UserCompanion({
+  const UserTableCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.email = const Value.absent(),
@@ -276,7 +277,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
     this.age = const Value.absent(),
     this.avatar = const Value.absent(),
   });
-  UserCompanion.insert({
+  UserTableCompanion.insert({
     this.id = const Value.absent(),
     required String name,
     required String email,
@@ -290,7 +291,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
         gender = Value(gender),
         age = Value(age),
         avatar = Value(avatar);
-  static Insertable<UserData> custom({
+  static Insertable<UserTableData> custom({
     Expression<int>? id,
     Expression<String>? name,
     Expression<String>? email,
@@ -310,7 +311,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
     });
   }
 
-  UserCompanion copyWith(
+  UserTableCompanion copyWith(
       {Value<int>? id,
       Value<String>? name,
       Value<String>? email,
@@ -318,7 +319,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
       Value<String>? gender,
       Value<int>? age,
       Value<String>? avatar}) {
-    return UserCompanion(
+    return UserTableCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
@@ -358,7 +359,7 @@ class UserCompanion extends UpdateCompanion<UserData> {
 
   @override
   String toString() {
-    return (StringBuffer('UserCompanion(')
+    return (StringBuffer('UserTableCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('email: $email, ')
@@ -371,12 +372,12 @@ class UserCompanion extends UpdateCompanion<UserData> {
   }
 }
 
-class $MoodTrackTable extends MoodTrack
-    with TableInfo<$MoodTrackTable, MoodTrackData> {
+class $MoodTrackTableTable extends MoodTrackTable
+    with TableInfo<$MoodTrackTableTable, MoodTrackTableData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $MoodTrackTable(this.attachedDatabase, [this._alias]);
+  $MoodTrackTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -390,7 +391,10 @@ class $MoodTrackTable extends MoodTrack
   @override
   late final GeneratedColumn<int> userId = GeneratedColumn<int>(
       'user_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES user_table (id) ON DELETE CASCADE'));
   static const VerificationMeta _imageMoodMeta =
       const VerificationMeta('imageMood');
   @override
@@ -403,11 +407,11 @@ class $MoodTrackTable extends MoodTrack
   late final GeneratedColumn<String> recordMood = GeneratedColumn<String>(
       'record_mood', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _createAtMeta =
-      const VerificationMeta('createAt');
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
   @override
-  late final GeneratedColumn<DateTime> createAt = GeneratedColumn<DateTime>(
-      'create_at', aliasedName, false,
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
       generatedAs: GeneratedAs(currentDateAndTime, false),
       type: DriftSqlType.dateTime,
       requiredDuringInsert: false);
@@ -421,14 +425,14 @@ class $MoodTrackTable extends MoodTrack
       requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, userId, imageMood, recordMood, createAt, updatedAt];
+      [id, userId, imageMood, recordMood, createdAt, updatedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'mood_track';
+  static const String $name = 'mood_track_table';
   @override
-  VerificationContext validateIntegrity(Insertable<MoodTrackData> instance,
+  VerificationContext validateIntegrity(Insertable<MoodTrackTableData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -455,9 +459,9 @@ class $MoodTrackTable extends MoodTrack
     } else if (isInserting) {
       context.missing(_recordMoodMeta);
     }
-    if (data.containsKey('create_at')) {
-      context.handle(_createAtMeta,
-          createAt.isAcceptableOrUnknown(data['create_at']!, _createAtMeta));
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
       context.handle(_updatedAtMeta,
@@ -469,9 +473,9 @@ class $MoodTrackTable extends MoodTrack
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  MoodTrackData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  MoodTrackTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return MoodTrackData(
+    return MoodTrackTableData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       userId: attachedDatabase.typeMapping
@@ -480,32 +484,33 @@ class $MoodTrackTable extends MoodTrack
           .read(DriftSqlType.string, data['${effectivePrefix}image_mood'])!,
       recordMood: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}record_mood'])!,
-      createAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}create_at'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       updatedAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
   @override
-  $MoodTrackTable createAlias(String alias) {
-    return $MoodTrackTable(attachedDatabase, alias);
+  $MoodTrackTableTable createAlias(String alias) {
+    return $MoodTrackTableTable(attachedDatabase, alias);
   }
 }
 
-class MoodTrackData extends DataClass implements Insertable<MoodTrackData> {
+class MoodTrackTableData extends DataClass
+    implements Insertable<MoodTrackTableData> {
   final int id;
   final int userId;
   final String imageMood;
   final String recordMood;
-  final DateTime createAt;
+  final DateTime createdAt;
   final DateTime updatedAt;
-  const MoodTrackData(
+  const MoodTrackTableData(
       {required this.id,
       required this.userId,
       required this.imageMood,
       required this.recordMood,
-      required this.createAt,
+      required this.createdAt,
       required this.updatedAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -517,8 +522,8 @@ class MoodTrackData extends DataClass implements Insertable<MoodTrackData> {
     return map;
   }
 
-  MoodTrackCompanion toCompanion(bool nullToAbsent) {
-    return MoodTrackCompanion(
+  MoodTrackTableCompanion toCompanion(bool nullToAbsent) {
+    return MoodTrackTableCompanion(
       id: Value(id),
       userId: Value(userId),
       imageMood: Value(imageMood),
@@ -526,15 +531,15 @@ class MoodTrackData extends DataClass implements Insertable<MoodTrackData> {
     );
   }
 
-  factory MoodTrackData.fromJson(Map<String, dynamic> json,
+  factory MoodTrackTableData.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return MoodTrackData(
+    return MoodTrackTableData(
       id: serializer.fromJson<int>(json['id']),
       userId: serializer.fromJson<int>(json['userId']),
       imageMood: serializer.fromJson<String>(json['imageMood']),
       recordMood: serializer.fromJson<String>(json['recordMood']),
-      createAt: serializer.fromJson<DateTime>(json['createAt']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
   }
@@ -546,34 +551,34 @@ class MoodTrackData extends DataClass implements Insertable<MoodTrackData> {
       'userId': serializer.toJson<int>(userId),
       'imageMood': serializer.toJson<String>(imageMood),
       'recordMood': serializer.toJson<String>(recordMood),
-      'createAt': serializer.toJson<DateTime>(createAt),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
   }
 
-  MoodTrackData copyWith(
+  MoodTrackTableData copyWith(
           {int? id,
           int? userId,
           String? imageMood,
           String? recordMood,
-          DateTime? createAt,
+          DateTime? createdAt,
           DateTime? updatedAt}) =>
-      MoodTrackData(
+      MoodTrackTableData(
         id: id ?? this.id,
         userId: userId ?? this.userId,
         imageMood: imageMood ?? this.imageMood,
         recordMood: recordMood ?? this.recordMood,
-        createAt: createAt ?? this.createAt,
+        createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
   @override
   String toString() {
-    return (StringBuffer('MoodTrackData(')
+    return (StringBuffer('MoodTrackTableData(')
           ..write('id: $id, ')
           ..write('userId: $userId, ')
           ..write('imageMood: $imageMood, ')
           ..write('recordMood: $recordMood, ')
-          ..write('createAt: $createAt, ')
+          ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
@@ -581,31 +586,31 @@ class MoodTrackData extends DataClass implements Insertable<MoodTrackData> {
 
   @override
   int get hashCode =>
-      Object.hash(id, userId, imageMood, recordMood, createAt, updatedAt);
+      Object.hash(id, userId, imageMood, recordMood, createdAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is MoodTrackData &&
+      (other is MoodTrackTableData &&
           other.id == this.id &&
           other.userId == this.userId &&
           other.imageMood == this.imageMood &&
           other.recordMood == this.recordMood &&
-          other.createAt == this.createAt &&
+          other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
 }
 
-class MoodTrackCompanion extends UpdateCompanion<MoodTrackData> {
+class MoodTrackTableCompanion extends UpdateCompanion<MoodTrackTableData> {
   final Value<int> id;
   final Value<int> userId;
   final Value<String> imageMood;
   final Value<String> recordMood;
-  const MoodTrackCompanion({
+  const MoodTrackTableCompanion({
     this.id = const Value.absent(),
     this.userId = const Value.absent(),
     this.imageMood = const Value.absent(),
     this.recordMood = const Value.absent(),
   });
-  MoodTrackCompanion.insert({
+  MoodTrackTableCompanion.insert({
     this.id = const Value.absent(),
     required int userId,
     required String imageMood,
@@ -613,7 +618,7 @@ class MoodTrackCompanion extends UpdateCompanion<MoodTrackData> {
   })  : userId = Value(userId),
         imageMood = Value(imageMood),
         recordMood = Value(recordMood);
-  static Insertable<MoodTrackData> custom({
+  static Insertable<MoodTrackTableData> custom({
     Expression<int>? id,
     Expression<int>? userId,
     Expression<String>? imageMood,
@@ -627,12 +632,12 @@ class MoodTrackCompanion extends UpdateCompanion<MoodTrackData> {
     });
   }
 
-  MoodTrackCompanion copyWith(
+  MoodTrackTableCompanion copyWith(
       {Value<int>? id,
       Value<int>? userId,
       Value<String>? imageMood,
       Value<String>? recordMood}) {
-    return MoodTrackCompanion(
+    return MoodTrackTableCompanion(
       id: id ?? this.id,
       userId: userId ?? this.userId,
       imageMood: imageMood ?? this.imageMood,
@@ -660,7 +665,7 @@ class MoodTrackCompanion extends UpdateCompanion<MoodTrackData> {
 
   @override
   String toString() {
-    return (StringBuffer('MoodTrackCompanion(')
+    return (StringBuffer('MoodTrackTableCompanion(')
           ..write('id: $id, ')
           ..write('userId: $userId, ')
           ..write('imageMood: $imageMood, ')
@@ -670,19 +675,902 @@ class MoodTrackCompanion extends UpdateCompanion<MoodTrackData> {
   }
 }
 
+class $ActivityGroupTableTable extends ActivityGroupTable
+    with TableInfo<$ActivityGroupTableTable, ActivityGroupTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ActivityGroupTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _imageMeta = const VerificationMeta('image');
+  @override
+  late final GeneratedColumn<String> image = GeneratedColumn<String>(
+      'image', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      generatedAs: GeneratedAs(currentDateAndTime, false),
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      generatedAs: GeneratedAs(currentDateAndTime, false),
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [id, name, image, createdAt, updatedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'activity_group_table';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ActivityGroupTableData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('image')) {
+      context.handle(
+          _imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
+    } else if (isInserting) {
+      context.missing(_imageMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ActivityGroupTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ActivityGroupTableData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      image: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}image'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $ActivityGroupTableTable createAlias(String alias) {
+    return $ActivityGroupTableTable(attachedDatabase, alias);
+  }
+}
+
+class ActivityGroupTableData extends DataClass
+    implements Insertable<ActivityGroupTableData> {
+  final int id;
+  final String name;
+  final String image;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const ActivityGroupTableData(
+      {required this.id,
+      required this.name,
+      required this.image,
+      required this.createdAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['image'] = Variable<String>(image);
+    return map;
+  }
+
+  ActivityGroupTableCompanion toCompanion(bool nullToAbsent) {
+    return ActivityGroupTableCompanion(
+      id: Value(id),
+      name: Value(name),
+      image: Value(image),
+    );
+  }
+
+  factory ActivityGroupTableData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ActivityGroupTableData(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      image: serializer.fromJson<String>(json['image']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'image': serializer.toJson<String>(image),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  ActivityGroupTableData copyWith(
+          {int? id,
+          String? name,
+          String? image,
+          DateTime? createdAt,
+          DateTime? updatedAt}) =>
+      ActivityGroupTableData(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        image: image ?? this.image,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ActivityGroupTableData(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('image: $image, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, image, createdAt, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ActivityGroupTableData &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.image == this.image &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class ActivityGroupTableCompanion
+    extends UpdateCompanion<ActivityGroupTableData> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> image;
+  const ActivityGroupTableCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.image = const Value.absent(),
+  });
+  ActivityGroupTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String image,
+  })  : name = Value(name),
+        image = Value(image);
+  static Insertable<ActivityGroupTableData> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? image,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (image != null) 'image': image,
+    });
+  }
+
+  ActivityGroupTableCompanion copyWith(
+      {Value<int>? id, Value<String>? name, Value<String>? image}) {
+    return ActivityGroupTableCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      image: image ?? this.image,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (image.present) {
+      map['image'] = Variable<String>(image.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ActivityGroupTableCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('image: $image')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ActivityTableTable extends ActivityTable
+    with TableInfo<$ActivityTableTable, ActivityTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ActivityTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _imageMeta = const VerificationMeta('image');
+  @override
+  late final GeneratedColumn<String> image = GeneratedColumn<String>(
+      'image', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _activityGroupIdMeta =
+      const VerificationMeta('activityGroupId');
+  @override
+  late final GeneratedColumn<int> activityGroupId = GeneratedColumn<int>(
+      'activity_group_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES activity_group_table (id) ON DELETE CASCADE'));
+  static const VerificationMeta _createAtMeta =
+      const VerificationMeta('createAt');
+  @override
+  late final GeneratedColumn<DateTime> createAt = GeneratedColumn<DateTime>(
+      'create_at', aliasedName, false,
+      generatedAs: GeneratedAs(currentDateAndTime, false),
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      generatedAs: GeneratedAs(currentDateAndTime, false),
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, name, image, activityGroupId, createAt, updatedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'activity_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<ActivityTableData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('image')) {
+      context.handle(
+          _imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
+    } else if (isInserting) {
+      context.missing(_imageMeta);
+    }
+    if (data.containsKey('activity_group_id')) {
+      context.handle(
+          _activityGroupIdMeta,
+          activityGroupId.isAcceptableOrUnknown(
+              data['activity_group_id']!, _activityGroupIdMeta));
+    } else if (isInserting) {
+      context.missing(_activityGroupIdMeta);
+    }
+    if (data.containsKey('create_at')) {
+      context.handle(_createAtMeta,
+          createAt.isAcceptableOrUnknown(data['create_at']!, _createAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ActivityTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ActivityTableData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      image: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}image'])!,
+      activityGroupId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}activity_group_id'])!,
+      createAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}create_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $ActivityTableTable createAlias(String alias) {
+    return $ActivityTableTable(attachedDatabase, alias);
+  }
+}
+
+class ActivityTableData extends DataClass
+    implements Insertable<ActivityTableData> {
+  final int id;
+  final String name;
+  final String image;
+  final int activityGroupId;
+  final DateTime createAt;
+  final DateTime updatedAt;
+  const ActivityTableData(
+      {required this.id,
+      required this.name,
+      required this.image,
+      required this.activityGroupId,
+      required this.createAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['image'] = Variable<String>(image);
+    map['activity_group_id'] = Variable<int>(activityGroupId);
+    return map;
+  }
+
+  ActivityTableCompanion toCompanion(bool nullToAbsent) {
+    return ActivityTableCompanion(
+      id: Value(id),
+      name: Value(name),
+      image: Value(image),
+      activityGroupId: Value(activityGroupId),
+    );
+  }
+
+  factory ActivityTableData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ActivityTableData(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      image: serializer.fromJson<String>(json['image']),
+      activityGroupId: serializer.fromJson<int>(json['activityGroupId']),
+      createAt: serializer.fromJson<DateTime>(json['createAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'image': serializer.toJson<String>(image),
+      'activityGroupId': serializer.toJson<int>(activityGroupId),
+      'createAt': serializer.toJson<DateTime>(createAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  ActivityTableData copyWith(
+          {int? id,
+          String? name,
+          String? image,
+          int? activityGroupId,
+          DateTime? createAt,
+          DateTime? updatedAt}) =>
+      ActivityTableData(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        image: image ?? this.image,
+        activityGroupId: activityGroupId ?? this.activityGroupId,
+        createAt: createAt ?? this.createAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ActivityTableData(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('image: $image, ')
+          ..write('activityGroupId: $activityGroupId, ')
+          ..write('createAt: $createAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, name, image, activityGroupId, createAt, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ActivityTableData &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.image == this.image &&
+          other.activityGroupId == this.activityGroupId &&
+          other.createAt == this.createAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class ActivityTableCompanion extends UpdateCompanion<ActivityTableData> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> image;
+  final Value<int> activityGroupId;
+  const ActivityTableCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.image = const Value.absent(),
+    this.activityGroupId = const Value.absent(),
+  });
+  ActivityTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String image,
+    required int activityGroupId,
+  })  : name = Value(name),
+        image = Value(image),
+        activityGroupId = Value(activityGroupId);
+  static Insertable<ActivityTableData> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? image,
+    Expression<int>? activityGroupId,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (image != null) 'image': image,
+      if (activityGroupId != null) 'activity_group_id': activityGroupId,
+    });
+  }
+
+  ActivityTableCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? name,
+      Value<String>? image,
+      Value<int>? activityGroupId}) {
+    return ActivityTableCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      image: image ?? this.image,
+      activityGroupId: activityGroupId ?? this.activityGroupId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (image.present) {
+      map['image'] = Variable<String>(image.value);
+    }
+    if (activityGroupId.present) {
+      map['activity_group_id'] = Variable<int>(activityGroupId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ActivityTableCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('image: $image, ')
+          ..write('activityGroupId: $activityGroupId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $MoodActivityRelationTableTable extends MoodActivityRelationTable
+    with
+        TableInfo<$MoodActivityRelationTableTable,
+            MoodActivityRelationTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MoodActivityRelationTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _moodTrackIdMeta =
+      const VerificationMeta('moodTrackId');
+  @override
+  late final GeneratedColumn<int> moodTrackId = GeneratedColumn<int>(
+      'mood_track_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES mood_track_table (id) ON DELETE CASCADE'));
+  static const VerificationMeta _activityIdMeta =
+      const VerificationMeta('activityId');
+  @override
+  late final GeneratedColumn<int> activityId = GeneratedColumn<int>(
+      'activity_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES activity_table (id) ON DELETE CASCADE'));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      generatedAs: GeneratedAs(currentDateAndTime, false),
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      generatedAs: GeneratedAs(currentDateAndTime, false),
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, moodTrackId, activityId, createdAt, updatedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'mood_activity_relation_table';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<MoodActivityRelationTableData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('mood_track_id')) {
+      context.handle(
+          _moodTrackIdMeta,
+          moodTrackId.isAcceptableOrUnknown(
+              data['mood_track_id']!, _moodTrackIdMeta));
+    } else if (isInserting) {
+      context.missing(_moodTrackIdMeta);
+    }
+    if (data.containsKey('activity_id')) {
+      context.handle(
+          _activityIdMeta,
+          activityId.isAcceptableOrUnknown(
+              data['activity_id']!, _activityIdMeta));
+    } else if (isInserting) {
+      context.missing(_activityIdMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MoodActivityRelationTableData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MoodActivityRelationTableData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      moodTrackId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}mood_track_id'])!,
+      activityId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}activity_id'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $MoodActivityRelationTableTable createAlias(String alias) {
+    return $MoodActivityRelationTableTable(attachedDatabase, alias);
+  }
+}
+
+class MoodActivityRelationTableData extends DataClass
+    implements Insertable<MoodActivityRelationTableData> {
+  final int id;
+  final int moodTrackId;
+  final int activityId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const MoodActivityRelationTableData(
+      {required this.id,
+      required this.moodTrackId,
+      required this.activityId,
+      required this.createdAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['mood_track_id'] = Variable<int>(moodTrackId);
+    map['activity_id'] = Variable<int>(activityId);
+    return map;
+  }
+
+  MoodActivityRelationTableCompanion toCompanion(bool nullToAbsent) {
+    return MoodActivityRelationTableCompanion(
+      id: Value(id),
+      moodTrackId: Value(moodTrackId),
+      activityId: Value(activityId),
+    );
+  }
+
+  factory MoodActivityRelationTableData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MoodActivityRelationTableData(
+      id: serializer.fromJson<int>(json['id']),
+      moodTrackId: serializer.fromJson<int>(json['moodTrackId']),
+      activityId: serializer.fromJson<int>(json['activityId']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'moodTrackId': serializer.toJson<int>(moodTrackId),
+      'activityId': serializer.toJson<int>(activityId),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  MoodActivityRelationTableData copyWith(
+          {int? id,
+          int? moodTrackId,
+          int? activityId,
+          DateTime? createdAt,
+          DateTime? updatedAt}) =>
+      MoodActivityRelationTableData(
+        id: id ?? this.id,
+        moodTrackId: moodTrackId ?? this.moodTrackId,
+        activityId: activityId ?? this.activityId,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('MoodActivityRelationTableData(')
+          ..write('id: $id, ')
+          ..write('moodTrackId: $moodTrackId, ')
+          ..write('activityId: $activityId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, moodTrackId, activityId, createdAt, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MoodActivityRelationTableData &&
+          other.id == this.id &&
+          other.moodTrackId == this.moodTrackId &&
+          other.activityId == this.activityId &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class MoodActivityRelationTableCompanion
+    extends UpdateCompanion<MoodActivityRelationTableData> {
+  final Value<int> id;
+  final Value<int> moodTrackId;
+  final Value<int> activityId;
+  const MoodActivityRelationTableCompanion({
+    this.id = const Value.absent(),
+    this.moodTrackId = const Value.absent(),
+    this.activityId = const Value.absent(),
+  });
+  MoodActivityRelationTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int moodTrackId,
+    required int activityId,
+  })  : moodTrackId = Value(moodTrackId),
+        activityId = Value(activityId);
+  static Insertable<MoodActivityRelationTableData> custom({
+    Expression<int>? id,
+    Expression<int>? moodTrackId,
+    Expression<int>? activityId,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (moodTrackId != null) 'mood_track_id': moodTrackId,
+      if (activityId != null) 'activity_id': activityId,
+    });
+  }
+
+  MoodActivityRelationTableCompanion copyWith(
+      {Value<int>? id, Value<int>? moodTrackId, Value<int>? activityId}) {
+    return MoodActivityRelationTableCompanion(
+      id: id ?? this.id,
+      moodTrackId: moodTrackId ?? this.moodTrackId,
+      activityId: activityId ?? this.activityId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (moodTrackId.present) {
+      map['mood_track_id'] = Variable<int>(moodTrackId.value);
+    }
+    if (activityId.present) {
+      map['activity_id'] = Variable<int>(activityId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MoodActivityRelationTableCompanion(')
+          ..write('id: $id, ')
+          ..write('moodTrackId: $moodTrackId, ')
+          ..write('activityId: $activityId')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(e);
   $DatabaseManager get managers => $DatabaseManager(this);
-  late final $UserTable user = $UserTable(this);
-  late final $MoodTrackTable moodTrack = $MoodTrackTable(this);
+  late final $UserTableTable userTable = $UserTableTable(this);
+  late final $MoodTrackTableTable moodTrackTable = $MoodTrackTableTable(this);
+  late final $ActivityGroupTableTable activityGroupTable =
+      $ActivityGroupTableTable(this);
+  late final $ActivityTableTable activityTable = $ActivityTableTable(this);
+  late final $MoodActivityRelationTableTable moodActivityRelationTable =
+      $MoodActivityRelationTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [user, moodTrack];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+        userTable,
+        moodTrackTable,
+        activityGroupTable,
+        activityTable,
+        moodActivityRelationTable
+      ];
+  @override
+  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(
+        [
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('user_table',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('mood_track_table', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('activity_group_table',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('activity_table', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('mood_track_table',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('mood_activity_relation_table',
+                  kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('activity_table',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('mood_activity_relation_table',
+                  kind: UpdateKind.delete),
+            ],
+          ),
+        ],
+      );
 }
 
-typedef $$UserTableCreateCompanionBuilder = UserCompanion Function({
+typedef $$UserTableTableCreateCompanionBuilder = UserTableCompanion Function({
   Value<int> id,
   required String name,
   required String email,
@@ -691,7 +1579,7 @@ typedef $$UserTableCreateCompanionBuilder = UserCompanion Function({
   required int age,
   required String avatar,
 });
-typedef $$UserTableUpdateCompanionBuilder = UserCompanion Function({
+typedef $$UserTableTableUpdateCompanionBuilder = UserTableCompanion Function({
   Value<int> id,
   Value<String> name,
   Value<String> email,
@@ -701,8 +1589,29 @@ typedef $$UserTableUpdateCompanionBuilder = UserCompanion Function({
   Value<String> avatar,
 });
 
-class $$UserTableFilterComposer extends Composer<_$Database, $UserTable> {
-  $$UserTableFilterComposer({
+final class $$UserTableTableReferences
+    extends BaseReferences<_$Database, $UserTableTable, UserTableData> {
+  $$UserTableTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$MoodTrackTableTable, List<MoodTrackTableData>>
+      _moodTrackTableRefsTable(_$Database db) => MultiTypedResultKey.fromTable(
+          db.moodTrackTable,
+          aliasName:
+              $_aliasNameGenerator(db.userTable.id, db.moodTrackTable.userId));
+
+  $$MoodTrackTableTableProcessedTableManager get moodTrackTableRefs {
+    final manager = $$MoodTrackTableTableTableManager($_db, $_db.moodTrackTable)
+        .filter((f) => f.userId.id($_item.id));
+
+    final cache = $_typedResult.readTableOrNull(_moodTrackTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$UserTableTableFilterComposer
+    extends Composer<_$Database, $UserTableTable> {
+  $$UserTableTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -729,10 +1638,32 @@ class $$UserTableFilterComposer extends Composer<_$Database, $UserTable> {
 
   ColumnFilters<String> get avatar => $composableBuilder(
       column: $table.avatar, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> moodTrackTableRefs(
+      Expression<bool> Function($$MoodTrackTableTableFilterComposer f) f) {
+    final $$MoodTrackTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.moodTrackTable,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$MoodTrackTableTableFilterComposer(
+              $db: $db,
+              $table: $db.moodTrackTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
 }
 
-class $$UserTableOrderingComposer extends Composer<_$Database, $UserTable> {
-  $$UserTableOrderingComposer({
+class $$UserTableTableOrderingComposer
+    extends Composer<_$Database, $UserTableTable> {
+  $$UserTableTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -761,8 +1692,9 @@ class $$UserTableOrderingComposer extends Composer<_$Database, $UserTable> {
       column: $table.avatar, builder: (column) => ColumnOrderings(column));
 }
 
-class $$UserTableAnnotationComposer extends Composer<_$Database, $UserTable> {
-  $$UserTableAnnotationComposer({
+class $$UserTableTableAnnotationComposer
+    extends Composer<_$Database, $UserTableTable> {
+  $$UserTableTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -789,30 +1721,51 @@ class $$UserTableAnnotationComposer extends Composer<_$Database, $UserTable> {
 
   GeneratedColumn<String> get avatar =>
       $composableBuilder(column: $table.avatar, builder: (column) => column);
+
+  Expression<T> moodTrackTableRefs<T extends Object>(
+      Expression<T> Function($$MoodTrackTableTableAnnotationComposer a) f) {
+    final $$MoodTrackTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.moodTrackTable,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$MoodTrackTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.moodTrackTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
 }
 
-class $$UserTableTableManager extends RootTableManager<
+class $$UserTableTableTableManager extends RootTableManager<
     _$Database,
-    $UserTable,
-    UserData,
-    $$UserTableFilterComposer,
-    $$UserTableOrderingComposer,
-    $$UserTableAnnotationComposer,
-    $$UserTableCreateCompanionBuilder,
-    $$UserTableUpdateCompanionBuilder,
-    (UserData, BaseReferences<_$Database, $UserTable, UserData>),
-    UserData,
-    PrefetchHooks Function()> {
-  $$UserTableTableManager(_$Database db, $UserTable table)
+    $UserTableTable,
+    UserTableData,
+    $$UserTableTableFilterComposer,
+    $$UserTableTableOrderingComposer,
+    $$UserTableTableAnnotationComposer,
+    $$UserTableTableCreateCompanionBuilder,
+    $$UserTableTableUpdateCompanionBuilder,
+    (UserTableData, $$UserTableTableReferences),
+    UserTableData,
+    PrefetchHooks Function({bool moodTrackTableRefs})> {
+  $$UserTableTableTableManager(_$Database db, $UserTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$UserTableFilterComposer($db: db, $table: table),
+              $$UserTableTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$UserTableOrderingComposer($db: db, $table: table),
+              $$UserTableTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$UserTableAnnotationComposer($db: db, $table: table),
+              $$UserTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> name = const Value.absent(),
@@ -822,7 +1775,7 @@ class $$UserTableTableManager extends RootTableManager<
             Value<int> age = const Value.absent(),
             Value<String> avatar = const Value.absent(),
           }) =>
-              UserCompanion(
+              UserTableCompanion(
             id: id,
             name: name,
             email: email,
@@ -840,7 +1793,7 @@ class $$UserTableTableManager extends RootTableManager<
             required int age,
             required String avatar,
           }) =>
-              UserCompanion.insert(
+              UserTableCompanion.insert(
             id: id,
             name: name,
             email: email,
@@ -850,40 +1803,107 @@ class $$UserTableTableManager extends RootTableManager<
             avatar: avatar,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map((e) => (
+                    e.readTable(table),
+                    $$UserTableTableReferences(db, table, e)
+                  ))
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({moodTrackTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (moodTrackTableRefs) db.moodTrackTable
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (moodTrackTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$UserTableTableReferences
+                            ._moodTrackTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$UserTableTableReferences(db, table, p0)
+                                .moodTrackTableRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.userId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
         ));
 }
 
-typedef $$UserTableProcessedTableManager = ProcessedTableManager<
+typedef $$UserTableTableProcessedTableManager = ProcessedTableManager<
     _$Database,
-    $UserTable,
-    UserData,
-    $$UserTableFilterComposer,
-    $$UserTableOrderingComposer,
-    $$UserTableAnnotationComposer,
-    $$UserTableCreateCompanionBuilder,
-    $$UserTableUpdateCompanionBuilder,
-    (UserData, BaseReferences<_$Database, $UserTable, UserData>),
-    UserData,
-    PrefetchHooks Function()>;
-typedef $$MoodTrackTableCreateCompanionBuilder = MoodTrackCompanion Function({
+    $UserTableTable,
+    UserTableData,
+    $$UserTableTableFilterComposer,
+    $$UserTableTableOrderingComposer,
+    $$UserTableTableAnnotationComposer,
+    $$UserTableTableCreateCompanionBuilder,
+    $$UserTableTableUpdateCompanionBuilder,
+    (UserTableData, $$UserTableTableReferences),
+    UserTableData,
+    PrefetchHooks Function({bool moodTrackTableRefs})>;
+typedef $$MoodTrackTableTableCreateCompanionBuilder = MoodTrackTableCompanion
+    Function({
   Value<int> id,
   required int userId,
   required String imageMood,
   required String recordMood,
 });
-typedef $$MoodTrackTableUpdateCompanionBuilder = MoodTrackCompanion Function({
+typedef $$MoodTrackTableTableUpdateCompanionBuilder = MoodTrackTableCompanion
+    Function({
   Value<int> id,
   Value<int> userId,
   Value<String> imageMood,
   Value<String> recordMood,
 });
 
-class $$MoodTrackTableFilterComposer
-    extends Composer<_$Database, $MoodTrackTable> {
-  $$MoodTrackTableFilterComposer({
+final class $$MoodTrackTableTableReferences extends BaseReferences<_$Database,
+    $MoodTrackTableTable, MoodTrackTableData> {
+  $$MoodTrackTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $UserTableTable _userIdTable(_$Database db) =>
+      db.userTable.createAlias(
+          $_aliasNameGenerator(db.moodTrackTable.userId, db.userTable.id));
+
+  $$UserTableTableProcessedTableManager get userId {
+    final manager = $$UserTableTableTableManager($_db, $_db.userTable)
+        .filter((f) => f.id($_item.userId));
+    final item = $_typedResult.readTableOrNull(_userIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static MultiTypedResultKey<$MoodActivityRelationTableTable,
+      List<MoodActivityRelationTableData>> _moodActivityRelationTableRefsTable(
+          _$Database db) =>
+      MultiTypedResultKey.fromTable(db.moodActivityRelationTable,
+          aliasName: $_aliasNameGenerator(
+              db.moodTrackTable.id, db.moodActivityRelationTable.moodTrackId));
+
+  $$MoodActivityRelationTableTableProcessedTableManager
+      get moodActivityRelationTableRefs {
+    final manager = $$MoodActivityRelationTableTableTableManager(
+            $_db, $_db.moodActivityRelationTable)
+        .filter((f) => f.moodTrackId.id($_item.id));
+
+    final cache = $_typedResult
+        .readTableOrNull(_moodActivityRelationTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$MoodTrackTableTableFilterComposer
+    extends Composer<_$Database, $MoodTrackTableTable> {
+  $$MoodTrackTableTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -893,25 +1913,66 @@ class $$MoodTrackTableFilterComposer
   ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get userId => $composableBuilder(
-      column: $table.userId, builder: (column) => ColumnFilters(column));
-
   ColumnFilters<String> get imageMood => $composableBuilder(
       column: $table.imageMood, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get recordMood => $composableBuilder(
       column: $table.recordMood, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createAt => $composableBuilder(
-      column: $table.createAt, builder: (column) => ColumnFilters(column));
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get updatedAt => $composableBuilder(
       column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+
+  $$UserTableTableFilterComposer get userId {
+    final $$UserTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.userTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserTableTableFilterComposer(
+              $db: $db,
+              $table: $db.userTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<bool> moodActivityRelationTableRefs(
+      Expression<bool> Function(
+              $$MoodActivityRelationTableTableFilterComposer f)
+          f) {
+    final $$MoodActivityRelationTableTableFilterComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $db.moodActivityRelationTable,
+            getReferencedColumn: (t) => t.moodTrackId,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$MoodActivityRelationTableTableFilterComposer(
+                  $db: $db,
+                  $table: $db.moodActivityRelationTable,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
 }
 
-class $$MoodTrackTableOrderingComposer
-    extends Composer<_$Database, $MoodTrackTable> {
-  $$MoodTrackTableOrderingComposer({
+class $$MoodTrackTableTableOrderingComposer
+    extends Composer<_$Database, $MoodTrackTableTable> {
+  $$MoodTrackTableTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -921,25 +1982,42 @@ class $$MoodTrackTableOrderingComposer
   ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get userId => $composableBuilder(
-      column: $table.userId, builder: (column) => ColumnOrderings(column));
-
   ColumnOrderings<String> get imageMood => $composableBuilder(
       column: $table.imageMood, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get recordMood => $composableBuilder(
       column: $table.recordMood, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createAt => $composableBuilder(
-      column: $table.createAt, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
       column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+
+  $$UserTableTableOrderingComposer get userId {
+    final $$UserTableTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.userTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserTableTableOrderingComposer(
+              $db: $db,
+              $table: $db.userTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 }
 
-class $$MoodTrackTableAnnotationComposer
-    extends Composer<_$Database, $MoodTrackTable> {
-  $$MoodTrackTableAnnotationComposer({
+class $$MoodTrackTableTableAnnotationComposer
+    extends Composer<_$Database, $MoodTrackTableTable> {
+  $$MoodTrackTableTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -949,51 +2027,92 @@ class $$MoodTrackTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get userId =>
-      $composableBuilder(column: $table.userId, builder: (column) => column);
-
   GeneratedColumn<String> get imageMood =>
       $composableBuilder(column: $table.imageMood, builder: (column) => column);
 
   GeneratedColumn<String> get recordMood => $composableBuilder(
       column: $table.recordMood, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get createAt =>
-      $composableBuilder(column: $table.createAt, builder: (column) => column);
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$UserTableTableAnnotationComposer get userId {
+    final $$UserTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.userTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UserTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.userTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<T> moodActivityRelationTableRefs<T extends Object>(
+      Expression<T> Function(
+              $$MoodActivityRelationTableTableAnnotationComposer a)
+          f) {
+    final $$MoodActivityRelationTableTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $db.moodActivityRelationTable,
+            getReferencedColumn: (t) => t.moodTrackId,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$MoodActivityRelationTableTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.moodActivityRelationTable,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
 }
 
-class $$MoodTrackTableTableManager extends RootTableManager<
+class $$MoodTrackTableTableTableManager extends RootTableManager<
     _$Database,
-    $MoodTrackTable,
-    MoodTrackData,
-    $$MoodTrackTableFilterComposer,
-    $$MoodTrackTableOrderingComposer,
-    $$MoodTrackTableAnnotationComposer,
-    $$MoodTrackTableCreateCompanionBuilder,
-    $$MoodTrackTableUpdateCompanionBuilder,
-    (MoodTrackData, BaseReferences<_$Database, $MoodTrackTable, MoodTrackData>),
-    MoodTrackData,
-    PrefetchHooks Function()> {
-  $$MoodTrackTableTableManager(_$Database db, $MoodTrackTable table)
+    $MoodTrackTableTable,
+    MoodTrackTableData,
+    $$MoodTrackTableTableFilterComposer,
+    $$MoodTrackTableTableOrderingComposer,
+    $$MoodTrackTableTableAnnotationComposer,
+    $$MoodTrackTableTableCreateCompanionBuilder,
+    $$MoodTrackTableTableUpdateCompanionBuilder,
+    (MoodTrackTableData, $$MoodTrackTableTableReferences),
+    MoodTrackTableData,
+    PrefetchHooks Function({bool userId, bool moodActivityRelationTableRefs})> {
+  $$MoodTrackTableTableTableManager(_$Database db, $MoodTrackTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$MoodTrackTableFilterComposer($db: db, $table: table),
+              $$MoodTrackTableTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$MoodTrackTableOrderingComposer($db: db, $table: table),
+              $$MoodTrackTableTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$MoodTrackTableAnnotationComposer($db: db, $table: table),
+              $$MoodTrackTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> userId = const Value.absent(),
             Value<String> imageMood = const Value.absent(),
             Value<String> recordMood = const Value.absent(),
           }) =>
-              MoodTrackCompanion(
+              MoodTrackTableCompanion(
             id: id,
             userId: userId,
             imageMood: imageMood,
@@ -1005,36 +2124,1040 @@ class $$MoodTrackTableTableManager extends RootTableManager<
             required String imageMood,
             required String recordMood,
           }) =>
-              MoodTrackCompanion.insert(
+              MoodTrackTableCompanion.insert(
             id: id,
             userId: userId,
             imageMood: imageMood,
             recordMood: recordMood,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map((e) => (
+                    e.readTable(table),
+                    $$MoodTrackTableTableReferences(db, table, e)
+                  ))
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: (
+              {userId = false, moodActivityRelationTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (moodActivityRelationTableRefs) db.moodActivityRelationTable
+              ],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (userId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.userId,
+                    referencedTable:
+                        $$MoodTrackTableTableReferences._userIdTable(db),
+                    referencedColumn:
+                        $$MoodTrackTableTableReferences._userIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (moodActivityRelationTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$MoodTrackTableTableReferences
+                            ._moodActivityRelationTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$MoodTrackTableTableReferences(db, table, p0)
+                                .moodActivityRelationTableRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.moodTrackId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
         ));
 }
 
-typedef $$MoodTrackTableProcessedTableManager = ProcessedTableManager<
+typedef $$MoodTrackTableTableProcessedTableManager = ProcessedTableManager<
     _$Database,
-    $MoodTrackTable,
-    MoodTrackData,
-    $$MoodTrackTableFilterComposer,
-    $$MoodTrackTableOrderingComposer,
-    $$MoodTrackTableAnnotationComposer,
-    $$MoodTrackTableCreateCompanionBuilder,
-    $$MoodTrackTableUpdateCompanionBuilder,
-    (MoodTrackData, BaseReferences<_$Database, $MoodTrackTable, MoodTrackData>),
-    MoodTrackData,
-    PrefetchHooks Function()>;
+    $MoodTrackTableTable,
+    MoodTrackTableData,
+    $$MoodTrackTableTableFilterComposer,
+    $$MoodTrackTableTableOrderingComposer,
+    $$MoodTrackTableTableAnnotationComposer,
+    $$MoodTrackTableTableCreateCompanionBuilder,
+    $$MoodTrackTableTableUpdateCompanionBuilder,
+    (MoodTrackTableData, $$MoodTrackTableTableReferences),
+    MoodTrackTableData,
+    PrefetchHooks Function({bool userId, bool moodActivityRelationTableRefs})>;
+typedef $$ActivityGroupTableTableCreateCompanionBuilder
+    = ActivityGroupTableCompanion Function({
+  Value<int> id,
+  required String name,
+  required String image,
+});
+typedef $$ActivityGroupTableTableUpdateCompanionBuilder
+    = ActivityGroupTableCompanion Function({
+  Value<int> id,
+  Value<String> name,
+  Value<String> image,
+});
+
+final class $$ActivityGroupTableTableReferences extends BaseReferences<
+    _$Database, $ActivityGroupTableTable, ActivityGroupTableData> {
+  $$ActivityGroupTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$ActivityTableTable, List<ActivityTableData>>
+      _activityTableRefsTable(_$Database db) =>
+          MultiTypedResultKey.fromTable(db.activityTable,
+              aliasName: $_aliasNameGenerator(
+                  db.activityGroupTable.id, db.activityTable.activityGroupId));
+
+  $$ActivityTableTableProcessedTableManager get activityTableRefs {
+    final manager = $$ActivityTableTableTableManager($_db, $_db.activityTable)
+        .filter((f) => f.activityGroupId.id($_item.id));
+
+    final cache = $_typedResult.readTableOrNull(_activityTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$ActivityGroupTableTableFilterComposer
+    extends Composer<_$Database, $ActivityGroupTableTable> {
+  $$ActivityGroupTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get image => $composableBuilder(
+      column: $table.image, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> activityTableRefs(
+      Expression<bool> Function($$ActivityTableTableFilterComposer f) f) {
+    final $$ActivityTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.activityTable,
+        getReferencedColumn: (t) => t.activityGroupId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ActivityTableTableFilterComposer(
+              $db: $db,
+              $table: $db.activityTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$ActivityGroupTableTableOrderingComposer
+    extends Composer<_$Database, $ActivityGroupTableTable> {
+  $$ActivityGroupTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get image => $composableBuilder(
+      column: $table.image, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$ActivityGroupTableTableAnnotationComposer
+    extends Composer<_$Database, $ActivityGroupTableTable> {
+  $$ActivityGroupTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get image =>
+      $composableBuilder(column: $table.image, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  Expression<T> activityTableRefs<T extends Object>(
+      Expression<T> Function($$ActivityTableTableAnnotationComposer a) f) {
+    final $$ActivityTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.activityTable,
+        getReferencedColumn: (t) => t.activityGroupId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ActivityTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.activityTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$ActivityGroupTableTableTableManager extends RootTableManager<
+    _$Database,
+    $ActivityGroupTableTable,
+    ActivityGroupTableData,
+    $$ActivityGroupTableTableFilterComposer,
+    $$ActivityGroupTableTableOrderingComposer,
+    $$ActivityGroupTableTableAnnotationComposer,
+    $$ActivityGroupTableTableCreateCompanionBuilder,
+    $$ActivityGroupTableTableUpdateCompanionBuilder,
+    (ActivityGroupTableData, $$ActivityGroupTableTableReferences),
+    ActivityGroupTableData,
+    PrefetchHooks Function({bool activityTableRefs})> {
+  $$ActivityGroupTableTableTableManager(
+      _$Database db, $ActivityGroupTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ActivityGroupTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ActivityGroupTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ActivityGroupTableTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> image = const Value.absent(),
+          }) =>
+              ActivityGroupTableCompanion(
+            id: id,
+            name: name,
+            image: image,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String name,
+            required String image,
+          }) =>
+              ActivityGroupTableCompanion.insert(
+            id: id,
+            name: name,
+            image: image,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$ActivityGroupTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({activityTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (activityTableRefs) db.activityTable
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (activityTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$ActivityGroupTableTableReferences
+                            ._activityTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$ActivityGroupTableTableReferences(db, table, p0)
+                                .activityTableRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.activityGroupId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$ActivityGroupTableTableProcessedTableManager = ProcessedTableManager<
+    _$Database,
+    $ActivityGroupTableTable,
+    ActivityGroupTableData,
+    $$ActivityGroupTableTableFilterComposer,
+    $$ActivityGroupTableTableOrderingComposer,
+    $$ActivityGroupTableTableAnnotationComposer,
+    $$ActivityGroupTableTableCreateCompanionBuilder,
+    $$ActivityGroupTableTableUpdateCompanionBuilder,
+    (ActivityGroupTableData, $$ActivityGroupTableTableReferences),
+    ActivityGroupTableData,
+    PrefetchHooks Function({bool activityTableRefs})>;
+typedef $$ActivityTableTableCreateCompanionBuilder = ActivityTableCompanion
+    Function({
+  Value<int> id,
+  required String name,
+  required String image,
+  required int activityGroupId,
+});
+typedef $$ActivityTableTableUpdateCompanionBuilder = ActivityTableCompanion
+    Function({
+  Value<int> id,
+  Value<String> name,
+  Value<String> image,
+  Value<int> activityGroupId,
+});
+
+final class $$ActivityTableTableReferences
+    extends BaseReferences<_$Database, $ActivityTableTable, ActivityTableData> {
+  $$ActivityTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $ActivityGroupTableTable _activityGroupIdTable(_$Database db) =>
+      db.activityGroupTable.createAlias($_aliasNameGenerator(
+          db.activityTable.activityGroupId, db.activityGroupTable.id));
+
+  $$ActivityGroupTableTableProcessedTableManager get activityGroupId {
+    final manager =
+        $$ActivityGroupTableTableTableManager($_db, $_db.activityGroupTable)
+            .filter((f) => f.id($_item.activityGroupId));
+    final item = $_typedResult.readTableOrNull(_activityGroupIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static MultiTypedResultKey<$MoodActivityRelationTableTable,
+      List<MoodActivityRelationTableData>> _moodActivityRelationTableRefsTable(
+          _$Database db) =>
+      MultiTypedResultKey.fromTable(db.moodActivityRelationTable,
+          aliasName: $_aliasNameGenerator(
+              db.activityTable.id, db.moodActivityRelationTable.activityId));
+
+  $$MoodActivityRelationTableTableProcessedTableManager
+      get moodActivityRelationTableRefs {
+    final manager = $$MoodActivityRelationTableTableTableManager(
+            $_db, $_db.moodActivityRelationTable)
+        .filter((f) => f.activityId.id($_item.id));
+
+    final cache = $_typedResult
+        .readTableOrNull(_moodActivityRelationTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$ActivityTableTableFilterComposer
+    extends Composer<_$Database, $ActivityTableTable> {
+  $$ActivityTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get image => $composableBuilder(
+      column: $table.image, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createAt => $composableBuilder(
+      column: $table.createAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+
+  $$ActivityGroupTableTableFilterComposer get activityGroupId {
+    final $$ActivityGroupTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.activityGroupId,
+        referencedTable: $db.activityGroupTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ActivityGroupTableTableFilterComposer(
+              $db: $db,
+              $table: $db.activityGroupTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<bool> moodActivityRelationTableRefs(
+      Expression<bool> Function(
+              $$MoodActivityRelationTableTableFilterComposer f)
+          f) {
+    final $$MoodActivityRelationTableTableFilterComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $db.moodActivityRelationTable,
+            getReferencedColumn: (t) => t.activityId,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$MoodActivityRelationTableTableFilterComposer(
+                  $db: $db,
+                  $table: $db.moodActivityRelationTable,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
+}
+
+class $$ActivityTableTableOrderingComposer
+    extends Composer<_$Database, $ActivityTableTable> {
+  $$ActivityTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get image => $composableBuilder(
+      column: $table.image, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createAt => $composableBuilder(
+      column: $table.createAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+
+  $$ActivityGroupTableTableOrderingComposer get activityGroupId {
+    final $$ActivityGroupTableTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.activityGroupId,
+        referencedTable: $db.activityGroupTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ActivityGroupTableTableOrderingComposer(
+              $db: $db,
+              $table: $db.activityGroupTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$ActivityTableTableAnnotationComposer
+    extends Composer<_$Database, $ActivityTableTable> {
+  $$ActivityTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get image =>
+      $composableBuilder(column: $table.image, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createAt =>
+      $composableBuilder(column: $table.createAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$ActivityGroupTableTableAnnotationComposer get activityGroupId {
+    final $$ActivityGroupTableTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.activityGroupId,
+            referencedTable: $db.activityGroupTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$ActivityGroupTableTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.activityGroupTable,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return composer;
+  }
+
+  Expression<T> moodActivityRelationTableRefs<T extends Object>(
+      Expression<T> Function(
+              $$MoodActivityRelationTableTableAnnotationComposer a)
+          f) {
+    final $$MoodActivityRelationTableTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $db.moodActivityRelationTable,
+            getReferencedColumn: (t) => t.activityId,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$MoodActivityRelationTableTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.moodActivityRelationTable,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
+}
+
+class $$ActivityTableTableTableManager extends RootTableManager<
+    _$Database,
+    $ActivityTableTable,
+    ActivityTableData,
+    $$ActivityTableTableFilterComposer,
+    $$ActivityTableTableOrderingComposer,
+    $$ActivityTableTableAnnotationComposer,
+    $$ActivityTableTableCreateCompanionBuilder,
+    $$ActivityTableTableUpdateCompanionBuilder,
+    (ActivityTableData, $$ActivityTableTableReferences),
+    ActivityTableData,
+    PrefetchHooks Function(
+        {bool activityGroupId, bool moodActivityRelationTableRefs})> {
+  $$ActivityTableTableTableManager(_$Database db, $ActivityTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ActivityTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ActivityTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ActivityTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> image = const Value.absent(),
+            Value<int> activityGroupId = const Value.absent(),
+          }) =>
+              ActivityTableCompanion(
+            id: id,
+            name: name,
+            image: image,
+            activityGroupId: activityGroupId,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String name,
+            required String image,
+            required int activityGroupId,
+          }) =>
+              ActivityTableCompanion.insert(
+            id: id,
+            name: name,
+            image: image,
+            activityGroupId: activityGroupId,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$ActivityTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: (
+              {activityGroupId = false,
+              moodActivityRelationTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (moodActivityRelationTableRefs) db.moodActivityRelationTable
+              ],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (activityGroupId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.activityGroupId,
+                    referencedTable: $$ActivityTableTableReferences
+                        ._activityGroupIdTable(db),
+                    referencedColumn: $$ActivityTableTableReferences
+                        ._activityGroupIdTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (moodActivityRelationTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$ActivityTableTableReferences
+                            ._moodActivityRelationTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$ActivityTableTableReferences(db, table, p0)
+                                .moodActivityRelationTableRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.activityId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$ActivityTableTableProcessedTableManager = ProcessedTableManager<
+    _$Database,
+    $ActivityTableTable,
+    ActivityTableData,
+    $$ActivityTableTableFilterComposer,
+    $$ActivityTableTableOrderingComposer,
+    $$ActivityTableTableAnnotationComposer,
+    $$ActivityTableTableCreateCompanionBuilder,
+    $$ActivityTableTableUpdateCompanionBuilder,
+    (ActivityTableData, $$ActivityTableTableReferences),
+    ActivityTableData,
+    PrefetchHooks Function(
+        {bool activityGroupId, bool moodActivityRelationTableRefs})>;
+typedef $$MoodActivityRelationTableTableCreateCompanionBuilder
+    = MoodActivityRelationTableCompanion Function({
+  Value<int> id,
+  required int moodTrackId,
+  required int activityId,
+});
+typedef $$MoodActivityRelationTableTableUpdateCompanionBuilder
+    = MoodActivityRelationTableCompanion Function({
+  Value<int> id,
+  Value<int> moodTrackId,
+  Value<int> activityId,
+});
+
+final class $$MoodActivityRelationTableTableReferences extends BaseReferences<
+    _$Database,
+    $MoodActivityRelationTableTable,
+    MoodActivityRelationTableData> {
+  $$MoodActivityRelationTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $MoodTrackTableTable _moodTrackIdTable(_$Database db) =>
+      db.moodTrackTable.createAlias($_aliasNameGenerator(
+          db.moodActivityRelationTable.moodTrackId, db.moodTrackTable.id));
+
+  $$MoodTrackTableTableProcessedTableManager get moodTrackId {
+    final manager = $$MoodTrackTableTableTableManager($_db, $_db.moodTrackTable)
+        .filter((f) => f.id($_item.moodTrackId));
+    final item = $_typedResult.readTableOrNull(_moodTrackIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $ActivityTableTable _activityIdTable(_$Database db) =>
+      db.activityTable.createAlias($_aliasNameGenerator(
+          db.moodActivityRelationTable.activityId, db.activityTable.id));
+
+  $$ActivityTableTableProcessedTableManager get activityId {
+    final manager = $$ActivityTableTableTableManager($_db, $_db.activityTable)
+        .filter((f) => f.id($_item.activityId));
+    final item = $_typedResult.readTableOrNull(_activityIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$MoodActivityRelationTableTableFilterComposer
+    extends Composer<_$Database, $MoodActivityRelationTableTable> {
+  $$MoodActivityRelationTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+
+  $$MoodTrackTableTableFilterComposer get moodTrackId {
+    final $$MoodTrackTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.moodTrackId,
+        referencedTable: $db.moodTrackTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$MoodTrackTableTableFilterComposer(
+              $db: $db,
+              $table: $db.moodTrackTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$ActivityTableTableFilterComposer get activityId {
+    final $$ActivityTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.activityId,
+        referencedTable: $db.activityTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ActivityTableTableFilterComposer(
+              $db: $db,
+              $table: $db.activityTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$MoodActivityRelationTableTableOrderingComposer
+    extends Composer<_$Database, $MoodActivityRelationTableTable> {
+  $$MoodActivityRelationTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+
+  $$MoodTrackTableTableOrderingComposer get moodTrackId {
+    final $$MoodTrackTableTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.moodTrackId,
+        referencedTable: $db.moodTrackTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$MoodTrackTableTableOrderingComposer(
+              $db: $db,
+              $table: $db.moodTrackTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$ActivityTableTableOrderingComposer get activityId {
+    final $$ActivityTableTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.activityId,
+        referencedTable: $db.activityTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ActivityTableTableOrderingComposer(
+              $db: $db,
+              $table: $db.activityTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$MoodActivityRelationTableTableAnnotationComposer
+    extends Composer<_$Database, $MoodActivityRelationTableTable> {
+  $$MoodActivityRelationTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$MoodTrackTableTableAnnotationComposer get moodTrackId {
+    final $$MoodTrackTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.moodTrackId,
+        referencedTable: $db.moodTrackTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$MoodTrackTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.moodTrackTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$ActivityTableTableAnnotationComposer get activityId {
+    final $$ActivityTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.activityId,
+        referencedTable: $db.activityTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ActivityTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.activityTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$MoodActivityRelationTableTableTableManager extends RootTableManager<
+    _$Database,
+    $MoodActivityRelationTableTable,
+    MoodActivityRelationTableData,
+    $$MoodActivityRelationTableTableFilterComposer,
+    $$MoodActivityRelationTableTableOrderingComposer,
+    $$MoodActivityRelationTableTableAnnotationComposer,
+    $$MoodActivityRelationTableTableCreateCompanionBuilder,
+    $$MoodActivityRelationTableTableUpdateCompanionBuilder,
+    (MoodActivityRelationTableData, $$MoodActivityRelationTableTableReferences),
+    MoodActivityRelationTableData,
+    PrefetchHooks Function({bool moodTrackId, bool activityId})> {
+  $$MoodActivityRelationTableTableTableManager(
+      _$Database db, $MoodActivityRelationTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MoodActivityRelationTableTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MoodActivityRelationTableTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MoodActivityRelationTableTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> moodTrackId = const Value.absent(),
+            Value<int> activityId = const Value.absent(),
+          }) =>
+              MoodActivityRelationTableCompanion(
+            id: id,
+            moodTrackId: moodTrackId,
+            activityId: activityId,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int moodTrackId,
+            required int activityId,
+          }) =>
+              MoodActivityRelationTableCompanion.insert(
+            id: id,
+            moodTrackId: moodTrackId,
+            activityId: activityId,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$MoodActivityRelationTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({moodTrackId = false, activityId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (moodTrackId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.moodTrackId,
+                    referencedTable: $$MoodActivityRelationTableTableReferences
+                        ._moodTrackIdTable(db),
+                    referencedColumn: $$MoodActivityRelationTableTableReferences
+                        ._moodTrackIdTable(db)
+                        .id,
+                  ) as T;
+                }
+                if (activityId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.activityId,
+                    referencedTable: $$MoodActivityRelationTableTableReferences
+                        ._activityIdTable(db),
+                    referencedColumn: $$MoodActivityRelationTableTableReferences
+                        ._activityIdTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$MoodActivityRelationTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$Database,
+        $MoodActivityRelationTableTable,
+        MoodActivityRelationTableData,
+        $$MoodActivityRelationTableTableFilterComposer,
+        $$MoodActivityRelationTableTableOrderingComposer,
+        $$MoodActivityRelationTableTableAnnotationComposer,
+        $$MoodActivityRelationTableTableCreateCompanionBuilder,
+        $$MoodActivityRelationTableTableUpdateCompanionBuilder,
+        (
+          MoodActivityRelationTableData,
+          $$MoodActivityRelationTableTableReferences
+        ),
+        MoodActivityRelationTableData,
+        PrefetchHooks Function({bool moodTrackId, bool activityId})>;
 
 class $DatabaseManager {
   final _$Database _db;
   $DatabaseManager(this._db);
-  $$UserTableTableManager get user => $$UserTableTableManager(_db, _db.user);
-  $$MoodTrackTableTableManager get moodTrack =>
-      $$MoodTrackTableTableManager(_db, _db.moodTrack);
+  $$UserTableTableTableManager get userTable =>
+      $$UserTableTableTableManager(_db, _db.userTable);
+  $$MoodTrackTableTableTableManager get moodTrackTable =>
+      $$MoodTrackTableTableTableManager(_db, _db.moodTrackTable);
+  $$ActivityGroupTableTableTableManager get activityGroupTable =>
+      $$ActivityGroupTableTableTableManager(_db, _db.activityGroupTable);
+  $$ActivityTableTableTableManager get activityTable =>
+      $$ActivityTableTableTableManager(_db, _db.activityTable);
+  $$MoodActivityRelationTableTableTableManager get moodActivityRelationTable =>
+      $$MoodActivityRelationTableTableTableManager(
+          _db, _db.moodActivityRelationTable);
 }

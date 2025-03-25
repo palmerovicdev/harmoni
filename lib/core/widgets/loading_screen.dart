@@ -50,7 +50,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
               height: 48,
               width: 48,
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.primary),
                 strokeWidth: 6,
               ),
             ),

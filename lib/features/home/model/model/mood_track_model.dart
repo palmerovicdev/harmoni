@@ -1,20 +1,7 @@
 import 'package:drift/drift.dart';
+import 'package:harmoni/features/my_profile/model/entity/user.dart';
 
-class MoodTrack extends Table {
-  IntColumn get id => integer().autoIncrement()();
-
-  IntColumn get userId => integer()();
-
-  TextColumn get imageMood => text()();
-
-  TextColumn get recordMood => text()();
-
-  DateTimeColumn get createAt => dateTime().generatedAs(currentDateAndTime)();
-
-  DateTimeColumn get updatedAt => dateTime().generatedAs(currentDateAndTime)();
-}
-
-class MoodTrackInfo {
+class MoodTrack{
   int? id;
   int? userId;
   String? imageMood;
@@ -22,7 +9,7 @@ class MoodTrackInfo {
   DateTime? createdAt;
   DateTime? updatedAt;
 
-  MoodTrackInfo({
+  MoodTrack({
     this.id,
     this.userId,
     this.createdAt,
@@ -31,8 +18,8 @@ class MoodTrackInfo {
     this.updatedAt,
   });
 
-  factory MoodTrackInfo.fromJson(Map<String, dynamic> json) {
-    return MoodTrackInfo(
+  factory MoodTrack.fromJson(Map<String, dynamic> json) {
+    return MoodTrack(
       id: json['id'] as int,
       userId: json['userId'] as int,
       imageMood: json['imageMood'] as String,
