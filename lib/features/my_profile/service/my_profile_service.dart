@@ -13,7 +13,7 @@ class MyProfileService {
 
   MyProfileService({required MyProfileRepository myProfileRepository}) : _myProfileRepository = myProfileRepository;
 
-  init(UserTableData? user) async {
+  init(User? user) async {
     if (user == null) return;
     userProfile = User.fromJson(user.toJson());
   }
@@ -39,7 +39,7 @@ class MyProfileService {
     return true;
   }
 
-  Future<UserTableData?> getUserProfileByName(String name) async {
+  Future<User?> getUserProfileByName(String name) async {
     return await _myProfileRepository.getUserProfileByName(name);
   }
 
@@ -106,7 +106,7 @@ class MyProfileService {
     return isValid;
   }
 
-  Future<UserTableData?> getUserProfileByEmail(String email) async {
+  Future<User?> getUserProfileByEmail(String email) async {
     return await _myProfileRepository.getUserProfileByEmail(email);
   }
 }

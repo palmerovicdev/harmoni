@@ -1,29 +1,27 @@
+import 'package:drift/drift.dart';
 import 'package:harmoni/core/helpers/database.dart';
-import 'package:harmoni/features/home/model/entity/activity.dart';
-import 'package:harmoni/features/home/model/entity/activity_group.dart';
-import 'package:harmoni/features/home/model/entity/mood_activity_relation.dart';
-import 'package:harmoni/features/home/model/entity/mood_track.dart';
+import 'package:harmoni/features/home/model/mapper.dart';
 
 import '../../model/model/activity_group_model.dart';
 import '../../model/model/activity_model.dart';
 import '../../model/model/mood_activity_relation_model.dart';
 
 abstract class HomeApi {
-  Future<List<ActivityTable>> getActivitiesByMoodIds(List<int> moodIds);
+  Future<List<ActivityTableData>> getActivitiesByMoodIds(List<int> moodIds);
 
-  Future<List<MoodTrackTable>> getMoodsByUserId(int userId);
+  Future<List<MoodTrackTableData>> getMoodsByUserId(int userId);
 
-  Future<List<MoodTrackTable>> getMoodsByUserIdAndCreatedAt(int userId, DateTime startDate, {DateTime? endDate});
+  Future<List<MoodTrackTableData>> getMoodsByUserIdAndCreatedAt(int userId, DateTime startDate, {DateTime? endDate});
 
-  Future<List<ActivityGroupTable>> getActivityGroups();
+  Future<List<ActivityGroupTableData>> getActivityGroups();
 
-  Future<List<ActivityTable>> getActivitiesByGroupsIds(List<int> groupIds);
+  Future<List<ActivityTableData>> getActivitiesByGroupsIds(List<int> groupIds);
 
-  Future<bool> saveActivity(int activityGroupId, Activity activity);
+  Future<void> saveActivity(int activityGroupId, Activity activity);
 
-  Future<bool> saveActivityGroup(ActivityGroup activityGroup);
+  Future<void> saveActivityGroup(ActivityGroup activityGroup);
 
-  Future<bool> saveMoodActivityRelation(MoodActivityRelation moodActivityRelation);
+  Future<void> saveMoodActivityRelation(MoodActivityRelation moodActivityRelation);
 }
 
 class HomeApiImpl implements HomeApi {
@@ -32,53 +30,53 @@ class HomeApiImpl implements HomeApi {
   HomeApiImpl({required Database connection}) : _connection = connection;
 
   @override
-  Future<List<ActivityTable>> getActivitiesByMoodIds(List<int> moodIds) async {
-    var activityIds = (await (_connection.select(_connection.moodActivityRelationTable)
-      ..where((tbl) => tbl.moodTrackId.isIn(moodIds))
-      ).get()).map((e) => e.activityId).toList();
-    var activities = await (_connection.select(_connection.activityTable)..where((tbl) => tbl.id.isIn(activityIds))).get();
-    throw UnimplementedError();
+  Future<List<ActivityTableData>> getActivitiesByMoodIds(List<int> moodIds) {
+    final query = _connection.select(_connection.activityTable).join([
+      innerJoin(
+        _connection.moodActivityRelationTable,
+        _connection.moodActivityRelationTable.activityId.equalsExp(_connection.activityTable.id),
+      ),
+    ])
+      ..where(_connection.moodActivityRelationTable.moodTrackId.isIn(moodIds));
+
+    return query.map((row) => row.readTable(_connection.activityTable)).get();
   }
 
   @override
-  Future<List<MoodTrackTable>> getMoodsByUserId(int userId) async {
-    // TODO: implement getMoodsByUserId
-    throw UnimplementedError();
+  Future<List<MoodTrackTableData>> getMoodsByUserId(int userId) async {
+    return (_connection.select(_connection.moodTrackTable)..where((tbl) => tbl.userId.equals(userId))).get();
   }
 
   @override
-  Future<List<MoodTrackTable>> getMoodsByUserIdAndCreatedAt(int userId, DateTime startDate, {DateTime? endDate}) async {
-    // TODO: implement getMoodsByUserIdAndCreatedAt
-    throw UnimplementedError();
+  Future<List<MoodTrackTableData>> getMoodsByUserIdAndCreatedAt(int userId, DateTime startDate, {DateTime? endDate}) async {
+    return (_connection.select(_connection.moodTrackTable)
+          ..where((tbl) => tbl.userId.equals(userId))
+          ..where((tbl) => endDate == null ? tbl.createdAt.isBiggerThanValue(startDate) : tbl.createdAt.isBetweenValues(startDate, endDate)))
+        .get();
   }
 
   @override
-  Future<List<ActivityGroupTable>> getActivityGroups() async {
-    // TODO: implement getActivityGroups
-    throw UnimplementedError();
+  Future<List<ActivityGroupTableData>> getActivityGroups() async {
+    return (_connection.select(_connection.activityGroupTable)).get();
   }
 
   @override
-  Future<List<ActivityTable>> getActivitiesByGroupsIds(List<int> groupIds) async {
-    // TODO: implement getActivitiesByGroupsIds
-    throw UnimplementedError();
+  Future<List<ActivityTableData>> getActivitiesByGroupsIds(List<int> groupIds) async {
+    return (_connection.select(_connection.activityTable)..where((tbl) => tbl.id.isIn(groupIds))).get();
   }
 
   @override
-  Future<bool> saveActivity(int activityGroupId, Activity activity) {
-    // TODO: implement saveActivity
-    throw UnimplementedError();
+  Future<void> saveActivity(int activityGroupId, Activity activity) {
+    return _connection.activityTable.insertOnConflictUpdate(activity.toEntity(activityGroupId));
   }
 
   @override
-  Future<bool> saveActivityGroup(ActivityGroup activityGroup) {
-    // TODO: implement saveActivityGroup
-    throw UnimplementedError();
+  Future<void> saveActivityGroup(ActivityGroup activityGroup) {
+    return _connection.activityGroupTable.insertOnConflictUpdate(activityGroup.toEntity());
   }
 
   @override
-  Future<bool> saveMoodActivityRelation(MoodActivityRelation moodActivityRelation) {
-    // TODO: implement saveMoodActivityRelation
-    throw UnimplementedError();
+  Future<void> saveMoodActivityRelation(MoodActivityRelation moodActivityRelation) {
+    return _connection.moodActivityRelationTable.insertOnConflictUpdate(moodActivityRelation.toEntity());
   }
 }

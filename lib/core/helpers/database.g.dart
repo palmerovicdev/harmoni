@@ -968,11 +968,11 @@ class $ActivityTableTable extends ActivityTable
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'REFERENCES activity_group_table (id) ON DELETE CASCADE'));
-  static const VerificationMeta _createAtMeta =
-      const VerificationMeta('createAt');
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
   @override
-  late final GeneratedColumn<DateTime> createAt = GeneratedColumn<DateTime>(
-      'create_at', aliasedName, false,
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
       generatedAs: GeneratedAs(currentDateAndTime, false),
       type: DriftSqlType.dateTime,
       requiredDuringInsert: false);
@@ -986,7 +986,7 @@ class $ActivityTableTable extends ActivityTable
       requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, name, image, activityGroupId, createAt, updatedAt];
+      [id, name, image, activityGroupId, createdAt, updatedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1020,9 +1020,9 @@ class $ActivityTableTable extends ActivityTable
     } else if (isInserting) {
       context.missing(_activityGroupIdMeta);
     }
-    if (data.containsKey('create_at')) {
-      context.handle(_createAtMeta,
-          createAt.isAcceptableOrUnknown(data['create_at']!, _createAtMeta));
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
       context.handle(_updatedAtMeta,
@@ -1045,8 +1045,8 @@ class $ActivityTableTable extends ActivityTable
           .read(DriftSqlType.string, data['${effectivePrefix}image'])!,
       activityGroupId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}activity_group_id'])!,
-      createAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}create_at'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       updatedAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
@@ -1064,14 +1064,14 @@ class ActivityTableData extends DataClass
   final String name;
   final String image;
   final int activityGroupId;
-  final DateTime createAt;
+  final DateTime createdAt;
   final DateTime updatedAt;
   const ActivityTableData(
       {required this.id,
       required this.name,
       required this.image,
       required this.activityGroupId,
-      required this.createAt,
+      required this.createdAt,
       required this.updatedAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1100,7 +1100,7 @@ class ActivityTableData extends DataClass
       name: serializer.fromJson<String>(json['name']),
       image: serializer.fromJson<String>(json['image']),
       activityGroupId: serializer.fromJson<int>(json['activityGroupId']),
-      createAt: serializer.fromJson<DateTime>(json['createAt']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
   }
@@ -1112,7 +1112,7 @@ class ActivityTableData extends DataClass
       'name': serializer.toJson<String>(name),
       'image': serializer.toJson<String>(image),
       'activityGroupId': serializer.toJson<int>(activityGroupId),
-      'createAt': serializer.toJson<DateTime>(createAt),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
   }
@@ -1122,14 +1122,14 @@ class ActivityTableData extends DataClass
           String? name,
           String? image,
           int? activityGroupId,
-          DateTime? createAt,
+          DateTime? createdAt,
           DateTime? updatedAt}) =>
       ActivityTableData(
         id: id ?? this.id,
         name: name ?? this.name,
         image: image ?? this.image,
         activityGroupId: activityGroupId ?? this.activityGroupId,
-        createAt: createAt ?? this.createAt,
+        createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
   @override
@@ -1139,7 +1139,7 @@ class ActivityTableData extends DataClass
           ..write('name: $name, ')
           ..write('image: $image, ')
           ..write('activityGroupId: $activityGroupId, ')
-          ..write('createAt: $createAt, ')
+          ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
@@ -1147,7 +1147,7 @@ class ActivityTableData extends DataClass
 
   @override
   int get hashCode =>
-      Object.hash(id, name, image, activityGroupId, createAt, updatedAt);
+      Object.hash(id, name, image, activityGroupId, createdAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1156,7 +1156,7 @@ class ActivityTableData extends DataClass
           other.name == this.name &&
           other.image == this.image &&
           other.activityGroupId == this.activityGroupId &&
-          other.createAt == this.createAt &&
+          other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
 }
 
@@ -2515,8 +2515,8 @@ class $$ActivityTableTableFilterComposer
   ColumnFilters<String> get image => $composableBuilder(
       column: $table.image, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createAt => $composableBuilder(
-      column: $table.createAt, builder: (column) => ColumnFilters(column));
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get updatedAt => $composableBuilder(
       column: $table.updatedAt, builder: (column) => ColumnFilters(column));
@@ -2584,8 +2584,8 @@ class $$ActivityTableTableOrderingComposer
   ColumnOrderings<String> get image => $composableBuilder(
       column: $table.image, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createAt => $composableBuilder(
-      column: $table.createAt, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
       column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
@@ -2629,8 +2629,8 @@ class $$ActivityTableTableAnnotationComposer
   GeneratedColumn<String> get image =>
       $composableBuilder(column: $table.image, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get createAt =>
-      $composableBuilder(column: $table.createAt, builder: (column) => column);
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);

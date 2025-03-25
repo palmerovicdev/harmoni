@@ -1,9 +1,12 @@
+import 'package:drift/src/runtime/data_class.dart';
+import 'package:harmoni/core/helpers/database.dart';
+
 class Activity {
   int? id;
   String? name;
   String? image;
   int? activityGroupId;
-  DateTime? createAt;
+  DateTime? createdAt;
   DateTime? updatedAt;
 
   Activity({
@@ -12,7 +15,7 @@ class Activity {
     this.updatedAt,
     this.image,
     this.activityGroupId,
-    this.createAt,
+    this.createdAt,
   });
 
   Activity.fromJson(Map<String, dynamic> json) {
@@ -20,7 +23,7 @@ class Activity {
     name = json['name'];
     image = json['image'];
     activityGroupId = json['activity_group_id'];
-    createAt = json['create_at'];
+    createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
 
@@ -30,8 +33,9 @@ class Activity {
     data['name'] = name;
     data['image'] = image;
     data['activity_group_id'] = activityGroupId;
-    data['create_at'] = createAt;
+    data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     return data;
   }
+
 }

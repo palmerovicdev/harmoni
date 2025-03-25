@@ -24,7 +24,14 @@ class SignInCubit extends Cubit<SignInState> {
       return false;
     }
     logI('Start password validation');
-    var isValidPassword = myProfileService.matchPassword(password, user.password);
+
+    if ((user.password ?? '').isEmpty) {
+      logI('Password not valid');
+      emit(SignInFailed(reason: 'password'));
+      return false;
+    }
+
+    var isValidPassword = myProfileService.matchPassword(password, user.password ?? '');
     if (!isValidPassword) {
       logI('Password not valid');
       emit(SignInFailed(reason: 'password'));

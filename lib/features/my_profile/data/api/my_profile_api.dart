@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:harmoni/core/helpers/database.dart';
+import 'package:harmoni/features/my_profile/model/mapper.dart';
 
 import '../../model/model/user_model.dart';
 
@@ -20,14 +21,7 @@ class MyProfileApiDBImpl implements MyProfileApi {
 
   @override
   Future<void> saveUserProfile(User user) async {
-    await _connection.userTable.insertOnConflictUpdate(UserTableCompanion.insert(
-      name: user.name ?? '',
-      email: user.email ?? '',
-      password: user.password ?? '',
-      gender: user.gender ?? '',
-      age: user.age ?? 0,
-      avatar: user.avatar ?? '',
-    ));
+    await _connection.userTable.insertOnConflictUpdate(user.toEntity());
   }
 
   @override

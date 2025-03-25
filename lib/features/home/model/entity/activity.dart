@@ -10,7 +10,7 @@ class ActivityTable extends Table {
 
   IntColumn get activityGroupId => integer().references(ActivityGroupTable, #id, onDelete: KeyAction.cascade)();
 
-  DateTimeColumn get createAt => dateTime().generatedAs(currentDateAndTime)();
+  DateTimeColumn get createdAt => dateTime().generatedAs(currentDateAndTime)();
 
   DateTimeColumn get updatedAt => dateTime().generatedAs(currentDateAndTime)();
 }
