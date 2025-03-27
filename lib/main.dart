@@ -39,6 +39,14 @@ class Harmoni extends StatelessWidget {
         BlocProvider(create: (context) => MyProfileSettingCubit()),
       ],
       child: MaterialApp.router(
+        theme: ThemeData.light(
+          useMaterial3: true,
+        ).copyWith(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.white,
+            brightness: Brightness.light,
+          ),
+        ),
         title: 'Material App',
         debugShowCheckedModeBanner: false,
         routerConfig: router,

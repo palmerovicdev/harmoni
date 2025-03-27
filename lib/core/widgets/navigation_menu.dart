@@ -17,6 +17,8 @@ class NavigationMenu extends StatelessWidget {
       height: 80,
       elevation: 0,
       selectedIndex: selectedIndex,
+      indicatorColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+      overlayColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.primary.withOpacity(0.1)),
       onDestinationSelected: (value) {
         getHomeService().currentLocationIndex = value;
         context.goNamed(navigationLocations[value]['destination'] ?? '/home');
@@ -27,11 +29,13 @@ class NavigationMenu extends StatelessWidget {
               icon: SvgPicture.asset(
                 e['icon'] ?? '',
                 colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+                height: 28,
               ),
               label: e['name'] ?? '',
               selectedIcon: SvgPicture.asset(
                 e['iconActive'] ?? '',
                 colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.onPrimaryFixed, BlendMode.srcIn),
+                height: 26,
               ),
             ),
           )

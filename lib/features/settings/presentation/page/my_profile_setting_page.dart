@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/features/my_profile/presentation/state_management/my_profile_setting/my_profile_setting_cubit.dart';
+import 'package:harmoni/router/general_routes.dart';
 
+import '../../../../core/helpers/utils.dart';
 import '../../../../core/widgets/spacer.dart';
 import '../../../../generated/assets.dart';
 import '../widget/setting_action_widget.dart';
@@ -72,7 +75,19 @@ class MyProfileSettingPage extends StatelessWidget {
               color: Colors.red.withOpacity(0.8),
             ),
             "color": Colors.red,
-            "onPressed": () {},
+            "onPressed": () async {
+              var shouldContinue = false;
+              await showConditionalDialog(
+                context,
+                'Esta seguro de querer salir?',
+                onAcceptPressed: () => shouldContinue = true,
+              );
+              if (!shouldContinue) return;
+              if(context.mounted) {
+                context.read<MyProfileSettingCubit>().signOut();
+                context.goNamed(HomeRoute.home.data.name);
+              }
+            },
           }
         ];
 
@@ -84,7 +99,7 @@ class MyProfileSettingPage extends StatelessWidget {
               children: [
                 Center(
                   child: SvgPicture.asset(
-                    Assets.coreCog,
+                    Assets.coreCog1,
                     colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
                     height: 140,
                   ),
