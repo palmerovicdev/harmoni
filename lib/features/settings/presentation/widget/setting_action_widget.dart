@@ -25,7 +25,7 @@ class SettingActionWidget extends StatelessWidget {
     var colorWitOpacity = color?.withOpacity(0.05);
     var primaryWithOpacity = Theme.of(context).colorScheme.primary.withOpacity(0.1);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
       child: InkWell(
         splashColor: colorWitOpacity ?? primaryWithOpacity,
         highlightColor: colorWitOpacity ?? primaryWithOpacity,

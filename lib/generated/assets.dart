@@ -16,6 +16,7 @@ class Assets {
   static const String coreChartChecked = 'assets/general/core/chart_checked.svg';
   static const String coreChartUnchecked = 'assets/general/core/chart_unchecked.svg';
   static const String coreCloudSnow = 'assets/general/core/cloud_snow.svg';
+  static const String coreCog = 'assets/general/core/cog.svg';
   static const String coreFinished = 'assets/general/core/finished.svg';
   static const String coreHomeChecked = 'assets/general/core/home_checked.svg';
   static const String coreHomeUnchecked = 'assets/general/core/home_unchecked.svg';

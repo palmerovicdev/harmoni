@@ -78,53 +78,55 @@ class MyProfileSettingPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: SvgPicture.asset(
-                  Assets.coreStar,
-                  colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
-                  height: 128,
-                ),
-              ),
-              Space.small.gap,
-              ...[
-                {
-                  "title": "Cuenta",
-                  "subtitle": getMyProfileService().userProfile?.email,
-                  "icon": Icon(
-                    Icons.account_circle,
-                    color: color,
-                    size: 56,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: SvgPicture.asset(
+                    Assets.coreCog,
+                    colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+                    height: 140,
                   ),
-                  "iconSize": 56,
-                  "color": color,
-                  "action": null,
-                  "onPressed": () {},
-                }
-              ].map(
-                (e) => SettingActionWidget(
-                  title: e['title'] as String,
-                  action: e['action'] as Icon?,
-                  leading: e['icon'] as Icon?,
-                  color: e['color'] as Color?,
-                  onPressed: e['onPressed'] as Function()?,
-                  subtitle: e['subtitle'] as String?,
                 ),
-              ),
-              Space.medium.gap,
-              ...data.map(
-                (e) => SettingActionWidget(
-                  title: e['title'] as String,
-                  action: e['action'] as Icon?,
-                  leading: e['icon'] as Icon?,
-                  color: e['color'] as Color?,
-                  onPressed: e['onPressed'] as Function()?,
-                  subtitle: e['subtitle'] as String?,
+                Space.medium.gap,
+                ...[
+                  {
+                    "title": "Cuenta",
+                    "subtitle": getMyProfileService().userProfile?.email,
+                    "icon": Icon(
+                      Icons.account_circle,
+                      color: color,
+                      size: 56,
+                    ),
+                    "iconSize": 56,
+                    "color": color,
+                    "action": null,
+                    "onPressed": () {},
+                  }
+                ].map(
+                  (e) => SettingActionWidget(
+                    title: e['title'] as String,
+                    action: e['action'] as Icon?,
+                    leading: e['icon'] as Icon?,
+                    color: e['color'] as Color?,
+                    onPressed: e['onPressed'] as Function()?,
+                    subtitle: e['subtitle'] as String?,
+                  ),
                 ),
-              )
-            ],
+                Space.medium.gap,
+                ...data.map(
+                  (e) => SettingActionWidget(
+                    title: e['title'] as String,
+                    action: e['action'] as Icon?,
+                    leading: e['icon'] as Icon?,
+                    color: e['color'] as Color?,
+                    onPressed: e['onPressed'] as Function()?,
+                    subtitle: e['subtitle'] as String?,
+                  ),
+                )
+              ],
+            ),
           ),
         );
       },
