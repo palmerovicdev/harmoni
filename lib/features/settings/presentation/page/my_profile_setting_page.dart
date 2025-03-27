@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:harmoni/core/helpers/settings_enums.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/features/my_profile/presentation/state_management/my_profile_setting/my_profile_setting_cubit.dart';
 import 'package:harmoni/router/general_routes.dart';
@@ -77,13 +78,17 @@ class MyProfileSettingPage extends StatelessWidget {
             "color": Colors.red,
             "onPressed": () async {
               var shouldContinue = false;
-              await showConditionalDialog(
-                context,
-                'Esta seguro de querer salir?',
-                onAcceptPressed: () => shouldContinue = true,
-              );
+              if ((getMyProfileService().userProfile?.settings?[SettingsEnums.shouldShowLogOutDialog.name] as bool?) ?? true) {
+                await showConditionalDialog(
+                  context,
+                  'Esta seguro de querer salir?',
+                  onAcceptPressed: () => shouldContinue = true,
+                );
+              } else {
+                shouldContinue = true;
+              }
               if (!shouldContinue) return;
-              if(context.mounted) {
+              if (context.mounted) {
                 context.read<MyProfileSettingCubit>().signOut();
                 context.goNamed(HomeRoute.home.data.name);
               }

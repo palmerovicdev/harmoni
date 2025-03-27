@@ -15,6 +15,8 @@ class UserTable extends Table {
 
   TextColumn get avatar => text()();
 
+  TextColumn get settings => text()();
+
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();

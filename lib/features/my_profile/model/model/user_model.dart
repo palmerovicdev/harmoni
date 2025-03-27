@@ -6,6 +6,7 @@ class User {
   String? gender;
   int? age;
   String? avatar;
+  Map<String, dynamic>? settings;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -17,6 +18,7 @@ class User {
     this.gender,
     this.age,
     this.avatar,
+    this.settings,
     this.createdAt,
     this.updatedAt,
   });
@@ -29,6 +31,7 @@ class User {
     gender = json['gender'];
     age = json['age'];
     avatar = json['avatar'];
+    settings = json['settings'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
   }
@@ -42,6 +45,7 @@ class User {
     data['gender'] = gender;
     data['age'] = age;
     data['avatar'] = avatar;
+    data['settings'] = settings;
     data['createdAt'] = createdAt.toString();
     data['updatedAt'] = updatedAt.toString();
     return data;

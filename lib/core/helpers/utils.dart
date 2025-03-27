@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:harmoni/core/helpers/settings_enums.dart';
+import 'package:harmoni/core/service_locator/service_locator.dart';
 
 void safePrint(dynamic value) {
   if (kDebugMode) {
@@ -39,6 +41,8 @@ Future<void> showConditionalDialog(
     context: context,
     builder: (context) {
       var screenWidth = MediaQuery.sizeOf(context).width;
+      var colorWithOpacity = Theme.of(context).colorScheme.primary.withOpacity(0.05);
+      var shouldShowAgain = false;
       return AlertDialog(
         title: Text(message),
         insetPadding: EdgeInsets.all(2),
@@ -49,6 +53,7 @@ Future<void> showConditionalDialog(
             children: [
               CheckBoxWidget(
                 screenWidth: screenWidth,
+                callBack: (value) => shouldShowAgain = !value,
               ),
               RichText(
                 text: TextSpan(
@@ -70,20 +75,31 @@ Future<void> showConditionalDialog(
         actions: [
           TextButton(
             style: ButtonStyle(
-              overlayColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.primary.withOpacity(0.05)),
-              surfaceTintColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.primary.withOpacity(0.05)),
-              backgroundColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.primary.withOpacity(0.05)),
-              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                borderRadius: BorderRadiusDirectional.circular(12)
-              ))
-            ),
+                overlayColor: WidgetStatePropertyAll(colorWithOpacity),
+                surfaceTintColor: WidgetStatePropertyAll(colorWithOpacity),
+                backgroundColor: WidgetStatePropertyAll(colorWithOpacity),
+                shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+                  borderRadius: BorderRadiusDirectional.circular(8),
+                ))),
             onPressed: () {
+              getMyProfileService().userProfile?.settings?.update(
+                    SettingsEnums.shouldShowLogOutDialog.name,
+                    (value) => value = shouldShowAgain,
+                    ifAbsent: () => shouldShowAgain,
+                  );
+              getMyProfileService().saveUserProfile();
               Navigator.of(context).pop();
             },
             child: const Text("Cancelar"),
           ),
           TextButton(
             onPressed: () {
+              getMyProfileService().userProfile?.settings?.update(
+                    SettingsEnums.shouldShowLogOutDialog.name,
+                    (value) => value = shouldShowAgain,
+                    ifAbsent: () => shouldShowAgain,
+                  );
+              getMyProfileService().saveUserProfile();
               onAcceptPressed.call();
               Navigator.of(context).pop();
             },
@@ -99,9 +115,11 @@ class CheckBoxWidget extends StatefulWidget {
   const CheckBoxWidget({
     super.key,
     required this.screenWidth,
+    required this.callBack,
   });
 
   final double screenWidth;
+  final Function(bool value) callBack;
 
   @override
   State<CheckBoxWidget> createState() => _CheckBoxWidgetState();
@@ -118,9 +136,12 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
         fit: BoxFit.scaleDown,
         child: Checkbox(
           value: isChecked,
-          onChanged: (value) => setState(() {
-            isChecked = value ?? false;
-          }),
+          onChanged: (value) => {
+            setState(() {
+              isChecked = value ?? false;
+            }),
+            widget.callBack(isChecked),
+          },
         ),
       ),
     );

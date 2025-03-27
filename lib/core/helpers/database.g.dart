@@ -49,6 +49,12 @@ class $UserTableTable extends UserTable
   late final GeneratedColumn<String> avatar = GeneratedColumn<String>(
       'avatar', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _settingsMeta =
+      const VerificationMeta('settings');
+  @override
+  late final GeneratedColumn<String> settings = GeneratedColumn<String>(
+      'settings', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _createdAtMeta =
       const VerificationMeta('createdAt');
   @override
@@ -66,8 +72,18 @@ class $UserTableTable extends UserTable
       requiredDuringInsert: false,
       defaultValue: currentDateAndTime);
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, name, email, password, gender, age, avatar, createdAt, updatedAt];
+  List<GeneratedColumn> get $columns => [
+        id,
+        name,
+        email,
+        password,
+        gender,
+        age,
+        avatar,
+        settings,
+        createdAt,
+        updatedAt
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -117,6 +133,12 @@ class $UserTableTable extends UserTable
     } else if (isInserting) {
       context.missing(_avatarMeta);
     }
+    if (data.containsKey('settings')) {
+      context.handle(_settingsMeta,
+          settings.isAcceptableOrUnknown(data['settings']!, _settingsMeta));
+    } else if (isInserting) {
+      context.missing(_settingsMeta);
+    }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
@@ -148,6 +170,8 @@ class $UserTableTable extends UserTable
           .read(DriftSqlType.int, data['${effectivePrefix}age'])!,
       avatar: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}avatar'])!,
+      settings: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}settings'])!,
       createdAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       updatedAt: attachedDatabase.typeMapping
@@ -169,6 +193,7 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
   final String gender;
   final int age;
   final String avatar;
+  final String settings;
   final DateTime createdAt;
   final DateTime updatedAt;
   const UserTableData(
@@ -179,6 +204,7 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
       required this.gender,
       required this.age,
       required this.avatar,
+      required this.settings,
       required this.createdAt,
       required this.updatedAt});
   @override
@@ -191,6 +217,7 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
     map['gender'] = Variable<String>(gender);
     map['age'] = Variable<int>(age);
     map['avatar'] = Variable<String>(avatar);
+    map['settings'] = Variable<String>(settings);
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
@@ -205,6 +232,7 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
       gender: Value(gender),
       age: Value(age),
       avatar: Value(avatar),
+      settings: Value(settings),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
     );
@@ -221,6 +249,7 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
       gender: serializer.fromJson<String>(json['gender']),
       age: serializer.fromJson<int>(json['age']),
       avatar: serializer.fromJson<String>(json['avatar']),
+      settings: serializer.fromJson<String>(json['settings']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
@@ -236,6 +265,7 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
       'gender': serializer.toJson<String>(gender),
       'age': serializer.toJson<int>(age),
       'avatar': serializer.toJson<String>(avatar),
+      'settings': serializer.toJson<String>(settings),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
@@ -249,6 +279,7 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
           String? gender,
           int? age,
           String? avatar,
+          String? settings,
           DateTime? createdAt,
           DateTime? updatedAt}) =>
       UserTableData(
@@ -259,6 +290,7 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
         gender: gender ?? this.gender,
         age: age ?? this.age,
         avatar: avatar ?? this.avatar,
+        settings: settings ?? this.settings,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
@@ -271,6 +303,7 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
       gender: data.gender.present ? data.gender.value : this.gender,
       age: data.age.present ? data.age.value : this.age,
       avatar: data.avatar.present ? data.avatar.value : this.avatar,
+      settings: data.settings.present ? data.settings.value : this.settings,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
@@ -286,6 +319,7 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
           ..write('gender: $gender, ')
           ..write('age: $age, ')
           ..write('avatar: $avatar, ')
+          ..write('settings: $settings, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -293,8 +327,8 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, name, email, password, gender, age, avatar, createdAt, updatedAt);
+  int get hashCode => Object.hash(id, name, email, password, gender, age,
+      avatar, settings, createdAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -306,6 +340,7 @@ class UserTableData extends DataClass implements Insertable<UserTableData> {
           other.gender == this.gender &&
           other.age == this.age &&
           other.avatar == this.avatar &&
+          other.settings == this.settings &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
 }
@@ -318,6 +353,7 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
   final Value<String> gender;
   final Value<int> age;
   final Value<String> avatar;
+  final Value<String> settings;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
   const UserTableCompanion({
@@ -328,6 +364,7 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
     this.gender = const Value.absent(),
     this.age = const Value.absent(),
     this.avatar = const Value.absent(),
+    this.settings = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
@@ -339,6 +376,7 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
     required String gender,
     required int age,
     required String avatar,
+    required String settings,
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   })  : name = Value(name),
@@ -346,7 +384,8 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
         password = Value(password),
         gender = Value(gender),
         age = Value(age),
-        avatar = Value(avatar);
+        avatar = Value(avatar),
+        settings = Value(settings);
   static Insertable<UserTableData> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -355,6 +394,7 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
     Expression<String>? gender,
     Expression<int>? age,
     Expression<String>? avatar,
+    Expression<String>? settings,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
   }) {
@@ -366,6 +406,7 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
       if (gender != null) 'gender': gender,
       if (age != null) 'age': age,
       if (avatar != null) 'avatar': avatar,
+      if (settings != null) 'settings': settings,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
     });
@@ -379,6 +420,7 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
       Value<String>? gender,
       Value<int>? age,
       Value<String>? avatar,
+      Value<String>? settings,
       Value<DateTime>? createdAt,
       Value<DateTime>? updatedAt}) {
     return UserTableCompanion(
@@ -389,6 +431,7 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
       gender: gender ?? this.gender,
       age: age ?? this.age,
       avatar: avatar ?? this.avatar,
+      settings: settings ?? this.settings,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -418,6 +461,9 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
     if (avatar.present) {
       map['avatar'] = Variable<String>(avatar.value);
     }
+    if (settings.present) {
+      map['settings'] = Variable<String>(settings.value);
+    }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
@@ -437,6 +483,7 @@ class UserTableCompanion extends UpdateCompanion<UserTableData> {
           ..write('gender: $gender, ')
           ..write('age: $age, ')
           ..write('avatar: $avatar, ')
+          ..write('settings: $settings, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -1806,6 +1853,7 @@ typedef $$UserTableTableCreateCompanionBuilder = UserTableCompanion Function({
   required String gender,
   required int age,
   required String avatar,
+  required String settings,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
 });
@@ -1817,6 +1865,7 @@ typedef $$UserTableTableUpdateCompanionBuilder = UserTableCompanion Function({
   Value<String> gender,
   Value<int> age,
   Value<String> avatar,
+  Value<String> settings,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
 });
@@ -1870,6 +1919,9 @@ class $$UserTableTableFilterComposer
 
   ColumnFilters<String> get avatar => $composableBuilder(
       column: $table.avatar, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get settings => $composableBuilder(
+      column: $table.settings, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnFilters(column));
@@ -1929,6 +1981,9 @@ class $$UserTableTableOrderingComposer
   ColumnOrderings<String> get avatar => $composableBuilder(
       column: $table.avatar, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get settings => $composableBuilder(
+      column: $table.settings, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
@@ -1965,6 +2020,9 @@ class $$UserTableTableAnnotationComposer
 
   GeneratedColumn<String> get avatar =>
       $composableBuilder(column: $table.avatar, builder: (column) => column);
+
+  GeneratedColumn<String> get settings =>
+      $composableBuilder(column: $table.settings, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
@@ -2024,6 +2082,7 @@ class $$UserTableTableTableManager extends RootTableManager<
             Value<String> gender = const Value.absent(),
             Value<int> age = const Value.absent(),
             Value<String> avatar = const Value.absent(),
+            Value<String> settings = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
             Value<DateTime> updatedAt = const Value.absent(),
           }) =>
@@ -2035,6 +2094,7 @@ class $$UserTableTableTableManager extends RootTableManager<
             gender: gender,
             age: age,
             avatar: avatar,
+            settings: settings,
             createdAt: createdAt,
             updatedAt: updatedAt,
           ),
@@ -2046,6 +2106,7 @@ class $$UserTableTableTableManager extends RootTableManager<
             required String gender,
             required int age,
             required String avatar,
+            required String settings,
             Value<DateTime> createdAt = const Value.absent(),
             Value<DateTime> updatedAt = const Value.absent(),
           }) =>
@@ -2057,6 +2118,7 @@ class $$UserTableTableTableManager extends RootTableManager<
             gender: gender,
             age: age,
             avatar: avatar,
+            settings: settings,
             createdAt: createdAt,
             updatedAt: updatedAt,
           ),
