@@ -8,6 +8,7 @@ import 'core/helpers/logger.dart';
 import 'core/service_locator/service_locator.dart';
 import 'features/my_profile/presentation/state_management/age/age_cubit.dart';
 import 'features/my_profile/presentation/state_management/init/init_cubit.dart';
+import 'features/my_profile/presentation/state_management/my_profile_setting/my_profile_setting_cubit.dart';
 import 'features/my_profile/presentation/state_management/name_setting/name_setting_cubit.dart';
 import 'features/my_profile/presentation/state_management/sign_in/sign_in_cubit.dart';
 import 'features/my_profile/presentation/state_management/sign_up/sign_up_cubit.dart';
@@ -35,6 +36,7 @@ class Harmoni extends StatelessWidget {
         BlocProvider(create: (context) => NameSettingCubit()),
         BlocProvider(create: (context) => AgeCubit()),
         BlocProvider(create: (context) => GenderSelectionCubit()),
+        BlocProvider(create: (context) => MyProfileSettingCubit()),
       ],
       child: MaterialApp.router(
         title: 'Material App',

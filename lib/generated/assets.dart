@@ -22,7 +22,7 @@ class Assets {
   static const String coreProfileChecked = 'assets/general/core/profile_checked.svg';
   static const String coreProfileUnchecked = 'assets/general/core/profile_unchecked.svg';
   static const String coreShare = 'assets/general/core/share.svg';
-  static const String coreSta = 'assets/general/core/sta.svg';
+  static const String coreStar = 'assets/general/core/star.svg';
   static const String generalFinishedIcon = 'assets/general/finished_icon.png';
   static const String generalFinishedIcon64 = 'assets/general/finished_icon_64.png';
   static const String ghostAngryGhost = 'assets/emoji/ghost/angry_ghost.svg';

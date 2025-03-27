@@ -44,5 +44,5 @@ var navigationLocations = [
   {"name": "Inicio", "icon": Assets.coreHomeUnchecked, "iconActive": Assets.coreHomeChecked, "destination": HomeRoute.home.data.name},
   {"name": "Mediciones", "icon": Assets.coreChartUnchecked, "iconActive": Assets.coreChartChecked, "destination": null},
   {"name": "Calendario", "icon": Assets.coreCalendarUnchecked, "iconActive": Assets.coreCalendarChecked, "destination": null},
-  {"name": "Perfil", "icon": Assets.coreProfileUnchecked, "iconActive": Assets.coreProfileChecked, "destination": null}
+  {"name": "Perfil", "icon": Assets.coreProfileUnchecked, "iconActive": Assets.coreProfileChecked, "destination": MyProfileRoute.my_profile.data.name}
 ];
