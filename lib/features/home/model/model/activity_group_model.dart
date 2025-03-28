@@ -1,5 +1,3 @@
-
-
 class ActivityGroup {
   int? id;
   String? name;

@@ -21,7 +21,7 @@ void main() async {
   logI('App Start');
 }
 
-init()  async => await setUpLocator();
+init() async => await setUpLocator();
 
 class Harmoni extends StatelessWidget {
   const Harmoni({super.key});

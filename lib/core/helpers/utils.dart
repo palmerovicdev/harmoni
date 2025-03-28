@@ -36,6 +36,8 @@ Future<void> showConditionalDialog(
   BuildContext context,
   String message, {
   required Function() onAcceptPressed,
+  String? dialogSettingOptionName,
+  EdgeInsets? padding,
 }) async {
   await showDialog(
     context: context,
@@ -45,7 +47,7 @@ Future<void> showConditionalDialog(
       var shouldShowAgain = false;
       return AlertDialog(
         title: Text(message),
-        insetPadding: EdgeInsets.all(2),
+        insetPadding: padding ?? EdgeInsets.all(2),
         actionsPadding: EdgeInsets.only(bottom: 12, right: 16),
         content: SizedBox(
           height: 40,
@@ -83,7 +85,7 @@ Future<void> showConditionalDialog(
                 ))),
             onPressed: () {
               getMyProfileService().userProfile?.settings?.update(
-                    SettingsEnums.shouldShowLogOutDialog.name,
+                    dialogSettingOptionName ?? SettingsEnums.shouldShowLogOutDialog.name,
                     (value) => value = shouldShowAgain,
                     ifAbsent: () => shouldShowAgain,
                   );
@@ -95,7 +97,7 @@ Future<void> showConditionalDialog(
           TextButton(
             onPressed: () {
               getMyProfileService().userProfile?.settings?.update(
-                    SettingsEnums.shouldShowLogOutDialog.name,
+                    dialogSettingOptionName ?? SettingsEnums.shouldShowLogOutDialog.name,
                     (value) => value = shouldShowAgain,
                     ifAbsent: () => shouldShowAgain,
                   );

@@ -1,5 +1,4 @@
-import 'package:drift/src/runtime/data_class.dart';
-import 'package:harmoni/core/helpers/database.dart';
+
 
 class Activity {
   int? id;
@@ -37,5 +36,4 @@ class Activity {
     data['updated_at'] = updatedAt;
     return data;
   }
-
 }

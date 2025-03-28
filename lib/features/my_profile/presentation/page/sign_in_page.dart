@@ -23,7 +23,7 @@ class SignInPage extends StatelessWidget {
     var screenWidth = MediaQuery.sizeOf(context).width;
     var textTheme = Theme.of(context).textTheme;
     var colorScheme = Theme.of(context).colorScheme;
-    var width = screenWidth * 0.08125;
+    var width = 24.0;
     var passwordEditingController = TextEditingController();
     var emailEditingController = TextEditingController();
     var myProfileService = getMyProfileService();
@@ -39,11 +39,12 @@ class SignInPage extends StatelessWidget {
           );
         }
         return Scaffold(
+          appBar: AppBar(
+            leading: PopWidget(),
+          ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Space.large.gap,
-              PopWidget(),
               Space.small.gap,
               Padding(
                 padding: EdgeInsets.only(left: width),
@@ -122,38 +123,40 @@ class SignInPage extends StatelessWidget {
               ),
               Space.medium.gap,
               Center(
-                child: SizedBox(
-                  width: screenWidth * 0.85,
-                  child: ActionButtonWidget(
-                    text: "Autenticarse",
-                    shouldFocusAttention: true,
-                    onPressed: () async {
-                      context.read<SignInCubit>().initSignIn();
-                      var validationResult = await myProfileService.validateEmail(emailEditingController.text);
-                      if (validationResult != EmailValidationResult.repeated.name) {
-                        showErrorDialog(
-                            context.mounted ? context : context,
-                            'Por favor, introduzca un email valido.${validationResult == EmailValidationResult.invalid.name ? ' '
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ActionButtonWidget(
+                      text: "Autenticarse",
+                      shouldFocusAttention: true,
+                      onPressed: () async {
+                        context.read<SignInCubit>().initSignIn();
+                        var validationResult = await myProfileService.validateEmail(emailEditingController.text);
+                        if (validationResult != EmailValidationResult.repeated.name) {
+                          showErrorDialog(
+                              context.mounted ? context : context,
+                              'Por favor, introduzca un email valido.${validationResult == EmailValidationResult.invalid.name ? ' '
+                                  'La dirección de correo electrónico no es válida.' : 'No hay ningún usuario registrado con ese email'}');
+                          if (context.mounted) {
+                            context.read<SignInCubit>().signInError('Por favor, introduzca un email valido.${validationResult == EmailValidationResult.invalid.name ? ' '
                                 'La dirección de correo electrónico no es válida.' : 'No hay ningún usuario registrado con ese email'}');
-                        if (context.mounted) {
-                          context.read<SignInCubit>().signInError('Por favor, introduzca un email valido.${validationResult == EmailValidationResult.invalid
-                            .name ? ' '
-                           'La dirección de correo electrónico no es válida.' : 'No hay ningún usuario registrado con ese email'}');
-                        }
-                        return;
-                      }
-                      if (context.mounted) {
-                        var result = await context.read<SignInCubit>().signIn(emailEditingController.text, passwordEditingController.text);
-                        if (!result) {
-                          showErrorDialog(context.mounted ? context : context, 'Por favor, introduzca un email y una contraseña validos.');
-                          if (context.mounted) context.read<SignInCubit>().signInError('Por favor, introduzca un email y una contraseña validos.');
+                          }
                           return;
                         }
                         if (context.mounted) {
-                          context.pushNamed(HomeRoute.home.data.name);
+                          var result = await context.read<SignInCubit>().signIn(emailEditingController.text, passwordEditingController.text);
+                          if (!result) {
+                            showErrorDialog(context.mounted ? context : context, 'Por favor, introduzca un email y una contraseña validos.');
+                            if (context.mounted) context.read<SignInCubit>().signInError('Por favor, introduzca un email y una contraseña validos.');
+                            return;
+                          }
+                          if (context.mounted) {
+                            context.pushNamed(HomeRoute.home.data.name);
+                          }
                         }
-                      }
-                    },
+                      },
+                    ),
                   ),
                 ),
               ),

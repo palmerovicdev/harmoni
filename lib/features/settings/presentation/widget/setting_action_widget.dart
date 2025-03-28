@@ -60,7 +60,7 @@ class SettingActionWidget extends StatelessWidget {
                       subtitle != null
                           ? Text(
                               subtitle!,
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              style: Theme.of(context).textTheme.labelLarge?.copyWith(
                                     color: Colors.black54,
                                   ),
                             )

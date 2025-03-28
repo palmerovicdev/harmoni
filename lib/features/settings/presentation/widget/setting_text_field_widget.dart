@@ -5,16 +5,19 @@ class SettingTextFieldWidget extends StatelessWidget {
     super.key,
     required this.textController,
     this.leading,
+    this.onValueChanged,
   });
 
   final TextEditingController textController;
   final Widget? leading;
+  final Function? onValueChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: textController,
       style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+      onChanged: (_) => onValueChanged?.call(),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
         alignLabelWithHint: true,

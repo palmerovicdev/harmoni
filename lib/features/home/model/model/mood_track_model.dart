@@ -1,7 +1,6 @@
-import 'package:drift/drift.dart';
-import 'package:harmoni/features/my_profile/model/entity/user.dart';
 
-class MoodTrack{
+
+class MoodTrack {
   int? id;
   int? userId;
   String? imageMood;

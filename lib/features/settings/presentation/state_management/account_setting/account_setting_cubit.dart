@@ -5,4 +5,12 @@ part 'account_setting_state.dart';
 
 class AccountSettingCubit extends Cubit<AccountSettingState> {
   AccountSettingCubit() : super(AccountSettingInitial());
+
+  changeValue() {
+    emit(AccountSettingInitial(hasChangedData: true));
+  }
+
+  resetState() {
+    emit(AccountSettingInitial(hasChangedData: false));
+  }
 }

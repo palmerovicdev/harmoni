@@ -14,16 +14,33 @@ class AccountSettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var nameController = TextEditingController(text: getMyProfileService().userProfile?.name);
+    var emailController = TextEditingController(text: getMyProfileService().userProfile?.email);
+    var ageController = TextEditingController(text: getMyProfileService().userProfile?.age.toString());
+    var genderController = ExpansionTileController();
     return BlocBuilder<AccountSettingCubit, AccountSettingState>(
+      buildWhen: (previous, current) => (previous as AccountSettingInitial).hasChangedData != (current as AccountSettingInitial).hasChangedData,
       builder: (context, state) {
         var color = Theme.of(context).colorScheme.primary;
         var fontStyle = Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w500);
         return Scaffold(
           appBar: AppBar(
-            leading: PopWidget(),
+            leading: PopWidget(
+              shouldShowDialog: (state as AccountSettingInitial).hasChangedData,
+            ),
             title: Text('Informacion Personal'),
           ),
-          floatingActionButton: null,
+          floatingActionButton: state.hasChangedData
+              ? FloatingActionButton(
+                  elevation: 3,
+                  backgroundColor: Color(0xe4e8f1ff),
+                  child: Icon(
+                    Icons.save_alt_rounded,
+                    color: color,
+                  ),
+                  onPressed: () {},
+                )
+              : null,
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8),
             child: SingleChildScrollView(
@@ -43,7 +60,12 @@ class AccountSettingPage extends StatelessWidget {
                     style: fontStyle,
                   ),
                   Space.smaller_small.gap,
-                  SettingTextFieldWidget(textController: TextEditingController(text: getMyProfileService().userProfile?.name)),
+                  SettingTextFieldWidget(
+                    textController: nameController,
+                    onValueChanged: () {
+                      context.read<AccountSettingCubit>().changeValue();
+                    },
+                  ),
                   Space.small.gap,
                   Text(
                     'Email',
@@ -51,11 +73,14 @@ class AccountSettingPage extends StatelessWidget {
                   ),
                   Space.smaller_small.gap,
                   SettingTextFieldWidget(
-                    textController: TextEditingController(text: getMyProfileService().userProfile?.email),
+                    textController: emailController,
                     leading: Padding(
                       padding: const EdgeInsets.only(top: 2.0, right: 10),
                       child: Icon(Icons.mark_email_read_rounded, color: color),
                     ),
+                    onValueChanged: () {
+                      context.read<AccountSettingCubit>().changeValue();
+                    },
                   ),
                   Space.smaller_small.gap,
                   Text(
@@ -64,7 +89,10 @@ class AccountSettingPage extends StatelessWidget {
                   ),
                   Space.smaller_small.gap,
                   GenderSelectionSettingWidget(
-                    controller: ExpansionTileController(),
+                    controller: genderController,
+                    onValueChanged: () {
+                      context.read<AccountSettingCubit>().changeValue();
+                    },
                   ),
                   Space.smaller_small.gap,
                   Text(
@@ -73,7 +101,10 @@ class AccountSettingPage extends StatelessWidget {
                   ),
                   Space.smaller_small.gap,
                   AgeSelectorScreen(
-                    controller: TextEditingController(text: getMyProfileService().userProfile?.age.toString()),
+                    controller: ageController,
+                    onValueChanged: () {
+                      context.read<AccountSettingCubit>().changeValue();
+                    },
                   ),
                 ],
               ),
@@ -89,9 +120,11 @@ class GenderSelectionSettingWidget extends StatefulWidget {
   const GenderSelectionSettingWidget({
     super.key,
     required this.controller,
+    this.onValueChanged,
   });
 
   final ExpansionTileController controller;
+  final Function? onValueChanged;
 
   @override
   State<GenderSelectionSettingWidget> createState() => _GenderSelectionSettingWidgetState();
@@ -126,6 +159,7 @@ class _GenderSelectionSettingWidgetState extends State<GenderSelectionSettingWid
                     title = 'Masculino';
                   });
                   widget.controller.collapse();
+                  widget.onValueChanged?.call();
                 },
               )
             : const SizedBox(),
@@ -140,6 +174,7 @@ class _GenderSelectionSettingWidgetState extends State<GenderSelectionSettingWid
                     title = 'Femenino';
                   });
                   widget.controller.collapse();
+                  widget.onValueChanged?.call();
                 },
               )
             : const SizedBox(),
@@ -154,6 +189,7 @@ class _GenderSelectionSettingWidgetState extends State<GenderSelectionSettingWid
                     title = 'Prefiero no decirlo';
                   });
                   widget.controller.collapse();
+                  widget.onValueChanged?.call();
                 },
               )
             : const SizedBox(),
@@ -171,9 +207,14 @@ class _GenderSelectionSettingWidgetState extends State<GenderSelectionSettingWid
 }
 
 class AgeSelectorScreen extends StatefulWidget {
-  const AgeSelectorScreen({super.key, required this.controller});
+  const AgeSelectorScreen({
+    super.key,
+    required this.controller,
+    this.onValueChanged,
+  });
 
   final TextEditingController controller;
+  final Function? onValueChanged;
 
   @override
   _AgeSelectorScreenState createState() => _AgeSelectorScreenState();
@@ -190,6 +231,7 @@ class _AgeSelectorScreenState extends State<AgeSelectorScreen> {
       setState(() {
         widget.controller.text = newAge.toString();
       });
+      widget.onValueChanged?.call();
     }
   }
 
