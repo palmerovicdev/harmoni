@@ -1,1 +1,1 @@
-enum SettingsEnums { shouldShowLogOutDialog, shouldShowAccountPopDialog }
+enum SettingsEnums { shouldShowLogOutDialog, shouldShowAccountPopDialog, shouldShowDeleteAccountPopDialog }

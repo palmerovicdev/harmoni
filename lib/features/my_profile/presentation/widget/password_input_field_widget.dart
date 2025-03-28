@@ -38,7 +38,7 @@ class _PasswordInputFieldWidgetState extends State<PasswordInputFieldWidget> {
           borderRadius: BorderRadius.circular(12),
         ),
         filled: true,
-        fillColor: Theme.of(context).colorScheme.surfaceContainer,
+        fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12), // Define el radio de las esquinas.
           borderSide: BorderSide.none, // Sin borde visible.

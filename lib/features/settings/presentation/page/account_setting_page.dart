@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:harmoni/core/helpers/settings_enums.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/core/widgets/pop_widget.dart';
 import 'package:harmoni/core/widgets/spacer.dart';
@@ -26,8 +27,17 @@ class AccountSettingPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             leading: PopWidget(
-              shouldShowDialog: (state as AccountSettingInitial).hasChangedData,
-            ),
+                shouldShowDialog: (state as AccountSettingInitial).hasChangedData &&
+                    (getMyProfileService().userProfile?.settings?[SettingsEnums.shouldShowAccountPopDialog.name] as bool? ?? false),
+                onPop: () async {
+                  var service = getMyProfileService();
+                  service.userProfile = await service.getUserProfileByName(getMyProfileService().userProfile?.name ?? '');
+                  nameController = TextEditingController(text: getMyProfileService().userProfile?.name);
+                  emailController = TextEditingController(text: getMyProfileService().userProfile?.email);
+                  ageController = TextEditingController(text: getMyProfileService().userProfile?.age.toString());
+                  genderController = ExpansionTileController();
+                  if (context.mounted) context.read<AccountSettingCubit>().resetState();
+                }),
             title: Text('Informacion Personal'),
           ),
           floatingActionButton: state.hasChangedData
@@ -38,7 +48,12 @@ class AccountSettingPage extends StatelessWidget {
                     Icons.save_alt_rounded,
                     color: color,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    getMyProfileService().userProfile?.name = nameController.text;
+                    getMyProfileService().userProfile?.email = emailController.text;
+                    getMyProfileService().userProfile?.age = int.tryParse(ageController.text) ?? 13;
+                    getMyProfileService().saveUserProfile();
+                  },
                 )
               : null,
           body: Padding(
@@ -90,7 +105,8 @@ class AccountSettingPage extends StatelessWidget {
                   Space.smaller_small.gap,
                   GenderSelectionSettingWidget(
                     controller: genderController,
-                    onValueChanged: () {
+                    onValueChanged: (value) {
+                      getMyProfileService().userProfile?.gender = value;
                       context.read<AccountSettingCubit>().changeValue();
                     },
                   ),
@@ -102,7 +118,7 @@ class AccountSettingPage extends StatelessWidget {
                   Space.smaller_small.gap,
                   AgeSelectorScreen(
                     controller: ageController,
-                    onValueChanged: () {
+                    onValueChanged: (value) {
                       context.read<AccountSettingCubit>().changeValue();
                     },
                   ),
@@ -124,7 +140,7 @@ class GenderSelectionSettingWidget extends StatefulWidget {
   });
 
   final ExpansionTileController controller;
-  final Function? onValueChanged;
+  final Function(String value)? onValueChanged;
 
   @override
   State<GenderSelectionSettingWidget> createState() => _GenderSelectionSettingWidgetState();
@@ -159,7 +175,7 @@ class _GenderSelectionSettingWidgetState extends State<GenderSelectionSettingWid
                     title = 'Masculino';
                   });
                   widget.controller.collapse();
-                  widget.onValueChanged?.call();
+                  widget.onValueChanged?.call(title);
                 },
               )
             : const SizedBox(),
@@ -174,7 +190,7 @@ class _GenderSelectionSettingWidgetState extends State<GenderSelectionSettingWid
                     title = 'Femenino';
                   });
                   widget.controller.collapse();
-                  widget.onValueChanged?.call();
+                  widget.onValueChanged?.call(title);
                 },
               )
             : const SizedBox(),
@@ -189,7 +205,7 @@ class _GenderSelectionSettingWidgetState extends State<GenderSelectionSettingWid
                     title = 'Prefiero no decirlo';
                   });
                   widget.controller.collapse();
-                  widget.onValueChanged?.call();
+                  widget.onValueChanged?.call(title);
                 },
               )
             : const SizedBox(),
@@ -214,7 +230,7 @@ class AgeSelectorScreen extends StatefulWidget {
   });
 
   final TextEditingController controller;
-  final Function? onValueChanged;
+  final Function(int value)? onValueChanged;
 
   @override
   _AgeSelectorScreenState createState() => _AgeSelectorScreenState();
@@ -226,13 +242,13 @@ class _AgeSelectorScreenState extends State<AgeSelectorScreen> {
     super.initState();
   }
 
-  void _updateAge(int newAge) {
+  int _updateAge(int newAge) {
     if (newAge >= 12 && newAge <= 120) {
       setState(() {
         widget.controller.text = newAge.toString();
       });
-      widget.onValueChanged?.call();
     }
+    return int.tryParse(widget.controller.text) ?? 12;
   }
 
   void _onTextChanged(String value) {
@@ -265,7 +281,8 @@ class _AgeSelectorScreenState extends State<AgeSelectorScreen> {
             ),
             onPressed: () {
               var newAge = int.tryParse(widget.controller.text) ?? 13;
-              _updateAge(newAge - 1);
+              var age = _updateAge(newAge - 1);
+              widget.onValueChanged?.call(age);
             },
           ),
         ),
@@ -302,7 +319,8 @@ class _AgeSelectorScreenState extends State<AgeSelectorScreen> {
             ),
             onPressed: () {
               var newAge = int.tryParse(widget.controller.text) ?? 11;
-              _updateAge(newAge + 1);
+              var age = _updateAge(newAge + 1);
+              widget.onValueChanged?.call(age);
             },
           ),
         ),

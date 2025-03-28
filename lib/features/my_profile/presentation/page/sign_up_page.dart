@@ -23,7 +23,7 @@ class SignUpPage extends StatelessWidget {
     var screenWidth = MediaQuery.sizeOf(context).width;
     var textTheme = Theme.of(context).textTheme;
     var colorScheme = Theme.of(context).colorScheme;
-    var width = screenWidth * 0.08125;
+    var width = 24.0;
     var hasReadTermsAndConditions = false;
     var passwordEditingController = TextEditingController();
     var emailEditingController = TextEditingController();
@@ -123,40 +123,43 @@ class SignUpPage extends StatelessWidget {
               ),
               Space.medium.gap,
               Center(
-                child: SizedBox(
-                  width: screenWidth * 0.85,
-                  child: ActionButtonWidget(
-                    text: "Crear Cuenta",
-                    shouldFocusAttention: true,
-                    onPressed: () async {
-                      var validationResult = await context.read<SignUpCubit>().validateEmail(emailEditingController.text);
-                      if (validationResult != EmailValidationResult.success.name) {
-                        showErrorDialog(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ActionButtonWidget(
+                      text: "Crear Cuenta",
+                      shouldFocusAttention: true,
+                      onPressed: () async {
+                        var validationResult = await context.read<SignUpCubit>().validateEmail(emailEditingController.text);
+                        if (validationResult != EmailValidationResult.success.name) {
+                          showErrorDialog(
+                              context.mounted ? context : context,
+                              'Por favor, introduzca un email valido.${validationResult == EmailValidationResult.repeated.name ? ' '
+                                  'Este email ya ha sido registrado antes.' : 'La dirección de correo electrónico no es válida.'}');
+                          return;
+                        }
+                        var isValidPassword = context.mounted ? context.read<SignUpCubit>().validatePassword(passwordEditingController.text) : 'success';
+                        if (isValidPassword != PasswordValidationResult.success.name) {
+                          showErrorDialog(
                             context.mounted ? context : context,
-                            'Por favor, introduzca un email valido.${validationResult == EmailValidationResult.repeated.name ? ' '
-                                'Este email ya ha sido registrado antes.' : 'La dirección de correo electrónico no es válida.'}');
-                        return;
-                      }
-                      var isValidPassword = context.mounted ? context.read<SignUpCubit>().validatePassword(passwordEditingController.text) : 'success';
-                      if (isValidPassword != PasswordValidationResult.success.name) {
-                        showErrorDialog(
-                          context.mounted ? context : context,
-                          'Por favor, introduzca una contraseña valida.${isValidPassword == 'tooShort' ? ' La contraseña '
-                              'debe tener al menos 6 caracteres.' : isValidPassword == 'tooLong' ? ' La contraseña debe tener menos de 16 caracteres.' : ''}',
-                        );
-                        return;
-                      }
-                      if (!hasReadTermsAndConditions) {
-                        showErrorDialog(context.mounted ? context : context, 'Por favor, lea y acepte los términos y condiciones antes de continuar');
-                        return;
-                      }
-                      var isSuccessSignUp = context.mounted ? context.read<SignUpCubit>().signUp(emailEditingController.text, passwordEditingController.text) : false;
-                      if (!isSuccessSignUp) {
-                        showErrorDialog(context.mounted ? context : context, 'Ha ocurrido un error al crear su cuenta. Por favor, inténtelo de nuevo más tarde.');
-                        return;
-                      }
-                      if (context.mounted) context.push(MyProfileRoute.name.data.path, extra: false);
-                    },
+                            'Por favor, introduzca una contraseña valida.${isValidPassword == 'tooShort' ? ' La contraseña '
+                                'debe tener al menos 6 caracteres.' : isValidPassword == 'tooLong' ? ' La contraseña debe tener menos de 16 caracteres.' : ''}',
+                          );
+                          return;
+                        }
+                        if (!hasReadTermsAndConditions) {
+                          showErrorDialog(context.mounted ? context : context, 'Por favor, lea y acepte los términos y condiciones antes de continuar');
+                          return;
+                        }
+                        var isSuccessSignUp = context.mounted ? context.read<SignUpCubit>().signUp(emailEditingController.text, passwordEditingController.text) : false;
+                        if (!isSuccessSignUp) {
+                          showErrorDialog(context.mounted ? context : context, 'Ha ocurrido un error al crear su cuenta. Por favor, inténtelo de nuevo más tarde.');
+                          return;
+                        }
+                        if (context.mounted) context.push(MyProfileRoute.name.data.path, extra: false);
+                      },
+                    ),
                   ),
                 ),
               ),

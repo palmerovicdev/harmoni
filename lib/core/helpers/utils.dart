@@ -38,6 +38,7 @@ Future<void> showConditionalDialog(
   required Function() onAcceptPressed,
   String? dialogSettingOptionName,
   EdgeInsets? padding,
+  bool shouldShowCheckBox = true,
 }) async {
   await showDialog(
     context: context,
@@ -53,7 +54,7 @@ Future<void> showConditionalDialog(
           height: 40,
           child: Row(
             children: [
-              CheckBoxWidget(
+              if (shouldShowCheckBox) CheckBoxWidget(
                 screenWidth: screenWidth,
                 callBack: (value) => shouldShowAgain = !value,
               ),

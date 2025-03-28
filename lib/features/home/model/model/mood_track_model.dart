@@ -1,5 +1,3 @@
-
-
 class MoodTrack {
   int? id;
   int? userId;

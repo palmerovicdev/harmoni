@@ -109,6 +109,10 @@ class MyProfileService {
   Future<User?> getUserProfileByEmail(String email) async {
     return await _myProfileRepository.getUserProfileByEmail(email);
   }
+
+  void deleteUserProfileByNameOrEmail({String? name, String? email}) {
+    _myProfileRepository.deleteUserProfileByNameOrEmail(name: name ?? userProfile?.name, email: email ?? userProfile?.email);
+  }
 }
 
 enum EmailValidationResult { invalid, repeated, success }

@@ -42,7 +42,7 @@ class _EmailInputFieldWidgetState extends State<EmailInputFieldWidget> {
               )
             : null,
         filled: true,
-        fillColor: Theme.of(context).colorScheme.surfaceContainer,
+        fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12), // Define el radio de las esquinas.
           borderSide: BorderSide.none, // Sin borde visible.

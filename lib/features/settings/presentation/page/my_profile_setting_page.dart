@@ -17,10 +17,9 @@ class MyProfileSettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var color = Theme.of(context).colorScheme.primary;
     return BlocBuilder<MyProfileSettingCubit, MyProfileSettingState>(
       builder: (context, state) {
-        var color = Theme.of(context).colorScheme.primary;
-
         var data = [
           {
             "title": "Seguridad",
@@ -33,7 +32,9 @@ class MyProfileSettingPage extends StatelessWidget {
             "iconSize": 32,
             "color": color,
             "action": null,
-            "onPressed": () {},
+            "onPressed": () {
+              context.pushNamed(MyProfileRoute.security.data.name);
+            },
           },
           {
             "title": "Apariencia",
@@ -102,6 +103,7 @@ class MyProfileSettingPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Space.small.gap,
                 Center(
                   child: SvgPicture.asset(
                     Assets.coreCog1,

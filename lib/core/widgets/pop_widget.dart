@@ -8,10 +8,12 @@ class PopWidget extends StatelessWidget {
     super.key,
     this.shouldAddPadding = true,
     this.shouldShowDialog,
+    this.onPop,
   });
 
   final bool shouldAddPadding;
   final bool? shouldShowDialog;
+  final Function? onPop;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +25,11 @@ class PopWidget extends StatelessWidget {
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: IconButton(
-            onPressed: () {
+            onPressed: () async {
               bool value = true;
               if (shouldShowDialog ?? false) {
                 value = false;
-                showConditionalDialog(
+                await showConditionalDialog(
                   context,
                   'Estas seguro de que quieres salir?',
                   onAcceptPressed: () => value = true,
@@ -35,7 +37,8 @@ class PopWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 24),
                 );
               }
-              if (value) context.pop();
+              if (onPop != null) onPop!();
+              if (context.mounted && value) context.pop();
             },
             icon: const Icon(Icons.arrow_back_ios_new),
           ),

@@ -14,6 +14,7 @@ import 'package:harmoni/router/router_observer.dart';
 
 import '../features/my_profile/presentation/page/all_done_page.dart';
 import '../features/settings/presentation/page/my_profile_setting_page.dart';
+import '../features/settings/presentation/page/security_setting_page.dart';
 import 'general_routes.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -77,6 +78,11 @@ GoRouter router = GoRouter(
       path: MyProfileRoute.account.data.path,
       name: MyProfileRoute.account.data.name,
       pageBuilder: (context, state) => MaterialPage(child: AccountSettingPage()),
+    ),
+    GoRoute(
+      path: MyProfileRoute.security.data.path,
+      name: MyProfileRoute.security.data.name,
+      pageBuilder: (context, state) => MaterialPage(child: SecuritySettingPage()),
     ),
   ],
 );

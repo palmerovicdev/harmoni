@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:harmoni/features/home/presentation/state_management/home_cubit.dart';
 import 'package:harmoni/features/my_profile/presentation/state_management/gender_selection/gender_selection_cubit.dart';
+import 'package:harmoni/features/settings/presentation/state_management/security_setting/security_setting_cubit.dart';
 import 'package:harmoni/router/router.dart';
 
 import 'core/helpers/logger.dart';
@@ -39,6 +40,7 @@ class Harmoni extends StatelessWidget {
         BlocProvider(create: (context) => GenderSelectionCubit()),
         BlocProvider(create: (context) => MyProfileSettingCubit()),
         BlocProvider(create: (context) => AccountSettingCubit()),
+        BlocProvider(create: (context) => SecuritySettingCubit()),
       ],
       child: MaterialApp.router(
         theme: ThemeData.light(
