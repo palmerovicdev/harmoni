@@ -31,7 +31,7 @@ class SecuritySettingPage extends StatelessWidget {
                 Center(
                   child: Icon(
                     Icons.security_outlined,
-                    size: 140,
+                    size: 160,
                     color: color,
                   ),
                 ),
@@ -45,7 +45,9 @@ class SecuritySettingPage extends StatelessWidget {
                     size: 32,
                     color: color,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.pushNamed(MyProfileRoute.change_password.name);
+                  },
                 ),
                 Space.small.gap,
                 SettingActionWidget(

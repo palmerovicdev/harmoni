@@ -14,6 +14,7 @@ class InitPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.sizeOf(context).width;
+    double size = 156;
     return Scaffold(
       body: Center(
         child: Column(
@@ -21,10 +22,10 @@ class InitPage extends StatelessWidget {
             Space.large.gap,
             Space.large.gap,
             SvgPicture.asset(
-              Assets.coreCloudSnow,
+              Assets.coreShootingStar,
               colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
-              width: 96,
-              height: 96,
+              width: size,
+              height: size,
             ),
             Space.medium.gap,
             Space.small.gap,
@@ -38,7 +39,7 @@ class InitPage extends StatelessWidget {
               child: Text(
                 'Bienvenido a Harmoni, comencemos a configurar su cuenta',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: isDark(context) ? Colors.white54 : Colors.black54,
+                      color: isDark(context) ? Colors.white54 : Colors.black54,
                       fontWeight: FontWeight.w500,
                     ),
                 textAlign: TextAlign.center,

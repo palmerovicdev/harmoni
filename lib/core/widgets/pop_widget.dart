@@ -37,7 +37,7 @@ class PopWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 24),
                 );
               }
-              if (onPop != null) onPop!();
+              if (onPop != null && value) onPop!();
               if (context.mounted && value) context.pop();
             },
             icon: const Icon(Icons.arrow_back_ios_new),

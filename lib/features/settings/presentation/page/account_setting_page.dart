@@ -43,7 +43,7 @@ class AccountSettingPage extends StatelessWidget {
           floatingActionButton: state.hasChangedData
               ? FloatingActionButton(
                   elevation: 3,
-                  backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+                  backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh.withOpacity(0.9),
                   tooltip: 'Guardar',
                   onPressed: () {
                     getMyProfileService().userProfile?.name = nameController.text;

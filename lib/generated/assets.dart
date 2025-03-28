@@ -15,7 +15,6 @@ class Assets {
   static const String coreCalendarUnchecked = 'assets/general/core/calendar_unchecked.svg';
   static const String coreChartChecked = 'assets/general/core/chart_checked.svg';
   static const String coreChartUnchecked = 'assets/general/core/chart_unchecked.svg';
-  static const String coreCloudSnow = 'assets/general/core/cloud_snow.svg';
   static const String coreCog = 'assets/general/core/cog.svg';
   static const String coreCog1 = 'assets/general/core/cog_1.svg';
   static const String coreFinished = 'assets/general/core/finished.svg';
@@ -24,6 +23,7 @@ class Assets {
   static const String coreProfileChecked = 'assets/general/core/profile_checked.svg';
   static const String coreProfileUnchecked = 'assets/general/core/profile_unchecked.svg';
   static const String coreShare = 'assets/general/core/share.svg';
+  static const String coreShootingStar = 'assets/general/core/shooting_star.svg';
   static const String coreStar = 'assets/general/core/star.svg';
   static const String generalFinishedIcon = 'assets/general/finished_icon.png';
   static const String generalFinishedIcon64 = 'assets/general/finished_icon_64.png';
@@ -52,4 +52,5 @@ class Assets {
   static const String rectSadRect = 'assets/emoji/rect/sad_rect.svg';
   static const String rectSurpriseRect = 'assets/emoji/rect/surprise_rect.svg';
   static const String rectWinkRect = 'assets/emoji/rect/wink_rect.svg';
+
 }

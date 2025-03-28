@@ -10,6 +10,7 @@ import 'package:harmoni/features/my_profile/presentation/page/name_setting_page.
 import 'package:harmoni/features/my_profile/presentation/page/sign_in_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/sign_up_page.dart';
 import 'package:harmoni/features/settings/presentation/page/account_setting_page.dart';
+import 'package:harmoni/features/settings/presentation/page/change_password_setting_page.dart';
 import 'package:harmoni/router/router_observer.dart';
 
 import '../features/my_profile/presentation/page/all_done_page.dart';
@@ -83,6 +84,11 @@ GoRouter router = GoRouter(
       path: MyProfileRoute.security.data.path,
       name: MyProfileRoute.security.data.name,
       pageBuilder: (context, state) => MaterialPage(child: SecuritySettingPage()),
+    ),
+    GoRoute(
+      path: MyProfileRoute.change_password.data.path,
+      name: MyProfileRoute.change_password.data.name,
+      pageBuilder: (context, state) => MaterialPage(child: ChangePasswordSettingPage()),
     ),
   ],
 );
