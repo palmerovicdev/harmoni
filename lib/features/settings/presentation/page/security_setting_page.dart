@@ -45,9 +45,7 @@ class SecuritySettingPage extends StatelessWidget {
                     size: 32,
                     color: color,
                   ),
-                  onPressed: () {
-
-                  },
+                  onPressed: () {},
                 ),
                 Space.small.gap,
                 SettingActionWidget(
@@ -66,6 +64,7 @@ class SecuritySettingPage extends StatelessWidget {
                       onAcceptPressed: () => response = true,
                       dialogSettingOptionName: SettingsEnums.shouldShowDeleteAccountPopDialog.name,
                       shouldShowCheckBox: false,
+                      padding: EdgeInsets.symmetric(horizontal: 24.0),
                     );
                     if (!response) return;
                     getMyProfileService().deleteUserProfileByNameOrEmail(name: getMyProfileService().userProfile?.name, email: getMyProfileService().userProfile?.email);

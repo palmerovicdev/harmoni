@@ -50,31 +50,32 @@ Future<void> showConditionalDialog(
         title: Text(message),
         insetPadding: padding ?? EdgeInsets.all(2),
         actionsPadding: EdgeInsets.only(bottom: 12, right: 16),
-        content: SizedBox(
-          height: 40,
-          child: Row(
-            children: [
-              if (shouldShowCheckBox) CheckBoxWidget(
-                screenWidth: screenWidth,
-                callBack: (value) => shouldShowAgain = !value,
-              ),
-              RichText(
-                text: TextSpan(
+        content: shouldShowCheckBox
+            ? SizedBox(
+                height: 40,
+                child: Row(
                   children: [
-                    TextSpan(
-                      text: 'No mostrar otra vez',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Colors.black54,
-                            fontWeight: FontWeight.w500,
+                    CheckBoxWidget(
+                      screenWidth: screenWidth,
+                      callBack: (value) => shouldShowAgain = !value,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'No mostrar otra vez',
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
                           ),
+                        ],
+                      ),
+                      softWrap: true,
                     ),
                   ],
                 ),
-                softWrap: true,
-              ),
-            ],
-          ),
-        ),
+              )
+            : const SizedBox(),
         actions: [
           TextButton(
             style: ButtonStyle(
@@ -149,4 +150,8 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
       ),
     );
   }
+}
+
+isDark(BuildContext context) {
+  return Theme.of(context).brightness == Brightness.dark;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/helpers/utils.dart';
 import '../../../../core/widgets/spacer.dart';
 
 class SettingActionWidget extends StatelessWidget {
@@ -61,7 +62,7 @@ class SettingActionWidget extends StatelessWidget {
                           ? Text(
                               subtitle!,
                               style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    color: Colors.black54,
+                                color: isDark(context) ? Colors.white54 : Colors.black54,
                                   ),
                             )
                           : const SizedBox(),

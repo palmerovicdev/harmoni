@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:harmoni/features/my_profile/presentation/state_management/age/age_cubit.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/action_button_widget.dart';
 
+import '../../../../core/helpers/utils.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/widgets/spacer.dart';
 import '../../../../router/general_routes.dart';
@@ -84,7 +85,7 @@ class AgePage extends StatelessWidget {
                         child: Text(
                           'Nos gustaria saber mas acerca de usted.',
                           style: textTheme.bodyMedium?.copyWith(
-                            color: Colors.black54,
+                            color: isDark(context) ? Colors.white54 : Colors.black54,
                             fontWeight: FontWeight.w500,
                           ),
                           textAlign: TextAlign.center,

@@ -47,7 +47,7 @@ class Harmoni extends StatelessWidget {
           useMaterial3: true,
         ).copyWith(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.white,
+            seedColor: Colors.blue,
             brightness: Brightness.light,
           ),
         ),

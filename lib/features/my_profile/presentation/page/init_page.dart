@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/action_button_widget.dart';
 
+import '../../../../core/helpers/utils.dart';
 import '../../../../core/widgets/spacer.dart';
 import '../../../../generated/assets.dart';
 import '../../../../router/general_routes.dart';
@@ -37,7 +38,7 @@ class InitPage extends StatelessWidget {
               child: Text(
                 'Bienvenido a Harmoni, comencemos a configurar su cuenta',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.black54,
+                  color: isDark(context) ? Colors.white54 : Colors.black54,
                       fontWeight: FontWeight.w500,
                     ),
                 textAlign: TextAlign.center,

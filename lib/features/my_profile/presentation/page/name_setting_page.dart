@@ -73,7 +73,7 @@ class NameSettingPage extends StatelessWidget {
                       child: Text(
                         'Primero lo primero, introduzca su nombre.',
                         style: textTheme.bodyMedium?.copyWith(
-                          color: Colors.black54,
+                          color: isDark(context) ? Colors.white54 : Colors.black54,
                           fontWeight: FontWeight.w500,
                         ),
                         textAlign: TextAlign.center,

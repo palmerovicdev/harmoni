@@ -34,7 +34,7 @@ class NavigationMenu extends StatelessWidget {
               label: e['name'] ?? '',
               selectedIcon: SvgPicture.asset(
                 e['iconActive'] ?? '',
-                colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.onPrimaryFixed, BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.onPrimaryContainer, BlendMode.srcIn),
                 height: 26,
               ),
             ),

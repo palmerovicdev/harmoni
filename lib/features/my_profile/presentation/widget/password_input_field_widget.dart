@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/features/my_profile/service/my_profile_service.dart';
 
+import '../../../../core/helpers/utils.dart';
+
 class PasswordInputFieldWidget extends StatefulWidget {
   const PasswordInputFieldWidget({
     super.key,
@@ -20,6 +22,7 @@ class _PasswordInputFieldWidgetState extends State<PasswordInputFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context).colorScheme;
     return TextField(
       obscureText: !shouldShowPassword,
       obscuringCharacter: '•',
@@ -68,7 +71,7 @@ class _PasswordInputFieldWidgetState extends State<PasswordInputFieldWidget> {
             },
             icon: Icon(
               !shouldShowPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-              color: Colors.black54,
+              color: isDark(context) ? Colors.white54 : Colors.black54,
               size: 20,
             ),
           ),

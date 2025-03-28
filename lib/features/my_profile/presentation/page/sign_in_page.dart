@@ -61,7 +61,7 @@ class SignInPage extends StatelessWidget {
                   child: Text(
                     'Siga dando seguimiento a sus emociones.',
                     style: textTheme.bodyMedium?.copyWith(
-                      color: Colors.black54,
+                      color: isDark(context) ? Colors.white54 : Colors.black54,
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.start,

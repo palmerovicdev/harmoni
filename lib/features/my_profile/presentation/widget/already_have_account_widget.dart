@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:harmoni/core/helpers/utils.dart';
 
 import '../../../../router/general_routes.dart';
 
@@ -23,7 +24,7 @@ class _AlreadyHaveAccountOrNotWidgetState extends State<AlreadyHaveAccountOrNotW
           TextSpan(
             text: widget.isSignUp ? 'Ya posee una cuenta? ' : 'No posee una cuenta? ',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.black54,
+                  color: isDark(context)?Colors.white54 : Colors.black54,
                   fontWeight: FontWeight.w500,
                 ),
           ),

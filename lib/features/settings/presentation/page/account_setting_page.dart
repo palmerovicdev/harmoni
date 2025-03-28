@@ -28,7 +28,7 @@ class AccountSettingPage extends StatelessWidget {
           appBar: AppBar(
             leading: PopWidget(
                 shouldShowDialog: (state as AccountSettingInitial).hasChangedData &&
-                    (getMyProfileService().userProfile?.settings?[SettingsEnums.shouldShowAccountPopDialog.name] as bool? ?? false),
+                    (getMyProfileService().userProfile?.settings?[SettingsEnums.shouldShowAccountPopDialog.name] as bool? ?? true),
                 onPop: () async {
                   var service = getMyProfileService();
                   service.userProfile = await service.getUserProfileByName(getMyProfileService().userProfile?.name ?? '');
@@ -43,17 +43,19 @@ class AccountSettingPage extends StatelessWidget {
           floatingActionButton: state.hasChangedData
               ? FloatingActionButton(
                   elevation: 3,
-                  backgroundColor: Color(0xe4e8f1ff),
-                  child: Icon(
-                    Icons.save_alt_rounded,
-                    color: color,
-                  ),
+                  backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+                  tooltip: 'Guardar',
                   onPressed: () {
                     getMyProfileService().userProfile?.name = nameController.text;
                     getMyProfileService().userProfile?.email = emailController.text;
                     getMyProfileService().userProfile?.age = int.tryParse(ageController.text) ?? 13;
                     getMyProfileService().saveUserProfile();
+                    context.read<AccountSettingCubit>().resetState();
                   },
+                  child: Icon(
+                    Icons.save_rounded,
+                    color: color,
+                  ),
                 )
               : null,
           body: Padding(
