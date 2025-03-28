@@ -122,7 +122,9 @@ class MyProfileSettingPage extends StatelessWidget {
                     "iconSize": 56,
                     "color": color,
                     "action": null,
-                    "onPressed": () {},
+                    "onPressed": () {
+                      context.pushNamed(MyProfileRoute.account.data.name);
+                    },
                   }
                 ].map(
                   (e) => SettingActionWidget(

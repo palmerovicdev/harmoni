@@ -9,6 +9,7 @@ import 'package:harmoni/features/my_profile/presentation/page/init_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/name_setting_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/sign_in_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/sign_up_page.dart';
+import 'package:harmoni/features/settings/presentation/page/account_setting_page.dart';
 import 'package:harmoni/router/router_observer.dart';
 
 import '../features/my_profile/presentation/page/all_done_page.dart';
@@ -71,6 +72,11 @@ GoRouter router = GoRouter(
       path: MyProfileRoute.allDone.data.path,
       name: MyProfileRoute.allDone.data.name,
       pageBuilder: (context, state) => MaterialPage(child: AllDonePage()),
+    ),
+    GoRoute(
+      path: MyProfileRoute.account.data.path,
+      name: MyProfileRoute.account.data.name,
+      pageBuilder: (context, state) => MaterialPage(child: AccountSettingPage()),
     ),
   ],
 );

@@ -12,6 +12,7 @@ import 'features/my_profile/presentation/state_management/my_profile_setting/my_
 import 'features/my_profile/presentation/state_management/name_setting/name_setting_cubit.dart';
 import 'features/my_profile/presentation/state_management/sign_in/sign_in_cubit.dart';
 import 'features/my_profile/presentation/state_management/sign_up/sign_up_cubit.dart';
+import 'features/settings/presentation/state_management/account_setting/account_setting_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +38,7 @@ class Harmoni extends StatelessWidget {
         BlocProvider(create: (context) => AgeCubit()),
         BlocProvider(create: (context) => GenderSelectionCubit()),
         BlocProvider(create: (context) => MyProfileSettingCubit()),
+        BlocProvider(create: (context) => AccountSettingCubit()),
       ],
       child: MaterialApp.router(
         theme: ThemeData.light(

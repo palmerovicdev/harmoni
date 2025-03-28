@@ -21,6 +21,7 @@ enum MyProfileRoute {
   signUp(RoutesData(name: 'sign_up', path: '/sign_up')),
   gender(RoutesData(name: 'gender', path: '/gender')),
   my_profile(RoutesData(name: 'my_profile', path: '/my_profile')),
+  account(RoutesData(name: 'account', path: '/account')),
   allDone(RoutesData(name: 'all_done', path: '/all_done'));
 
   final RoutesData data;
