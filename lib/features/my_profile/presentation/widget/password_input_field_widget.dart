@@ -8,9 +8,16 @@ class PasswordInputFieldWidget extends StatefulWidget {
   const PasswordInputFieldWidget({
     super.key,
     required this.controller,
+    this.shouldValidate = true,
+    this.validatePassword,
+    this.isValidByDefault,
   });
 
   final TextEditingController controller;
+  final bool shouldValidate;
+  final bool? isValidByDefault;
+
+  final Function? validatePassword;
 
   @override
   State<PasswordInputFieldWidget> createState() => _PasswordInputFieldWidgetState();
@@ -32,7 +39,12 @@ class _PasswordInputFieldWidgetState extends State<PasswordInputFieldWidget> {
           isValid = true;
           return;
         }
-        isValid = getMyProfileService().validatePassword(value) == PasswordValidationResult.success.name;
+        if (widget.isValidByDefault != null) {
+          widget.validatePassword?.call();
+          isValid = widget.isValidByDefault!;
+        } else {
+          isValid = getMyProfileService().validatePassword(value) == PasswordValidationResult.success.name;
+        }
       },
       decoration: InputDecoration(
         errorText: !isValid ? 'Contraseña invalida.' : null,
@@ -41,7 +53,7 @@ class _PasswordInputFieldWidgetState extends State<PasswordInputFieldWidget> {
           borderRadius: BorderRadius.circular(12),
         ),
         filled: true,
-        fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+        fillColor: theme.primary.withOpacity(0.1),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12), // Define el radio de las esquinas.
           borderSide: BorderSide.none, // Sin borde visible.

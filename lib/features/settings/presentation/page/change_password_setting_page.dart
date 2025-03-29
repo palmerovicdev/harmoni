@@ -11,7 +11,8 @@ class ChangePasswordSettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var fontStyle = Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w500);
+    var textTheme = Theme.of(context).textTheme;
+    var fontStyle = textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w500);
     var actualPasswordController = TextEditingController();
     var newPasswordController = TextEditingController();
     var newRepeatedPasswordController = TextEditingController();
@@ -24,6 +25,19 @@ class ChangePasswordSettingPage extends StatelessWidget {
             leading: PopWidget(),
             title: Text('Cambiar contraseña'),
           ),
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: FilledButton(
+              onPressed: () {
+                //TODO 3/28/25 palmerodev : validations
+              },
+              style: ButtonStyle(
+                shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                backgroundColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.surfaceContainerHigh),
+              ),
+              child: Text('Aceptar', style: textTheme.bodyLarge),
+            ),
+          ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: SingleChildScrollView(
@@ -32,38 +46,29 @@ class ChangePasswordSettingPage extends StatelessWidget {
                 children: [
                   Space.small.gap,
                   Center(
-                    child: Icon(
-                      Icons.admin_panel_settings_sharp,
-                      size: 160,
-                      color: color,
-                    ),
+                    child: Icon(Icons.admin_panel_settings_sharp, size: 160, color: color),
                   ),
                   Space.medium.gap,
-                  Text(
-                    'Contraseña actual',
-                    style: fontStyle,
-                  ),
+                  Text('Contraseña actual', style: fontStyle),
                   Space.smaller_small.gap,
-                  PasswordInputFieldWidget(
-                    controller: actualPasswordController,
-                  ),
+                  PasswordInputFieldWidget(controller: actualPasswordController),
                   Space.small.gap,
-                  Text(
-                    'Contraseña nueva',
-                    style: fontStyle,
-                  ),
+                  Text('Contraseña nueva', style: fontStyle),
                   Space.smaller_small.gap,
                   PasswordInputFieldWidget(
                     controller: newPasswordController,
+                    shouldValidate: false,
+                    validatePassword: () => context.read<ChangePasswordSettingCubit>().validatePassword(newPasswordController.text == newRepeatedPasswordController.text),
+                    isValidByDefault: state is ChangePasswordSettingInitial,
                   ),
                   Space.small.gap,
-                  Text(
-                    'Contraseña nueva repetida',
-                    style: fontStyle,
-                  ),
+                  Text('Contraseña nueva repetida', style: fontStyle),
                   Space.smaller_small.gap,
                   PasswordInputFieldWidget(
                     controller: newRepeatedPasswordController,
+                    shouldValidate: false,
+                    validatePassword: () => context.read<ChangePasswordSettingCubit>().validatePassword(newPasswordController.text == newRepeatedPasswordController.text),
+                    isValidByDefault: state is ChangePasswordSettingInitial,
                   ),
                 ],
               ),

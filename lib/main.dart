@@ -44,7 +44,7 @@ class Harmoni extends StatelessWidget {
         BlocProvider(create: (context) => SecuritySettingCubit()),
         BlocProvider(create: (context) => ChangePasswordSettingCubit()),
       ],
-      child: MaterialApp.router( //TODO 3/28/25 palmerodev : agregar aqui
+      child: MaterialApp.router( //TODO 3/28/25 palmerodev : agregar aqui el bloc para lo del tema
         theme: ThemeData.light(
           useMaterial3: true,
         ).copyWith(
