@@ -68,7 +68,7 @@ class GenderPage extends StatelessWidget {
                       width: screenWidth * 0.6,
                       child: Text(
                         'Ayúdenos a mejorar su experiencia.',
-                        style: textTheme.bodyMedium?.copyWith(
+                        style: textTheme.bodyLarge?.copyWith(
                           color: isDark(context) ? Colors.white54 : Colors.black54,
                           fontWeight: FontWeight.w500,
                         ),

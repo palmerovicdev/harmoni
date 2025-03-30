@@ -53,7 +53,7 @@ class SignUpPage extends StatelessWidget {
                   width: screenWidth * 0.6,
                   child: Text(
                     'Comience a dar seguimiento a sus emociones.',
-                    style: textTheme.bodyMedium?.copyWith(
+                    style: textTheme.bodyLarge?.copyWith(
                       color: isDark(context) ? Colors.white54 : Colors.black54,
                       fontWeight: FontWeight.w500,
                     ),
@@ -66,9 +66,7 @@ class SignUpPage extends StatelessWidget {
                 padding: EdgeInsets.only(left: width),
                 child: Text(
                   'Email',
-                  style: textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
                   textAlign: TextAlign.start,
                 ),
               ),
@@ -84,9 +82,7 @@ class SignUpPage extends StatelessWidget {
                 padding: EdgeInsets.only(left: width),
                 child: Text(
                   'Contraseña',
-                  style: textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
                   textAlign: TextAlign.start,
                 ),
               ),

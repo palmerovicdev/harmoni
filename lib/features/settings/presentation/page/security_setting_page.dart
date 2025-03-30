@@ -31,11 +31,10 @@ class SecuritySettingPage extends StatelessWidget {
                 Center(
                   child: Icon(
                     Icons.security_outlined,
-                    size: 160,
+                    size: 140,
                     color: color,
                   ),
                 ),
-                Space.medium.gap,
                 Space.medium.gap,
                 SettingActionWidget(
                   title: 'Cambiar contraseña',

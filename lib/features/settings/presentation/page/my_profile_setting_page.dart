@@ -20,16 +20,17 @@ class MyProfileSettingPage extends StatelessWidget {
     var color = Theme.of(context).colorScheme.primary;
     return BlocBuilder<MyProfileSettingCubit, MyProfileSettingState>(
       builder: (context, state) {
+        double size = 36;
         var data = [
           {
             "title": "Seguridad",
             "subtitle": null,
             "icon": Icon(
               Icons.security,
-              size: 32,
+              size: size,
               color: color,
             ),
-            "iconSize": 32,
+            "iconSize": size,
             "color": color,
             "action": null,
             "onPressed": () {
@@ -41,39 +42,43 @@ class MyProfileSettingPage extends StatelessWidget {
             "subtitle": null,
             "icon": Icon(
               Icons.color_lens,
-              size: 32,
+              size: size,
               color: color,
             ),
-            "iconSize": 32,
+            "iconSize": size,
             "color": color,
             "action": null,
-            "onPressed": () {},
+            "onPressed": () {
+              context.pushNamed(MyProfileRoute.style.data.name);
+            },
           },
           {
             "title": "Ayuda",
             "subtitle": null,
             "icon": Icon(
               Icons.help,
-              size: 32,
+              size: size,
               color: color,
             ),
-            "iconSize": 32,
+            "iconSize": size,
             "color": color,
             "action": null,
-            "onPressed": () {},
+            "onPressed": () {
+              context.pushNamed(MyProfileRoute.help.data.name);
+            },
           },
           {
             "title": "Cerrar cuenta",
             "subtitle": null,
             "icon": Icon(
               Icons.close,
-              size: 32,
+              size: size,
               color: Colors.red.withOpacity(0.8),
             ),
-            "iconSize": 32,
+            "iconSize": size,
             "action": Icon(
               Icons.logout_rounded,
-              size: 32,
+              size: size,
               color: Colors.red.withOpacity(0.8),
             ),
             "color": Colors.red,
@@ -119,9 +124,9 @@ class MyProfileSettingPage extends StatelessWidget {
                     "icon": Icon(
                       Icons.account_circle,
                       color: color,
-                      size: 56,
+                      size: 60,
                     ),
-                    "iconSize": 56,
+                    "iconSize": 60,
                     "color": color,
                     "action": null,
                     "onPressed": () {

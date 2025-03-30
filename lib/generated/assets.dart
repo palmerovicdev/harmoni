@@ -37,6 +37,7 @@ class Assets {
   static const String ghostSupriseGhost = 'assets/emoji/ghost/suprise_ghost.svg';
   static const String ghostWinkGhost = 'assets/emoji/ghost/wink_ghost.svg';
   static const String harmoniPubspec = 'pubspec.yaml';
+  static const String helpInformationGenera = 'assets/help_information/general.json';
   static const String imagesAllDoneImage32 = 'assets/images/all_done_image_32.png';
   static const String imagesAllDoneImage96 = 'assets/images/all_done_image_96.png';
   static const String imagesInitPageImage = 'assets/images/init_page_image.png';

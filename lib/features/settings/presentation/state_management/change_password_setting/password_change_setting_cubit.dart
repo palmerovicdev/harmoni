@@ -7,6 +7,6 @@ class ChangePasswordSettingCubit extends Cubit<ChangePasswordSettingState> {
   ChangePasswordSettingCubit() : super(ChangePasswordSettingInitial());
 
   validatePassword(bool isValid) {
-    isValid? emit(ChangePasswordSettingInitial()) : emit(ChangePasswordSettingInvalid());
+    isValid ? emit(ChangePasswordSettingInitial()) : emit(ChangePasswordSettingInvalid());
   }
 }

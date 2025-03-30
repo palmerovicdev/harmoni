@@ -20,13 +20,17 @@ class AccountSettingPage extends StatelessWidget {
     var ageController = TextEditingController(text: getMyProfileService().userProfile?.age.toString());
     var genderController = ExpansionTileController();
     return BlocBuilder<AccountSettingCubit, AccountSettingState>(
-      buildWhen: (previous, current) => (previous as AccountSettingInitial).hasChangedData != (current as AccountSettingInitial).hasChangedData,
+      buildWhen: (previous, current) =>
+          (previous as AccountSettingInitial).hasChangedData != (current as AccountSettingInitial).hasChangedData || (previous).hasBeenPop != (current).hasBeenPop,
       builder: (context, state) {
         var color = Theme.of(context).colorScheme.primary;
-        var fontStyle = Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w500);
+        var fontStyle = Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400);
         return Scaffold(
           appBar: AppBar(
             leading: PopWidget(
+                beforePop: () {
+                  context.read<AccountSettingCubit>().changePopState();
+                },
                 shouldShowDialog: (state as AccountSettingInitial).hasChangedData &&
                     (getMyProfileService().userProfile?.settings?[SettingsEnums.shouldShowAccountPopDialog.name] as bool? ?? true),
                 onPop: () async {

@@ -23,14 +23,14 @@ class _AlreadyHaveAccountOrNotWidgetState extends State<AlreadyHaveAccountOrNotW
         children: [
           TextSpan(
             text: widget.isSignUp ? 'Ya posee una cuenta? ' : 'No posee una cuenta? ',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: isDark(context)?Colors.white54 : Colors.black54,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: isDark(context) ? Colors.white54 : Colors.black54,
                   fontWeight: FontWeight.w500,
                 ),
           ),
           TextSpan(
             text: widget.isSignUp ? 'Autenticarse' : 'Crear Cuenta',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500,
                 ),

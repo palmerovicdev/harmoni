@@ -6,9 +6,10 @@ sealed class AccountSettingState extends Equatable {
 
 final class AccountSettingInitial extends AccountSettingState {
   final bool hasChangedData;
+  final bool hasBeenPop;
 
-  const AccountSettingInitial({this.hasChangedData = false});
+  const AccountSettingInitial({this.hasChangedData = false, this.hasBeenPop = false});
 
   @override
-  List<Object> get props => [hasChangedData];
+  List<Object> get props => [hasChangedData, hasBeenPop];
 }

@@ -11,6 +11,10 @@ class AccountSettingCubit extends Cubit<AccountSettingState> {
   }
 
   resetState() {
-    emit(AccountSettingInitial(hasChangedData: false));
+    emit(AccountSettingInitial(hasChangedData: false, hasBeenPop: false));
+  }
+
+  changePopState() {
+    emit(AccountSettingInitial(hasBeenPop: true));
   }
 }

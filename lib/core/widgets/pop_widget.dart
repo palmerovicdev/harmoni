@@ -9,11 +9,13 @@ class PopWidget extends StatelessWidget {
     this.shouldAddPadding = true,
     this.shouldShowDialog,
     this.onPop,
+    this.beforePop,
   });
 
   final bool shouldAddPadding;
   final bool? shouldShowDialog;
   final Function? onPop;
+  final Function? beforePop;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class PopWidget extends StatelessWidget {
           child: IconButton(
             onPressed: () async {
               bool value = true;
+              beforePop?.call();
               if (shouldShowDialog ?? false) {
                 value = false;
                 await showConditionalDialog(

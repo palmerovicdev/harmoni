@@ -21,6 +21,7 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.sizeOf(context).width;
+    var textTheme = Theme.of(context).textTheme.bodyLarge;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -47,17 +48,17 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
                   children: [
                     TextSpan(
                       text: 'He leído y acepto los ',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Colors.black54,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      style: textTheme?.copyWith(
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     TextSpan(
                       text: 'Terminos & Condiciones',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      style: textTheme?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w500,
+                      ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           safePrint('Tap');
@@ -65,17 +66,17 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
                     ),
                     TextSpan(
                       text: ' y la ',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Colors.black54,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      style: textTheme?.copyWith(
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     TextSpan(
                       text: 'Politica de Privacidad',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      style: textTheme?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w500,
+                      ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           safePrint('Tap');

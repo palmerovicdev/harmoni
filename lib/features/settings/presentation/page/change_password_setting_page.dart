@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:harmoni/core/helpers/utils.dart';
+import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/core/widgets/pop_widget.dart';
 import 'package:harmoni/features/my_profile/presentation/widget/password_input_field_widget.dart';
+import 'package:harmoni/router/general_routes.dart';
 
 import '../../../../core/widgets/spacer.dart';
 import '../state_management/change_password_setting/password_change_setting_cubit.dart';
@@ -12,7 +16,7 @@ class ChangePasswordSettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
-    var fontStyle = textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w500);
+    var fontStyle = Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400);
     var actualPasswordController = TextEditingController();
     var newPasswordController = TextEditingController();
     var newRepeatedPasswordController = TextEditingController();
@@ -20,6 +24,7 @@ class ChangePasswordSettingPage extends StatelessWidget {
 
     return BlocBuilder<ChangePasswordSettingCubit, ChangePasswordSettingState>(
       builder: (context, state) {
+        var isValid = state is ChangePasswordSettingInitial;
         return Scaffold(
           appBar: AppBar(
             leading: PopWidget(),
@@ -29,7 +34,29 @@ class ChangePasswordSettingPage extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8.0),
             child: FilledButton(
               onPressed: () {
-                //TODO 3/28/25 palmerodev : validations
+                if (newPasswordController.text.isEmpty || actualPasswordController.text.isEmpty) {
+                  showErrorDialog(context, 'Contraseña incorrecta. Las contraseñas no deben estar vacías. Reintenta.');
+                  return;
+                }
+                if (!getMyProfileService().matchPassword(actualPasswordController.text, getMyProfileService().userProfile?.password ?? '')) {
+                  showErrorDialog(context, 'La contraseña es incorrecta. Reintenta.');
+                  return;
+                }
+                if (state is! ChangePasswordSettingInitial) {
+                  showErrorDialog(context, 'Contraseña incorrecta. Las contraseñas no coinciden. Reintenta.');
+                  return;
+                }
+                if (newPasswordController.text.length <= 8) {
+                  showErrorDialog(context, 'Contraseña incorrecta. Las contraseñas deben tener al menos 8 caracteres. Reintenta.');
+                  return;
+                }
+
+                getMyProfileService().userProfile?.password = getMyProfileService().hashPassword(newRepeatedPasswordController.text);
+                getMyProfileService().saveUserProfile();
+                actualPasswordController = TextEditingController();
+                newPasswordController = TextEditingController();
+                newRepeatedPasswordController = TextEditingController();
+                context.goNamed(MyProfileRoute.my_profile.data.name);
               },
               style: ButtonStyle(
                 shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
@@ -59,7 +86,7 @@ class ChangePasswordSettingPage extends StatelessWidget {
                     controller: newPasswordController,
                     shouldValidate: false,
                     validatePassword: () => context.read<ChangePasswordSettingCubit>().validatePassword(newPasswordController.text == newRepeatedPasswordController.text),
-                    isValidByDefault: state is ChangePasswordSettingInitial,
+                    isValidByDefault: isValid,
                   ),
                   Space.small.gap,
                   Text('Contraseña nueva repetida', style: fontStyle),
@@ -68,7 +95,7 @@ class ChangePasswordSettingPage extends StatelessWidget {
                     controller: newRepeatedPasswordController,
                     shouldValidate: false,
                     validatePassword: () => context.read<ChangePasswordSettingCubit>().validatePassword(newPasswordController.text == newRepeatedPasswordController.text),
-                    isValidByDefault: state is ChangePasswordSettingInitial,
+                    isValidByDefault: isValid,
                   ),
                 ],
               ),

@@ -62,7 +62,7 @@ class SettingActionWidget extends StatelessWidget {
                           ? Text(
                               subtitle!,
                               style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                color: isDark(context) ? Colors.white54 : Colors.black54,
+                                    color: isDark(context) ? Colors.white54 : Colors.black54,
                                   ),
                             )
                           : const SizedBox(),

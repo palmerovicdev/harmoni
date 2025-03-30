@@ -23,6 +23,8 @@ enum MyProfileRoute {
   my_profile(RoutesData(name: 'my_profile', path: '/my_profile')),
   security(RoutesData(name: 'security', path: '/security')),
   account(RoutesData(name: 'account', path: '/account')),
+  style(RoutesData(name: 'style', path: '/style')),
+  help(RoutesData(name: 'help', path: '/help')),
   change_password(RoutesData(name: 'change_password', path: '/change_password')),
   allDone(RoutesData(name: 'all_done', path: '/all_done'));
 

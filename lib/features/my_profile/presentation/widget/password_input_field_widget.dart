@@ -30,6 +30,7 @@ class _PasswordInputFieldWidgetState extends State<PasswordInputFieldWidget> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).colorScheme;
+    if (widget.isValidByDefault != null) isValid = widget.isValidByDefault!;
     return TextField(
       obscureText: !shouldShowPassword,
       obscuringCharacter: '•',
@@ -41,9 +42,10 @@ class _PasswordInputFieldWidgetState extends State<PasswordInputFieldWidget> {
         }
         if (widget.isValidByDefault != null) {
           widget.validatePassword?.call();
-          isValid = widget.isValidByDefault!;
         } else {
-          isValid = getMyProfileService().validatePassword(value) == PasswordValidationResult.success.name;
+          setState(() {
+            isValid = getMyProfileService().validatePassword(value) == PasswordValidationResult.success.name;
+          });
         }
       },
       decoration: InputDecoration(
@@ -55,8 +57,8 @@ class _PasswordInputFieldWidgetState extends State<PasswordInputFieldWidget> {
         filled: true,
         fillColor: theme.primary.withOpacity(0.1),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12), // Define el radio de las esquinas.
-          borderSide: BorderSide.none, // Sin borde visible.
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

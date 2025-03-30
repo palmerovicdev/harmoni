@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:harmoni/core/helpers/logger.dart';
 import 'package:harmoni/core/helpers/settings_enums.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 
@@ -45,7 +48,7 @@ Future<void> showConditionalDialog(
     builder: (context) {
       var screenWidth = MediaQuery.sizeOf(context).width;
       var colorWithOpacity = Theme.of(context).colorScheme.primary.withOpacity(0.05);
-      var shouldShowAgain = false;
+      var shouldShowAgain = true;
       return AlertDialog(
         title: Text(message),
         insetPadding: padding ?? EdgeInsets.all(2),
@@ -57,7 +60,10 @@ Future<void> showConditionalDialog(
                   children: [
                     CheckBoxWidget(
                       screenWidth: screenWidth,
-                      callBack: (value) => shouldShowAgain = !value,
+                      callBack: (value) {
+                        logI('$value');
+                        shouldShowAgain = !value;
+                      },
                     ),
                     RichText(
                       text: TextSpan(
@@ -91,6 +97,7 @@ Future<void> showConditionalDialog(
                     (value) => value = shouldShowAgain,
                     ifAbsent: () => shouldShowAgain,
                   );
+              logI('Saving user profile in pop: ${jsonEncode(getMyProfileService().userProfile)}');
               getMyProfileService().saveUserProfile();
               Navigator.of(context).pop();
             },
@@ -103,6 +110,7 @@ Future<void> showConditionalDialog(
                     (value) => value = shouldShowAgain,
                     ifAbsent: () => shouldShowAgain,
                   );
+              logI('Saving user profile in pop: ${jsonEncode(getMyProfileService().userProfile)}');
               getMyProfileService().saveUserProfile();
               onAcceptPressed.call();
               Navigator.of(context).pop();
@@ -140,11 +148,12 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
         fit: BoxFit.scaleDown,
         child: Checkbox(
           value: isChecked,
-          onChanged: (value) => {
+          onChanged: (value) {
             setState(() {
               isChecked = value ?? false;
-            }),
-            widget.callBack(isChecked),
+            });
+            logI('$isChecked');
+            widget.callBack.call(isChecked);
           },
         ),
       ),
