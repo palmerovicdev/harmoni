@@ -1,15 +1,14 @@
-import 'package:harmoni/core/connection/connection.dart';
-import 'package:harmoni/core/helpers/database.dart';
+import 'package:dio/dio.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 
 import '../../model/model/user_model.dart';
 
 abstract class MyProfileApi {
   Future<void> signUp(User user);
+
   Future<void> signIn(User user);
 
   Future<User?> getUserProfile();
-
 }
 
 class MyProfileApiBackImpl implements MyProfileApi {
@@ -24,15 +23,19 @@ class MyProfileApiBackImpl implements MyProfileApi {
 
   @override
   Future<void> signUp(User user) {
-    // TODO: implement saveUserProfile
-    throw UnimplementedError();
+    var connection = getConnectionService();
+    return connection.post(
+      '$_userBaseUrl/signUp',
+      data: user.toJson()..addAll({'role': 'USER'}),
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
   }
 
   @override
-  Future<void> signIn(User user) {
-    // TODO: implement signIn
-    throw UnimplementedError();
-  }
+  Future<void> signIn(User user) {}
 }
-
-// git commit -m "feat: some changes in front project" --date
