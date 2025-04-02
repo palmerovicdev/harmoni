@@ -1,6 +1,16 @@
 {
-  "¿Que es Harmoni?": "La aplicación Harmoni te ofrece una herramienta poderosa para monitorear y entender tus emociones, actividades diarias y rendimiento emocional.",
-  "¿Como trabaja Harmoni?": "En Harmoni, gratias una potente tecnología AI que detecta emociones humanales a partir de imágenes y audio proporcionados por el usuario.",
-  "¿Puedo usar Harmoni sin conexión?": "No, debido a la necesidad de una conexión estable con el modelo que esta alojado en nuestros servidores.",
-  "¿Cómo puedo interpretar los datos recolectados sobre mis emociones?" : ""
+  "questions": [
+    {
+      "¿Que es Harmoni?": "La aplicación Harmoni te ofrece una herramienta poderosa para monitorear y entender tus emociones, actividades diarias y rendimiento emocional."
+    },
+    {
+      "¿Como trabaja Harmoni?": "En Harmoni, gracias un modelo de inteligencia artificial que detecta emociones humanales a partir de imágenes y audio proporcionados por el usuario identificamos sus ."
+    },
+    {
+      "¿Puedo usar Harmoni sin conexión?": "No, debido a la necesidad de una conexión estable con el modelo que esta alojado en nuestros servidores."
+    },
+    {
+      "¿Cuál es la precisión de la aplicación en detectar diferentes tipos de emociones?": "La aplicación tiene una precision relativamente alta pero nunca alcanza el 100% de los casos debido a diferentes factores como la calidad de imagen, audio y otros..."
+    }
+  ]
 }

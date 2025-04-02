@@ -21,6 +21,7 @@ import 'features/settings/presentation/state_management/help_setting/help_settin
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
+  await loadAllInformation();
   runApp(const Harmoni());
   logI('App Start');
 }

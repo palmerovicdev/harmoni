@@ -55,4 +55,5 @@ flutter:
     - assets/general/core/
     - assets/general/oauth/
     - assets/images/
+    - assets/help_information/
     - pubspec.yaml
