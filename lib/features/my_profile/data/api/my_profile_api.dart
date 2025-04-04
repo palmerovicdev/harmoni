@@ -22,9 +22,9 @@ class MyProfileApiBackImpl implements MyProfileApi {
   }
 
   @override
-  Future<void> signUp(User user) {
+  Future<void> signUp(User user) async {
     var connection = getConnectionService();
-    return connection.post(
+    var response = await connection.post(
       '$_userBaseUrl/signUp',
       data: user.toJson()..addAll({'role': 'USER'}),
       options: Options(
@@ -34,8 +34,32 @@ class MyProfileApiBackImpl implements MyProfileApi {
         },
       ),
     );
+
+    if (response.statusCode == 200) {
+      getConnectionService().token = response.data['token'];
+    } else {
+      // handle error
+    }
   }
 
   @override
-  Future<void> signIn(User user) {}
+  Future<void> signIn(User user) {
+    var connection = getConnectionService();
+    return connection.post(
+      '$_userBaseUrl/signIn',
+      data: user.toJson(),
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    ).then((response) {
+      if (response.statusCode == 200) {
+        connection.token = response.data['token'];
+      } else {
+        // handle error
+      }
+    });
+  }
 }

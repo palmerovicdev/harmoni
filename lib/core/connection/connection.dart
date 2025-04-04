@@ -6,7 +6,7 @@ class Connection {
   static final Connection _instance = Connection._internal();
   static Dio? _dio;
   final String _baseUrl = 'https://localhost:8080';
-  final String token = '';
+  String token = '';
 
   String getBaseUrl() => _baseUrl;
 
