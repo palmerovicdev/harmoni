@@ -33,34 +33,41 @@ class _EmailInputFieldWidgetState extends State<EmailInputFieldWidget> {
         isValid = widget.controller.text.isEmailOnly;
         widget.onChanged?.call(isValid);
       }),
+      style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
       decoration: InputDecoration(
-        errorText: !isValid ? 'Email invalido.' : null,
-        errorBorder: !isValid
-            ? OutlineInputBorder(
-                borderSide: !isValid ? BorderSide(color: Colors.red) : BorderSide.none,
-                borderRadius: BorderRadius.circular(12),
-              )
-            : null,
+        errorStyle: TextStyle(),
+        error: isValid
+            ? null
+            : Text(
+                'Email invalido.',
+                softWrap: true,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                textAlign: TextAlign.center,
+              ),
         filled: true,
         fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+        errorBorder: OutlineInputBorder(
+          borderSide: !isValid ? BorderSide(color: Theme.of(context).colorScheme.error) : BorderSide.none,
+          borderRadius: BorderRadius.circular(12),
+        ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12), // Define el radio de las esquinas.
-          borderSide: BorderSide.none, // Sin borde visible.
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.black12),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: Colors.black12),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: Colors.black12),
         ),
-        prefixIcon: Padding(
-          padding: const EdgeInsets.only(left: 18.0, top: 22.0, bottom: 22.0, right: 12),
-          child: Icon(
-            Icons.email_outlined,
-            size: 20,
-          ),
+        prefixIcon: Icon(
+          Icons.email_rounded,
+          size: 20,
+          color: Theme.of(context).colorScheme.primary,
         ),
       ),
     );

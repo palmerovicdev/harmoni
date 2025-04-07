@@ -22,7 +22,6 @@ class NameSettingCubit extends Cubit<NameSettingState> {
   Future<bool> updateName(String text) async {
     var myProfileService = getMyProfileService();
     await myProfileService.setName(text);
-    await myProfileService.saveUserProfile();
     emit(NameSettingValid(name: text));
     return true;
   }

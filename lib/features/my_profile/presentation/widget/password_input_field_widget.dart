@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/features/my_profile/service/my_profile_service.dart';
 
-import '../../../../core/helpers/utils.dart';
-
 class PasswordInputFieldWidget extends StatefulWidget {
   const PasswordInputFieldWidget({
     super.key,
@@ -71,8 +69,9 @@ class _PasswordInputFieldWidgetState extends State<PasswordInputFieldWidget> {
         prefixIcon: Padding(
           padding: const EdgeInsets.only(left: 18.0, top: 22.0, bottom: 22.0, right: 12),
           child: Icon(
-            Icons.lock_outline_rounded,
+            Icons.lock_rounded,
             size: 20,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
         suffixIcon: Padding(
@@ -85,7 +84,7 @@ class _PasswordInputFieldWidgetState extends State<PasswordInputFieldWidget> {
             },
             icon: Icon(
               !shouldShowPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-              color: isDark(context) ? Colors.white54 : Colors.black54,
+              color: Theme.of(context).colorScheme.primary,
               size: 20,
             ),
           ),

@@ -6,10 +6,12 @@ class NameInputFieldWidget extends StatefulWidget {
     super.key,
     required this.controller,
     this.onChanged,
+    this.shouldShowBigNameField = true,
   });
 
   final TextEditingController controller;
   final Function(bool isValid)? onChanged;
+  final bool shouldShowBigNameField;
 
   @override
   State<NameInputFieldWidget> createState() => _NameInputFieldWidgetState();
@@ -30,10 +32,12 @@ class _NameInputFieldWidgetState extends State<NameInputFieldWidget> {
         isValid = getMyProfileService().validateNameStruct(value);
         widget.onChanged?.call(isValid);
       }),
-      textAlign: TextAlign.center,
-      style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-            fontWeight: FontWeight.w500,
-          ),
+      textAlign: widget.shouldShowBigNameField ? TextAlign.center : TextAlign.start,
+      style: widget.shouldShowBigNameField
+          ? Theme.of(context).textTheme.headlineLarge?.copyWith(
+                fontWeight: FontWeight.w500,
+              )
+          : Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
       decoration: InputDecoration(
         errorStyle: TextStyle(),
         error: !isValid
@@ -41,27 +45,30 @@ class _NameInputFieldWidgetState extends State<NameInputFieldWidget> {
                 'Nombre invalido. Debe contener sólo letras y el primer carácter debe ser mayúscula.',
                 softWrap: true,
                 style: TextStyle(
-                  color: Colors.red[800],
+                  color: Theme.of(context).colorScheme.error,
                 ),
                 textAlign: TextAlign.center,
               )
             : null,
-        contentPadding: EdgeInsets.symmetric(vertical: 24),
+        contentPadding: widget.shouldShowBigNameField ? EdgeInsets.symmetric(vertical: 24) : EdgeInsets.only(left: 16),
         filled: true,
-        fillColor: Theme.of(context).colorScheme.surfaceContainer,
+        fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
         errorBorder: OutlineInputBorder(
-          borderSide: !isValid ? BorderSide(color: Colors.red) : BorderSide.none,
+          borderSide: !isValid ? BorderSide(color: Theme.of(context).colorScheme.error) : BorderSide.none,
           borderRadius: BorderRadius.circular(12),
         ),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12), // Define el radio de las esquinas.
-            borderSide: BorderSide(color: Colors.black12),
-            gapPadding: 16 // Sin borde visible.
-            ),
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.black12), gapPadding: 16 // Sin borde visible.
-            ),
-        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.black12), gapPadding: 16 // Sin borde visible.
-            ),
+          borderRadius: BorderRadius.circular(12), // Define el radio de las esquinas.
+          borderSide: BorderSide(color: Colors.black12),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.black12),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.black12),
+        ),
       ),
     );
   }

@@ -5,8 +5,9 @@ import 'package:harmoni/core/helpers/settings_enums.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/core/widgets/pop_widget.dart';
 import 'package:harmoni/core/widgets/spacer.dart';
+import 'package:harmoni/features/my_profile/presentation/widget/email_input_field_widget.dart';
+import 'package:harmoni/features/my_profile/presentation/widget/name_input_field_widget.dart';
 import 'package:harmoni/features/settings/presentation/state_management/account_setting/account_setting_cubit.dart';
-import 'package:harmoni/features/settings/presentation/widget/setting_text_field_widget.dart';
 
 import '../../../../generated/assets.dart';
 
@@ -29,6 +30,7 @@ class AccountSettingPage extends StatelessWidget {
           appBar: AppBar(
             leading: PopWidget(
                 beforePop: () {
+                  getMyProfileService().profileAuxGender = '';
                   context.read<AccountSettingCubit>().changePopState();
                 },
                 shouldShowDialog: (state as AccountSettingInitial).hasChangedData &&
@@ -53,7 +55,7 @@ class AccountSettingPage extends StatelessWidget {
                     getMyProfileService().userProfile?.name = nameController.text;
                     getMyProfileService().userProfile?.email = emailController.text;
                     getMyProfileService().userProfile?.age = int.tryParse(ageController.text) ?? 13;
-                    getMyProfileService().saveUserProfile();
+                    getMyProfileService().saveUserProfile(shouldUpdate: true);
                     context.read<AccountSettingCubit>().resetState();
                   },
                   child: Icon(
@@ -81,10 +83,15 @@ class AccountSettingPage extends StatelessWidget {
                     style: fontStyle,
                   ),
                   Space.smaller_small.gap,
-                  SettingTextFieldWidget(
-                    textController: nameController,
-                    onValueChanged: () {
-                      context.read<AccountSettingCubit>().changeValue();
+                  NameInputFieldWidget(
+                    shouldShowBigNameField: false,
+                    controller: nameController,
+                    onChanged: (value) {
+                      if (nameController.text == getMyProfileService().userProfile?.name) {
+                        context.read<AccountSettingCubit>().revertChangedData();
+                      } else if (value) {
+                        context.read<AccountSettingCubit>().changeValue();
+                      }
                     },
                   ),
                   Space.small.gap,
@@ -93,14 +100,14 @@ class AccountSettingPage extends StatelessWidget {
                     style: fontStyle,
                   ),
                   Space.smaller_small.gap,
-                  SettingTextFieldWidget(
-                    textController: emailController,
-                    leading: Padding(
-                      padding: const EdgeInsets.only(top: 2.0, right: 10),
-                      child: Icon(Icons.mark_email_read_rounded, color: color),
-                    ),
-                    onValueChanged: () {
-                      context.read<AccountSettingCubit>().changeValue();
+                  EmailInputFieldWidget(
+                    controller: emailController,
+                    onChanged: (value) {
+                      if (emailController.text == getMyProfileService().userProfile?.email) {
+                        context.read<AccountSettingCubit>().revertChangedData();
+                      } else if (value) {
+                        context.read<AccountSettingCubit>().changeValue();
+                      }
                     },
                   ),
                   Space.smaller_small.gap,
@@ -112,8 +119,12 @@ class AccountSettingPage extends StatelessWidget {
                   GenderSelectionSettingWidget(
                     controller: genderController,
                     onValueChanged: (value) {
-                      getMyProfileService().userProfile?.gender = value;
-                      context.read<AccountSettingCubit>().changeValue();
+                      if (value == getGender(getMyProfileService().userProfile?.gender ?? '')) {
+                        context.read<AccountSettingCubit>().revertChangedData();
+                      } else {
+                        getMyProfileService().profileAuxGender = value;
+                        context.read<AccountSettingCubit>().changeValue();
+                      }
                     },
                   ),
                   Space.smaller_small.gap,
@@ -125,7 +136,11 @@ class AccountSettingPage extends StatelessWidget {
                   AgeSelectorScreen(
                     controller: ageController,
                     onValueChanged: (value) {
-                      context.read<AccountSettingCubit>().changeValue();
+                      if (value == getMyProfileService().userProfile?.age) {
+                        context.read<AccountSettingCubit>().revertChangedData();
+                      } else {
+                        context.read<AccountSettingCubit>().changeValue();
+                      }
                     },
                   ),
                 ],
@@ -218,14 +233,14 @@ class _GenderSelectionSettingWidgetState extends State<GenderSelectionSettingWid
       ],
     );
   }
+}
 
-  getGender(String gender) {
-    return gender == 'male' || gender == 'Masculino'
-        ? 'Masculino'
-        : gender == 'female' || gender == 'Femenino'
-            ? 'Femenino'
-            : 'Prefiero no decirlo';
-  }
+getGender(String gender) {
+  return gender == 'male' || gender == 'Masculino'
+      ? 'Masculino'
+      : gender == 'female' || gender == 'Femenino'
+          ? 'Femenino'
+          : 'Prefiero no decirlo';
 }
 
 class AgeSelectorScreen extends StatefulWidget {

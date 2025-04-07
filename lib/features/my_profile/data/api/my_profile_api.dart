@@ -12,6 +12,8 @@ abstract class MyProfileApi {
   Future<UserTableData?> getUserProfileByEmail(String email);
 
   Future<void> deleteUserByNameOrEmail({String? name, String? email});
+
+  Future<void> updateUserProfile(User user);
 }
 
 class MyProfileApiDBImpl implements MyProfileApi {
@@ -21,7 +23,12 @@ class MyProfileApiDBImpl implements MyProfileApi {
 
   @override
   Future<void> saveUserProfile(User user) async {
-    await _connection.userTable.insertOnConflictUpdate(user.toEntity());
+    await _connection.userTable.insert().insert(user.toEntity());
+  }
+
+  @override
+  Future<void> updateUserProfile(User user) async {
+    await _connection.userTable.update().replace(user.toEntity());
   }
 
   @override

@@ -10,6 +10,7 @@ import '../model/model/user_model.dart';
 class MyProfileService {
   User? userProfile;
   final MyProfileRepository _myProfileRepository;
+  String profileAuxGender = '';
 
   MyProfileService({required MyProfileRepository myProfileRepository}) : _myProfileRepository = myProfileRepository;
 
@@ -30,9 +31,14 @@ class MyProfileService {
     userProfile = singleUser.toModel();
   }
 
-  Future<bool> saveUserProfile() async {
+  Future<bool> saveUserProfile({bool shouldUpdate = false}) async {
+    userProfile?.gender = profileAuxGender.isNotEmpty ? profileAuxGender : userProfile?.gender;
     if (userProfile == null) return false;
-    await _myProfileRepository.saveUserProfile(userProfile!);
+    if (shouldUpdate) {
+      await _myProfileRepository.updateUserProfile(userProfile!);
+    } else {
+      await _myProfileRepository.saveUserProfile(userProfile!);
+    }
     var user = await getUserProfileByName(userProfile!.name!);
     if (user == null) return false;
     init(user);
