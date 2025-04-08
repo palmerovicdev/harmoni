@@ -23,4 +23,8 @@ class StyleSettingCubit extends Cubit<StyleSettingState> {
   changeEmojiType(String emojiType) {
     emit((state as StyleSettingInitial).copyWith(emojiType: emojiType));
   }
+
+  changeAll({required Brightness brightness, required Color color, required double contrastLevel, required String emojiType}) {
+    emit((state as StyleSettingInitial).copyWith(brightness: brightness, color: color, contrastLevel: contrastLevel, emojiType: emojiType));
+  }
 }

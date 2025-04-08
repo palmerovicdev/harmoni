@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:harmoni/core/helpers/settings_enums.dart';
+import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/core/widgets/pop_widget.dart';
 import 'package:harmoni/core/widgets/spacer.dart';
 import 'package:harmoni/features/settings/presentation/state_management/style_setting/style_setting_cubit.dart';
@@ -33,7 +34,17 @@ class StyleSettingPage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text('Apariencia'),
-            leading: PopWidget(),
+            leading: PopWidget(
+              beforePop: () {
+                getMyProfileService().userProfile?.settings?.addAll({
+                  'brightness': (state as StyleSettingInitial).brightness == Brightness.dark ? Brightness.dark.name : Brightness.light.name,
+                  'color': state.color.value,
+                  'contrastLevel': state.contrastLevel,
+                  'emojiType': state.emojiType,
+                });
+                getMyProfileService().saveUserProfile(shouldUpdate: true);
+              },
+            ),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 16.0),
