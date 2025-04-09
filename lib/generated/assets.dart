@@ -53,4 +53,5 @@ class Assets {
   static const String rectSadRect = 'assets/emoji/rect/sad_rect.svg';
   static const String rectSurpriseRect = 'assets/emoji/rect/surprise_rect.svg';
   static const String rectWinkRect = 'assets/emoji/rect/wink_rect.svg';
+
 }

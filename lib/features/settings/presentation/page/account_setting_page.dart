@@ -16,9 +16,11 @@ class AccountSettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var nameController = TextEditingController(text: getMyProfileService().userProfile?.name);
-    var emailController = TextEditingController(text: getMyProfileService().userProfile?.email);
-    var ageController = TextEditingController(text: getMyProfileService().userProfile?.age.toString());
+    var service = getMyProfileService();
+    var userProfile = service.userProfile;
+    var nameController = TextEditingController(text: userProfile?.name);
+    var emailController = TextEditingController(text: userProfile?.email);
+    var ageController = TextEditingController(text: userProfile?.age.toString());
     var genderController = ExpansionTileController();
     return BlocBuilder<AccountSettingCubit, AccountSettingState>(
       buildWhen: (previous, current) =>
@@ -26,25 +28,24 @@ class AccountSettingPage extends StatelessWidget {
       builder: (context, state) {
         var color = Theme.of(context).colorScheme.primary;
         var fontStyle = Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400);
+        var accountSettingCubit = context.read<AccountSettingCubit>();
         return Scaffold(
           appBar: AppBar(
             leading: PopWidget(
                 beforePop: () {
                   getMyProfileService().profileAuxGender = '';
-                  context.read<AccountSettingCubit>().changePopState();
+                  accountSettingCubit.changePopState();
                 },
-                shouldShowDialog: (state as AccountSettingInitial).hasChangedData &&
-                    (getMyProfileService().userProfile?.settings?[SettingsEnums.shouldShowAccountPopDialog.name] as bool? ?? true),
+                shouldShowDialog: (state as AccountSettingInitial).hasChangedData && (userProfile?.settings?[SettingsEnums.shouldShowAccountPopDialog.name] as bool? ?? true),
                 onPop: () async {
-                  var service = getMyProfileService();
-                  service.userProfile = await service.getUserProfileByName(getMyProfileService().userProfile?.name ?? '');
-                  nameController = TextEditingController(text: getMyProfileService().userProfile?.name);
-                  emailController = TextEditingController(text: getMyProfileService().userProfile?.email);
-                  ageController = TextEditingController(text: getMyProfileService().userProfile?.age.toString());
+                  service.userProfile = await service.getUserProfileByName(userProfile?.name ?? '');
+                  nameController = TextEditingController(text: userProfile?.name);
+                  emailController = TextEditingController(text: userProfile?.email);
+                  ageController = TextEditingController(text: userProfile?.age.toString());
                   genderController = ExpansionTileController();
-                  if (context.mounted) context.read<AccountSettingCubit>().resetState();
+                  if (context.mounted) accountSettingCubit.resetState();
                 }),
-            title: Text('Informacion Personal'),
+            title: Text('Información Personal'),
           ),
           floatingActionButton: state.hasChangedData
               ? FloatingActionButton(
@@ -52,11 +53,12 @@ class AccountSettingPage extends StatelessWidget {
                   backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh.withOpacity(0.9),
                   tooltip: 'Guardar',
                   onPressed: () {
-                    getMyProfileService().userProfile?.name = nameController.text;
-                    getMyProfileService().userProfile?.email = emailController.text;
-                    getMyProfileService().userProfile?.age = int.tryParse(ageController.text) ?? 13;
-                    getMyProfileService().saveUserProfile(shouldUpdate: true);
-                    context.read<AccountSettingCubit>().resetState();
+                    userProfile
+                      ?..name = nameController.text
+                      ..email = emailController.text
+                      ..age = int.tryParse(ageController.text) ?? 13;
+                    service.saveUserProfile(shouldUpdate: true);
+                    accountSettingCubit.resetState();
                   },
                   child: Icon(
                     Icons.save_rounded,
@@ -87,10 +89,10 @@ class AccountSettingPage extends StatelessWidget {
                     shouldShowBigNameField: false,
                     controller: nameController,
                     onChanged: (value) {
-                      if (nameController.text == getMyProfileService().userProfile?.name) {
-                        context.read<AccountSettingCubit>().revertChangedData();
+                      if (nameController.text == userProfile?.name) {
+                        accountSettingCubit.revertChangedData();
                       } else if (value) {
-                        context.read<AccountSettingCubit>().changeValue();
+                        accountSettingCubit.changeValue();
                       }
                     },
                   ),
@@ -103,27 +105,27 @@ class AccountSettingPage extends StatelessWidget {
                   EmailInputFieldWidget(
                     controller: emailController,
                     onChanged: (value) {
-                      if (emailController.text == getMyProfileService().userProfile?.email) {
-                        context.read<AccountSettingCubit>().revertChangedData();
+                      if (emailController.text == userProfile?.email) {
+                        accountSettingCubit.revertChangedData();
                       } else if (value) {
-                        context.read<AccountSettingCubit>().changeValue();
+                        accountSettingCubit.changeValue();
                       }
                     },
                   ),
                   Space.smaller_small.gap,
                   Text(
-                    'Genero',
+                    'Género',
                     style: fontStyle,
                   ),
                   Space.smaller_small.gap,
                   GenderSelectionSettingWidget(
                     controller: genderController,
                     onValueChanged: (value) {
-                      if (value == getGender(getMyProfileService().userProfile?.gender ?? '')) {
-                        context.read<AccountSettingCubit>().revertChangedData();
+                      if (value == getGender(userProfile?.gender ?? '')) {
+                        accountSettingCubit.revertChangedData();
                       } else {
                         getMyProfileService().profileAuxGender = value;
-                        context.read<AccountSettingCubit>().changeValue();
+                        accountSettingCubit.changeValue();
                       }
                     },
                   ),
@@ -136,10 +138,10 @@ class AccountSettingPage extends StatelessWidget {
                   AgeSelectorScreen(
                     controller: ageController,
                     onValueChanged: (value) {
-                      if (value == getMyProfileService().userProfile?.age) {
-                        context.read<AccountSettingCubit>().revertChangedData();
+                      if (value == userProfile?.age) {
+                        accountSettingCubit.revertChangedData();
                       } else {
-                        context.read<AccountSettingCubit>().changeValue();
+                        accountSettingCubit.changeValue();
                       }
                     },
                   ),
@@ -290,6 +292,7 @@ class _AgeSelectorScreenState extends State<AgeSelectorScreen> {
   Widget build(BuildContext context) {
     const double padding = 24.0;
     const double iconSize = 28;
+    var color = Theme.of(context).colorScheme.primary.withOpacity(0.1);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -319,9 +322,9 @@ class _AgeSelectorScreenState extends State<AgeSelectorScreen> {
             onEditingComplete: () => _onTextComplete(widget.controller.text),
             onTapOutside: (_) => _onTextComplete(widget.controller.text),
             decoration: InputDecoration(
-              fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-              focusColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-              hoverColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              fillColor: color,
+              focusColor: color,
+              hoverColor: color,
               filled: true,
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,

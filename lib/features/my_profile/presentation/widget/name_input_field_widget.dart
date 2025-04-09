@@ -42,7 +42,7 @@ class _NameInputFieldWidgetState extends State<NameInputFieldWidget> {
         errorStyle: TextStyle(),
         error: !isValid
             ? Text(
-                'Nombre invalido. Debe contener sólo letras y el primer carácter debe ser mayúscula.',
+                'Nombre inválido. Debe contener sólo letras y el primer carácter debe ser mayúscula.',
                 softWrap: true,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.error,

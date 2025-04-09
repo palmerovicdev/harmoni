@@ -49,7 +49,7 @@ class HelpSettingPage extends StatelessWidget {
                                 getCategories()[index],
                               ),
                             ),
-                            Space.small_w.gap,
+                            Space.smaller_small_w.gap,
                           ],
                         );
                       },

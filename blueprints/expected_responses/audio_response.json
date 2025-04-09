@@ -1,0 +1,33 @@
+{
+  "predictions": [
+    {
+      "label": "angry",
+      "probability": 0.9522401094436646
+    },
+    {
+      "label": "fearful",
+      "probability": 0.0009457004489377141
+    },
+    {
+      "label": "happy",
+      "probability": 0.007496525999158621
+    },
+    {
+      "label": "sad",
+      "probability": 0.003750510048121214
+    },
+    {
+      "label": "neutral",
+      "probability": 0.0005031813634559512
+    },
+    {
+      "label": "disgusted",
+      "probability": 0.03428167104721069
+    },
+    {
+      "label": "other",
+      "probability": 0.000782183138653636
+    }
+  ],
+  "success": true
+}

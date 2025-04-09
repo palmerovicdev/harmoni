@@ -83,7 +83,7 @@ class AgePage extends StatelessWidget {
                       child: SizedBox(
                         width: screenWidth * 0.6,
                         child: Text(
-                          'Nos gustaria saber mas acerca de usted.',
+                          'Nos gustaría saber mas acerca de usted.',
                           style: textTheme.bodyLarge?.copyWith(
                             color: isDark(context) ? Colors.white54 : Colors.black54,
                             fontWeight: FontWeight.w500,

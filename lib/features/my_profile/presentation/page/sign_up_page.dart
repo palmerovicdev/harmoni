@@ -42,7 +42,7 @@ class SignUpPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: width),
                 child: Text(
-                  'Unase a Harmoni hoy ✨',
+                  'Únase a Harmoni hoy ✨',
                   style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -131,7 +131,7 @@ class SignUpPage extends StatelessWidget {
                         if (validationResult != EmailValidationResult.success.name) {
                           showErrorDialog(
                               context.mounted ? context : context,
-                              'Por favor, introduzca un email valido.${validationResult == EmailValidationResult.repeated.name ? ' '
+                              'Por favor, introduzca un email válido.${validationResult == EmailValidationResult.repeated.name ? ' '
                                   'Este email ya ha sido registrado antes.' : 'La dirección de correo electrónico no es válida.'}');
                           return;
                         }
@@ -139,7 +139,7 @@ class SignUpPage extends StatelessWidget {
                         if (isValidPassword != PasswordValidationResult.success.name) {
                           showErrorDialog(
                             context.mounted ? context : context,
-                            'Por favor, introduzca una contraseña valida.${isValidPassword == 'tooShort' ? ' La contraseña '
+                            'Por favor, introduzca una contraseña válida.${isValidPassword == 'tooShort' ? ' La contraseña '
                                 'debe tener al menos 6 caracteres.' : isValidPassword == 'tooLong' ? ' La contraseña debe tener menos de 16 caracteres.' : ''}',
                           );
                           return;

@@ -101,7 +101,7 @@ class NameSettingPage extends StatelessWidget {
                     if (result != NameValidationResult.success.name && context.mounted) {
                       showErrorDialog(
                           context,
-                          'Por favor, introduzca un nombre valido.${result == NameValidationResult.repeated.name ? ' Este nombre ya ha sido registrado antes'
+                          'Por favor, introduzca un nombre válido.${result == NameValidationResult.repeated.name ? ' Este nombre ya ha sido registrado antes'
                               '.' : 'El nombre no es válido.'}');
                       return;
                     }

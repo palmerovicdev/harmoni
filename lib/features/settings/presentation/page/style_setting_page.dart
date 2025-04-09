@@ -41,6 +41,7 @@ class StyleSettingPage extends StatelessWidget {
                   'color': state.color.value,
                   'contrastLevel': state.contrastLevel,
                   'emojiType': state.emojiType,
+                  'colorIndex': state.colorIndex,
                 });
                 getMyProfileService().saveUserProfile(shouldUpdate: true);
               },
@@ -89,10 +90,11 @@ class StyleSettingPage extends StatelessWidget {
                       children: [
                         ...colors.map(
                           (e) {
+                            var colorData = e as Map<String, dynamic>?;
                             double colorSize = 24;
                             return IconButton(
                               style: ButtonStyle(
-                                backgroundColor: WidgetStatePropertyAll(e),
+                                backgroundColor: WidgetStatePropertyAll(colorData?['color']),
                                 shape: WidgetStatePropertyAll(
                                   CircleBorder(
                                     side: BorderSide.none,
@@ -100,7 +102,7 @@ class StyleSettingPage extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                context.read<StyleSettingCubit>().changeColor(e);
+                                context.read<StyleSettingCubit>().changeColor(colorData?['color'], colorData?['index']);
                               },
                               iconSize: colorSize,
                               icon: AnimatedContainer(
@@ -108,9 +110,9 @@ class StyleSettingPage extends StatelessWidget {
                                 width: colorSize,
                                 height: colorSize,
                                 decoration: BoxDecoration(
-                                  color: e,
+                                  color: colorData?['color'],
                                   borderRadius: BorderRadius.circular(32),
-                                  border: e == state.color ? Border.all(color: Theme.of(context).colorScheme.surface, width: 3) : null,
+                                  border: colorData?['index'] == state.colorIndex ? Border.all(color: Theme.of(context).colorScheme.surface, width: 3) : null,
                                 ),
                               ),
                             );
@@ -259,19 +261,19 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
 }
 
 final colors = [
-  Colors.purple,
-  Colors.indigo,
-  Colors.blue,
-  Colors.cyan,
-  Colors.teal,
-  Colors.green,
-  Colors.lime,
-  Colors.yellow,
-  Colors.amber,
-  Colors.orange,
-  Colors.red,
-  Colors.pink,
-  Colors.brown,
-  Colors.blueGrey,
-  Colors.grey,
+  {'color': Colors.purple, 'index': 0},
+  {'color': Colors.indigo, 'index': 1},
+  {'color': Colors.blue, 'index': 2},
+  {'color': Colors.cyan, 'index': 3},
+  {'color': Colors.teal, 'index': 4},
+  {'color': Colors.green, 'index': 5},
+  {'color': Colors.lime, 'index': 6},
+  {'color': Colors.yellow, 'index': 7},
+  {'color': Colors.amber, 'index': 8},
+  {'color': Colors.orange, 'index': 9},
+  {'color': Colors.red, 'index': 10},
+  {'color': Colors.pink, 'index': 11},
+  {'color': Colors.brown, 'index': 12},
+  {'color': Colors.blueGrey, 'index': 13},
+  {'color': Colors.grey, 'index': 14}
 ];

@@ -47,7 +47,7 @@ class _PasswordInputFieldWidgetState extends State<PasswordInputFieldWidget> {
         }
       },
       decoration: InputDecoration(
-        errorText: !isValid ? 'Contraseña invalida.' : null,
+        errorText: !isValid ? 'Contraseña inválida.' : null,
         errorBorder: OutlineInputBorder(
           borderSide: !isValid ? BorderSide(color: Colors.red) : BorderSide.none,
           borderRadius: BorderRadius.circular(12),

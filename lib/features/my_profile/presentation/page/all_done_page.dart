@@ -26,7 +26,7 @@ class AllDonePage extends StatelessWidget {
             ),
             Space.medium.gap,
             Text(
-              isFromSettings ? 'Su cambio ha sido realizado con exito!' : '¡Todo listo!',
+              isFromSettings ? 'Su cambio ha sido realizado con éxito!' : '¡Todo listo!',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             Expanded(child: SizedBox()),

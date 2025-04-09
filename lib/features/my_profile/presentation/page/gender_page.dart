@@ -56,7 +56,7 @@ class GenderPage extends StatelessWidget {
                   Space.medium.gap,
                   Center(
                     child: Text(
-                      'Cual es su genero?',
+                      'Cual es su género?',
                       style: textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -96,7 +96,7 @@ class GenderPage extends StatelessWidget {
                       cubit.updateGender(state.gender);
                       isFromSettings ? context.pushNamed(MyProfileRoute.allDone.data.name, extra: true) : context.pushNamed(MyProfileRoute.age.name, extra: false);
                     } else {
-                      showErrorDialog(context, 'Por favor, elija su genero');
+                      showErrorDialog(context, 'Por favor, elija su género');
                     }
                   },
                   shouldFocusAttention: true,

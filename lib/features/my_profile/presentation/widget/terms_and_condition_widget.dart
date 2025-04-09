@@ -54,7 +54,7 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
                       ),
                     ),
                     TextSpan(
-                      text: 'Terminos & Condiciones',
+                      text: 'Términos & Condiciones',
                       style: textTheme?.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w500,
@@ -72,7 +72,7 @@ class _TermsAndConditionWidgetState extends State<TermsAndConditionWidget> {
                       ),
                     ),
                     TextSpan(
-                      text: 'Politica de Privacidad',
+                      text: 'Política de Privacidad',
                       style: textTheme?.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w500,

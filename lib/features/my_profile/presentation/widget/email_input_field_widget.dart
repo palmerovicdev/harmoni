@@ -39,7 +39,7 @@ class _EmailInputFieldWidgetState extends State<EmailInputFieldWidget> {
         error: isValid
             ? null
             : Text(
-                'Email invalido.',
+                'Email inválido.',
                 softWrap: true,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.error,

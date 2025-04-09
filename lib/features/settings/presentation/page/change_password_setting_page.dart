@@ -25,6 +25,8 @@ class ChangePasswordSettingPage extends StatelessWidget {
     return BlocBuilder<ChangePasswordSettingCubit, ChangePasswordSettingState>(
       builder: (context, state) {
         var isValid = state is ChangePasswordSettingInitial;
+        var service = getMyProfileService();
+        var userProfile = service.userProfile;
         return Scaffold(
           appBar: AppBar(
             leading: PopWidget(),
@@ -38,7 +40,7 @@ class ChangePasswordSettingPage extends StatelessWidget {
                   showErrorDialog(context, 'Contraseña incorrecta. Las contraseñas no deben estar vacías. Reintenta.');
                   return;
                 }
-                if (!getMyProfileService().matchPassword(actualPasswordController.text, getMyProfileService().userProfile?.password ?? '')) {
+                if (!service.matchPassword(actualPasswordController.text, userProfile?.password ?? '')) {
                   showErrorDialog(context, 'La contraseña es incorrecta. Reintenta.');
                   return;
                 }
@@ -51,8 +53,8 @@ class ChangePasswordSettingPage extends StatelessWidget {
                   return;
                 }
 
-                getMyProfileService().userProfile?.password = getMyProfileService().hashPassword(newRepeatedPasswordController.text);
-                getMyProfileService().saveUserProfile(shouldUpdate: true);
+                userProfile?.password = service.hashPassword(newRepeatedPasswordController.text);
+                service.saveUserProfile(shouldUpdate: true);
                 actualPasswordController = TextEditingController();
                 newPasswordController = TextEditingController();
                 newRepeatedPasswordController = TextEditingController();

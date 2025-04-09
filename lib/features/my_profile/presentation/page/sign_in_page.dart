@@ -132,10 +132,10 @@ class SignInPage extends StatelessWidget {
                         if (validationResult != EmailValidationResult.repeated.name) {
                           showErrorDialog(
                               context.mounted ? context : context,
-                              'Por favor, introduzca un email valido.${validationResult == EmailValidationResult.invalid.name ? ' '
+                              'Por favor, introduzca un email válido.${validationResult == EmailValidationResult.invalid.name ? ' '
                                   'La dirección de correo electrónico no es válida.' : 'No hay ningún usuario registrado con ese email'}');
                           if (context.mounted) {
-                            context.read<SignInCubit>().signInError('Por favor, introduzca un email valido.${validationResult == EmailValidationResult.invalid.name ? ' '
+                            context.read<SignInCubit>().signInError('Por favor, introduzca un email válido.${validationResult == EmailValidationResult.invalid.name ? ' '
                                 'La dirección de correo electrónico no es válida.' : 'No hay ningún usuario registrado con ese email'}');
                           }
                           return;
@@ -143,8 +143,8 @@ class SignInPage extends StatelessWidget {
                         if (context.mounted) {
                           var result = await context.read<SignInCubit>().signIn(emailEditingController.text, passwordEditingController.text);
                           if (!result) {
-                            showErrorDialog(context.mounted ? context : context, 'Por favor, introduzca un email y una contraseña validos.');
-                            if (context.mounted) context.read<SignInCubit>().signInError('Por favor, introduzca un email y una contraseña validos.');
+                            showErrorDialog(context.mounted ? context : context, 'Por favor, introduzca un email y una contraseña válidos.');
+                            if (context.mounted) context.read<SignInCubit>().signInError('Por favor, introduzca un email y una contraseña válidos.');
                             return;
                           }
                           if (context.mounted) {
