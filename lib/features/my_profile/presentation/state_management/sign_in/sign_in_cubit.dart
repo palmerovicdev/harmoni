@@ -21,7 +21,7 @@ class SignInCubit extends Cubit<SignInState> {
     logI('Start email validation');
     emit(SignInInProgress());
     var myProfileService = getMyProfileService();
-    var user = await myProfileService.getUserProfileByEmail(email);
+    var user = await myProfileService.getUserProfile();
     if (user == null) {
       logI('Email not found');
       emit(SignInFailed(reason: 'email'));
