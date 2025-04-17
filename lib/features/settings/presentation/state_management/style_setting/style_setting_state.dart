@@ -21,7 +21,8 @@ final class StyleSettingInitial extends StyleSettingState {
       brightness: brightness ?? this.brightness,
       color: color ?? this.color,
       contrastLevel: contrastLevel ?? this.contrastLevel,
-      emojiType: emojiType ?? this.emojiType, colorIndex: colorIndex ?? this.colorIndex,
+      emojiType: emojiType ?? this.emojiType,
+      colorIndex: colorIndex ?? this.colorIndex,
     );
   }
 }

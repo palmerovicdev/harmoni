@@ -13,22 +13,49 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var myProfileService = getMyProfileService();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      var settings = myProfileService.userProfile?.settings;
-      if (myProfileService.userProfile == null) {
-        context.goNamed(MyProfileRoute.init.data.name);
-      } else if (settings != null && settings['brightness'] != null && settings['color'] != null && settings['contrastLevel'] != null && settings['emojiType'] != null) {
-        context.read<StyleSettingCubit>().changeAll(
-              brightness: settings['brightness'] == Brightness.dark.name ? Brightness.dark : Brightness.light,
-              color: colors.elementAt(settings['colorIndex'] ?? 0)['color'] as Color,
-              contrastLevel: settings['contrastLevel'] ?? 0.0,
-              emojiType: settings['emojiType'] ?? 'ghost',
-              colorIndex: settings['colorIndex'] ?? 0,
-            );
-      }
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        var settings = myProfileService.userProfile?.settings;
+        if (myProfileService.userProfile == null) {
+          context.goNamed(MyProfileRoute.init.data.name);
+        } else if (settings != null && settings['brightness'] != null && settings['color'] != null && settings['contrastLevel'] != null && settings['emojiType'] != null) {
+          context.read<StyleSettingCubit>().changeAll(
+                brightness: settings['brightness'] == Brightness.dark.name ? Brightness.dark : Brightness.light,
+                color: colors.elementAt(settings['colorIndex'] ?? 0)['color'] as Color,
+                contrastLevel: settings['contrastLevel'] ?? 0.0,
+                emojiType: settings['emojiType'] ?? 'ghost',
+                colorIndex: settings['colorIndex'] ?? 0,
+              );
+        }
+      },
+    );
     return Scaffold(
-      body: SizedBox(),
+      floatingActionButton: PopupMenuButton(
+        icon: Icon(Icons.add),
+        itemBuilder: (context) {
+          return [
+            PopupMenuItem(
+              child: Text('Hoy'),
+            ),
+            PopupMenuItem(
+              child: Text('Calendario'),
+            ),
+          ];
+        },
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: IconButton(
+              onPressed: () {
+
+              },
+              icon: Icon(Icons.add_box),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

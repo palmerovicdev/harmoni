@@ -7,6 +7,7 @@ class HomeService {
   HomeSummaryData? homeSummaryData;
   final HomeRepository _homeRepository;
   var currentLocationIndex = 0;
+  String response = '';
 
   HomeService({required HomeRepository homeRepository}) : _homeRepository = homeRepository;
 
@@ -21,6 +22,10 @@ class HomeService {
     var activitiesFromMoods = await _homeRepository.getActivitiesByMoodIds(
       moodTracksFromLastWeek.map((e) => e.id!).toList(),
     );
+  }
+
+  String getMoodFromPicture(String picture) {
+    throw UnimplementedError();
   }
 
   bool thereAreMoodsToDisplay() {
