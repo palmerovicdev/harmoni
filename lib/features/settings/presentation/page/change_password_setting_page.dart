@@ -54,7 +54,7 @@ class ChangePasswordSettingPage extends StatelessWidget {
                 }
 
                 userProfile?.password = service.hashPassword(newRepeatedPasswordController.text);
-                service.saveUserProfile(shouldUpdate: true);
+                service.signUp(shouldUpdate: true);
                 actualPasswordController = TextEditingController();
                 newPasswordController = TextEditingController();
                 newRepeatedPasswordController = TextEditingController();
