@@ -19,34 +19,18 @@ class MyProfileService {
     userProfile = user;
   }
 
-  Future<void> initializeUserFromDb(Database db, String name) async {
-    if (await db.userTable.count().getSingle() == 0) return;
-
-    var singleUser = await (db.select(db.userTable)
-          ..where(
-            (tbl) => tbl.name.equals(name),
-          ))
-        .getSingle();
-
-    userProfile = singleUser.toModel();
-  }
-
-  Future<bool> saveUserProfile({bool shouldUpdate = false}) async {
+  Future<bool> signUp({bool shouldUpdate = false}) async {
     userProfile?.gender = profileAuxGender.isNotEmpty ? profileAuxGender : userProfile?.gender;
     if (userProfile == null) return false;
-    if (shouldUpdate) {
-      await _myProfileRepository.updateUserProfile(userProfile!);
-    } else {
-      await _myProfileRepository.saveUserProfile(userProfile!);
-    }
-    var user = await getUserProfileByName(userProfile!.name!);
+    await _myProfileRepository.signUp(userProfile!);
+    var user = await getUserProfile();
     if (user == null) return false;
     init(user);
     return true;
   }
 
-  Future<User?> getUserProfileByName(String name) async {
-    return await _myProfileRepository.getUserProfileByName(name);
+  Future<User?> getUserProfile() async {
+    return await _myProfileRepository.getUserProfile();
   }
 
   bool validateNameStruct(String name) {
@@ -56,8 +40,8 @@ class MyProfileService {
   Future<String> validateName(String name) async {
     var isNameValid = name.isLettersOnlyAndFistCharacterUpperCase;
     if (!isNameValid) return NameValidationResult.invalid.name;
-    var userProfile = await getUserProfileByName(name);
-    return userProfile == null ? NameValidationResult.success.name : NameValidationResult.repeated.name;
+    var userProfile = await _myProfileRepository.validateName(name);
+    return userProfile ?? false ? NameValidationResult.success.name : NameValidationResult.repeated.name;
   }
 
   setName(String name) {
@@ -93,8 +77,8 @@ class MyProfileService {
   Future<String> validateEmail(String email) async {
     var result = email.isEmailOnly;
     if (!result) return EmailValidationResult.invalid.name;
-    var userProfile = await getUserProfileByEmail(email);
-    return userProfile != null ? EmailValidationResult.repeated.name : EmailValidationResult.success.name;
+    var isValid = await _myProfileRepository.validateEmail(email);
+    return isValid ?? false ? EmailValidationResult.repeated.name : EmailValidationResult.success.name;
   }
 
   String hashPassword(String password) => Crypt.sha256(password, rounds: 1000, salt: "miSaltSeguro").hash;
@@ -111,11 +95,6 @@ class MyProfileService {
     var isValid = hashedPassword == hashPassword(password);
     return isValid;
   }
-
-  Future<User?> getUserProfileByEmail(String email) async {
-    return await _myProfileRepository.getUserProfileByEmail(email);
-  }
-
 }
 
 enum EmailValidationResult { invalid, repeated, success }
