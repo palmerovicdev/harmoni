@@ -38,7 +38,7 @@ loadAllInformation() async {
 }
 
 void setupInitialMockData() async {
-  getMyProfileRepository().saveUserProfile(
+  getMyProfileRepository().signUp(
     User(
       name: 'Victor',
       age: 20,
