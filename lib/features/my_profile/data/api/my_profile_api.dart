@@ -9,6 +9,10 @@ abstract class MyProfileApi {
   Future<void> signIn(User user);
 
   Future<User?> getUserProfile();
+
+  Future<bool?> validateName(String name);
+
+  Future<bool?> validateEmail(String email);
 }
 
 class MyProfileApiBackImpl implements MyProfileApi {
@@ -18,7 +22,24 @@ class MyProfileApiBackImpl implements MyProfileApi {
   @override
   Future<User?> getUserProfile() {
     var connection = getConnectionService();
-    throw UnimplementedError();
+    return connection
+        .get(
+      '$_myProfileBaseUrl/getUserProfile',
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    )
+        .then((response) {
+      if (response.statusCode == 200) {
+        return User.fromJson(response.data);
+      } else {
+        // handle error
+        return null;
+      }
+    });
   }
 
   @override
@@ -45,7 +66,8 @@ class MyProfileApiBackImpl implements MyProfileApi {
   @override
   Future<void> signIn(User user) {
     var connection = getConnectionService();
-    return connection.post(
+    return connection
+        .post(
       '$_userBaseUrl/signIn',
       data: user.toJson(),
       options: Options(
@@ -54,11 +76,58 @@ class MyProfileApiBackImpl implements MyProfileApi {
           'Accept': 'application/json',
         },
       ),
-    ).then((response) {
+    )
+        .then((response) {
       if (response.statusCode == 200) {
         connection.token = response.data['token'];
       } else {
         // handle error
+      }
+    });
+  }
+
+  @override
+  Future<bool?> validateEmail(String email) {
+    var connection = getConnectionService();
+    return connection
+        .post(
+      '$_myProfileBaseUrl/validateEmail/$email',
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    )
+        .then((response) {
+      if (response.statusCode == 200) {
+        return response.data['isValid'];
+      } else {
+        // handle error
+        return null;
+      }
+    });
+  }
+
+  @override
+  Future<bool?> validateName(String name) {
+    var connection = getConnectionService();
+    return connection
+        .post(
+      '$_myProfileBaseUrl/validateName/$name',
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    )
+        .then((response) {
+      if (response.statusCode == 200) {
+        return response.data['isValid'];
+      } else {
+        // handle error
+        return null;
       }
     });
   }
