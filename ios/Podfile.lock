@@ -1,28 +1,72 @@
 PODS:
+  - camera_avfoundation (0.0.1):
+    - Flutter
   - easy_video_editor (0.0.5):
     - Flutter
   - Flutter (1.0.0)
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - sqlite3 (3.49.1):
+    - sqlite3/common (= 3.49.1)
+  - sqlite3/common (3.49.1)
+  - sqlite3/dbstatvtab (3.49.1):
+    - sqlite3/common
+  - sqlite3/fts5 (3.49.1):
+    - sqlite3/common
+  - sqlite3/math (3.49.1):
+    - sqlite3/common
+  - sqlite3/perf-threadsafe (3.49.1):
+    - sqlite3/common
+  - sqlite3/rtree (3.49.1):
+    - sqlite3/common
+  - sqlite3_flutter_libs (0.0.1):
+    - Flutter
+    - FlutterMacOS
+    - sqlite3 (~> 3.49.1)
+    - sqlite3/dbstatvtab
+    - sqlite3/fts5
+    - sqlite3/math
+    - sqlite3/perf-threadsafe
+    - sqlite3/rtree
+  - video_player_avfoundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
 
 DEPENDENCIES:
+  - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - easy_video_editor (from `.symlinks/plugins/easy_video_editor/ios`)
   - Flutter (from `Flutter`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - sqlite3_flutter_libs (from `.symlinks/plugins/sqlite3_flutter_libs/darwin`)
+  - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/darwin`)
+
+SPEC REPOS:
+  trunk:
+    - sqlite3
 
 EXTERNAL SOURCES:
+  camera_avfoundation:
+    :path: ".symlinks/plugins/camera_avfoundation/ios"
   easy_video_editor:
     :path: ".symlinks/plugins/easy_video_editor/ios"
   Flutter:
     :path: Flutter
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  sqlite3_flutter_libs:
+    :path: ".symlinks/plugins/sqlite3_flutter_libs/darwin"
+  video_player_avfoundation:
+    :path: ".symlinks/plugins/video_player_avfoundation/darwin"
 
 SPEC CHECKSUMS:
+  camera_avfoundation: adb0207d868b2d873e895371d88448399ab78d87
   easy_video_editor: b333d0350a6dfa24990b7ee55d7369def5893fd8
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  sqlite3: fc1400008a9b3525f5914ed715a5d1af0b8f4983
+  sqlite3_flutter_libs: 487032b9008b28de37c72a3aa66849ef3745f3e6
+  video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 

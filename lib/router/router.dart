@@ -14,6 +14,7 @@ import 'package:harmoni/features/settings/presentation/page/change_password_sett
 import 'package:harmoni/features/settings/presentation/page/style_setting_page.dart';
 import 'package:harmoni/router/router_observer.dart';
 
+import '../features/home/presentation/page/camera_page.dart';
 import '../features/my_profile/presentation/page/all_done_page.dart';
 import '../features/settings/presentation/page/help_setting_page.dart';
 import '../features/settings/presentation/page/my_profile_setting_page.dart';
@@ -46,6 +47,11 @@ GoRouter router = GoRouter(
           )
         ]),
     GoRoute(
+      path: HomeRoute.camera.data.path,
+      name: HomeRoute.camera.data.name,
+      pageBuilder: (context, state) => MaterialPage(child: CameraPage()),
+    ),
+    GoRoute(
       path: MyProfileRoute.init.data.path,
       name: MyProfileRoute.init.data.name,
       pageBuilder: (context, state) => MaterialPage(child: InitPage()),
@@ -66,7 +72,10 @@ GoRouter router = GoRouter(
       pageBuilder: (context, state) => MaterialPage(child: NameSettingPage(isFromSettings: state.extra as bool)),
     ),
     GoRoute(
-        path: MyProfileRoute.age.data.path, name: MyProfileRoute.age.data.name, pageBuilder: (context, state) => MaterialPage(child: AgePage(isFromSettings: state.extra as bool))),
+      path: MyProfileRoute.age.data.path,
+      name: MyProfileRoute.age.data.name,
+      pageBuilder: (context, state) => MaterialPage(child: AgePage(isFromSettings: state.extra as bool)),
+    ),
     GoRoute(
       path: MyProfileRoute.gender.data.path,
       name: MyProfileRoute.gender.data.name,

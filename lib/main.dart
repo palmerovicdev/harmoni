@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:harmoni/features/home/presentation/state_management/home_cubit.dart';
@@ -20,11 +21,14 @@ import 'features/settings/presentation/state_management/help_setting/help_settin
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
   await init();
   await loadAllInformation();
   runApp(const Harmoni());
   logI('App Start');
 }
+
+List<CameraDescription> cameras = <CameraDescription>[];
 
 init() async => await setUpLocator();
 
@@ -52,7 +56,7 @@ class Harmoni extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp.router(
             theme: theme(state),
-            title: 'Material App',
+            title: 'Harmoni',
             debugShowCheckedModeBanner: false,
             routerConfig: router,
           );

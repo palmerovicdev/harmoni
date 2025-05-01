@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
           Center(
             child: IconButton(
               onPressed: () {
-
+                context.pushNamed(HomeRoute.camera.data.name);
               },
               icon: Icon(Icons.add_box),
             ),

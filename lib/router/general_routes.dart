@@ -6,7 +6,8 @@ class RoutesData {
 }
 
 enum HomeRoute {
-  home(RoutesData(name: 'home', path: '/home'));
+  home(RoutesData(name: 'home', path: '/home')),
+  camera(RoutesData(name: 'camera', path: '/camera'));
 
   final RoutesData data;
 

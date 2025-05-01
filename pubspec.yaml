@@ -30,10 +30,10 @@ dependencies:
   logger: ^2.0.2
   path: ^1.9.0
   easy_video_editor: ^0.0.5
-  image_picker: ^1.1.2
-  file_picker: ^6.1.1
   path_provider: ^2.1.5
-  flutter_sound: ^9.2.13
+  camera: ^0.10.0+4
+  video_player: ^2.7.0
+  sqlite3_flutter_libs: ^0.5.15
 
 dev_dependencies:
   flutter_test:
