@@ -38,7 +38,7 @@ class AccountSettingPage extends StatelessWidget {
                 },
                 shouldShowDialog: (state as AccountSettingInitial).hasChangedData && (userProfile?.settings?[SettingsEnums.shouldShowAccountPopDialog.name] as bool? ?? true),
                 onPop: () async {
-                  service.userProfile = await service.getUserProfileByName(userProfile?.name ?? '');
+                  service.userProfile = await service.getUserProfile();
                   nameController = TextEditingController(text: userProfile?.name);
                   emailController = TextEditingController(text: userProfile?.email);
                   ageController = TextEditingController(text: userProfile?.age.toString());
@@ -57,7 +57,7 @@ class AccountSettingPage extends StatelessWidget {
                       ?..name = nameController.text
                       ..email = emailController.text
                       ..age = int.tryParse(ageController.text) ?? 13;
-                    service.saveUserProfile(shouldUpdate: true);
+                    service.signUp(shouldUpdate: true);
                     accountSettingCubit.resetState();
                   },
                   child: Icon(
