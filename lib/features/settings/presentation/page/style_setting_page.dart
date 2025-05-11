@@ -43,7 +43,7 @@ class StyleSettingPage extends StatelessWidget {
                   'emojiType': state.emojiType,
                   'colorIndex': state.colorIndex,
                 });
-                getMyProfileService().saveUserProfile(shouldUpdate: true);
+                getMyProfileService().signUp(shouldUpdate: true);
               },
             ),
             actions: [
