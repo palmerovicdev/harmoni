@@ -44,7 +44,7 @@ void setupInitialMockData() async {
       age: 20,
       gender: Gender.male.name,
       email: 'pal@gmail.com',
-      password: getMyProfileService().hashPassword('detergen'),
+      password: 'detergen',
     ),
   );
 }
