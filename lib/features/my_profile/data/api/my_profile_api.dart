@@ -13,6 +13,8 @@ abstract class MyProfileApi {
   Future<bool?> validateName(String name);
 
   Future<bool?> validateEmail(String email);
+
+  Future<User?> updateUser(User user);
 }
 
 class MyProfileApiBackImpl implements MyProfileApi {
@@ -130,5 +132,27 @@ class MyProfileApiBackImpl implements MyProfileApi {
         return null;
       }
     });
+  }
+
+  @override
+  Future<User?> updateUser(User user) async {
+    var connection = getConnectionService();
+    var response = await connection.post(
+      '$_userBaseUrl/update',
+      data: user.toJson()..addAll({'role': 'USER'}),
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      getConnectionService().token = response.data['token'];
+      //TODO 6/7/25 palmerodev : add return for user
+    } else {
+      // handle error
+    }
   }
 }
