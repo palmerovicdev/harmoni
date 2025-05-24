@@ -8,7 +8,7 @@ abstract class MyProfileRepository {
   Future<User?> getUserProfile();
   Future<bool?> validateName(String name);
   Future<bool?> validateEmail(String email);
-
+  Future<User?> updateUser(User user);
 }
 
 class MyProfileRepositoryImpl implements MyProfileRepository {
@@ -39,6 +39,11 @@ class MyProfileRepositoryImpl implements MyProfileRepository {
   @override
   Future<bool?> validateName(String name) async {
     return _usersApi.validateName(name);
+  }
+
+  @override
+  Future<User?> updateUser(User user) async {
+    return _usersApi.updateUser(user);
   }
 
 }
