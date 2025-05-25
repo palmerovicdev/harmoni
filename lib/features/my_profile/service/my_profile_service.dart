@@ -19,6 +19,19 @@ class MyProfileService {
     userProfile = user;
   }
 
+  Future<void> updateUser() async {
+    userProfile?.gender = profileAuxGender.isNotEmpty ? profileAuxGender : userProfile?.gender;
+    if (userProfile == null) return;
+    var user = await _myProfileRepository.updateUser(userProfile!);
+    if (user == null) return;
+    init(user);
+  }
+
+  Future<User?> signIn() async {
+
+    throw UnimplementedError(); //TODO 6/8/25 palmerodev : make this
+  }
+
   Future<bool> signUp({bool shouldUpdate = false}) async {
     userProfile?.gender = profileAuxGender.isNotEmpty ? profileAuxGender : userProfile?.gender;
     if (userProfile == null) return false;
@@ -56,7 +69,7 @@ class MyProfileService {
 
   setPassword(String password) {
     userProfile ??= User();
-    userProfile!.password = hashPassword(password);
+    userProfile!.password = password;
   }
 
   setGender(String gender) {
@@ -81,8 +94,6 @@ class MyProfileService {
     return isValid ?? false ? EmailValidationResult.repeated.name : EmailValidationResult.success.name;
   }
 
-  String hashPassword(String password) => Crypt.sha256(password, rounds: 1000, salt: "miSaltSeguro").hash;
-
   String validatePassword(String password) {
     var isGreaterThan6Chars = password.length >= 6;
     var isLessThan16Chars = password.length <= 16;
@@ -91,10 +102,6 @@ class MyProfileService {
     return PasswordValidationResult.success.name;
   }
 
-  bool matchPassword(String password, String hashedPassword) {
-    var isValid = hashedPassword == hashPassword(password);
-    return isValid;
-  }
 }
 
 enum EmailValidationResult { invalid, repeated, success }
