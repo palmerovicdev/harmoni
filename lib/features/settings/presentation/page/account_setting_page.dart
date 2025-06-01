@@ -57,7 +57,7 @@ class AccountSettingPage extends StatelessWidget {
                       ?..name = nameController.text
                       ..email = emailController.text
                       ..age = int.tryParse(ageController.text) ?? 13;
-                    service.signUp(shouldUpdate: true);
+                    service.updateUser();
                     accountSettingCubit.resetState();
                   },
                   child: Icon(
