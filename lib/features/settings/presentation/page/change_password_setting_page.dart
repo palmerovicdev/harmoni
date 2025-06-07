@@ -40,10 +40,6 @@ class ChangePasswordSettingPage extends StatelessWidget {
                   showErrorDialog(context, 'Contraseña incorrecta. Las contraseñas no deben estar vacías. Reintenta.');
                   return;
                 }
-                if (!service.matchPassword(actualPasswordController.text, userProfile?.password ?? '')) {
-                  showErrorDialog(context, 'La contraseña es incorrecta. Reintenta.');
-                  return;
-                }
                 if (state is! ChangePasswordSettingInitial) {
                   showErrorDialog(context, 'Contraseña incorrecta. Las contraseñas no coinciden. Reintenta.');
                   return;
@@ -53,8 +49,8 @@ class ChangePasswordSettingPage extends StatelessWidget {
                   return;
                 }
 
-                userProfile?.password = service.hashPassword(newRepeatedPasswordController.text);
-                service.signUp(shouldUpdate: true);
+                userProfile?.password = newRepeatedPasswordController.text;
+                service.updateUser();
                 actualPasswordController = TextEditingController();
                 newPasswordController = TextEditingController();
                 newRepeatedPasswordController = TextEditingController();
