@@ -1,10 +1,7 @@
-import 'package:crypt/crypt.dart';
-import 'package:drift/drift.dart';
 import 'package:harmoni/core/extensions/string.dart';
-import 'package:harmoni/core/helpers/database.dart';
 import 'package:harmoni/features/my_profile/data/repository/my_profile_repository.dart';
-import 'package:harmoni/features/my_profile/model/mapper.dart';
 
+import '../../../core/service_locator/service_locator.dart';
 import '../model/model/user_model.dart';
 
 class MyProfileService {
@@ -28,14 +25,15 @@ class MyProfileService {
   }
 
   Future<User?> signIn() async {
-
-    throw UnimplementedError(); //TODO 6/8/25 palmerodev : make this
+    if (userProfile == null) return null;
+    return await _myProfileRepository.signIn(userProfile!);
   }
 
   Future<bool> signUp({bool shouldUpdate = false}) async {
     userProfile?.gender = profileAuxGender.isNotEmpty ? profileAuxGender : userProfile?.gender;
     if (userProfile == null) return false;
-    await _myProfileRepository.signUp(userProfile!);
+    var response = await _myProfileRepository.signUp(userProfile!);
+    if (!(response ?? false)) return false;
     var user = await getUserProfile();
     if (user == null) return false;
     init(user);
@@ -102,6 +100,15 @@ class MyProfileService {
     return PasswordValidationResult.success.name;
   }
 
+  void signOut() {
+    userProfile = null;
+    getConnectionService().token = '';
+    getHomeService().currentLocationIndex = 0;
+  }
+
+  Future<void> deleteAccount() async {
+    await _myProfileRepository.deleteAccount();
+  }
 }
 
 enum EmailValidationResult { invalid, repeated, success }
