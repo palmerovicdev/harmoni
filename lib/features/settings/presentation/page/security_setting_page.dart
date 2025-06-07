@@ -68,7 +68,8 @@ class SecuritySettingPage extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 24.0),
                     );
                     if (!response) return;
-                    getMyProfileService().userProfile = null;
+                    await getMyProfileService().deleteAccount();
+                    getMyProfileService().signOut();
                     if (context.mounted) context.goNamed(HomeRoute.home.data.name);
                   },
                   action: Icon(
