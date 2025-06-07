@@ -4,9 +4,9 @@ import 'package:harmoni/core/service_locator/service_locator.dart';
 import '../../model/model/user_model.dart';
 
 abstract class MyProfileApi {
-  Future<void> signUp(User user);
+  Future<bool?> signUp(User user);
 
-  Future<void> signIn(User user);
+  Future<bool?> signIn(User user);
 
   Future<User?> getUserProfile();
 
@@ -15,6 +15,8 @@ abstract class MyProfileApi {
   Future<bool?> validateEmail(String email);
 
   Future<User?> updateUser(User user);
+
+  Future<bool?> deleteAccount();
 }
 
 class MyProfileApiBackImpl implements MyProfileApi {
@@ -38,14 +40,13 @@ class MyProfileApiBackImpl implements MyProfileApi {
       if (response.statusCode == 200) {
         return User.fromJson(response.data);
       } else {
-        // handle error
         return null;
       }
     });
   }
 
   @override
-  Future<void> signUp(User user) async {
+  Future<bool?> signUp(User user) async {
     var connection = getConnectionService();
     var response = await connection.post(
       '$_userBaseUrl/signUp',
@@ -59,14 +60,15 @@ class MyProfileApiBackImpl implements MyProfileApi {
     );
 
     if (response.statusCode == 200) {
-      getConnectionService().token = response.data['token'];
+      getConnectionService().token = response.data['token'] ?? '';
+      return getConnectionService().token.isNotEmpty;
     } else {
-      // handle error
+      return false;
     }
   }
 
   @override
-  Future<void> signIn(User user) {
+  Future<bool?> signIn(User user) {
     var connection = getConnectionService();
     return connection
         .post(
@@ -81,9 +83,11 @@ class MyProfileApiBackImpl implements MyProfileApi {
     )
         .then((response) {
       if (response.statusCode == 200) {
-        connection.token = response.data['token'];
+        connection.token = response.data['token'] ?? '';
+        return connection.token.isNotEmpty;
       } else {
         // handle error
+        return false;
       }
     });
   }
@@ -154,5 +158,28 @@ class MyProfileApiBackImpl implements MyProfileApi {
     } else {
       // handle error
     }
+  }
+
+  @override
+  Future<bool?> deleteAccount() {
+    var connection = getConnectionService();
+    return connection
+        .post(
+      '$_myProfileBaseUrl/delete',
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    )
+        .then((response) {
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        // handle error
+        return false;
+      }
+    });
   }
 }

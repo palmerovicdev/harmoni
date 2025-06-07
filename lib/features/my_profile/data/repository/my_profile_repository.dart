@@ -3,12 +3,19 @@ import 'package:harmoni/features/my_profile/data/api/my_profile_api.dart';
 import '../../model/model/user_model.dart';
 
 abstract class MyProfileRepository {
-  Future<void> signUp(User user);
-  Future<void> signIn(User user);
-  Future<User?> getUserProfile();
-  Future<bool?> validateName(String name);
-  Future<bool?> validateEmail(String email);
+  Future<bool?> signUp(User user);
+
+  Future<User?> signIn(User user);
+
+  Future<bool?> deleteAccount();
+
   Future<User?> updateUser(User user);
+
+  Future<User?> getUserProfile();
+
+  Future<bool?> validateName(String name);
+
+  Future<bool?> validateEmail(String email);
 }
 
 class MyProfileRepositoryImpl implements MyProfileRepository {
@@ -17,8 +24,8 @@ class MyProfileRepositoryImpl implements MyProfileRepository {
   final MyProfileApi _usersApi;
 
   @override
-  Future<void> signUp(User user) async {
-    await _usersApi.signUp(user);
+  Future<bool?> signUp(User user) async {
+    return _usersApi.signUp(user);
   }
 
   @override
@@ -27,8 +34,10 @@ class MyProfileRepositoryImpl implements MyProfileRepository {
   }
 
   @override
-  Future<void> signIn(User user) async {
-    return _usersApi.signIn(user);
+  Future<User?> signIn(User user) async {
+    var response = await _usersApi.signIn(user);
+    if (!(response ?? false)) return null;
+    return getUserProfile();
   }
 
   @override
@@ -46,4 +55,8 @@ class MyProfileRepositoryImpl implements MyProfileRepository {
     return _usersApi.updateUser(user);
   }
 
+  @override
+  Future<bool?> deleteAccount() {
+    return _usersApi.deleteAccount();
+  }
 }
