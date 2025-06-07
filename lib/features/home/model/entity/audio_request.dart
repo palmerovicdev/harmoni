@@ -1,4 +1,1 @@
-
-class AudioRequest {
-
-}
+class AudioRequest {}
