@@ -8,7 +8,6 @@ class MyProfileSettingCubit extends Cubit<MyProfileSettingState> {
   MyProfileSettingCubit() : super(MyProfileSettingInitial());
 
   void signOut() {
-    getMyProfileService().userProfile = null;
-    getHomeService().currentLocationIndex = 0;
+    getMyProfileService().signOut();
   }
 }
