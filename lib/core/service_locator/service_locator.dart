@@ -26,7 +26,7 @@ setUpLocator() async {
   locator.registerSingleton<Connection>(Connection());
 
   registerServices();
-  setupInitialMockData();
+  // setupInitialMockData();
 }
 
 loadAllInformation() async {
@@ -50,7 +50,6 @@ void setupInitialMockData() async {
 }
 
 void registerServices() {
-  locator.registerSingleton<Connection>(Connection());
   locator.registerSingleton<MyProfileApi>(MyProfileApiBackImpl());
   locator.registerSingleton<MyProfileRepository>(MyProfileRepositoryImpl(usersApi: getMyProfileApi()));
   locator.registerSingleton<MyProfileService>(MyProfileService(myProfileRepository: getMyProfileRepository()));

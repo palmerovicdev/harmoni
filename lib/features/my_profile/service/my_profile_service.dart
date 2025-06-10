@@ -40,6 +40,10 @@ class MyProfileService {
     return true;
   }
 
+  Future<bool> saveSettings(Map<String, dynamic> settings) async {
+    return await _myProfileRepository.saveSettings(settings) ?? false;
+  }
+
   Future<User?> getUserProfile() async {
     return await _myProfileRepository.getUserProfile();
   }
@@ -51,8 +55,8 @@ class MyProfileService {
   Future<String> validateName(String name) async {
     var isNameValid = name.isLettersOnlyAndFistCharacterUpperCase;
     if (!isNameValid) return NameValidationResult.invalid.name;
-    var userProfile = await _myProfileRepository.validateName(name);
-    return userProfile ?? false ? NameValidationResult.success.name : NameValidationResult.repeated.name;
+    var isValid = await _myProfileRepository.validateName(name);
+    return isValid ?? false ? NameValidationResult.success.name : NameValidationResult.repeated.name;
   }
 
   setName(String name) {
@@ -88,8 +92,8 @@ class MyProfileService {
   Future<String> validateEmail(String email) async {
     var result = email.isEmailOnly;
     if (!result) return EmailValidationResult.invalid.name;
-    var isValid = await _myProfileRepository.validateEmail(email);
-    return isValid ?? false ? EmailValidationResult.repeated.name : EmailValidationResult.success.name;
+    var isInDb = !(await _myProfileRepository.validateEmail(email) ?? true);
+    return isInDb ? EmailValidationResult.repeated.name : EmailValidationResult.success.name;
   }
 
   String validatePassword(String password) {
@@ -108,6 +112,10 @@ class MyProfileService {
 
   Future<void> deleteAccount() async {
     await _myProfileRepository.deleteAccount();
+  }
+
+  Future<Map<String, dynamic>> getSettings() {
+    return _myProfileRepository.getSettings();
   }
 }
 

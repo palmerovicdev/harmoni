@@ -98,7 +98,7 @@ Future<void> showConditionalDialog(
                     ifAbsent: () => shouldShowAgain,
                   );
               logI('Saving user profile in pop: ${jsonEncode(getMyProfileService().userProfile)}');
-              getMyProfileService().signUp(shouldUpdate: true);
+              getMyProfileService().saveSettings(getMyProfileService().userProfile?.settings ?? {});
               Navigator.of(context).pop();
             },
             child: const Text("Cancelar"),
@@ -111,7 +111,7 @@ Future<void> showConditionalDialog(
                     ifAbsent: () => shouldShowAgain,
                   );
               logI('Saving user profile in pop: ${jsonEncode(getMyProfileService().userProfile)}');
-              getMyProfileService().signUp(shouldUpdate: true);
+              getMyProfileService().saveSettings(getMyProfileService().userProfile?.settings ?? {});
               onAcceptPressed.call();
               Navigator.of(context).pop();
             },

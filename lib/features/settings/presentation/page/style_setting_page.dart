@@ -36,6 +36,7 @@ class StyleSettingPage extends StatelessWidget {
             title: Text('Apariencia'),
             leading: PopWidget(
               beforePop: () {
+                getMyProfileService().userProfile?.settings == null ? getMyProfileService().userProfile?.settings = {} : true;
                 getMyProfileService().userProfile?.settings?.addAll({
                   'brightness': (state as StyleSettingInitial).brightness == Brightness.dark ? Brightness.dark.name : Brightness.light.name,
                   'color': state.color.value,
@@ -43,7 +44,7 @@ class StyleSettingPage extends StatelessWidget {
                   'emojiType': state.emojiType,
                   'colorIndex': state.colorIndex,
                 });
-                getMyProfileService().signUp(shouldUpdate: true);
+                getMyProfileService().saveSettings(getMyProfileService().userProfile?.settings ?? {});
               },
             ),
             actions: [

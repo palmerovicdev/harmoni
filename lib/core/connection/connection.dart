@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 import '../helpers/logger.dart';
@@ -5,18 +7,20 @@ import '../helpers/logger.dart';
 class Connection {
   static final Connection _instance = Connection._internal();
   static Dio? _dio;
-  final String _baseUrl = 'https://localhost:8080';
+  final String _baseUrl = Platform.isAndroid ? 'http://10.0.2.2:8081' : 'http://localhost:8081';
   String token = '';
 
   String getBaseUrl() => _baseUrl;
 
   factory Connection() {
+    _dio ??= Dio(BaseOptions(baseUrl: _instance._baseUrl));
     return _instance;
   }
 
   Connection._internal();
 
   Future<Response> get(String url, {Map<String, dynamic>? params, Options? options}) async {
+    logI('GET $url with params: $params');
     if (_dio != null) {
       return await _dio!
           .get(
@@ -43,6 +47,7 @@ class Connection {
   }
 
   Future<Response> post(String url, {dynamic data, Map<String, dynamic>? params, Options? options}) async {
+    logI('POST $url with data: $data and params: $params');
     if (_dio != null) {
       return await _dio!
           .post(
@@ -70,6 +75,7 @@ class Connection {
   }
 
   Future<Response> put(String url, {dynamic data, Map<String, dynamic>? params, Options? options}) async {
+    logI('PUT $url with data: $data and params: $params');
     if (_dio != null) {
       return await _dio!
           .put(
@@ -97,6 +103,7 @@ class Connection {
   }
 
   Future<Response> delete(String url, {dynamic data, Map<String, dynamic>? params, Options? options}) async {
+    logI('DELETE $url with data: $data and params: $params');
     if (_dio != null) {
       return await _dio!
           .delete(

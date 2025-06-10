@@ -25,6 +25,8 @@ class SignInCubit extends Cubit<SignInState> {
       signInError("Password not valid");
       return false;
     }
+    var settings = await getMyProfileService().getSettings();
+    user.settings = settings;
     logI('Password valid');
     getMyProfileService().init(user);
     emit(SignInSuccess());

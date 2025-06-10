@@ -16,6 +16,10 @@ abstract class MyProfileRepository {
   Future<bool?> validateName(String name);
 
   Future<bool?> validateEmail(String email);
+
+  Future<bool?> saveSettings(Map<String, dynamic> settings);
+
+  Future<Map<String, dynamic>> getSettings();
 }
 
 class MyProfileRepositoryImpl implements MyProfileRepository {
@@ -58,5 +62,15 @@ class MyProfileRepositoryImpl implements MyProfileRepository {
   @override
   Future<bool?> deleteAccount() {
     return _usersApi.deleteAccount();
+  }
+
+  @override
+  Future<bool?> saveSettings(Map<String, dynamic> settings) {
+    return _usersApi.saveSettings(settings);
+  }
+
+  @override
+  Future<Map<String, dynamic>> getSettings() {
+    return _usersApi.getSettings();
   }
 }

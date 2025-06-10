@@ -148,6 +148,8 @@ class SignInPage extends StatelessWidget {
                               }
                               return;
                             }
+                            getMyProfileService().setEmail(emailEditingController.text);
+                            getMyProfileService().setPassword(passwordEditingController.text);
                             if (context.mounted) {
                               var result = await context.read<SignInCubit>().signIn(emailEditingController.text, passwordEditingController.text);
                               if (!result) {

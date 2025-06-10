@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 
@@ -17,11 +19,15 @@ abstract class MyProfileApi {
   Future<User?> updateUser(User user);
 
   Future<bool?> deleteAccount();
+
+  Future<bool?> saveSettings(Map<String, dynamic> settings);
+
+  Future<Map<String, dynamic>> getSettings();
 }
 
 class MyProfileApiBackImpl implements MyProfileApi {
   final String _myProfileBaseUrl = '${getConnectionService().getBaseUrl()}/myProfile';
-  final String _userBaseUrl = '${getConnectionService().getBaseUrl()}/user';
+  final String _userBaseUrl = '${getConnectionService().getBaseUrl()}/auth';
 
   @override
   Future<User?> getUserProfile() {
@@ -96,7 +102,7 @@ class MyProfileApiBackImpl implements MyProfileApi {
   Future<bool?> validateEmail(String email) {
     var connection = getConnectionService();
     return connection
-        .post(
+        .get(
       '$_myProfileBaseUrl/validateEmail/$email',
       options: Options(
         headers: {
@@ -110,7 +116,7 @@ class MyProfileApiBackImpl implements MyProfileApi {
         return response.data['isValid'];
       } else {
         // handle error
-        return null;
+        return false;
       }
     });
   }
@@ -119,7 +125,7 @@ class MyProfileApiBackImpl implements MyProfileApi {
   Future<bool?> validateName(String name) {
     var connection = getConnectionService();
     return connection
-        .post(
+        .get(
       '$_myProfileBaseUrl/validateName/$name',
       options: Options(
         headers: {
@@ -142,7 +148,7 @@ class MyProfileApiBackImpl implements MyProfileApi {
   Future<User?> updateUser(User user) async {
     var connection = getConnectionService();
     var response = await connection.post(
-      '$_userBaseUrl/update',
+      '$_myProfileBaseUrl/update',
       data: user.toJson()..addAll({'role': 'USER'}),
       options: Options(
         headers: {
@@ -153,8 +159,8 @@ class MyProfileApiBackImpl implements MyProfileApi {
     );
 
     if (response.statusCode == 200) {
-      getConnectionService().token = response.data['token'];
-      //TODO 6/7/25 palmerodev : add return for user
+      getConnectionService().token = response.data['data']['token'] ?? '';
+      return User.fromJson(response.data['data']['user']);
     } else {
       // handle error
     }
@@ -179,6 +185,53 @@ class MyProfileApiBackImpl implements MyProfileApi {
       } else {
         // handle error
         return false;
+      }
+    });
+  }
+
+  @override
+  Future<bool?> saveSettings(Map<String, dynamic> settings) {
+    var connection = getConnectionService();
+    return connection
+        .post(
+      '$_myProfileBaseUrl/saveSettings',
+      data: {'settings': jsonEncode(settings)},
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    )
+        .then((response) {
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        // handle error
+        return false;
+      }
+    });
+  }
+
+  @override
+  Future<Map<String, dynamic>> getSettings() {
+    var connection = getConnectionService();
+    return connection
+        .get(
+      '$_myProfileBaseUrl/getSettingsForUser',
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    )
+        .then((response) {
+      if (response.statusCode == 200) {
+        return jsonDecode(response.data['settings']) as Map<String, dynamic>;
+      } else {
+        // handle error
+        return {};
       }
     });
   }
