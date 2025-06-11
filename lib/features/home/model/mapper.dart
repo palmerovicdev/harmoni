@@ -2,26 +2,12 @@ import 'package:drift/drift.dart';
 import 'package:harmoni/core/helpers/database.dart';
 import 'package:harmoni/features/home/model/model/activity_model.dart';
 
-import 'model/activity_group_model.dart';
 import 'model/mood_activity_relation_model.dart';
 import 'model/mood_track_model.dart';
 
 extension ActivityMapper on ActivityTableData {
   Activity toModel() {
     return Activity(
-      id: id,
-      name: name,
-      image: image,
-      activityGroupId: activityGroupId,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
-    );
-  }
-}
-
-extension ActivityGroupMapper on ActivityGroupTableData {
-  ActivityGroup toModel() {
-    return ActivityGroup(
       id: id,
       name: name,
       image: image,
@@ -57,21 +43,8 @@ extension MoodActivityRelationMapper on MoodActivityRelationTableData {
 }
 
 extension ActivityTableMapper on Activity {
-  ActivityTableCompanion toEntity(int activityGroupId) {
+  ActivityTableCompanion toEntity() {
     return ActivityTableCompanion(
-      id: Value(id ?? 0),
-      name: Value(name ?? ''),
-      image: Value(image ?? ''),
-      activityGroupId: Value(activityGroupId),
-      createdAt: Value(createdAt ?? DateTime.now()),
-      updatedAt: Value(updatedAt ?? DateTime.now()),
-    );
-  }
-}
-
-extension ActivityGroupTableMapper on ActivityGroup {
-  ActivityGroupTableCompanion toEntity() {
-    return ActivityGroupTableCompanion(
       id: Value(id ?? 0),
       name: Value(name ?? ''),
       image: Value(image ?? ''),

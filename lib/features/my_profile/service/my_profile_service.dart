@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:harmoni/core/extensions/string.dart';
+import 'package:harmoni/features/home/model/model/activity_model.dart';
 import 'package:harmoni/features/my_profile/data/repository/my_profile_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/service_locator/service_locator.dart';
 import '../model/model/user_model.dart';
@@ -38,6 +41,35 @@ class MyProfileService {
     if (user == null) return false;
     init(user);
     return true;
+  }
+
+  Future<bool> isFirstTimeOpen() async {
+    var sharedPreferences = await SharedPreferences.getInstance();
+    var isFirstTimeOpen = sharedPreferences.getBool('isFirstTimeOpen') ?? true;
+    isFirstTimeOpen ? await sharedPreferences.setBool('isFirstTimeOpen', false) : null;
+    return isFirstTimeOpen;
+  }
+
+  Future<void> setupInitialDataForUser() async {
+    // if (!await isFirstTimeOpen()) return; //TODO 6/11/25 palmerodev : activate this line when the app is ready to be released
+
+    var activities = [
+      Activity(id: null, name: 'Trabajar', color: Colors.blue.value),
+      Activity(id: null, name: 'Relajarse', color: Colors.cyan.value),
+      Activity(id: null, name: 'Estudiar', color: Colors.purpleAccent.value),
+      Activity(id: null, name: 'Hacer ejercicio', color: Colors.green.value),
+      Activity(id: null, name: 'Leer', color: Colors.orange.value),
+      Activity(id: null, name: 'Cocinar', color: Colors.redAccent.value),
+      Activity(id: null, name: 'Socializar', color: Colors.pinkAccent.value),
+      Activity(id: null, name: 'Meditar', color: Colors.teal.value),
+      Activity(id: null, name: 'Ver series', color: Colors.amber.value),
+      Activity(id: null, name: 'Jugar videojuegos', color: Colors.deepPurple.value),
+      Activity(id: null, name: 'Salir a caminar', color: Colors.lightGreen.value),
+      Activity(id: null, name: 'Tocar música', color: Colors.indigo.value),
+      Activity(id: null, name: 'Dibujar', color: Colors.deepOrange.value),
+    ];
+
+    getHomeRepository().createActivities(activities);
   }
 
   Future<bool> saveSettings(Map<String, dynamic> settings) async {

@@ -1,82 +1,117 @@
-import 'package:drift/drift.dart';
-import 'package:harmoni/core/helpers/database.dart';
-import 'package:harmoni/features/home/model/mapper.dart';
+import 'package:dio/dio.dart';
+import 'package:harmoni/core/connection/connection.dart';
+import 'package:harmoni/core/service_locator/service_locator.dart';
+import 'package:harmoni/features/home/model/model/mood_track_model.dart';
 
-import '../../model/model/activity_group_model.dart';
 import '../../model/model/activity_model.dart';
-import '../../model/model/mood_activity_relation_model.dart';
 
 abstract class HomeApi {
-  Future<List<ActivityTableData>> getActivitiesByMoodIds(List<int> moodIds);
+  Future<List<Activity>> getActivities();
 
-  Future<List<MoodTrackTableData>> getMoodsByUserId(int userId);
+  Future<void> createActivities(List<Activity> activities);
 
-  Future<List<MoodTrackTableData>> getMoodsByUserIdAndCreatedAt(int userId, DateTime startDate, {DateTime? endDate});
+  Future<void> deleteActivity(int id);
 
-  Future<List<ActivityGroupTableData>> getActivityGroups();
+  Future<void> trackEmotion(int activityId, String videoPath);
 
-  Future<List<ActivityTableData>> getActivitiesByGroupsIds(List<int> groupIds);
+  Future<List<MoodTrack>> getEmotionsByActivity(int activityId);
 
-  Future<void> saveActivity(int activityGroupId, Activity activity);
-
-  Future<void> saveActivityGroup(ActivityGroup activityGroup);
-
-  Future<void> saveMoodActivityRelation(MoodActivityRelation moodActivityRelation);
+  Future<List<MoodTrack>> getEmotions();
 }
 
 class HomeApiImpl implements HomeApi {
-  final Database _connection;
+  final Connection _connectionService = getConnectionService();
 
-  HomeApiImpl({required Database connection}) : _connection = connection;
+  HomeApiImpl();
 
   @override
-  Future<List<ActivityTableData>> getActivitiesByMoodIds(List<int> moodIds) {
-    final query = _connection.select(_connection.activityTable).join([
-      innerJoin(
-        _connection.moodActivityRelationTable,
-        _connection.moodActivityRelationTable.activityId.equalsExp(_connection.activityTable.id),
+  Future<List<Activity>> getActivities() async {
+    final response = await _connectionService.get(
+      '${_connectionService.getBaseUrl()}/home/activities',
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
       ),
-    ])
-      ..where(_connection.moodActivityRelationTable.moodTrackId.isIn(moodIds));
+    );
 
-    return query.map((row) => row.readTable(_connection.activityTable)).get();
+    return (response.data['data'] as List).map((activity) => Activity.fromJson(activity)).toList();
   }
 
   @override
-  Future<List<MoodTrackTableData>> getMoodsByUserId(int userId) async {
-    return (_connection.select(_connection.moodTrackTable)..where((tbl) => tbl.userId.equals(userId))).get();
+  Future<void> createActivities(List<Activity> activities) async {
+    await _connectionService.post(
+      '${_connectionService.getBaseUrl()}/home/createActivity',
+      data: {'activities': activities.map((a) => a.toJson()).toList()},
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
   }
 
   @override
-  Future<List<MoodTrackTableData>> getMoodsByUserIdAndCreatedAt(int userId, DateTime startDate, {DateTime? endDate}) async {
-    return (_connection.select(_connection.moodTrackTable)
-          ..where((tbl) => tbl.userId.equals(userId))
-          ..where((tbl) => endDate == null ? tbl.createdAt.isBiggerThanValue(startDate) : tbl.createdAt.isBetweenValues(startDate, endDate)))
-        .get();
+  Future<void> deleteActivity(int id) async {
+    await _connectionService.delete(
+      '${_connectionService.getBaseUrl()}/home/deleteActivity/$id',
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
   }
 
   @override
-  Future<List<ActivityGroupTableData>> getActivityGroups() async {
-    return (_connection.select(_connection.activityGroupTable)).get();
+  Future<void> trackEmotion(int activityId, String videoPath) async {
+    final formData = FormData.fromMap({
+      'videoFile': await MultipartFile.fromFile(videoPath),
+      'activityId': activityId,
+    });
+
+    await _connectionService.post(
+      '${_connectionService.getBaseUrl()}/home/trackEmotion',
+      data: formData,
+      options: Options(
+        headers: {
+          'Accept': 'application/json',
+        },
+        contentType: 'multipart/form-data',
+      ),
+    );
   }
 
   @override
-  Future<List<ActivityTableData>> getActivitiesByGroupsIds(List<int> groupIds) async {
-    return (_connection.select(_connection.activityTable)..where((tbl) => tbl.id.isIn(groupIds))).get();
+  Future<List<MoodTrack>> getEmotionsByActivity(int activityId) async {
+    final response = await _connectionService.get(
+      '${_connectionService.getBaseUrl()}/home/emotionsByActivity/$activityId',
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
+
+    return (response.data as List).map((emotion) => MoodTrack.fromJson(emotion)).toList();
   }
 
   @override
-  Future<void> saveActivity(int activityGroupId, Activity activity) {
-    return _connection.activityTable.insertOnConflictUpdate(activity.toEntity(activityGroupId));
-  }
+  Future<List<MoodTrack>> getEmotions() async {
+    final response = await _connectionService.get(
+      '${_connectionService.getBaseUrl()}/home/emotions',
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
 
-  @override
-  Future<void> saveActivityGroup(ActivityGroup activityGroup) {
-    return _connection.activityGroupTable.insertOnConflictUpdate(activityGroup.toEntity());
-  }
-
-  @override
-  Future<void> saveMoodActivityRelation(MoodActivityRelation moodActivityRelation) {
-    return _connection.moodActivityRelationTable.insertOnConflictUpdate(moodActivityRelation.toEntity());
+    return (response.data as List).map((emotion) => MoodTrack.fromJson(emotion)).toList();
   }
 }

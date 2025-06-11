@@ -1,26 +1,20 @@
 import 'package:harmoni/features/home/data/api/home_api.dart';
 
-import '../../model/model/activity_group_model.dart';
 import '../../model/model/activity_model.dart';
-import '../../model/model/mood_activity_relation_model.dart';
 import '../../model/model/mood_track_model.dart';
 
 abstract class HomeRepository {
-  Future<List<Activity>> getActivitiesByMoodIds(List<int> moodIds);
+  Future<List<Activity>> getActivities();
 
-  Future<List<MoodTrack>> getMoodsByUserId(int userId);
+  Future<void> createActivities(List<Activity> activities);
 
-  Future<List<MoodTrack>> getMoodsByUserIdAndCreatedAt(int userId, DateTime startDate, {DateTime? endDate});
+  Future<void> deleteActivity(int id);
 
-  Future<List<ActivityGroup>> getActivityGroups();
+  Future<void> trackEmotion(int activityId, String videoPath);
 
-  Future<List<Activity>> getActivitiesByGroupsIds(List<int> groupIds);
+  Future<List<MoodTrack>> getEmotionsByActivity(int activityId);
 
-  Future<bool> saveActivity(int activityGroupId, Activity activity);
-
-  Future<bool> saveActivityGroup(ActivityGroup activityGroup);
-
-  Future<bool> saveMoodActivityRelation(MoodActivityRelation moodActivityRelation);
+  Future<List<MoodTrack>> getEmotions();
 }
 
 class HomeRepositoryImpl implements HomeRepository {
@@ -29,50 +23,32 @@ class HomeRepositoryImpl implements HomeRepository {
   HomeRepositoryImpl({required HomeApi homeApi}) : _homeApi = homeApi;
 
   @override
-  Future<List<Activity>> getActivitiesByGroupsIds(List<int> groupIds) {
-    // TODO: implement getActivitiesByGroupsIds
-    throw UnimplementedError();
+  Future<List<Activity>> getActivities() async {
+    return _homeApi.getActivities();
   }
 
   @override
-  Future<List<Activity>> getActivitiesByMoodIds(List<int> moodIds) {
-    // TODO: implement getActivitiesByMoodIds
-    throw UnimplementedError();
+  Future<void> createActivities(List<Activity> activities) async {
+    return _homeApi.createActivities(activities);
   }
 
   @override
-  Future<List<ActivityGroup>> getActivityGroups() {
-    // TODO: implement getActivityGroups
-    throw UnimplementedError();
+  Future<void> deleteActivity(int id) async {
+    return _homeApi.deleteActivity(id);
   }
 
   @override
-  Future<List<MoodTrack>> getMoodsByUserId(int userId) {
-    // TODO: implement getMoodsByUserId
-    throw UnimplementedError();
+  Future<void> trackEmotion(int activityId, String videoPath) async {
+    return _homeApi.trackEmotion(activityId, videoPath);
   }
 
   @override
-  Future<List<MoodTrack>> getMoodsByUserIdAndCreatedAt(int userId, DateTime startDate, {DateTime? endDate}) {
-    // TODO: implement getMoodsByUserIdAndCreatedAt
-    throw UnimplementedError();
+  Future<List<MoodTrack>> getEmotionsByActivity(int activityId) async {
+    return _homeApi.getEmotionsByActivity(activityId);
   }
 
   @override
-  Future<bool> saveActivity(int activityGroupId, Activity activity) {
-    // TODO: implement saveActivity
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> saveActivityGroup(ActivityGroup activityGroup) {
-    // TODO: implement saveActivityGroup
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> saveMoodActivityRelation(MoodActivityRelation moodActivityRelation) {
-    // TODO: implement saveMoodActivityRelation
-    throw UnimplementedError();
+  Future<List<MoodTrack>> getEmotions() async {
+    return _homeApi.getEmotions();
   }
 }

@@ -17,18 +17,18 @@ class HomeService {
     var userId = getMyProfileService().userProfile?.id;
     if (userId == null) return;
 
-    var moodTracksFromLastWeek = await _homeRepository.getMoodsByUserIdAndCreatedAt(userId, DateTime.now().add(Duration(days: -7)));
+    var activities = await _homeRepository.getActivities();
+    var emotions = await _homeRepository.getEmotions();
 
-    var activitiesFromMoods = await _homeRepository.getActivitiesByMoodIds(
-      moodTracksFromLastWeek.map((e) => e.id!).toList(),
-    );
-  }
-
-  String getMoodFromPicture(String picture) {
-    throw UnimplementedError();
+    homeSummaryData?.activities = activities;
+    homeSummaryData?.moodTracks = emotions;
   }
 
   bool thereAreMoodsToDisplay() {
     return homeSummaryData?.moodTracks?.isNotEmpty ?? false;
+  }
+
+  Future<void> trackEmotion(int activityId, String videoPath) async {
+    await _homeRepository.trackEmotion(activityId, videoPath);
   }
 }

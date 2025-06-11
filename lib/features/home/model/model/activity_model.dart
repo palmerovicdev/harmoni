@@ -2,7 +2,7 @@ class Activity {
   int? id;
   String? name;
   String? image;
-  int? activityGroupId;
+  int? color;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -11,7 +11,7 @@ class Activity {
     this.name,
     this.updatedAt,
     this.image,
-    this.activityGroupId,
+    this.color,
     this.createdAt,
   });
 
@@ -19,7 +19,7 @@ class Activity {
     id = json['id'];
     name = json['name'];
     image = json['image'];
-    activityGroupId = json['activity_group_id'];
+    color = json['color'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -29,7 +29,7 @@ class Activity {
     data['id'] = id;
     data['name'] = name;
     data['image'] = image;
-    data['activity_group_id'] = activityGroupId;
+    data['color'] = color;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     return data;

@@ -53,7 +53,7 @@ void registerServices() {
   locator.registerSingleton<MyProfileApi>(MyProfileApiBackImpl());
   locator.registerSingleton<MyProfileRepository>(MyProfileRepositoryImpl(usersApi: getMyProfileApi()));
   locator.registerSingleton<MyProfileService>(MyProfileService(myProfileRepository: getMyProfileRepository()));
-  locator.registerSingleton<HomeApi>(HomeApiImpl(connection: getDatabaseService()));
+  locator.registerSingleton<HomeApi>(HomeApiImpl());
   locator.registerSingleton<HomeRepository>(HomeRepositoryImpl(homeApi: getHomeApi()));
   locator.registerSingleton<HomeService>(HomeService(homeRepository: getHomeRepository()));
 }
