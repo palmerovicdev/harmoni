@@ -233,8 +233,7 @@ class _MonthlyCalendar extends StatelessWidget {
                   }
                   final mood = moodByDay[dayNum];
                   final emotion = mood != null
-                      ? parseEmotion(mood.imageMood) ??
-                          parseEmotion(mood.recordMood)
+                      ? parseEmotion(mood.imageMood)
                       : null;
                   return GestureDetector(
                     onTap: mood != null ? () {/* Mostrar detalles */} : null,
@@ -299,8 +298,6 @@ class _YearInPixels extends StatelessWidget {
       }
     }
 
-    final daysInMonth = List.generate(12, (i) => DateTime(year, i + 1, 0).day);
-
     return Card(
       margin: const EdgeInsets.all(16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -357,8 +354,7 @@ class _YearInPixels extends StatelessWidget {
                       final day = dayIdx + 1;
                       final mood = moodByMonthDay[monthIdx + 1]?[day];
                       final emotion = mood != null
-                          ? parseEmotion(mood.imageMood) ??
-                              parseEmotion(mood.recordMood)
+                          ? parseEmotion(mood.imageMood)
                           : null;
                       return Expanded(
                         child: Padding(
