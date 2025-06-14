@@ -26,7 +26,8 @@ abstract class MyProfileApi {
 }
 
 class MyProfileApiBackImpl implements MyProfileApi {
-  final String _myProfileBaseUrl = '${getConnectionService().getBaseUrl()}/myProfile';
+  final String _myProfileBaseUrl =
+      '${getConnectionService().getBaseUrl()}/myProfile';
   final String _userBaseUrl = '${getConnectionService().getBaseUrl()}/auth';
 
   @override
@@ -164,6 +165,7 @@ class MyProfileApiBackImpl implements MyProfileApi {
     } else {
       // handle error
     }
+    return null;
   }
 
   @override
