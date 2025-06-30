@@ -7,6 +7,7 @@ class MoodTrackWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
+      duration: Duration(milliseconds: 150),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: Column(
@@ -38,7 +39,6 @@ class MoodTrackWidget extends StatelessWidget {
           ],
         ),
       ),
-      duration: Duration(milliseconds: 150),
     );
   }
 }

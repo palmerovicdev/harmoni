@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/widgets/spacer.dart';
 import '../../../../generated/assets.dart';
 import '../../../../router/general_routes.dart';
@@ -36,7 +37,9 @@ class AllDonePage extends StatelessWidget {
                 child: ActionButtonWidget(
                   text: isFromSettings ? 'Volver a settings' : 'Ir a Inicio',
                   shouldFocusAttention: true,
-                  onPressed: () => {
+                  onPressed: () async => {
+                    await getHomeService().homeSummary(),
+
                     isFromSettings ? context.pushNamed(HomeRoute.home.data.name) : context.pushNamed(HomeRoute.home.data.name), //TODO 2/9/25 palmerodev : cambiar ruta a settings
                   },
                 ),

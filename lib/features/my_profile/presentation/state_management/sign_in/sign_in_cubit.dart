@@ -29,6 +29,7 @@ class SignInCubit extends Cubit<SignInState> {
     user.settings = settings;
     logI('Password valid');
     getMyProfileService().init(user);
+    await getHomeService().homeSummary();
     emit(SignInSuccess());
     return true;
   }

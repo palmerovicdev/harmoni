@@ -20,8 +20,6 @@ extension ActivityMapper on ActivityTableData {
 extension MoodTrackMapper on MoodTrackTableData {
   MoodTrack toModel() {
     return MoodTrack(
-      id: id,
-      userId: userId,
       imageMood: imageMood,
       recordMood: recordMood,
       createdAt: createdAt,
@@ -57,8 +55,6 @@ extension ActivityTableMapper on Activity {
 extension MoodTrackTableMapper on MoodTrack {
   MoodTrackTableCompanion toEntity() {
     return MoodTrackTableCompanion(
-      id: Value(id ?? 0),
-      userId: Value(userId ?? 0),
       imageMood: Value(imageMood ?? ''),
       recordMood: Value(recordMood ?? ''),
       createdAt: Value(createdAt ?? DateTime.now()),

@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:harmoni/core/service_locator/service_locator.dart';
+import 'package:harmoni/router/general_routes.dart';
 
 import '../../model/model/activity_model.dart';
 import '../../service/home_service.dart';
@@ -10,16 +13,16 @@ import '../state_management/home_track_emotion_state.dart';
 
 class HomeTrackEmotionPage extends StatelessWidget {
   final HomeService homeService;
-  final List<Activity> activities;
 
   const HomeTrackEmotionPage({
     required this.homeService,
-    required this.activities,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController controller = TextEditingController();
+
     return BlocProvider(
       create: (_) => HomeTrackEmotionCubit(homeService: homeService),
       child: BlocConsumer<HomeTrackEmotionCubit, HomeTrackEmotionState>(
@@ -39,7 +42,12 @@ class HomeTrackEmotionPage extends StatelessWidget {
         builder: (context, state) {
           final cubit = context.read<HomeTrackEmotionCubit>();
           final theme = Theme.of(context);
-
+          var activities = getHomeService().homeSummaryData?.activities ??
+              [
+                Activity(id: 1, color: Colors.blue.value, name: "Leer"),
+                Activity(id: 2, color: Colors.orange.value, name: "Caminar"),
+                Activity(id: 3, color: Colors.yellow.value, name: "Jugar"),
+              ];
           return Scaffold(
             appBar: AppBar(
               title: const Text('Agregar emoción'),
@@ -70,12 +78,12 @@ class HomeTrackEmotionPage extends StatelessWidget {
                       child: TextField(
                         minLines: 3,
                         maxLines: 5,
+                        controller: controller,
                         decoration: const InputDecoration(
                           hintText: '¿Cómo te sentiste hoy?',
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.all(16),
                         ),
-                        onChanged: cubit.updateNote,
                       ),
                     ),
                     const SizedBox(height: 24),
@@ -88,7 +96,6 @@ class HomeTrackEmotionPage extends StatelessWidget {
                       value: state.selectedActivity,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.grey[100],
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide.none,
@@ -99,10 +106,13 @@ class HomeTrackEmotionPage extends StatelessWidget {
                       items: activities.map((activity) {
                         return DropdownMenuItem<Activity>(
                           value: activity,
-                          child: Text(activity.name ?? ''),
+                          child: Text(activity.name ?? 'Sin nombre'),
                         );
                       }).toList(),
-                      onChanged: cubit.selectActivity,
+                      onChanged: (Activity? activity) {
+                        print('Activity selected: ${activity?.name} (ID: ${activity?.id})');
+                        cubit.selectActivity(activity);
+                      },
                     ),
                     const SizedBox(height: 24),
                     Text(
@@ -115,14 +125,13 @@ class HomeTrackEmotionPage extends StatelessWidget {
                             icon: const Icon(Icons.videocam, size: 28),
                             label: const Text('Grabar Video', style: TextStyle(fontSize: 18)),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green[700],
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
                               ),
                               padding: const EdgeInsets.symmetric(vertical: 16),
                             ),
                             onPressed: () async {
-                              final videoPath = await Navigator.pushNamed(context, '/camera');
+                              final videoPath = await context.pushNamed(HomeRoute.camera.data.name);
                               if (videoPath != null) {
                                 cubit.setVideo(File(videoPath as String));
                               }
@@ -132,7 +141,10 @@ class HomeTrackEmotionPage extends StatelessWidget {
                             color: Colors.green[50],
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                             child: ListTile(
-                              leading: const Icon(Icons.videocam, color: Colors.green),
+                              leading: Icon(
+                                Icons.videocam,
+                                color: theme.colorScheme.primary,
+                              ),
                               title: const Text('Video listo'),
                               subtitle: Text(state.video!.path.split('/').last),
                               trailing: IconButton(
@@ -143,15 +155,20 @@ class HomeTrackEmotionPage extends StatelessWidget {
                           ),
                     const SizedBox(height: 32),
                     ElevatedButton(
-                      onPressed: (state.loading || state.selectedActivity == null || state.video == null) ? null : () => cubit.save(),
+                      onPressed: (state.loading || state.selectedActivity == null || state.video == null)
+                          ? null
+                          : () => {
+                                cubit.updateNote(controller.text),
+                                cubit.save(),
+                              },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green[700],
+                        backgroundColor: theme.colorScheme.onInverseSurface,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 18),
                       ),
-                      child: state.loading ? const CircularProgressIndicator(color: Colors.white) : const Text('Guardar', style: TextStyle(fontSize: 18)),
+                      child: const Text('Guardar', style: TextStyle(fontSize: 18)),
                     ),
                   ],
                 ),

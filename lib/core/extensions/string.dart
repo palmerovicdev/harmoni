@@ -3,7 +3,7 @@ extension DigitsOnly on String {
 }
 
 extension LettersOnlyAndFistCharacterUpperCase on String {
-  bool get isLettersOnlyAndFistCharacterUpperCase => RegExp(r'^[A-Za-z]+$').hasMatch(this);
+  bool get isLettersOnlyAndFistCharacterUpperCase => RegExp(r'^[A-Za-z\s]+$').hasMatch(this);
 }
 
 extension EmailOnly on String {

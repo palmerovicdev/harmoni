@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/features/home/data/repository/home_repository.dart';
 
+import '../model/model/activity_model.dart';
 import '../model/response/home_summary_data.dart';
 
 class HomeService {
@@ -11,13 +13,17 @@ class HomeService {
 
   HomeService({required HomeRepository homeRepository}) : _homeRepository = homeRepository;
 
-  void homeSummary() async {
+  Future<void> homeSummary() async {
     homeSummaryData = HomeSummaryData();
 
     var userId = getMyProfileService().userProfile?.id;
     if (userId == null) return;
 
-    var activities = await _homeRepository.getActivities();
+    var activities = [
+      Activity(id: 1, color: Colors.blue.value, name: "Leer"),
+      Activity(id: 2, color: Colors.orange.value, name: "Caminar"),
+      Activity(id: 3, color: Colors.yellow.value, name: "Jugar"),
+    ];
     var emotions = await _homeRepository.getEmotions();
 
     homeSummaryData?.activities = activities;

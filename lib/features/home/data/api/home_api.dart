@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:harmoni/core/connection/connection.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/features/home/model/model/mood_track_model.dart';
@@ -36,7 +37,12 @@ class HomeApiImpl implements HomeApi {
       ),
     );
 
-    return (response.data['data'] as List).map((activity) => Activity.fromJson(activity)).toList();
+    // return (response.data['data'] as List).map((activity) => Activity.fromJson(activity)).toList();
+    return [
+      Activity(id: 1, color: Colors.blue.value, name: "Leer"),
+      Activity(id: 2, color: Colors.orange.value, name: "Caminar"),
+      Activity(id: 3, color: Colors.yellow.value, name: "Jugar"),
+    ];
   }
 
   @override
@@ -79,6 +85,7 @@ class HomeApiImpl implements HomeApi {
       options: Options(
         headers: {
           'Accept': 'application/json',
+          'Authorization':'Bearer ${_connectionService.token}'
         },
         contentType: 'multipart/form-data',
       ),

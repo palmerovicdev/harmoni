@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/features/home/presentation/page/home_page.dart';
+import 'package:harmoni/features/home/presentation/page/home_track_emotion_page.dart';
 import 'package:harmoni/features/home/presentation/page/home_wrapper_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/age_page.dart';
 import 'package:harmoni/features/my_profile/presentation/page/gender_page.dart';
@@ -50,6 +52,14 @@ GoRouter router = GoRouter(
       path: HomeRoute.camera.data.path,
       name: HomeRoute.camera.data.name,
       pageBuilder: (context, state) => MaterialPage(child: CameraPage()),
+    ),
+    GoRoute(
+      path: HomeRoute.trackEmotion.data.path,
+      name: HomeRoute.trackEmotion.data.name,
+      pageBuilder: (context, state) => MaterialPage(
+          child: HomeTrackEmotionPage(
+        homeService: getHomeService(),
+      )),
     ),
     GoRoute(
       path: MyProfileRoute.init.data.path,

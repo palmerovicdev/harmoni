@@ -105,10 +105,12 @@ class AgePage extends StatelessWidget {
                 width: screenWidth * 0.85,
                 child: ActionButtonWidget(
                   text: isFromSettings ? 'Guardar' : 'Continuar',
-                  onPressed: () {
+                  onPressed: () async {
                     var cubit = context.read<AgeCubit>();
                     isFromSettings ? cubit.updateAge(fixedExtentScrollController.selectedItem + 12) : cubit.saveAge(fixedExtentScrollController.selectedItem + 12);
                     getMyProfileService().signUp();
+                    // await getHomeService().homeSummary();
+
                     isFromSettings ? context.pushNamed(MyProfileRoute.allDone.data.name, extra: true) : context.pushNamed(HomeRoute.home.data.name);
                   },
                   shouldFocusAttention: true,

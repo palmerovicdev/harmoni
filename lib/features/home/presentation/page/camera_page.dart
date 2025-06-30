@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:harmoni/core/widgets/pop_widget.dart';
 import 'package:video_player/video_player.dart';
 
@@ -417,6 +418,7 @@ class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, Ti
     stopVideoRecording().then((XFile? file) {
       if (mounted) {
         setState(() {});
+        context.pop(file?.path ?? '');
       }
       if (file != null) {
         showInSnackBar('Video recorded to ${file.path}');

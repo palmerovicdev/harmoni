@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Activity {
   int? id;
   String? name;
@@ -16,10 +18,9 @@ class Activity {
   });
 
   Activity.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     name = json['name'];
     image = json['image'];
-    color = json['color'];
+    color = int.tryParse(json['color']) ?? Colors.transparent.value;
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -34,4 +35,13 @@ class Activity {
     data['updated_at'] = updatedAt;
     return data;
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is Activity && other.id == id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

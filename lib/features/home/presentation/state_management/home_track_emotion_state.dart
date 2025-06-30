@@ -28,10 +28,11 @@ class HomeTrackEmotionState extends Equatable {
     String? error,
     bool? success,
     Activity? selectedActivity,
+    bool clearVideo = false,
   }) {
     return HomeTrackEmotionState(
       note: note ?? this.note,
-      video: video ?? this.video,
+      video: clearVideo ? null : (video ?? this.video),
       loading: loading ?? this.loading,
       error: error,
       success: success ?? this.success,
@@ -40,5 +41,6 @@ class HomeTrackEmotionState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [note, video, loading, error, success, selectedActivity];
+  List<Object?> get props =>
+      [note, video, loading, error, success, selectedActivity];
 }
