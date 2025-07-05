@@ -47,7 +47,7 @@ class _EmailInputFieldWidgetState extends State<EmailInputFieldWidget> {
                 textAlign: TextAlign.center,
               ),
         filled: true,
-        fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+        fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
         errorBorder: OutlineInputBorder(
           borderSide: !isValid ? BorderSide(color: Theme.of(context).colorScheme.error) : BorderSide.none,
           borderRadius: BorderRadius.circular(12),

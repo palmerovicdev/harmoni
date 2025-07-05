@@ -49,7 +49,7 @@ Future<void> showConditionalDialog(
     context: context,
     builder: (context) {
       var screenWidth = MediaQuery.sizeOf(context).width;
-      var colorWithOpacity = Theme.of(context).colorScheme.primary.withOpacity(0.05);
+      var colorWithOpacity = Theme.of(context).colorScheme.primary.withValues(alpha: 0.05);
       var shouldShowAgain = true;
       return AlertDialog(
         title: Text(message),

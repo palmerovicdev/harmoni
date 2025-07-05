@@ -22,7 +22,7 @@ class SettingTextFieldWidget extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
         alignLabelWithHint: true,
         filled: true,
-        fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+        fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
         prefixIcon: leading != null
             ? Padding(
                 padding: const EdgeInsets.only(left: 12.0),

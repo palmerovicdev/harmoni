@@ -17,8 +17,8 @@ class NavigationMenu extends StatelessWidget {
       height: 80,
       elevation: 0,
       selectedIndex: selectedIndex,
-      indicatorColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-      overlayColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.primary.withOpacity(0.1)),
+      indicatorColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+      overlayColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)),
       onDestinationSelected: (value) {
         getHomeService().currentLocationIndex = value;
         context.goNamed(navigationLocations[value]['destination'] ?? '/home');
@@ -46,7 +46,7 @@ class NavigationMenu extends StatelessWidget {
 
 var navigationLocations = [
   {"name": "Inicio", "icon": Assets.coreHomeUnchecked, "iconActive": Assets.coreHomeChecked, "destination": HomeRoute.home.data.name},
-  {"name": "Mediciones", "icon": Assets.coreChartUnchecked, "iconActive": Assets.coreChartChecked, "destination": null},
+  {"name": "Mediciones", "icon": Assets.coreChartUnchecked, "iconActive": Assets.coreChartChecked, "destination": HomeRoute.analytics.data.name},
   {"name": "Calendario", "icon": Assets.coreCalendarUnchecked, "iconActive": Assets.coreCalendarChecked, "destination": HomeRoute.calendar.data.name},
   {"name": "Perfil", "icon": Assets.coreProfileUnchecked, "iconActive": Assets.coreProfileChecked, "destination": MyProfileRoute.my_profile.data.name}
 ];

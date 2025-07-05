@@ -50,7 +50,7 @@ class AccountSettingPage extends StatelessWidget {
           floatingActionButton: state.hasChangedData
               ? FloatingActionButton(
                   elevation: 3,
-                  backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh.withOpacity(0.9),
+                  backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh.withValues(alpha: 0.9),
                   tooltip: 'Guardar',
                   onPressed: () {
                     userProfile
@@ -175,7 +175,7 @@ class _GenderSelectionSettingWidgetState extends State<GenderSelectionSettingWid
   @override
   Widget build(BuildContext context) {
     var fontStyle = Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500);
-    var color = Theme.of(context).colorScheme.primary.withOpacity(0.1);
+    var color = Theme.of(context).colorScheme.primary.withValues(alpha: 0.1);
     return ExpansionTile(
       title: Text(
         getGender(title),
@@ -292,7 +292,7 @@ class _AgeSelectorScreenState extends State<AgeSelectorScreen> {
   Widget build(BuildContext context) {
     const double padding = 24.0;
     const double iconSize = 28;
-    var color = Theme.of(context).colorScheme.primary.withOpacity(0.1);
+    var color = Theme.of(context).colorScheme.primary.withValues(alpha: 0.1);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

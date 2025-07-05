@@ -51,11 +51,11 @@ class SecuritySettingPage extends StatelessWidget {
                 Space.small.gap,
                 SettingActionWidget(
                   title: 'Borrar cuenta',
-                  color: Colors.red.withOpacity(0.8),
+                  color: Colors.red.withValues(alpha: 0.8),
                   leading: Icon(
                     Icons.delete_rounded,
                     size: 32,
-                    color: Colors.red.withOpacity(0.8),
+                    color: Colors.red.withValues(alpha: 0.8),
                   ),
                   onPressed: () async {
                     var response = false;
@@ -75,7 +75,7 @@ class SecuritySettingPage extends StatelessWidget {
                   action: Icon(
                     Icons.logout_rounded,
                     size: 32,
-                    color: Colors.red.withOpacity(0.8),
+                    color: Colors.red.withValues(alpha: 0.8),
                   ),
                 ),
               ],

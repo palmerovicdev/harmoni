@@ -23,8 +23,8 @@ class SettingActionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var colorWitOpacity = color?.withOpacity(0.05);
-    var primaryWithOpacity = Theme.of(context).colorScheme.primary.withOpacity(0.1);
+    var colorWitOpacity = color?.withValues(alpha: 0.05);
+    var primaryWithOpacity = Theme.of(context).colorScheme.primary.withValues(alpha: 0.1);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 4.0),
       child: InkWell(
@@ -55,7 +55,7 @@ class SettingActionWidget extends StatelessWidget {
                         title,
                         style: Theme.of(context).textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.bold,
-                              color: color?..withOpacity(0.9),
+                              color: color?..withValues(alpha: 0.9),
                             ),
                       ),
                       subtitle != null

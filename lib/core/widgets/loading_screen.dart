@@ -41,7 +41,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
         widget.text != null ? ["${widget.text}", "${widget.text}.", "${widget.text}..", "${widget.text}..."] : ["Cargando", "Cargando.", "Cargando..", "Cargando..."];
 
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.05),
+      backgroundColor: Colors.black.withValues(alpha: 0.05),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

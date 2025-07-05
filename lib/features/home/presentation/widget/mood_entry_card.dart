@@ -73,17 +73,17 @@ class MoodEntryCard extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             Colors.white,
-            moodColor.withOpacity(0.1),
+            moodColor.withValues(alpha: 0.1),
           ],
         ),
         boxShadow: [
           BoxShadow(
-            color: moodColor.withOpacity(0.2),
+            color: moodColor.withValues(alpha: 0.2),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -114,12 +114,12 @@ class MoodEntryCard extends StatelessWidget {
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: [
-                              moodColor.withOpacity(0.2),
-                              moodColor.withOpacity(0.1),
+                              moodColor.withValues(alpha: 0.2),
+                              moodColor.withValues(alpha: 0.1),
                             ],
                           ),
                           border: Border.all(
-                            color: moodColor.withOpacity(0.3),
+                            color: moodColor.withValues(alpha: 0.3),
                             width: 2,
                           ),
                         ),
@@ -166,7 +166,7 @@ class MoodEntryCard extends StatelessWidget {
                               vertical: 4,
                             ),
                             decoration: BoxDecoration(
-                              color: moodColor.withOpacity(0.15),
+                              color: moodColor.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
@@ -185,10 +185,10 @@ class MoodEntryCard extends StatelessWidget {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white.withValues(alpha: 0.8),
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: moodColor.withOpacity(0.2),
+                              color: moodColor.withValues(alpha: 0.2),
                               width: 1,
                             ),
                           ),
@@ -210,10 +210,10 @@ class MoodEntryCard extends StatelessWidget {
                         const SizedBox(width: 8),
                         Container(
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white.withValues(alpha: 0.8),
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: moodColor.withOpacity(0.2),
+                              color: moodColor.withValues(alpha: 0.2),
                               width: 1,
                             ),
                           ),
@@ -250,12 +250,12 @@ class MoodEntryCard extends StatelessWidget {
                           gradient: LinearGradient(
                             colors: [
                               Colors.white,
-                              moodColor.withOpacity(0.05),
+                              moodColor.withValues(alpha: 0.05),
                             ],
                           ),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: moodColor.withOpacity(0.2),
+                            color: moodColor.withValues(alpha: 0.2),
                             width: 1,
                           ),
                         ),
@@ -290,7 +290,7 @@ class MoodEntryCard extends StatelessWidget {
                       color: Colors.grey[50],
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                        color: moodColor.withOpacity(0.1),
+                        color: moodColor.withValues(alpha: 0.1),
                         width: 1,
                       ),
                     ),
@@ -312,7 +312,7 @@ class MoodEntryCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: moodColor.withOpacity(0.1),
+                        color: moodColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(

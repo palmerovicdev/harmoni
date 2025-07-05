@@ -73,13 +73,13 @@ class MyProfileSettingPage extends StatelessWidget {
             "icon": Icon(
               Icons.close,
               size: size,
-              color: Colors.red.withOpacity(0.8),
+              color: Colors.red.withValues(alpha: 0.8),
             ),
             "iconSize": size,
             "action": Icon(
               Icons.logout_rounded,
               size: size,
-              color: Colors.red.withOpacity(0.8),
+              color: Colors.red.withValues(alpha: 0.8),
             ),
             "color": Colors.red,
             "onPressed": () async {

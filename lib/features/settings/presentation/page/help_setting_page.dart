@@ -18,7 +18,7 @@ class HelpSettingPage extends StatelessWidget {
         var buttonStyle = ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(theme.primary),
           foregroundColor: WidgetStatePropertyAll(theme.onPrimary),
-          overlayColor: WidgetStatePropertyAll(theme.onPrimary.withOpacity(0.1)),
+          overlayColor: WidgetStatePropertyAll(theme.onPrimary.withValues(alpha: 0.1)),
         );
         return Scaffold(
           appBar: AppBar(
@@ -66,8 +66,8 @@ class HelpSettingPage extends StatelessWidget {
                           (e as Map<String, dynamic>).keys.first,
                           style: fontStyle2,
                         ),
-                        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.05),
-                        collapsedBackgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                        backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
+                        collapsedBackgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                         collapsedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         children: [

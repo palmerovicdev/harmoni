@@ -74,7 +74,7 @@ class StyleSettingPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary.withOpacity(0.15),
+                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     height: 180,
@@ -253,7 +253,7 @@ class _SliderCustomWidgetState extends State<SliderCustomWidget> {
           '${(contrastLevel * 100).truncate()}',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w700,
-                color: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(0.7),
+                color: Theme.of(context).textTheme.titleMedium?.color?.withValues(alpha: 0.7),
               ),
         ),
       ],
