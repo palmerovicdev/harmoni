@@ -4,31 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:harmoni/generated/assets.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/helpers/utils.dart';
 import '../../model/model/mood_track_model.dart';
-
-enum EmotionType { angry, fearful, happy, sad, neutral, disgusted, surprised, other }
-
-const _emotionAssets = <EmotionType, String>{
-  EmotionType.angry: Assets.circleAngryCircle,
-  EmotionType.fearful: Assets.circleFearfulCircle,
-  EmotionType.happy: Assets.circleHappyCircle,
-  EmotionType.sad: Assets.circleSadCircle,
-  EmotionType.neutral: Assets.circleNeutralCircle,
-  EmotionType.disgusted: Assets.circleDisgustedCircle,
-  EmotionType.surprised: Assets.circleSurpriseCircle,
-  EmotionType.other: Assets.circleOtherCircle,
-};
-
-const _emotionColors = <EmotionType, Color>{
-  EmotionType.angry: Color(0xFFf54334),
-  EmotionType.fearful: Color(0xFFC045ED),
-  EmotionType.happy: Color(0xFF8CC154),
-  EmotionType.sad: Color(0xFF74C9E8),
-  EmotionType.neutral: Color(0xFFFFBF2C),
-  EmotionType.disgusted: Color(0xFF8373BA),
-  EmotionType.surprised: Color(0xFFEBD5E5),
-  EmotionType.other: Color(0xFFD3E3DD),
-};
 
 class WeeklyMoodChart extends StatefulWidget {
   final List<MoodTrack> moodTracks;
@@ -159,7 +136,7 @@ class _WeeklyMoodChartState extends State<WeeklyMoodChart> {
                           final emo = EmotionType.values[idx];
                           return Padding(
                             padding: const EdgeInsets.only(top: 6),
-                            child: SvgPicture.asset(_emotionAssets[emo]!, width: 28, height: 28),
+                            child: SvgPicture.asset(emotionAssets[emo]!, width: 28, height: 28),
                           );
                         },
                       ),
@@ -181,8 +158,8 @@ class _WeeklyMoodChartState extends State<WeeklyMoodChart> {
                   barGroups: List.generate(weekDays.length, (i) {
                     final day = weekDays[i];
                     final emo = dominant[day];
-                    final color = emo != null ? _emotionColors[emo]! : Colors.grey.shade300;
-                    final toY = emo != null ? _emotionAssets.keys.toList().indexOf(emo) / 8 + 0.125 : 0.0;
+                    final color = emo != null ? emotionColors[emo]! : Colors.grey.shade300;
+                    final toY = emo != null ? emotionAssets.keys.toList().indexOf(emo) / 8 + 0.125 : 0.0;
 
                     return BarChartGroupData(
                       x: i,

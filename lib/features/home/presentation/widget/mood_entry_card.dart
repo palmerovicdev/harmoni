@@ -5,7 +5,7 @@ class MoodEntryCard extends StatelessWidget {
   final String moodEmoji;
   final String date;
   final String time;
-  final List<String> tags; // Ejemplo: ["😊 Calm", "🙏 Grateful"]
+  final List<String> tags;
   final String note;
   final VoidCallback? onShare;
   final VoidCallback? onMore;

@@ -4,31 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:harmoni/generated/assets.dart';
 
+import '../../../../core/helpers/utils.dart';
 import '../../model/model/mood_track_model.dart';
-
-enum EmotionType { angry, fearful, happy, sad, neutral, disgusted, surprised, other }
-
-const _emotionAssets = <EmotionType, String>{
-  EmotionType.angry: Assets.circleAngryCircle,
-  EmotionType.fearful: Assets.circleFearfulCircle,
-  EmotionType.happy: Assets.circleHappyCircle,
-  EmotionType.sad: Assets.circleSadCircle,
-  EmotionType.neutral: Assets.circleNeutralCircle,
-  EmotionType.disgusted: Assets.circleDisgustedCircle,
-  EmotionType.surprised: Assets.circleSurpriseCircle,
-  EmotionType.other: Assets.circleOtherCircle,
-};
-
-const _emotionColors = <EmotionType, Color>{
-  EmotionType.angry: Color(0xFFf54334),
-  EmotionType.fearful: Color(0xFFC045ED),
-  EmotionType.happy: Color(0xFF8CC154),
-  EmotionType.sad: Color(0xFFFF8C42),
-  EmotionType.neutral: Color(0xFFFFBF2C),
-  EmotionType.disgusted: Color(0xFF8373BA),
-  EmotionType.surprised: Color(0xFF8CC154),
-  EmotionType.other: Color(0xFFD3E3DD),
-};
 
 class AnnualMoodRadarWidget extends StatefulWidget {
   final List<MoodTrack> moodTracks;
@@ -196,12 +173,12 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: _emotionColors[emotion]!,
+              color: emotionColors[emotion]!,
               shape: BoxShape.circle,
             ),
             child: Center(
               child: SvgPicture.asset(
-                _emotionAssets[emotion]!,
+                emotionAssets[emotion]!,
                 width: 30,
                 height: 30,
                 colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),

@@ -6,6 +6,8 @@ import 'package:harmoni/core/helpers/logger.dart';
 import 'package:harmoni/core/helpers/settings_enums.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 
+import '../../generated/assets.dart';
+
 void safePrint(dynamic value) {
   if (kDebugMode) {
     print(value);
@@ -164,3 +166,27 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
 isDark(BuildContext context) {
   return Theme.of(context).brightness == Brightness.dark;
 }
+
+enum EmotionType { angry, fearful, happy, sad, neutral, disgusted, surprised, other }
+
+const emotionAssets = <EmotionType, String>{
+  EmotionType.angry: Assets.circleAngryCircle,
+  EmotionType.fearful: Assets.circleFearfulCircle,
+  EmotionType.happy: Assets.circleHappyCircle,
+  EmotionType.sad: Assets.circleSadCircle,
+  EmotionType.neutral: Assets.circleNeutralCircle,
+  EmotionType.disgusted: Assets.circleDisgustedCircle,
+  EmotionType.surprised: Assets.circleSurpriseCircle,
+  EmotionType.other: Assets.circleOtherCircle,
+};
+
+const emotionColors = <EmotionType, Color>{
+  EmotionType.angry: Color(0xFFf54334),
+  EmotionType.fearful: Color(0xFFC045ED),
+  EmotionType.happy: Color(0xFF8CC154),
+  EmotionType.sad: Color(0xFF74C9E8),
+  EmotionType.neutral: Color(0xFFFFBF2C),
+  EmotionType.disgusted: Color(0xFF8373BA),
+  EmotionType.surprised: Color(0xFFEBD5E5),
+  EmotionType.other: Color(0xFFD3E3DD),
+};

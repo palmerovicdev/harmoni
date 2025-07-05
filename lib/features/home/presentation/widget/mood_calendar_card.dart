@@ -3,31 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:harmoni/generated/assets.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/helpers/utils.dart';
 import '../../model/model/mood_track_model.dart';
-
-enum EmotionType { angry, fearful, happy, sad, neutral, disgusted, surprised, other }
-
-const _emotionAssets = <EmotionType, String>{
-  EmotionType.angry: Assets.circleAngryCircle,
-  EmotionType.fearful: Assets.circleFearfulCircle,
-  EmotionType.happy: Assets.circleHappyCircle,
-  EmotionType.sad: Assets.circleSadCircle,
-  EmotionType.neutral: Assets.circleNeutralCircle,
-  EmotionType.disgusted: Assets.circleDisgustedCircle,
-  EmotionType.surprised: Assets.circleSurpriseCircle,
-  EmotionType.other: Assets.circleOtherCircle,
-};
-
-const _emotionColors = <EmotionType, Color>{
-  EmotionType.angry: Color(0xFFf54334),
-  EmotionType.fearful: Color(0xFFC045ED),
-  EmotionType.happy: Color(0xFF8CC154),
-  EmotionType.sad: Color(0xFF74C9E8),
-  EmotionType.neutral: Color(0xFFFFBF2C),
-  EmotionType.disgusted: Color(0xFF8373BA),
-  EmotionType.surprised: Color(0xFFEBD5E5),
-  EmotionType.other: Color(0xFFD3E3DD),
-};
 
 class MonthlyMoodCalendar extends StatefulWidget {
   final List<MoodTrack> moodTracks;
@@ -214,12 +191,12 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
                             width: 20,
                             height: 20,
                             decoration: BoxDecoration(
-                              color: _emotionColors[emotion]!.withOpacity(0.2),
+                              color: emotionColors[emotion]!.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Center(
                               child: SvgPicture.asset(
-                                _emotionAssets[emotion]!,
+                                emotionAssets[emotion]!,
                                 width: 14,
                                 height: 14,
                               ),
