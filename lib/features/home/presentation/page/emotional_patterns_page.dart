@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/service_locator/service_locator.dart';
-import '../widget/activity_emotion_correlation_widget.dart';
-import '../widget/optimal_hours_widget.dart';
-import '../widget/weekday_patterns_widget.dart';
-import '../widget/stability_trends_widget.dart';
-import '../../model/model/mood_track_model.dart';
 import '../../model/model/activity_model.dart';
 import '../../model/model/mood_activity_relation_model.dart';
+import '../../model/model/mood_track_model.dart';
+import '../widget/activity_emotion_correlation_widget.dart';
+import '../widget/optimal_hours_widget.dart';
+import '../widget/stability_trends_widget.dart';
+import '../widget/weekday_patterns_widget.dart';
 
 class EmotionalPatternsPage extends StatefulWidget {
   const EmotionalPatternsPage({super.key});
@@ -51,10 +52,8 @@ class _EmotionalPatternsPageState extends State<EmotionalPatternsPage> {
     final theme = Theme.of(context);
 
     final homeService = getHomeService();
-    final List<MoodTrack> moodTracks =
-        homeService.homeSummaryData?.moodTracks ?? [];
-    final List<Activity> activities =
-        homeService.homeSummaryData?.activities ?? [];
+    final List<MoodTrack> moodTracks = homeService.homeSummaryData?.moodTracks ?? [];
+    final List<Activity> activities = homeService.homeSummaryData?.activities ?? [];
     // Por ahora usamos una lista vacía para relations, pero se puede obtener de la BD
     final List<MoodActivityRelation> relations = [];
 
@@ -224,8 +223,7 @@ class _EmotionalPatternsPageState extends State<EmotionalPatternsPage> {
     );
   }
 
-  Widget _buildStatChip(
-      String label, String value, IconData icon, Color color) {
+  Widget _buildStatChip(String label, String value, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(

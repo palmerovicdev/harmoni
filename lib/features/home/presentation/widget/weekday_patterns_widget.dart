@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 import '../../../../core/helpers/utils.dart';
 import '../../model/model/mood_track_model.dart';
 
@@ -72,8 +73,7 @@ class WeekdayPatternsWidget extends StatelessWidget {
             else
               Column(
                 children: [
-                  if (insights.isNotEmpty)
-                    _buildInsightsSection(insights, theme),
+                  if (insights.isNotEmpty) _buildInsightsSection(insights, theme),
                   const SizedBox(height: 20),
                   _buildWeekdayChart(weekdayData, theme),
                 ],
@@ -156,8 +156,7 @@ class WeekdayPatternsWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildWeekdayChart(
-      List<WeekdayMoodData> weekdayData, ThemeData theme) {
+  Widget _buildWeekdayChart(List<WeekdayMoodData> weekdayData, ThemeData theme) {
     const weekdayNames = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
 
     return Column(
@@ -193,12 +192,9 @@ class WeekdayPatternsWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildWeekdayColumn(
-      WeekdayMoodData data, String dayName, ThemeData theme) {
+  Widget _buildWeekdayColumn(WeekdayMoodData data, String dayName, ThemeData theme) {
     final hasData = data.measurementCount > 0;
-    final color = hasData
-        ? emotionColors[data.dominantEmotion] ?? Colors.grey[300]!
-        : Colors.grey[200]!;
+    final color = hasData ? emotionColors[data.dominantEmotion] ?? Colors.grey[300]! : Colors.grey[200]!;
 
     final normalizedHeight = hasData ? (data.averageScore / 10) * 60.0 : 10.0;
 
@@ -264,8 +260,7 @@ class WeekdayPatternsWidget extends StatelessWidget {
 
     for (final track in moodTracks) {
       if (track.createdAt != null) {
-        final weekday =
-            track.createdAt!.weekday;
+        final weekday = track.createdAt!.weekday;
         weekdayTracks.putIfAbsent(weekday, () => []).add(track);
       }
     }
@@ -288,8 +283,7 @@ class WeekdayPatternsWidget extends StatelessWidget {
 
       if (emotionCounts.isEmpty) continue;
 
-      final dominantEmotion =
-          emotionCounts.entries.reduce((a, b) => a.value > b.value ? a : b).key;
+      final dominantEmotion = emotionCounts.entries.reduce((a, b) => a.value > b.value ? a : b).key;
 
       final averageScore = _calculateAverageScore(emotionCounts, tracks.length);
 
@@ -305,8 +299,7 @@ class WeekdayPatternsWidget extends StatelessWidget {
     return weekdayData;
   }
 
-  double _calculateAverageScore(
-      Map<EmotionType, int> emotionCounts, int totalTracks) {
+  double _calculateAverageScore(Map<EmotionType, int> emotionCounts, int totalTracks) {
     double score = 0;
 
     for (final entry in emotionCounts.entries) {
@@ -363,26 +356,19 @@ class WeekdayPatternsWidget extends StatelessWidget {
       final worstDayName = _getSpanishWeekdayName(worstDay.weekday);
 
       if (bestDay.averageScore > 6.0) {
-        insights.add(
-            'Los $bestDayName sueles estar más ${_getEmotionSpanish(bestDay.dominantEmotion)}');
+        insights.add('Los $bestDayName sueles estar más ${_getEmotionSpanish(bestDay.dominantEmotion)}');
       }
 
       if (worstDay.averageScore < 5.0 && weekdayData.length > 1) {
         insights.add('Los $worstDayName pueden ser más desafiantes para ti');
       }
 
-      final weekendData =
-          weekdayData.where((d) => d.weekday == 6 || d.weekday == 7).toList();
-      final weekdayWorkData =
-          weekdayData.where((d) => d.weekday >= 1 && d.weekday <= 5).toList();
+      final weekendData = weekdayData.where((d) => d.weekday == 6 || d.weekday == 7).toList();
+      final weekdayWorkData = weekdayData.where((d) => d.weekday >= 1 && d.weekday <= 5).toList();
 
       if (weekendData.isNotEmpty && weekdayWorkData.isNotEmpty) {
-        final weekendAvg =
-            weekendData.map((d) => d.averageScore).reduce((a, b) => a + b) /
-                weekendData.length;
-        final weekdayAvg =
-            weekdayWorkData.map((d) => d.averageScore).reduce((a, b) => a + b) /
-                weekdayWorkData.length;
+        final weekendAvg = weekendData.map((d) => d.averageScore).reduce((a, b) => a + b) / weekendData.length;
+        final weekdayAvg = weekdayWorkData.map((d) => d.averageScore).reduce((a, b) => a + b) / weekdayWorkData.length;
 
         if (weekendAvg > weekdayAvg + 1.0) {
           insights.add('Te sientes notablemente mejor los fines de semana');

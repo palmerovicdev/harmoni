@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import '../../../../core/helpers/utils.dart';
 import '../../model/model/mood_track_model.dart';
 
@@ -75,7 +76,6 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
                   ),
             ),
             const SizedBox(height: 12),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Divider(),
@@ -209,7 +209,7 @@ class RadarChartPainter extends CustomPainter {
       ..color = Colors.grey.shade300
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
-      
+
     for (int i = 1; i <= 4; i++) {
       canvas.drawCircle(center, radius * i / 4, paint);
     }
@@ -224,7 +224,7 @@ class RadarChartPainter extends CustomPainter {
     for (int i = 0; i < emotions.length; i++) {
       final angle = (2 * math.pi * i / emotions.length) - (math.pi / 2);
       final normalizedValue = emotions[i].value / maxValue;
-      final pointRadius = radius * normalizedValue * 0.8; 
+      final pointRadius = radius * normalizedValue * 0.8;
 
       final x = center.dx + pointRadius * math.cos(angle);
       final y = center.dy + pointRadius * math.sin(angle);

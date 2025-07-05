@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 import '../../../../core/helpers/utils.dart';
 import '../../model/model/activity_model.dart';
-import '../../model/model/mood_track_model.dart';
 import '../../model/model/mood_activity_relation_model.dart';
+import '../../model/model/mood_track_model.dart';
 
 class ActivityEmotionCorrelation {
   final Activity activity;
@@ -125,11 +126,8 @@ class ActivityEmotionCorrelationWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCorrelationCard(
-      ActivityEmotionCorrelation correlation, ThemeData theme) {
-    final activityColor = correlation.activity.color != null
-        ? Color(correlation.activity.color!)
-        : theme.colorScheme.primary;
+  Widget _buildCorrelationCard(ActivityEmotionCorrelation correlation, ThemeData theme) {
+    final activityColor = correlation.activity.color != null ? Color(correlation.activity.color!) : theme.colorScheme.primary;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -207,16 +205,14 @@ class ActivityEmotionCorrelationWidget extends StatelessWidget {
     final List<ActivityEmotionCorrelation> correlations = [];
 
     for (final activity in activities) {
-      final activityRelations =
-          relations.where((rel) => rel.activityId == activity.id).toList();
+      final activityRelations = relations.where((rel) => rel.activityId == activity.id).toList();
 
       if (activityRelations.length < 3) {
         continue;
       }
 
       final relatedMoodTracks = moodTracks.where((track) {
-        return activityRelations
-            .any((rel) => rel.moodTrackId == track.hashCode);
+        return activityRelations.any((rel) => rel.moodTrackId == track.hashCode);
       }).toList();
 
       if (relatedMoodTracks.isEmpty) continue;
@@ -231,8 +227,7 @@ class ActivityEmotionCorrelationWidget extends StatelessWidget {
 
       if (emotionCounts.isEmpty) continue;
 
-      final dominantEntry =
-          emotionCounts.entries.reduce((a, b) => a.value > b.value ? a : b);
+      final dominantEntry = emotionCounts.entries.reduce((a, b) => a.value > b.value ? a : b);
       final dominantEmotion = dominantEntry.key;
       final dominantCount = dominantEntry.value;
 
@@ -255,8 +250,7 @@ class ActivityEmotionCorrelationWidget extends StatelessWidget {
     return correlations;
   }
 
-  String _generateInsight(
-      Activity activity, EmotionType emotion, double confidence) {
+  String _generateInsight(Activity activity, EmotionType emotion, double confidence) {
     final activityName = activity.name?.toLowerCase() ?? 'esta actividad';
     final emotionSpanish = _getEmotionSpanish(emotion);
 

@@ -158,8 +158,7 @@ class MyProfileApiBackImpl implements MyProfileApi {
     if (response.statusCode == 200) {
       getConnectionService().token = response.data['data']['token'] ?? '';
       return User.fromJson(response.data['data']['user']);
-    } else {
-    }
+    } else {}
     return null;
   }
 

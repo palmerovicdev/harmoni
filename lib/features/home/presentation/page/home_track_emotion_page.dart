@@ -33,24 +33,20 @@ class HomeTrackEmotionPage extends StatelessWidget {
               const SnackBar(content: Text('¡Guardado con éxito!')),
             );
 
-            if (state.showStabilityNotification &&
-                state.stabilityScore != null) {
+            if (state.showStabilityNotification && state.stabilityScore != null) {
               EmotionalStabilityNotificationOverlay.show(
                 context,
                 stabilityScore: state.stabilityScore!,
                 onActionPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text(
-                          'Ver recomendaciones para mejorar tu estabilidad emocional'),
+                      content: Text('Ver recomendaciones para mejorar tu estabilidad emocional'),
                     ),
                   );
                 },
               );
 
-              context
-                  .read<HomeTrackEmotionCubit>()
-                  .dismissStabilityNotification();
+              context.read<HomeTrackEmotionCubit>().dismissStabilityNotification();
             }
 
             Navigator.pop(context);
@@ -122,8 +118,7 @@ class HomeTrackEmotionPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       ),
                       hint: const Text('Selecciona una actividad'),
                       items: activities.map((activity) {
@@ -133,8 +128,7 @@ class HomeTrackEmotionPage extends StatelessWidget {
                         );
                       }).toList(),
                       onChanged: (Activity? activity) {
-                        print(
-                            'Activity selected: ${activity?.name} (ID: ${activity?.id})');
+                        print('Activity selected: ${activity?.name} (ID: ${activity?.id})');
                         cubit.selectActivity(activity);
                       },
                     ),
@@ -147,8 +141,7 @@ class HomeTrackEmotionPage extends StatelessWidget {
                     state.video == null
                         ? ElevatedButton.icon(
                             icon: const Icon(Icons.videocam, size: 28),
-                            label: const Text('Grabar Video',
-                                style: TextStyle(fontSize: 18)),
+                            label: const Text('Grabar Video', style: TextStyle(fontSize: 18)),
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
@@ -156,8 +149,7 @@ class HomeTrackEmotionPage extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 16),
                             ),
                             onPressed: () async {
-                              final videoPath = await context
-                                  .pushNamed(HomeRoute.camera.data.name);
+                              final videoPath = await context.pushNamed(HomeRoute.camera.data.name);
                               if (videoPath != null) {
                                 cubit.setVideo(File(videoPath as String));
                               }
@@ -165,8 +157,7 @@ class HomeTrackEmotionPage extends StatelessWidget {
                           )
                         : Card(
                             color: Colors.green[50],
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                             child: ListTile(
                               leading: Icon(
                                 Icons.videocam,
@@ -175,17 +166,14 @@ class HomeTrackEmotionPage extends StatelessWidget {
                               title: const Text('Video listo'),
                               subtitle: Text(state.video!.path.split('/').last),
                               trailing: IconButton(
-                                icon:
-                                    const Icon(Icons.close, color: Colors.red),
+                                icon: const Icon(Icons.close, color: Colors.red),
                                 onPressed: () => cubit.setVideo(null),
                               ),
                             ),
                           ),
                     const SizedBox(height: 32),
                     ElevatedButton(
-                      onPressed: (state.loading ||
-                              state.selectedActivity == null ||
-                              state.video == null)
+                      onPressed: (state.loading || state.selectedActivity == null || state.video == null)
                           ? null
                           : () => {
                                 cubit.updateNote(controller.text),
@@ -198,8 +186,7 @@ class HomeTrackEmotionPage extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 18),
                       ),
-                      child:
-                          const Text('Guardar', style: TextStyle(fontSize: 18)),
+                      child: const Text('Guardar', style: TextStyle(fontSize: 18)),
                     ),
                   ],
                 ),

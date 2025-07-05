@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+
 import '../../../../core/helpers/emotional_stability_calculator.dart';
 import '../../model/model/mood_track_model.dart';
 
@@ -68,8 +69,7 @@ class StabilityTrendsWidget extends StatelessWidget {
             else
               Column(
                 children: [
-                  if (trendInsight.isNotEmpty)
-                    _buildTrendInsight(trendInsight, theme),
+                  if (trendInsight.isNotEmpty) _buildTrendInsight(trendInsight, theme),
                   const SizedBox(height: 20),
                   _buildTrendChart(trendData, theme),
                   const SizedBox(height: 16),
@@ -113,8 +113,7 @@ class StabilityTrendsWidget extends StatelessWidget {
   }
 
   Widget _buildTrendInsight(String insight, ThemeData theme) {
-    final isPositive =
-        insight.contains('mejorado') || insight.contains('aumentado');
+    final isPositive = insight.contains('mejorado') || insight.contains('aumentado');
     final color = isPositive ? Colors.green : Colors.orange;
     final icon = isPositive ? Icons.trending_up : Icons.trending_down;
 
@@ -168,10 +167,8 @@ class StabilityTrendsWidget extends StatelessWidget {
       return FlSpot(entry.key.toDouble(), entry.value.stabilityScore);
     }).toList();
 
-    final maxY =
-        trendData.map((d) => d.stabilityScore).reduce((a, b) => a > b ? a : b);
-    final minY =
-        trendData.map((d) => d.stabilityScore).reduce((a, b) => a < b ? a : b);
+    final maxY = trendData.map((d) => d.stabilityScore).reduce((a, b) => a > b ? a : b);
+    final minY = trendData.map((d) => d.stabilityScore).reduce((a, b) => a < b ? a : b);
 
     return SizedBox(
       height: 200,
@@ -298,14 +295,10 @@ class StabilityTrendsWidget extends StatelessWidget {
 
   Widget _buildTrendStats(List<StabilityTrendData> trendData, ThemeData theme) {
     final currentStability = trendData.last.stabilityScore;
-    final previousStability = trendData.length > 1
-        ? trendData[trendData.length - 2].stabilityScore
-        : currentStability;
+    final previousStability = trendData.length > 1 ? trendData[trendData.length - 2].stabilityScore : currentStability;
     final change = currentStability - previousStability;
 
-    final averageStability =
-        trendData.map((d) => d.stabilityScore).reduce((a, b) => a + b) /
-            trendData.length;
+    final averageStability = trendData.map((d) => d.stabilityScore).reduce((a, b) => a + b) / trendData.length;
     final isImproving = change > 0;
 
     return Row(
@@ -343,8 +336,7 @@ class StabilityTrendsWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildStatCard(
-      String label, String value, IconData icon, Color color, ThemeData theme) {
+  Widget _buildStatCard(String label, String value, IconData icon, Color color, ThemeData theme) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -384,8 +376,7 @@ class StabilityTrendsWidget extends StatelessWidget {
 
     for (final track in moodTracks) {
       if (track.createdAt != null && track.createdAt!.isAfter(thirtyDaysAgo)) {
-        final daysSinceStart =
-            track.createdAt!.difference(thirtyDaysAgo).inDays;
+        final daysSinceStart = track.createdAt!.difference(thirtyDaysAgo).inDays;
         final weekIndex = daysSinceStart ~/ 7;
         weeklyTracks.putIfAbsent(weekIndex, () => []).add(track);
       }
@@ -397,11 +388,9 @@ class StabilityTrendsWidget extends StatelessWidget {
       final weekIndex = entry.key;
       final tracks = entry.value;
 
-      if (tracks.length < 2)
-        continue;
+      if (tracks.length < 2) continue;
 
-      final stabilityScore =
-          EmotionalStabilityCalculator.calculateStabilityScore(tracks);
+      final stabilityScore = EmotionalStabilityCalculator.calculateStabilityScore(tracks);
 
       final weekStartDate = thirtyDaysAgo.add(Duration(days: weekIndex * 7));
       final weekMidDate = weekStartDate.add(const Duration(days: 3));

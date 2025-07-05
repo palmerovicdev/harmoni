@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:harmoni/core/helpers/utils.dart';
+
 import '../../model/model/activity_model.dart';
-import '../../model/model/mood_track_model.dart';
 import '../../model/model/mood_activity_relation_model.dart';
+import '../../model/model/mood_track_model.dart';
 
 class ActivityEmotionAnalysis {
   final Activity activity;
@@ -19,8 +20,8 @@ class ActivityEmotionAnalysis {
   });
 
   String get activityName => activity.name ?? 'Sin nombre';
-  Color? get activityColor =>
-      activity.color != null ? Color(activity.color!) : null;
+
+  Color? get activityColor => activity.color != null ? Color(activity.color!) : null;
 }
 
 class ActivityEmotionPercentageWidget extends StatelessWidget {
@@ -66,11 +67,7 @@ class ActivityEmotionPercentageWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            if (analyses.isEmpty)
-              _buildEmptyState(theme)
-            else
-              ...analyses.map(
-                  (analysis) => _buildActivityAnalysisCard(analysis, theme)),
+            if (analyses.isEmpty) _buildEmptyState(theme) else ...analyses.map((analysis) => _buildActivityAnalysisCard(analysis, theme)),
           ],
         ),
       ),
@@ -106,20 +103,15 @@ class ActivityEmotionPercentageWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildActivityAnalysisCard(
-      ActivityEmotionAnalysis analysis, ThemeData theme) {
+  Widget _buildActivityAnalysisCard(ActivityEmotionAnalysis analysis, ThemeData theme) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: analysis.activity.color != null
-            ? Color(analysis.activity.color!).withValues(alpha: 0.1)
-            : Colors.blue[50],
+        color: analysis.activity.color != null ? Color(analysis.activity.color!).withValues(alpha: 0.1) : Colors.blue[50],
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: analysis.activity.color != null
-              ? Color(analysis.activity.color!).withValues(alpha: 0.3)
-              : Colors.blue[200]!,
+          color: analysis.activity.color != null ? Color(analysis.activity.color!).withValues(alpha: 0.3) : Colors.blue[200]!,
         ),
       ),
       child: Column(
@@ -136,8 +128,7 @@ class ActivityEmotionPercentageWidget extends StatelessWidget {
                       analysis.activityName,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color:
-                            analysis.activityColor ?? theme.colorScheme.primary,
+                        color: analysis.activityColor ?? theme.colorScheme.primary,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -151,8 +142,7 @@ class ActivityEmotionPercentageWidget extends StatelessWidget {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: analysis.activityColor ?? theme.colorScheme.primary,
                   borderRadius: BorderRadius.circular(20),
@@ -205,8 +195,7 @@ class ActivityEmotionPercentageWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          _buildProgressBar(analysis.percentage,
-              analysis.activityColor ?? theme.colorScheme.primary),
+          _buildProgressBar(analysis.percentage, analysis.activityColor ?? theme.colorScheme.primary),
         ],
       ),
     );
@@ -241,16 +230,14 @@ class ActivityEmotionPercentageWidget extends StatelessWidget {
     final List<ActivityEmotionAnalysis> analyses = [];
 
     for (final activity in activities) {
-      final activityRelations =
-          relations.where((rel) => rel.activityId == activity.id).toList();
+      final activityRelations = relations.where((rel) => rel.activityId == activity.id).toList();
 
       if (activityRelations.isEmpty) {
         continue;
       }
 
       final relatedMoodTracks = moodTracks.where((track) {
-        return activityRelations
-            .any((rel) => rel.moodTrackId == track.hashCode);
+        return activityRelations.any((rel) => rel.moodTrackId == track.hashCode);
       }).toList();
 
       if (relatedMoodTracks.isEmpty) {

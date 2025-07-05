@@ -43,21 +43,11 @@ class HomeTrackEmotionState extends Equatable {
       error: error,
       success: success ?? this.success,
       selectedActivity: selectedActivity ?? this.selectedActivity,
-      showStabilityNotification:
-          showStabilityNotification ?? this.showStabilityNotification,
+      showStabilityNotification: showStabilityNotification ?? this.showStabilityNotification,
       stabilityScore: stabilityScore ?? this.stabilityScore,
     );
   }
 
   @override
-  List<Object?> get props => [
-        note,
-        video,
-        loading,
-        error,
-        success,
-        selectedActivity,
-        showStabilityNotification,
-        stabilityScore
-      ];
+  List<Object?> get props => [note, video, loading, error, success, selectedActivity, showStabilityNotification, stabilityScore];
 }

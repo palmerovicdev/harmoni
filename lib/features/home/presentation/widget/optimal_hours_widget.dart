@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 import '../../../../core/helpers/utils.dart';
 import '../../model/model/mood_track_model.dart';
 
@@ -111,8 +112,7 @@ class OptimalHoursWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildOptimalHoursSection(
-      List<HourlyMoodData> optimalHours, ThemeData theme) {
+  Widget _buildOptimalHoursSection(List<HourlyMoodData> optimalHours, ThemeData theme) {
     if (optimalHours.isEmpty) return const SizedBox();
 
     final bestHour = optimalHours.first;
@@ -216,21 +216,11 @@ class OptimalHoursWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('00:00',
-                style: theme.textTheme.bodySmall
-                    ?.copyWith(color: Colors.grey[500])),
-            Text('06:00',
-                style: theme.textTheme.bodySmall
-                    ?.copyWith(color: Colors.grey[500])),
-            Text('12:00',
-                style: theme.textTheme.bodySmall
-                    ?.copyWith(color: Colors.grey[500])),
-            Text('18:00',
-                style: theme.textTheme.bodySmall
-                    ?.copyWith(color: Colors.grey[500])),
-            Text('24:00',
-                style: theme.textTheme.bodySmall
-                    ?.copyWith(color: Colors.grey[500])),
+            Text('00:00', style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[500])),
+            Text('06:00', style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[500])),
+            Text('12:00', style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[500])),
+            Text('18:00', style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[500])),
+            Text('24:00', style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[500])),
           ],
         ),
       ],
@@ -239,11 +229,8 @@ class OptimalHoursWidget extends StatelessWidget {
 
   Widget _buildHourBar(HourlyMoodData hourData, ThemeData theme) {
     final hasData = hourData.measurementCount > 0;
-    final normalizedHeight =
-        hasData ? (hourData.positivityScore / 10) * 40.0 : 5.0;
-    final color = hasData
-        ? emotionColors[hourData.dominantEmotion] ?? Colors.grey[300]!
-        : Colors.grey[200]!;
+    final normalizedHeight = hasData ? (hourData.positivityScore / 10) * 40.0 : 5.0;
+    final color = hasData ? emotionColors[hourData.dominantEmotion] ?? Colors.grey[300]! : Colors.grey[200]!;
 
     return Container(
       width: 12,
@@ -293,11 +280,9 @@ class OptimalHoursWidget extends StatelessWidget {
 
       if (emotionCounts.isEmpty) continue;
 
-      final dominantEmotion =
-          emotionCounts.entries.reduce((a, b) => a.value > b.value ? a : b).key;
+      final dominantEmotion = emotionCounts.entries.reduce((a, b) => a.value > b.value ? a : b).key;
 
-      final positivityScore =
-          _calculatePositivityScore(emotionCounts, tracks.length);
+      final positivityScore = _calculatePositivityScore(emotionCounts, tracks.length);
 
       hourlyData.add(HourlyMoodData(
         hour: hour,
@@ -310,8 +295,7 @@ class OptimalHoursWidget extends StatelessWidget {
     return hourlyData;
   }
 
-  double _calculatePositivityScore(
-      Map<EmotionType, int> emotionCounts, int totalTracks) {
+  double _calculatePositivityScore(Map<EmotionType, int> emotionCounts, int totalTracks) {
     double score = 0;
 
     for (final entry in emotionCounts.entries) {
@@ -356,10 +340,7 @@ class OptimalHoursWidget extends StatelessWidget {
   List<HourlyMoodData> _getOptimalHours(List<HourlyMoodData> hourlyData) {
     if (hourlyData.isEmpty) return [];
 
-    final validHours = hourlyData
-        .where((data) => data.measurementCount >= 2)
-        .toList()
-      ..sort((a, b) => b.positivityScore.compareTo(a.positivityScore));
+    final validHours = hourlyData.where((data) => data.measurementCount >= 2).toList()..sort((a, b) => b.positivityScore.compareTo(a.positivityScore));
 
     return validHours.take(3).toList();
   }

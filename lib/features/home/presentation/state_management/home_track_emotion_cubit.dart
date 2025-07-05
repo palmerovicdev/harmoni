@@ -10,8 +10,7 @@ import 'home_track_emotion_state.dart';
 class HomeTrackEmotionCubit extends Cubit<HomeTrackEmotionState> {
   final HomeService homeService;
 
-  HomeTrackEmotionCubit({required this.homeService})
-      : super(const HomeTrackEmotionState());
+  HomeTrackEmotionCubit({required this.homeService}) : super(const HomeTrackEmotionState());
 
   void updateNote(String note) => emit(state.copyWith(note: note));
 
@@ -23,8 +22,7 @@ class HomeTrackEmotionCubit extends Cubit<HomeTrackEmotionState> {
     }
   }
 
-  void selectActivity(Activity? activity) =>
-      emit(state.copyWith(selectedActivity: activity));
+  void selectActivity(Activity? activity) => emit(state.copyWith(selectedActivity: activity));
 
   Future<void> save() async {
     emit(state.copyWith(loading: true, error: null, success: false));
@@ -34,14 +32,12 @@ class HomeTrackEmotionCubit extends Cubit<HomeTrackEmotionState> {
         throw Exception('Debes seleccionar una actividad');
       }
 
-      await homeService.trackEmotion(
-          state.selectedActivity!.id!, state.video!.path);
+      await homeService.trackEmotion(state.selectedActivity!.id!, state.video!.path);
 
       await homeService.homeSummary();
 
       final moodTracks = homeService.homeSummaryData?.moodTracks ?? [];
-      final stabilityScore =
-          EmotionalStabilityCalculator.calculateStabilityScore(moodTracks);
+      final stabilityScore = EmotionalStabilityCalculator.calculateStabilityScore(moodTracks);
       final shouldShowNotification = stabilityScore < 40.0;
 
       emit(state.copyWith(

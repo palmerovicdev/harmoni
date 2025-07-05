@@ -13,13 +13,10 @@ class EmotionalStabilityNotification extends StatefulWidget {
   });
 
   @override
-  State<EmotionalStabilityNotification> createState() =>
-      _EmotionalStabilityNotificationState();
+  State<EmotionalStabilityNotification> createState() => _EmotionalStabilityNotificationState();
 }
 
-class _EmotionalStabilityNotificationState
-    extends State<EmotionalStabilityNotification>
-    with SingleTickerProviderStateMixin {
+class _EmotionalStabilityNotificationState extends State<EmotionalStabilityNotification> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _slideAnimation;
   late Animation<double> _fadeAnimation;

@@ -7,10 +7,7 @@ class EmotionalStabilityCalculator {
     final now = DateTime.now();
     final thirtyDaysAgo = now.subtract(const Duration(days: 30));
 
-    final recentTracks = moodTracks
-        .where((track) =>
-            track.createdAt != null && track.createdAt!.isAfter(thirtyDaysAgo))
-        .toList();
+    final recentTracks = moodTracks.where((track) => track.createdAt != null && track.createdAt!.isAfter(thirtyDaysAgo)).toList();
 
     if (recentTracks.isEmpty) return 0.0;
 
@@ -22,15 +19,13 @@ class EmotionalStabilityCalculator {
 
     if (emotionCounts.isEmpty) return 0.0;
 
-    final mostFrequentCount =
-        emotionCounts.values.reduce((a, b) => a > b ? a : b);
+    final mostFrequentCount = emotionCounts.values.reduce((a, b) => a > b ? a : b);
     final stabilityPercentage = (mostFrequentCount / recentTracks.length) * 100;
 
     return stabilityPercentage.clamp(0.0, 100.0);
   }
 
-  static bool isStabilityBelowThreshold(List<MoodTrack> moodTracks,
-      {double threshold = 40.0}) {
+  static bool isStabilityBelowThreshold(List<MoodTrack> moodTracks, {double threshold = 40.0}) {
     final stabilityScore = calculateStabilityScore(moodTracks);
     return stabilityScore < threshold;
   }
@@ -41,10 +36,7 @@ class EmotionalStabilityCalculator {
     final now = DateTime.now();
     final thirtyDaysAgo = now.subtract(const Duration(days: 30));
 
-    final recentTracks = moodTracks
-        .where((track) =>
-            track.createdAt != null && track.createdAt!.isAfter(thirtyDaysAgo))
-        .toList();
+    final recentTracks = moodTracks.where((track) => track.createdAt != null && track.createdAt!.isAfter(thirtyDaysAgo)).toList();
 
     if (recentTracks.isEmpty) return null;
 
@@ -56,8 +48,7 @@ class EmotionalStabilityCalculator {
 
     if (emotionCounts.isEmpty) return null;
 
-    final dominantEmotion =
-        emotionCounts.entries.reduce((a, b) => a.value > b.value ? a : b).key;
+    final dominantEmotion = emotionCounts.entries.reduce((a, b) => a.value > b.value ? a : b).key;
 
     return dominantEmotion;
   }
