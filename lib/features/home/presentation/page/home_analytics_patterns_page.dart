@@ -9,14 +9,14 @@ import '../widget/optimal_hours_widget.dart';
 import '../widget/stability_trends_widget.dart';
 import '../widget/weekday_patterns_widget.dart';
 
-class EmotionalPatternsPage extends StatefulWidget {
-  const EmotionalPatternsPage({super.key});
+class AnalyticsPatternsPage extends StatefulWidget {
+  const AnalyticsPatternsPage({super.key});
 
   @override
-  State<EmotionalPatternsPage> createState() => _EmotionalPatternsPageState();
+  State<AnalyticsPatternsPage> createState() => _AnalyticsPatternsPageState();
 }
 
-class _EmotionalPatternsPageState extends State<EmotionalPatternsPage> {
+class _AnalyticsPatternsPageState extends State<AnalyticsPatternsPage> {
   bool _isLoading = false;
 
   @override

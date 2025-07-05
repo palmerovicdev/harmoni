@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
+import 'package:harmoni/generated/assets.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/helpers/utils.dart';
 import '../../model/model/mood_track_model.dart';
 
 class MoodCalendarPage extends StatefulWidget {
@@ -17,124 +20,83 @@ class _MoodCalendarPageState extends State<MoodCalendarPage> {
 
   @override
   Widget build(BuildContext context) {
+    var colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Calendar', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
-        ],
-      ),
-      body: Column(
-        children: [
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  onTap: () => setState(() => showMonthly = true),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      color: showMonthly ? Colors.green[600] : Colors.transparent,
-                      borderRadius: BorderRadius.circular(12),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: showMonthly
+                  ? _MonthlyCalendar(
+                      moodTracks: getHomeService().homeSummaryData?.moodTracks ?? [],
+                      month: selectedMonth,
+                      onMonthChanged: (newMonth) => setState(() => selectedMonth = newMonth),
+                    )
+                  : _YearInPixels(
+                      moodTracks: getHomeService().homeSummaryData?.moodTracks ?? [],
+                      year: selectedMonth.year,
+                      onYearChanged: (newYear) => setState(() => selectedMonth = DateTime(newYear, selectedMonth.month)),
                     ),
-                    child: Center(
-                      child: Text(
-                        'Monthly',
-                        style: TextStyle(
-                          color: showMonthly ? Colors.white : Colors.black87,
-                          fontWeight: FontWeight.w600,
+            ),
+            const SizedBox(height: 32),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => setState(() => showMonthly = true),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: showMonthly ? colorScheme.tertiary : colorScheme.secondary,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Monthly',
+                            style: TextStyle(
+                              color: showMonthly ? colorScheme.onTertiary : colorScheme.onSecondary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () => setState(() => showMonthly = false),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      color: !showMonthly ? Colors.green[600] : Colors.transparent,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Year in Pixels',
-                        style: TextStyle(
-                          color: !showMonthly ? Colors.white : Colors.black87,
-                          fontWeight: FontWeight.w600,
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => setState(() => showMonthly = false),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: !showMonthly ? colorScheme.tertiary : colorScheme.secondary,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Yearly',
+                            style: TextStyle(
+                              color: !showMonthly ? colorScheme.onTertiary : colorScheme.onSecondary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Expanded(
-            child: showMonthly
-                ? _MonthlyCalendar(
-                    moodTracks: getHomeService().homeSummaryData?.moodTracks ?? [],
-                    month: selectedMonth,
-                    onMonthChanged: (newMonth) => setState(() => selectedMonth = newMonth),
-                  )
-                : _YearInPixels(
-                    moodTracks: getHomeService().homeSummaryData?.moodTracks ?? [],
-                    year: selectedMonth.year,
-                    onYearChanged: (newYear) => setState(() => selectedMonth = DateTime(newYear, selectedMonth.month)),
-                  ),
-          ),
-        ],
+            ),
+            const SizedBox(height: 32),
+          ],
+        ),
       ),
     );
   }
-}
-
-enum EmotionType {
-  ANGRY,
-  FEARFUL,
-  HAPPY,
-  SAD,
-  NEUTRAL,
-  DISGUSTED,
-  SURPRISED,
-  OTHER,
-}
-
-const Map<EmotionType, Color> emotionColors = {
-  EmotionType.ANGRY: Colors.red,
-  EmotionType.FEARFUL: Colors.deepPurple,
-  EmotionType.HAPPY: Colors.green,
-  EmotionType.SAD: Colors.orange,
-  EmotionType.NEUTRAL: Colors.yellow,
-  EmotionType.DISGUSTED: Colors.brown,
-  EmotionType.SURPRISED: Colors.blue,
-  EmotionType.OTHER: Colors.grey,
-};
-
-const Map<EmotionType, String> emotionEmojis = {
-  EmotionType.ANGRY: "😡",
-  EmotionType.FEARFUL: "😨",
-  EmotionType.HAPPY: "😄",
-  EmotionType.SAD: "😕",
-  EmotionType.NEUTRAL: "😐",
-  EmotionType.DISGUSTED: "🤢",
-  EmotionType.SURPRISED: "😲",
-  EmotionType.OTHER: "🙂",
-};
-
-EmotionType parseEmotion(String? value) {
-  if (value == null) return EmotionType.OTHER;
-  return EmotionType.values.firstWhere(
-    (e) => e.name.toUpperCase() == value.toUpperCase(),
-    orElse: () => EmotionType.OTHER,
-  );
 }
 
 class _MonthlyCalendar extends StatelessWidget {
@@ -161,11 +123,12 @@ class _MonthlyCalendar extends StatelessWidget {
         moodByDay[track.createdAt!.day] = track;
       }
     }
+    var colorScheme = Theme.of(context).colorScheme;
 
     return Card(
       margin: const EdgeInsets.all(16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      color: Colors.grey[50],
+      color: colorScheme.surfaceContainer,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -193,7 +156,7 @@ class _MonthlyCalendar extends StatelessWidget {
               children: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
                   .map((d) => Expanded(
                         child: Center(
-                          child: Text(d, style: const TextStyle(fontWeight: FontWeight.w600)),
+                          child: Text(d, style: TextStyle(fontWeight: FontWeight.w600, color: colorScheme.onSurface)),
                         ),
                       ))
                   .toList(),
@@ -214,7 +177,7 @@ class _MonthlyCalendar extends StatelessWidget {
                     return const SizedBox.shrink();
                   }
                   final mood = moodByDay[dayNum];
-                  final emotion = mood != null ? parseEmotion(mood.imageMood) : null;
+                  final emotion = mood != null ? EmotionType.fromEmotionName(mood.recordMood ?? 'other') : null;
                   return GestureDetector(
                     onTap: mood != null
                         ? () {
@@ -224,17 +187,17 @@ class _MonthlyCalendar extends StatelessWidget {
                     child: Column(
                       children: [
                         CircleAvatar(
-                          backgroundColor: emotion != null ? emotionColors[emotion] ?? Colors.grey[300] : Colors.grey[200],
-                          child: Text(
-                            emotion != null ? emotionEmojis[emotion]! : "🙂",
-                            style: const TextStyle(fontSize: 22),
+                          radius: 9,
+                          backgroundColor: colorScheme.surfaceContainer,
+                          child: SvgPicture.asset(
+                            emotion != null ? emotionAssets[emotion]! : Assets.circleOtherCircle,
                           ),
                         ),
                         const SizedBox(height: 2),
                         Text(
                           '$dayNum',
                           style: TextStyle(
-                            color: emotion != null ? Colors.black : Colors.grey[400],
+                            color: emotion != null ? colorScheme.tertiary : colorScheme.surfaceTint,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -243,11 +206,6 @@ class _MonthlyCalendar extends StatelessWidget {
                   );
                 },
               ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              "Tap mood to see more details",
-              style: TextStyle(color: Colors.grey, fontSize: 13),
             ),
           ],
         ),
@@ -277,10 +235,11 @@ class _YearInPixels extends StatelessWidget {
       }
     }
 
+    var colorScheme = Theme.of(context).colorScheme;
     return Card(
       margin: const EdgeInsets.all(16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      color: Colors.grey[50],
+      color: colorScheme.surfaceContainer,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -326,17 +285,14 @@ class _YearInPixels extends StatelessWidget {
                     children: List.generate(12, (monthIdx) {
                       final day = dayIdx + 1;
                       final mood = moodByMonthDay[monthIdx + 1]?[day];
-                      final emotion = mood != null ? parseEmotion(mood.imageMood) : null;
+                      final emotion = mood != null ? EmotionType.fromEmotionName(mood.recordMood ?? 'other') : null;
                       return Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(2),
                           child: CircleAvatar(
-                            radius: 10,
-                            backgroundColor: emotion != null ? emotionColors[emotion] ?? Colors.grey[300] : Colors.grey[200],
-                            child: Text(
-                              emotion != null ? emotionEmojis[emotion]! : "",
-                              style: const TextStyle(fontSize: 13),
-                            ),
+                            backgroundColor: colorScheme.surfaceContainer,
+                            radius: 9,
+                            child: SvgPicture.asset(emotion != null ? emotionAssets[emotion]! : Assets.circleOtherCircle),
                           ),
                         ),
                       );
