@@ -69,7 +69,7 @@ class ActivityEmotionCorrelationWidget extends StatelessWidget {
             Text(
               'Descubre cómo diferentes actividades afectan tu estado de ánimo',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.grey[600],
+                color: theme.colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 20),
@@ -85,7 +85,7 @@ class ActivityEmotionCorrelationWidget extends StatelessWidget {
                 child: Text(
                   'Y ${correlations.length - 3} patrones más...',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: Colors.grey[500],
+                    color: theme.colorScheme.onSurface,
                     fontStyle: FontStyle.italic,
                   ),
                 ),
@@ -101,9 +101,9 @@ class ActivityEmotionCorrelationWidget extends StatelessWidget {
       height: 100,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+        color: theme.colorScheme.onSurface.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[200]!),
+        border: Border.all(color: theme.colorScheme.onSurface),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -111,13 +111,13 @@ class ActivityEmotionCorrelationWidget extends StatelessWidget {
           Icon(
             Icons.insights,
             size: 32,
-            color: Colors.grey[400],
+            color: theme.colorScheme.onSurface,
           ),
           const SizedBox(height: 8),
           Text(
             'Necesitas más datos para ver correlaciones',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.grey[600],
+              color: theme.colorScheme.onSurface,
             ),
             textAlign: TextAlign.center,
           ),
@@ -175,13 +175,13 @@ class ActivityEmotionCorrelationWidget extends StatelessWidget {
               Text(
                 '${correlation.confidence.toStringAsFixed(0)}% de confianza',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: Colors.grey[600],
+                  color: theme.colorScheme.onSurface,
                 ),
               ),
               Text(
                 '${correlation.totalMeasurements} mediciones',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: Colors.grey[600],
+                  color: theme.colorScheme.onSurface,
                 ),
               ),
             ],
@@ -189,7 +189,7 @@ class ActivityEmotionCorrelationWidget extends StatelessWidget {
           const SizedBox(height: 8),
           LinearProgressIndicator(
             value: correlation.confidence / 100,
-            backgroundColor: Colors.grey[200],
+            backgroundColor: theme.colorScheme.onSurface,
             valueColor: AlwaysStoppedAnimation<Color>(activityColor),
           ),
         ],

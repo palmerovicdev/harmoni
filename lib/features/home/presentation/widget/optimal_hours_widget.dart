@@ -62,7 +62,7 @@ class OptimalHoursWidget extends StatelessWidget {
             Text(
               'Descubre en qué momentos del día te sientes mejor',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.grey[600],
+                color: theme.colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 20),
@@ -87,9 +87,9 @@ class OptimalHoursWidget extends StatelessWidget {
       height: 100,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+        color: theme.colorScheme.onSurface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[200]!),
+        border: Border.all(color: theme.colorScheme.onSurface),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -97,13 +97,13 @@ class OptimalHoursWidget extends StatelessWidget {
           Icon(
             Icons.access_time,
             size: 32,
-            color: Colors.grey[400],
+            color: theme.colorScheme.onSurface,
           ),
           const SizedBox(height: 8),
           Text(
             'Registra más emociones para ver tus patrones horarios',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.grey[600],
+              color: theme.colorScheme.onSurface,
             ),
             textAlign: TextAlign.center,
           ),
@@ -137,7 +137,7 @@ class OptimalHoursWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.orange[200],
+              color: Colors.orange[200]?.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(12),
             ),
             child: SvgPicture.asset(
@@ -188,7 +188,7 @@ class OptimalHoursWidget extends StatelessWidget {
           'Patrón diario',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
-            color: Colors.grey[700],
+            color: theme.colorScheme.onSurface,
           ),
         ),
         const SizedBox(height: 12),
@@ -216,11 +216,11 @@ class OptimalHoursWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('00:00', style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[500])),
-            Text('06:00', style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[500])),
-            Text('12:00', style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[500])),
-            Text('18:00', style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[500])),
-            Text('24:00', style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[500])),
+            Text('00:00', style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurface)),
+            Text('06:00', style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurface)),
+            Text('12:00', style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurface)),
+            Text('18:00', style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurface)),
+            Text('24:00', style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurface)),
           ],
         ),
       ],

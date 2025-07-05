@@ -64,7 +64,7 @@ class WeekdayPatternsWidget extends StatelessWidget {
             Text(
               'Analiza cómo te sientes cada día de la semana',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.grey[600],
+                color: theme.colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 20),
@@ -89,9 +89,9 @@ class WeekdayPatternsWidget extends StatelessWidget {
       height: 100,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+        color: theme.colorScheme.onSurface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[200]!),
+        border: Border.all(color: theme.colorScheme.onSurface),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -99,13 +99,13 @@ class WeekdayPatternsWidget extends StatelessWidget {
           Icon(
             Icons.date_range,
             size: 32,
-            color: Colors.grey[400],
+            color: theme.colorScheme.onSurface,
           ),
           const SizedBox(height: 8),
           Text(
             'Registra emociones durante la semana para ver patrones',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.grey[600],
+              color: theme.colorScheme.onSurface,
             ),
             textAlign: TextAlign.center,
           ),
@@ -166,7 +166,7 @@ class WeekdayPatternsWidget extends StatelessWidget {
           'Estado de ánimo por día',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
-            color: Colors.grey[700],
+            color: theme.colorScheme.onSurface,
           ),
         ),
         const SizedBox(height: 16),
@@ -239,14 +239,14 @@ class WeekdayPatternsWidget extends StatelessWidget {
           dayName,
           style: theme.textTheme.bodyMedium?.copyWith(
             fontWeight: hasData ? FontWeight.bold : FontWeight.normal,
-            color: hasData ? color : Colors.grey[500],
+            color: hasData ? color : theme.colorScheme.onSurface,
           ),
         ),
         if (hasData)
           Text(
             '${data.measurementCount}',
             style: theme.textTheme.bodySmall?.copyWith(
-              color: Colors.grey[600],
+              color: theme.colorScheme.onSurface,
             ),
           ),
       ],

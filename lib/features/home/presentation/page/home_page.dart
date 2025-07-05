@@ -45,21 +45,20 @@ class HomePage extends StatelessWidget {
     );
     return Scaffold(
       floatingActionButton: IconButton(onPressed: () => context.pushNamed(HomeRoute.trackEmotion.data.name), icon: Icon(Icons.add)),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 54,
-            ),
-            if (moodTracks?.isEmpty ?? true)
-              Center(
-                child: Text('No hay datos para mostrar', style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
-              ),
-            if (moodTracks?.isNotEmpty ?? false) WeeklyMoodChart(moodTracks: moodTracks!),
-            if (moodTracks?.isNotEmpty ?? false) MoodStabilityWidget(moodTracks: moodTracks!),
-            if (moodTracks?.isNotEmpty ?? false) AnnualMoodRadarWidget(moodTracks: moodTracks!),
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (moodTracks?.isEmpty ?? true)
+                Center(
+                  child: Text('No hay datos para mostrar', style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+                ),
+              if (moodTracks?.isNotEmpty ?? false) WeeklyMoodChart(moodTracks: moodTracks!),
+              if (moodTracks?.isNotEmpty ?? false) MoodStabilityWidget(moodTracks: moodTracks!),
+              if (moodTracks?.isNotEmpty ?? false) AnnualMoodRadarWidget(moodTracks: moodTracks!),
+            ],
+          ),
         ),
       ),
     );

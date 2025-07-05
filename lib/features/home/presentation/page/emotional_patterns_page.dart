@@ -58,165 +58,143 @@ class _EmotionalPatternsPageState extends State<EmotionalPatternsPage> {
     final List<MoodActivityRelation> relations = [];
 
     return Scaffold(
-      backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        title: Text(
-          'Análisis de Patrones',
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: _isLoading
-                ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : const Icon(Icons.refresh),
-            onPressed: _isLoading ? null : _loadData,
-          ),
-        ],
-      ),
-      body: RefreshIndicator(
-        onRefresh: _loadData,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.all(16),
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      theme.colorScheme.primary,
-                      theme.colorScheme.primary.withValues(alpha: 0.8),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: theme.colorScheme.primary.withValues(alpha: 0.3),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: _loadData,
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        theme.colorScheme.primary,
+                        theme.colorScheme.primary.withValues(alpha: 0.8),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.psychology_outlined,
-                          color: Colors.white,
-                          size: 32,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: theme.colorScheme.primary.withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.psychology_outlined,
+                            color: theme.colorScheme.surface,
+                            size: 32,
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Text(
+                              'Detector de Patrones Emocionales',
+                              style: theme.textTheme.headlineSmall?.copyWith(
+                                color: theme.colorScheme.surface,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Descubre insights profundos sobre tu bienestar emocional',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.surface.withValues(alpha: 0.9),
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            'Detector de Patrones Emocionales',
-                            style: theme.textTheme.headlineSmall?.copyWith(
-                              color: Colors.white,
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          _buildStatChip(
+                            'Registros',
+                            '${moodTracks.length}',
+                            Icons.timeline,
+                            theme.colorScheme.surface,
+                          ),
+                          const SizedBox(width: 12),
+                          _buildStatChip(
+                            'Actividades',
+                            '${activities.length}',
+                            Icons.local_activity,
+                            theme.colorScheme.surface,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                ActivityEmotionCorrelationWidget(
+                  moodTracks: moodTracks,
+                  activities: activities,
+                  relations: relations,
+                ),
+                OptimalHoursWidget(
+                  moodTracks: moodTracks,
+                ),
+                WeekdayPatternsWidget(
+                  moodTracks: moodTracks,
+                ),
+                StabilityTrendsWidget(
+                  moodTracks: moodTracks,
+                ),
+                Container(
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.blue[50]?.withValues(alpha: 0.9),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.blue[200]!),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.lightbulb_outline,
+                            color: Colors.blue[600],
+                            size: 24,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'Consejos para mejor análisis',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              color: Colors.blue[800],
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Descubre insights profundos sobre tu bienestar emocional',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.white.withValues(alpha: 0.9),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        _buildStatChip(
-                          'Registros',
-                          '${moodTracks.length}',
-                          Icons.timeline,
-                          Colors.white,
+                      const SizedBox(height: 12),
+                      Text(
+                        '• Registra tus emociones regularmente para obtener patrones más precisos\n'
+                        '• Incluye diferentes actividades para diversificar el análisis\n'
+                        '• Los patrones se vuelven más claros con al menos 2 semanas de datos\n'
+                        '• Utiliza estos insights para planificar tu bienestar',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: Colors.blue[700],
                         ),
-                        const SizedBox(width: 12),
-                        _buildStatChip(
-                          'Actividades',
-                          '${activities.length}',
-                          Icons.local_activity,
-                          Colors.white,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              ActivityEmotionCorrelationWidget(
-                moodTracks: moodTracks,
-                activities: activities,
-                relations: relations,
-              ),
-              OptimalHoursWidget(
-                moodTracks: moodTracks,
-              ),
-              WeekdayPatternsWidget(
-                moodTracks: moodTracks,
-              ),
-              StabilityTrendsWidget(
-                moodTracks: moodTracks,
-              ),
-              Container(
-                margin: const EdgeInsets.all(16),
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.blue[50],
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.blue[200]!),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.lightbulb_outline,
-                          color: Colors.blue[600],
-                          size: 24,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          'Consejos para mejor análisis',
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            color: Colors.blue[800],
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      '• Registra tus emociones regularmente para obtener patrones más precisos\n'
-                      '• Incluye diferentes actividades para diversificar el análisis\n'
-                      '• Los patrones se vuelven más claros con al menos 2 semanas de datos\n'
-                      '• Utiliza estos insights para planificar tu bienestar',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.blue[700],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 32),
-            ],
+                const SizedBox(height: 32),
+              ],
+            ),
           ),
         ),
       ),

@@ -60,7 +60,7 @@ class StabilityTrendsWidget extends StatelessWidget {
             Text(
               'Evolución de tu estabilidad emocional',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.grey[600],
+                color: theme.colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 20),
@@ -87,9 +87,9 @@ class StabilityTrendsWidget extends StatelessWidget {
       height: 100,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+        color: theme.colorScheme.onSurface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[200]!),
+        border: Border.all(color: theme.colorScheme.onSurface),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -97,13 +97,13 @@ class StabilityTrendsWidget extends StatelessWidget {
           Icon(
             Icons.show_chart,
             size: 32,
-            color: Colors.grey[400],
+            color: theme.colorScheme.onSurface,
           ),
           const SizedBox(height: 8),
           Text(
             'Necesitas más registros para analizar tendencias',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.grey[600],
+              color: theme.colorScheme.onSurface,
             ),
             textAlign: TextAlign.center,
           ),
@@ -181,7 +181,7 @@ class StabilityTrendsWidget extends StatelessWidget {
             horizontalInterval: 20,
             getDrawingHorizontalLine: (value) {
               return FlLine(
-                color: Colors.grey[300]!,
+                color: theme.colorScheme.onSurface,
                 strokeWidth: 1,
                 dashArray: [5, 5],
               );
@@ -196,7 +196,7 @@ class StabilityTrendsWidget extends StatelessWidget {
                   return Text(
                     '${value.toInt()}%',
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: Colors.grey[600],
+                      color: theme.colorScheme.onSurface,
                     ),
                   );
                 },
@@ -216,7 +216,7 @@ class StabilityTrendsWidget extends StatelessWidget {
                       child: Text(
                         '${date.day}/${date.month}',
                         style: theme.textTheme.bodySmall?.copyWith(
-                          color: Colors.grey[600],
+                          color: theme.colorScheme.onSurface,
                         ),
                       ),
                     );
@@ -358,7 +358,7 @@ class StabilityTrendsWidget extends StatelessWidget {
           Text(
             label,
             style: theme.textTheme.bodySmall?.copyWith(
-              color: Colors.grey[600],
+              color: theme.colorScheme.onSurface,
             ),
           ),
         ],
