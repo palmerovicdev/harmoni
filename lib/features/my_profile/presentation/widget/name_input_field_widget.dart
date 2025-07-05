@@ -52,13 +52,13 @@ class _NameInputFieldWidgetState extends State<NameInputFieldWidget> {
             : null,
         contentPadding: widget.shouldShowBigNameField ? EdgeInsets.symmetric(vertical: 24) : EdgeInsets.only(left: 16),
         filled: true,
-        fillColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+        fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: .1),
         errorBorder: OutlineInputBorder(
           borderSide: !isValid ? BorderSide(color: Theme.of(context).colorScheme.error) : BorderSide.none,
           borderRadius: BorderRadius.circular(12),
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12), // Define el radio de las esquinas.
+          borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.black12),
         ),
         enabledBorder: OutlineInputBorder(

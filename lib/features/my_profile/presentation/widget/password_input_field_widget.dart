@@ -53,7 +53,7 @@ class _PasswordInputFieldWidgetState extends State<PasswordInputFieldWidget> {
           borderRadius: BorderRadius.circular(12),
         ),
         filled: true,
-        fillColor: theme.primary.withOpacity(0.1),
+        fillColor: theme.primary.withValues(alpha: 0.1),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,

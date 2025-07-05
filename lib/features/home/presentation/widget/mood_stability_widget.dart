@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/helpers/emotional_stability_calculator.dart';
 import '../../model/model/mood_track_model.dart';
 
 class MoodStabilityWidget extends StatefulWidget {
@@ -13,31 +14,9 @@ class MoodStabilityWidget extends StatefulWidget {
 }
 
 class _MoodStabilityWidgetState extends State<MoodStabilityWidget> {
-  
   double _calculateStabilityScore() {
-    if (widget.moodTracks.isEmpty) return 0.0;
-
-    final now = DateTime.now();
-    final thirtyDaysAgo = now.subtract(const Duration(days: 30));
-
-    final recentTracks = widget.moodTracks.where((track) => track.createdAt != null && track.createdAt!.isAfter(thirtyDaysAgo)).toList();
-
-    if (recentTracks.isEmpty) return 0.0;
-
-    final Map<String, int> emotionCounts = {};
-
-    for (final track in recentTracks) {
-      final emotion = track.recordMood?.toLowerCase() ?? 'other';
-      emotionCounts[emotion] = (emotionCounts[emotion] ?? 0) + 1;
-    }
-
-    if (emotionCounts.isEmpty) return 0.0;
-
-    final mostFrequentCount = emotionCounts.values.reduce((a, b) => a > b ? a : b);
-
-    final stabilityPercentage = (mostFrequentCount / recentTracks.length) * 100;
-
-    return stabilityPercentage.clamp(0.0, 100.0);
+    return EmotionalStabilityCalculator.calculateStabilityScore(
+        widget.moodTracks);
   }
 
   List<FlSpot> _getStabilityData() {
@@ -48,9 +27,12 @@ class _MoodStabilityWidgetState extends State<MoodStabilityWidget> {
       final weekStart = now.subtract(Duration(days: i * 7));
       final weekEnd = weekStart.add(const Duration(days: 7));
 
-      final weekTracks = widget.moodTracks.where((track) => track.createdAt != null &&
-       track.createdAt!.isAfter(weekStart) &&
-        track.createdAt!.isBefore(weekEnd)).toList();
+      final weekTracks = widget.moodTracks
+          .where((track) =>
+              track.createdAt != null &&
+              track.createdAt!.isAfter(weekStart) &&
+              track.createdAt!.isBefore(weekEnd))
+          .toList();
 
       double weeklyStability = 0.0;
       if (weekTracks.isNotEmpty) {
@@ -62,7 +44,8 @@ class _MoodStabilityWidgetState extends State<MoodStabilityWidget> {
         }
 
         if (emotionCounts.isNotEmpty) {
-          final mostFrequentCount = emotionCounts.values.reduce((a, b) => a > b ? a : b);
+          final mostFrequentCount =
+              emotionCounts.values.reduce((a, b) => a > b ? a : b);
 
           weeklyStability = (mostFrequentCount / weekTracks.length) * 100;
         }
@@ -104,7 +87,6 @@ class _MoodStabilityWidgetState extends State<MoodStabilityWidget> {
             const SizedBox(height: 24),
             Row(
               children: [
-                // Círculo de progreso
                 Expanded(
                   flex: 3,
                   child: AspectRatio(
@@ -138,15 +120,26 @@ class _MoodStabilityWidgetState extends State<MoodStabilityWidget> {
                             children: [
                               Text(
                                 stabilityScore.round().toString(),
-                                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineLarge
+                                    ?.copyWith(
                                       fontWeight: FontWeight.bold,
-                                      color: Theme.of(context).colorScheme.onSurface,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
                                     ),
                               ),
                               Text(
                                 '/ 100',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withValues(alpha: 0.6),
                                     ),
                               ),
                             ],
@@ -157,7 +150,6 @@ class _MoodStabilityWidgetState extends State<MoodStabilityWidget> {
                   ),
                 ),
                 const SizedBox(width: 24),
-                // Gráfico de línea
                 Expanded(
                   flex: 3,
                   child: SizedBox(
@@ -166,10 +158,14 @@ class _MoodStabilityWidgetState extends State<MoodStabilityWidget> {
                       LineChartData(
                         gridData: FlGridData(show: false),
                         titlesData: FlTitlesData(
-                          leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                          leftTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false)),
+                          rightTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false)),
+                          topTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false)),
+                          bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false)),
                         ),
                         borderData: FlBorderData(show: false),
                         minX: 0,
@@ -182,7 +178,7 @@ class _MoodStabilityWidgetState extends State<MoodStabilityWidget> {
                             isCurved: true,
                             gradient: LinearGradient(
                               colors: [
-                                const Color(0xFF8CC154).withOpacity(0.8),
+                                const Color(0xFF8CC154).withValues(alpha: 0.8),
                                 const Color(0xFF8CC154),
                               ],
                             ),
@@ -193,8 +189,8 @@ class _MoodStabilityWidgetState extends State<MoodStabilityWidget> {
                               show: true,
                               gradient: LinearGradient(
                                 colors: [
-                                  const Color(0xFF8CC154).withOpacity(0.3),
-                                  const Color(0xFF8CC154).withOpacity(0.1),
+                                  const Color(0xFF8CC154).withValues(alpha: 0.3),
+                                  const Color(0xFF8CC154).withValues(alpha: 0.1),
                                 ],
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
@@ -212,7 +208,10 @@ class _MoodStabilityWidgetState extends State<MoodStabilityWidget> {
             Text(
               'Mientras más alto sea el puntaje, más estable eres.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.7),
                   ),
             ),
           ],

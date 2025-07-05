@@ -79,7 +79,6 @@ class MoodEntryCard extends StatelessWidget {
                 ),
               ],
             ),
-            // info:
             const SizedBox(height: 16),
             Wrap(
               spacing: 8,

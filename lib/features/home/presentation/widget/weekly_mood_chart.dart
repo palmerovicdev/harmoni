@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:harmoni/generated/assets.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/helpers/utils.dart';
@@ -22,14 +21,12 @@ class _WeeklyMoodChartState extends State<WeeklyMoodChart> {
   DateTime monday() => now.subtract(Duration(days: now.weekday - 1)).copyWith(hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0);
 
   Map<DateTime, EmotionType> _dominantByDay() {
-    // Normalizamos sólo esta semana (lunes-domingo)
     final Map<DateTime, Map<EmotionType, int>> counts = {};
 
     for (final track in widget.moodTracks) {
       final created = track.createdAt ?? now;
       final dateKey = DateTime(created.year, created.month, created.day).copyWith(hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0);
 
-      // salta si no pertenece a la semana actual
       if ((dateKey.isBefore(monday()) || dateKey.isAfter(monday().add(const Duration(days: 6)))) && dateKey != monday()) {
         continue;
       }
@@ -40,14 +37,12 @@ class _WeeklyMoodChartState extends State<WeeklyMoodChart> {
       counts[dateKey]![emo] = (counts[dateKey]![emo] ?? 0) + 1;
     }
 
-    // top-1 por día
     return counts.map((day, map) {
       final emo = map.entries.reduce((a, b) => a.value > b.value ? a : b).key;
       return MapEntry(day, emo);
     });
   }
 
-  /// Labels L-D
   List<DateTime> _weekDays() {
     final monday = now.subtract(Duration(days: now.weekday - 1)).copyWith(hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0);
     return List.generate(7, (i) => monday.add(Duration(days: i)));
@@ -148,7 +143,7 @@ class _WeeklyMoodChartState extends State<WeeklyMoodChart> {
                           final idx = value.toInt();
                           if (idx >= weekDays.length) return const SizedBox();
                           final date = weekDays[idx];
-                          return Text(DateFormat.E().format(date)[0]); // L,M,M,J,V,S,D
+                          return Text(DateFormat.E().format(date)[0]);
                         },
                       ),
                     ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:intl/intl.dart';
 
-import '../../model/model/mood_track_model.dart'; // Tu modelo
+import '../../model/model/mood_track_model.dart';
 
 class MoodCalendarPage extends StatefulWidget {
   const MoodCalendarPage({super.key});
@@ -30,7 +30,6 @@ class _MoodCalendarPageState extends State<MoodCalendarPage> {
       body: Column(
         children: [
           const SizedBox(height: 8),
-          // Tabs
           Row(
             children: [
               Expanded(
@@ -153,10 +152,9 @@ class _MonthlyCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     final firstDayOfMonth = DateTime(month.year, month.month, 1);
     final lastDayOfMonth = DateTime(month.year, month.month + 1, 0);
-    final firstWeekday = firstDayOfMonth.weekday % 7; // 0=Sun, 6=Sat
+    final firstWeekday = firstDayOfMonth.weekday % 7;
     final daysInMonth = lastDayOfMonth.day;
 
-    // Map day -> MoodTrack
     final moodByDay = <int, MoodTrack>{};
     for (var track in moodTracks) {
       if (track.createdAt != null && track.createdAt!.year == month.year && track.createdAt!.month == month.month) {
@@ -172,7 +170,6 @@ class _MonthlyCalendar extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Mes y navegación
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -191,7 +188,6 @@ class _MonthlyCalendar extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            // Días de la semana
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -203,7 +199,6 @@ class _MonthlyCalendar extends StatelessWidget {
                   .toList(),
             ),
             const SizedBox(height: 8),
-            // Días del mes
             Expanded(
               child: GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
@@ -212,7 +207,7 @@ class _MonthlyCalendar extends StatelessWidget {
                   mainAxisSpacing: 8,
                   crossAxisSpacing: 8,
                 ),
-                itemCount: firstWeekday + daysInMonth + (42 - (firstWeekday + daysInMonth)), // 6 filas
+                itemCount: firstWeekday + daysInMonth + (42 - (firstWeekday + daysInMonth)),
                 itemBuilder: (context, i) {
                   final dayNum = i - firstWeekday + 1;
                   if (i < firstWeekday || dayNum > daysInMonth) {
@@ -223,7 +218,7 @@ class _MonthlyCalendar extends StatelessWidget {
                   return GestureDetector(
                     onTap: mood != null
                         ? () {
-                            /* Mostrar detalles */
+                            // TODO: Mostrar detalles
                           }
                         : null,
                     child: Column(
@@ -274,7 +269,6 @@ class _YearInPixels extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Map [month][day] -> MoodTrack
     final moodByMonthDay = <int, Map<int, MoodTrack>>{};
     for (var track in moodTracks) {
       if (track.createdAt != null && track.createdAt!.year == year) {
@@ -291,7 +285,6 @@ class _YearInPixels extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Año y navegación
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -310,7 +303,6 @@ class _YearInPixels extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            // Meses
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(
@@ -326,7 +318,6 @@ class _YearInPixels extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            // Días
             Expanded(
               child: ListView.builder(
                 itemCount: 31,

@@ -37,7 +37,6 @@ class HomeApiImpl implements HomeApi {
       ),
     );
 
-    // return (response.data['data'] as List).map((activity) => Activity.fromJson(activity)).toList();
     return [
       Activity(id: 1, color: Colors.blue.value, name: "Leer"),
       Activity(id: 2, color: Colors.orange.value, name: "Caminar"),

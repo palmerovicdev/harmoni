@@ -167,7 +167,37 @@ isDark(BuildContext context) {
   return Theme.of(context).brightness == Brightness.dark;
 }
 
-enum EmotionType { angry, fearful, happy, sad, neutral, disgusted, surprised, other }
+enum EmotionType {
+  angry,
+  fearful,
+  happy,
+  sad,
+  neutral,
+  disgusted,
+  surprised,
+  other;
+
+  static EmotionType fromEmotionName(String emotion) {
+    switch (emotion.toLowerCase()) {
+      case 'angry':
+        return EmotionType.angry;
+      case 'fearful':
+        return EmotionType.fearful;
+      case 'happy':
+        return EmotionType.happy;
+      case 'sad':
+        return EmotionType.sad;
+      case 'neutral':
+        return EmotionType.neutral;
+      case 'disgusted':
+        return EmotionType.disgusted;
+      case 'surprised':
+        return EmotionType.surprised;
+      default:
+        return EmotionType.other;
+    }
+  }
+}
 
 const emotionAssets = <EmotionType, String>{
   EmotionType.angry: Assets.circleAngryCircle,

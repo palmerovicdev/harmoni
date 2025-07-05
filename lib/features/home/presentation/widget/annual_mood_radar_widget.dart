@@ -2,8 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:harmoni/generated/assets.dart';
-
 import '../../../../core/helpers/utils.dart';
 import '../../model/model/mood_track_model.dart';
 
@@ -19,11 +17,9 @@ class AnnualMoodRadarWidget extends StatefulWidget {
 class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
   int currentYear = DateTime.now().year;
 
-  /// Calcula los conteos de emociones para el año actual
   Map<EmotionType, int> _getEmotionCounts() {
     final Map<EmotionType, int> counts = {};
 
-    // Filtrar por año actual
     final yearTracks = widget.moodTracks.where((track) => track.createdAt != null && track.createdAt!.year == currentYear).toList();
 
     for (final track in yearTracks) {
@@ -34,28 +30,23 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
     return counts;
   }
 
-  /// Obtiene el total de registros del año
   int _getTotalCount() {
     return widget.moodTracks.where((track) => track.createdAt != null && track.createdAt!.year == currentYear).length;
   }
 
-  /// Obtiene todas las emociones para mostrar en el radar
   List<MapEntry<EmotionType, int>> _getAllEmotions() {
     final counts = _getEmotionCounts();
 
-    // Obtener todas las emociones disponibles con sus conteos
     final allEmotions = <MapEntry<EmotionType, int>>[];
 
-    // Usar todas las emociones del enum, excluyendo 'other' si no hay datos
     for (final emotion in EmotionType.values) {
       if (emotion == EmotionType.other && (counts[emotion] ?? 0) == 0) {
-        continue; // Solo incluir 'other' si tiene datos
+        continue;
       }
       final count = counts[emotion] ?? 0;
       allEmotions.add(MapEntry(emotion, count));
     }
 
-    // Ordenar por frecuencia (opcional, para mejor visualización)
     allEmotions.sort((a, b) => b.value.compareTo(a.value));
 
     return allEmotions;
@@ -76,7 +67,6 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Título del widget
             Text(
               'Conteo de Emociones Anual',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -90,7 +80,6 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Divider(),
             ),
-            // Header con navegación de año
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -110,7 +99,6 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
                 ),
               ],
             ),
-            // Gráfico radar
             SizedBox(
               height: 400,
               width: double.infinity,
@@ -122,7 +110,6 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
                   ),
                   child: Stack(
                     children: [
-                      // Posicionar emojis y números en los puntos del radar
                       ...topEmotions.asMap().entries.map((entry) {
                         final index = entry.key;
                         final emotionData = entry.value;
@@ -131,7 +118,6 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
 
                         return _buildEmotionPoint(context, emotion, count, index, topEmotions.length, constraints.maxWidth, constraints.maxHeight);
                       }),
-                      // Total en el centro
                       Center(
                         child: Text(
                           totalCount.toString(),
@@ -153,9 +139,8 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
   }
 
   Widget _buildEmotionPoint(BuildContext context, EmotionType emotion, int count, int index, int total, double containerWidth, double containerHeight) {
-    // Calcular posición en el círculo
-    final angle = (2 * math.pi * index / total) - (math.pi / 2); // -90° para empezar arriba
-    final radius = math.min(containerWidth, containerHeight) / 3; // Radio para posicionar los emojis
+    final angle = (2 * math.pi * index / total) - (math.pi / 2);
+    final radius = math.min(containerWidth, containerHeight) / 3;
 
     final centerX = containerWidth / 2;
     final centerY = containerHeight / 2;
@@ -164,8 +149,8 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
     final y = radius * math.sin(angle);
 
     return Positioned(
-      left: centerX + x - 30, // Centrar basándose en el tamaño real
-      top: centerY + y - 40, // Centrar basándose en el tamaño real
+      left: centerX + x - 30,
+      top: centerY + y - 40,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -210,16 +195,12 @@ class RadarChartPainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = math.min(size.width, size.height) / 3;
 
-    // Encontrar el valor máximo para normalizar
     final maxValue = emotions.isEmpty ? 1 : emotions.map((e) => e.value).reduce(math.max);
 
-    // Dibujar líneas de fondo del radar
     _drawRadarGrid(canvas, center, radius);
 
-    // Dibujar el área rellena
     _drawFilledArea(canvas, center, radius, maxValue);
 
-    // Dibujar líneas desde el centro a cada punto
     _drawRadarLines(canvas, center, radius);
   }
 
@@ -228,8 +209,7 @@ class RadarChartPainter extends CustomPainter {
       ..color = Colors.grey.shade300
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
-
-    // Dibujar círculos concéntricos
+      
     for (int i = 1; i <= 4; i++) {
       canvas.drawCircle(center, radius * i / 4, paint);
     }
@@ -244,7 +224,7 @@ class RadarChartPainter extends CustomPainter {
     for (int i = 0; i < emotions.length; i++) {
       final angle = (2 * math.pi * i / emotions.length) - (math.pi / 2);
       final normalizedValue = emotions[i].value / maxValue;
-      final pointRadius = radius * normalizedValue * 0.8; // 80% del radio máximo
+      final pointRadius = radius * normalizedValue * 0.8; 
 
       final x = center.dx + pointRadius * math.cos(angle);
       final y = center.dy + pointRadius * math.sin(angle);
@@ -259,14 +239,12 @@ class RadarChartPainter extends CustomPainter {
 
     path.close();
 
-    // Relleno del área
     final fillPaint = Paint()
-      ..color = const Color(0xFF8CC154).withOpacity(0.3)
+      ..color = const Color(0xFF8CC154).withValues(alpha: 0.3)
       ..style = PaintingStyle.fill;
 
     canvas.drawPath(path, fillPaint);
 
-    // Borde del área
     final strokePaint = Paint()
       ..color = const Color(0xFF8CC154)
       ..style = PaintingStyle.stroke
@@ -281,7 +259,6 @@ class RadarChartPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
 
-    // Dibujar líneas desde el centro a cada punto
     for (int i = 0; i < emotions.length; i++) {
       final angle = (2 * math.pi * i / emotions.length) - (math.pi / 2);
       final endX = center.dx + radius * math.cos(angle);

@@ -18,6 +18,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var myProfileService = getMyProfileService();
     var moodTracks = getHomeService().homeSummaryData?.moodTracks;
+    var theme = Theme.of(context);
     var entryCards = getHomeService()
             .homeSummaryData
             ?.moodTracks
@@ -43,19 +44,7 @@ class HomePage extends StatelessWidget {
       },
     );
     return Scaffold(
-      floatingActionButton: PopupMenuButton(
-        icon: Icon(Icons.add),
-        itemBuilder: (context) {
-          return [
-            PopupMenuItem(
-              child: Text('Hoy'),
-            ),
-            PopupMenuItem(
-              child: Text('Calendario'),
-            ),
-          ];
-        },
-      ),
+      floatingActionButton: IconButton(onPressed: () => context.pushNamed(HomeRoute.trackEmotion.data.name), icon: Icon(Icons.add)),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -65,12 +54,7 @@ class HomePage extends StatelessWidget {
             ),
             if (moodTracks?.isEmpty ?? true)
               Center(
-                child: IconButton(
-                  onPressed: () {
-                    context.pushNamed(HomeRoute.trackEmotion.data.name);
-                  },
-                  icon: Icon(Icons.add_box),
-                ),
+                child: Text('No hay datos para mostrar', style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
               ),
             if (moodTracks?.isNotEmpty ?? false) WeeklyMoodChart(moodTracks: moodTracks!),
             if (moodTracks?.isNotEmpty ?? false) MoodStabilityWidget(moodTracks: moodTracks!),

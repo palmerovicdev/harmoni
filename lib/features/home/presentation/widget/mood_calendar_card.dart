@@ -23,7 +23,6 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
   Map<DateTime, EmotionType> _dominantByDay() {
     final Map<DateTime, Map<EmotionType, int>> counts = {};
 
-    // Calcular el rango del mes actual
     final monthStart = currentMonth;
     final monthEnd = DateTime(now.year, now.month + 1, 0);
 
@@ -31,7 +30,6 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
       final created = track.createdAt ?? now;
       final dateKey = DateTime(created.year, created.month, created.day).copyWith(hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0);
 
-      // Salta si no pertenece al mes actual
       if (dateKey.isBefore(monthStart) || dateKey.isAfter(monthEnd)) {
         continue;
       }
@@ -42,7 +40,6 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
       counts[dateKey]![emo] = (counts[dateKey]![emo] ?? 0) + 1;
     }
 
-    // Top-1 por día
     return counts.map((day, map) {
       final emo = map.entries.reduce((a, b) => a.value > b.value ? a : b).key;
       return MapEntry(day, emo);
@@ -127,7 +124,6 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
               ],
             ),
             const SizedBox(height: 16),
-            // Headers de días de la semana
             Row(
               children: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
                   .map((day) => Expanded(
@@ -144,7 +140,6 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
                   .toList(),
             ),
             const SizedBox(height: 8),
-            // Grid del calendario
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -164,7 +159,7 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
                 return Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: isToday ? Theme.of(context).colorScheme.primary.withOpacity(0.1) : null,
+                    color: isToday ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1) : null,
                     border: isToday
                         ? Border.all(
                             color: Theme.of(context).colorScheme.primary,
@@ -178,7 +173,7 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
                         child: Text(
                           '${day.day}',
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: isCurrentMonth ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.4),
+                                color: isCurrentMonth ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
                                 fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
                               ),
                         ),
@@ -191,7 +186,7 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
                             width: 20,
                             height: 20,
                             decoration: BoxDecoration(
-                              color: emotionColors[emotion]!.withOpacity(0.2),
+                              color: emotionColors[emotion]!.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Center(

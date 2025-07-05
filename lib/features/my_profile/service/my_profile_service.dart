@@ -51,7 +51,8 @@ class MyProfileService {
   }
 
   Future<void> setupInitialDataForUser() async {
-    // if (!await isFirstTimeOpen()) return; //TODO 6/11/25 palmerodev : activate this line when the app is ready to be released
+    // if (!await isFirstTimeOpen()) return; 
+    // TODO 6/11/25 palmerodev : activate this line when the app is ready to be released
 
     var activities = [
       Activity(id: null, name: 'Trabajar', color: Colors.blue.value),

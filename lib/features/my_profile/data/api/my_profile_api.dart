@@ -92,7 +92,6 @@ class MyProfileApiBackImpl implements MyProfileApi {
         connection.token = response.data['token'] ?? '';
         return connection.token.isNotEmpty;
       } else {
-        // handle error
         return false;
       }
     });
@@ -115,7 +114,6 @@ class MyProfileApiBackImpl implements MyProfileApi {
       if (response.statusCode == 200) {
         return response.data['isValid'];
       } else {
-        // handle error
         return false;
       }
     });
@@ -138,7 +136,6 @@ class MyProfileApiBackImpl implements MyProfileApi {
       if (response.statusCode == 200) {
         return response.data['isValid'];
       } else {
-        // handle error
         return null;
       }
     });
@@ -162,7 +159,6 @@ class MyProfileApiBackImpl implements MyProfileApi {
       getConnectionService().token = response.data['data']['token'] ?? '';
       return User.fromJson(response.data['data']['user']);
     } else {
-      // handle error
     }
     return null;
   }
@@ -184,7 +180,6 @@ class MyProfileApiBackImpl implements MyProfileApi {
       if (response.statusCode == 200) {
         return true;
       } else {
-        // handle error
         return false;
       }
     });
@@ -208,7 +203,6 @@ class MyProfileApiBackImpl implements MyProfileApi {
       if (response.statusCode == 200) {
         return true;
       } else {
-        // handle error
         return false;
       }
     });
@@ -231,7 +225,6 @@ class MyProfileApiBackImpl implements MyProfileApi {
       if (response.statusCode == 200) {
         return jsonDecode(response.data['settings']) as Map<String, dynamic>;
       } else {
-        // handle error
         return {};
       }
     });

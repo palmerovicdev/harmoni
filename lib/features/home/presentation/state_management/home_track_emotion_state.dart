@@ -11,6 +11,8 @@ class HomeTrackEmotionState extends Equatable {
   final String? error;
   final bool success;
   final Activity? selectedActivity;
+  final bool showStabilityNotification;
+  final double? stabilityScore;
 
   const HomeTrackEmotionState({
     this.note = '',
@@ -19,6 +21,8 @@ class HomeTrackEmotionState extends Equatable {
     this.error,
     this.success = false,
     this.selectedActivity,
+    this.showStabilityNotification = false,
+    this.stabilityScore,
   });
 
   HomeTrackEmotionState copyWith({
@@ -29,6 +33,8 @@ class HomeTrackEmotionState extends Equatable {
     bool? success,
     Activity? selectedActivity,
     bool clearVideo = false,
+    bool? showStabilityNotification,
+    double? stabilityScore,
   }) {
     return HomeTrackEmotionState(
       note: note ?? this.note,
@@ -37,9 +43,21 @@ class HomeTrackEmotionState extends Equatable {
       error: error,
       success: success ?? this.success,
       selectedActivity: selectedActivity ?? this.selectedActivity,
+      showStabilityNotification:
+          showStabilityNotification ?? this.showStabilityNotification,
+      stabilityScore: stabilityScore ?? this.stabilityScore,
     );
   }
 
   @override
-  List<Object?> get props => [note, video, loading, error, success, selectedActivity];
+  List<Object?> get props => [
+        note,
+        video,
+        loading,
+        error,
+        success,
+        selectedActivity,
+        showStabilityNotification,
+        stabilityScore
+      ];
 }
