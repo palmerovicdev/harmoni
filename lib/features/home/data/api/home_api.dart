@@ -83,10 +83,7 @@ class HomeApiImpl implements HomeApi {
       '${_connectionService.getBaseUrl()}/home/trackEmotion',
       data: formData,
       options: Options(
-        headers: {
-          'Accept': 'application/json',
-          'Authorization':'Bearer ${_connectionService.token}'
-        },
+        headers: {'Accept': 'application/json', 'Authorization': 'Bearer ${_connectionService.token}'},
         contentType: 'multipart/form-data',
       ),
     );

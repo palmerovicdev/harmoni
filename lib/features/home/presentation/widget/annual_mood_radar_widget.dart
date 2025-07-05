@@ -1,20 +1,12 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:harmoni/generated/assets.dart';
-import 'dart:math' as math;
 
 import '../../model/model/mood_track_model.dart';
 
-enum EmotionType {
-  angry,
-  fearful,
-  happy,
-  sad,
-  neutral,
-  disgusted,
-  surprised,
-  other
-}
+enum EmotionType { angry, fearful, happy, sad, neutral, disgusted, surprised, other }
 
 const _emotionAssets = <EmotionType, String>{
   EmotionType.angry: Assets.circleAngryCircle,
@@ -55,10 +47,7 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
     final Map<EmotionType, int> counts = {};
 
     // Filtrar por año actual
-    final yearTracks = widget.moodTracks
-        .where((track) =>
-            track.createdAt != null && track.createdAt!.year == currentYear)
-        .toList();
+    final yearTracks = widget.moodTracks.where((track) => track.createdAt != null && track.createdAt!.year == currentYear).toList();
 
     for (final track in yearTracks) {
       final emotion = _parseEmotion(track.recordMood) ?? EmotionType.other;
@@ -70,10 +59,7 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
 
   /// Obtiene el total de registros del año
   int _getTotalCount() {
-    return widget.moodTracks
-        .where((track) =>
-            track.createdAt != null && track.createdAt!.year == currentYear)
-        .length;
+    return widget.moodTracks.where((track) => track.createdAt != null && track.createdAt!.year == currentYear).length;
   }
 
   /// Obtiene todas las emociones para mostrar en el radar
@@ -142,9 +128,7 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
                       ),
                 ),
                 IconButton(
-                  onPressed: currentYear < DateTime.now().year
-                      ? () => setState(() => currentYear++)
-                      : null,
+                  onPressed: currentYear < DateTime.now().year ? () => setState(() => currentYear++) : null,
                   icon: const Icon(Icons.arrow_forward_ios_rounded, size: 18),
                 ),
               ],
@@ -168,23 +152,13 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
                         final emotion = emotionData.key;
                         final count = emotionData.value;
 
-                        return _buildEmotionPoint(
-                            context,
-                            emotion,
-                            count,
-                            index,
-                            topEmotions.length,
-                            constraints.maxWidth,
-                            constraints.maxHeight);
+                        return _buildEmotionPoint(context, emotion, count, index, topEmotions.length, constraints.maxWidth, constraints.maxHeight);
                       }),
                       // Total en el centro
                       Center(
                         child: Text(
                           totalCount.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge
-                              ?.copyWith(
+                          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).colorScheme.onSurface,
                               ),
@@ -201,19 +175,10 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
     );
   }
 
-  Widget _buildEmotionPoint(
-      BuildContext context,
-      EmotionType emotion,
-      int count,
-      int index,
-      int total,
-      double containerWidth,
-      double containerHeight) {
+  Widget _buildEmotionPoint(BuildContext context, EmotionType emotion, int count, int index, int total, double containerWidth, double containerHeight) {
     // Calcular posición en el círculo
-    final angle = (2 * math.pi * index / total) -
-        (math.pi / 2); // -90° para empezar arriba
-    final radius = math.min(containerWidth, containerHeight) /
-        3; // Radio para posicionar los emojis
+    final angle = (2 * math.pi * index / total) - (math.pi / 2); // -90° para empezar arriba
+    final radius = math.min(containerWidth, containerHeight) / 3; // Radio para posicionar los emojis
 
     final centerX = containerWidth / 2;
     final centerY = containerHeight / 2;
@@ -239,8 +204,7 @@ class _AnnualMoodRadarWidgetState extends State<AnnualMoodRadarWidget> {
                 _emotionAssets[emotion]!,
                 width: 30,
                 height: 30,
-                colorFilter:
-                    const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
               ),
             ),
           ),
@@ -270,8 +234,7 @@ class RadarChartPainter extends CustomPainter {
     final radius = math.min(size.width, size.height) / 3;
 
     // Encontrar el valor máximo para normalizar
-    final maxValue =
-        emotions.isEmpty ? 1 : emotions.map((e) => e.value).reduce(math.max);
+    final maxValue = emotions.isEmpty ? 1 : emotions.map((e) => e.value).reduce(math.max);
 
     // Dibujar líneas de fondo del radar
     _drawRadarGrid(canvas, center, radius);
@@ -295,8 +258,7 @@ class RadarChartPainter extends CustomPainter {
     }
   }
 
-  void _drawFilledArea(
-      Canvas canvas, Offset center, double radius, int maxValue) {
+  void _drawFilledArea(Canvas canvas, Offset center, double radius, int maxValue) {
     if (emotions.isEmpty || maxValue == 0) return;
 
     final path = Path();
@@ -305,8 +267,7 @@ class RadarChartPainter extends CustomPainter {
     for (int i = 0; i < emotions.length; i++) {
       final angle = (2 * math.pi * i / emotions.length) - (math.pi / 2);
       final normalizedValue = emotions[i].value / maxValue;
-      final pointRadius =
-          radius * normalizedValue * 0.8; // 80% del radio máximo
+      final pointRadius = radius * normalizedValue * 0.8; // 80% del radio máximo
 
       final x = center.dx + pointRadius * math.cos(angle);
       final y = center.dy + pointRadius * math.sin(angle);

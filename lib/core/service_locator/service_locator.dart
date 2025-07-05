@@ -47,7 +47,6 @@ void setupInitialMockData() async {
       password: 'detergen',
     ),
   );
-  
 }
 
 void registerServices() {

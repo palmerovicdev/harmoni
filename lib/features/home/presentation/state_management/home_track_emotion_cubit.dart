@@ -9,8 +9,7 @@ import 'home_track_emotion_state.dart';
 class HomeTrackEmotionCubit extends Cubit<HomeTrackEmotionState> {
   final HomeService homeService;
 
-  HomeTrackEmotionCubit({required this.homeService})
-      : super(const HomeTrackEmotionState());
+  HomeTrackEmotionCubit({required this.homeService}) : super(const HomeTrackEmotionState());
 
   void updateNote(String note) => emit(state.copyWith(note: note));
 
@@ -22,17 +21,14 @@ class HomeTrackEmotionCubit extends Cubit<HomeTrackEmotionState> {
     }
   }
 
-  void selectActivity(Activity? activity) =>
-      emit(state.copyWith(selectedActivity: activity));
+  void selectActivity(Activity? activity) => emit(state.copyWith(selectedActivity: activity));
 
   Future<void> save() async {
     emit(state.copyWith(loading: true, error: null, success: false));
     try {
       if (state.video == null) throw Exception('Debes grabar un video');
-      if (state.selectedActivity == null)
-        throw Exception('Debes seleccionar una actividad');
-      await homeService.trackEmotion(
-          state.selectedActivity!.id!, state.video!.path);
+      if (state.selectedActivity == null) throw Exception('Debes seleccionar una actividad');
+      await homeService.trackEmotion(state.selectedActivity!.id!, state.video!.path);
       await homeService.homeSummary();
       emit(state.copyWith(loading: false, success: true));
     } catch (e) {

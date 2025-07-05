@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:intl/intl.dart';
+
 import '../../model/model/mood_track_model.dart'; // Tu modelo
 
 class MoodCalendarPage extends StatefulWidget {
@@ -18,8 +19,7 @@ class _MoodCalendarPageState extends State<MoodCalendarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calendar',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('Calendar', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
@@ -39,8 +39,7 @@ class _MoodCalendarPageState extends State<MoodCalendarPage> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
-                      color:
-                          showMonthly ? Colors.green[600] : Colors.transparent,
+                      color: showMonthly ? Colors.green[600] : Colors.transparent,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
@@ -61,8 +60,7 @@ class _MoodCalendarPageState extends State<MoodCalendarPage> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
-                      color:
-                          !showMonthly ? Colors.green[600] : Colors.transparent,
+                      color: !showMonthly ? Colors.green[600] : Colors.transparent,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
@@ -85,14 +83,12 @@ class _MoodCalendarPageState extends State<MoodCalendarPage> {
                 ? _MonthlyCalendar(
                     moodTracks: getHomeService().homeSummaryData?.moodTracks ?? [],
                     month: selectedMonth,
-                    onMonthChanged: (newMonth) =>
-                        setState(() => selectedMonth = newMonth),
+                    onMonthChanged: (newMonth) => setState(() => selectedMonth = newMonth),
                   )
                 : _YearInPixels(
                     moodTracks: getHomeService().homeSummaryData?.moodTracks ?? [],
                     year: selectedMonth.year,
-                    onYearChanged: (newYear) => setState(() =>
-                        selectedMonth = DateTime(newYear, selectedMonth.month)),
+                    onYearChanged: (newYear) => setState(() => selectedMonth = DateTime(newYear, selectedMonth.month)),
                   ),
           ),
         ],
@@ -163,9 +159,7 @@ class _MonthlyCalendar extends StatelessWidget {
     // Map day -> MoodTrack
     final moodByDay = <int, MoodTrack>{};
     for (var track in moodTracks) {
-      if (track.createdAt != null &&
-          track.createdAt!.year == month.year &&
-          track.createdAt!.month == month.month) {
+      if (track.createdAt != null && track.createdAt!.year == month.year && track.createdAt!.month == month.month) {
         moodByDay[track.createdAt!.day] = track;
       }
     }
@@ -184,18 +178,15 @@ class _MonthlyCalendar extends StatelessWidget {
               children: [
                 IconButton(
                   icon: const Icon(Icons.chevron_left),
-                  onPressed: () =>
-                      onMonthChanged(DateTime(month.year, month.month - 1)),
+                  onPressed: () => onMonthChanged(DateTime(month.year, month.month - 1)),
                 ),
                 Text(
                   DateFormat('MMMM, yyyy').format(month),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 18),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 IconButton(
                   icon: const Icon(Icons.chevron_right),
-                  onPressed: () =>
-                      onMonthChanged(DateTime(month.year, month.month + 1)),
+                  onPressed: () => onMonthChanged(DateTime(month.year, month.month + 1)),
                 ),
               ],
             ),
@@ -206,9 +197,7 @@ class _MonthlyCalendar extends StatelessWidget {
               children: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
                   .map((d) => Expanded(
                         child: Center(
-                          child: Text(d,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w600)),
+                          child: Text(d, style: const TextStyle(fontWeight: FontWeight.w600)),
                         ),
                       ))
                   .toList(),
@@ -223,26 +212,24 @@ class _MonthlyCalendar extends StatelessWidget {
                   mainAxisSpacing: 8,
                   crossAxisSpacing: 8,
                 ),
-                itemCount: firstWeekday +
-                    daysInMonth +
-                    (42 - (firstWeekday + daysInMonth)), // 6 filas
+                itemCount: firstWeekday + daysInMonth + (42 - (firstWeekday + daysInMonth)), // 6 filas
                 itemBuilder: (context, i) {
                   final dayNum = i - firstWeekday + 1;
                   if (i < firstWeekday || dayNum > daysInMonth) {
                     return const SizedBox.shrink();
                   }
                   final mood = moodByDay[dayNum];
-                  final emotion = mood != null
-                      ? parseEmotion(mood.imageMood)
-                      : null;
+                  final emotion = mood != null ? parseEmotion(mood.imageMood) : null;
                   return GestureDetector(
-                    onTap: mood != null ? () {/* Mostrar detalles */} : null,
+                    onTap: mood != null
+                        ? () {
+                            /* Mostrar detalles */
+                          }
+                        : null,
                     child: Column(
                       children: [
                         CircleAvatar(
-                          backgroundColor: emotion != null
-                              ? emotionColors[emotion] ?? Colors.grey[300]
-                              : Colors.grey[200],
+                          backgroundColor: emotion != null ? emotionColors[emotion] ?? Colors.grey[300] : Colors.grey[200],
                           child: Text(
                             emotion != null ? emotionEmojis[emotion]! : "🙂",
                             style: const TextStyle(fontSize: 22),
@@ -252,9 +239,7 @@ class _MonthlyCalendar extends StatelessWidget {
                         Text(
                           '$dayNum',
                           style: TextStyle(
-                            color: emotion != null
-                                ? Colors.black
-                                : Colors.grey[400],
+                            color: emotion != null ? Colors.black : Colors.grey[400],
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -316,8 +301,7 @@ class _YearInPixels extends StatelessWidget {
                 ),
                 Text(
                   '$year',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 18),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 IconButton(
                   icon: const Icon(Icons.chevron_right),
@@ -334,9 +318,7 @@ class _YearInPixels extends StatelessWidget {
                 (i) => Expanded(
                   child: Center(
                     child: Text(
-                      DateFormat('MMM')
-                          .format(DateTime(year, i + 1, 1))
-                          .substring(0, 1),
+                      DateFormat('MMM').format(DateTime(year, i + 1, 1)).substring(0, 1),
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ),
@@ -353,17 +335,13 @@ class _YearInPixels extends StatelessWidget {
                     children: List.generate(12, (monthIdx) {
                       final day = dayIdx + 1;
                       final mood = moodByMonthDay[monthIdx + 1]?[day];
-                      final emotion = mood != null
-                          ? parseEmotion(mood.imageMood)
-                          : null;
+                      final emotion = mood != null ? parseEmotion(mood.imageMood) : null;
                       return Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(2),
                           child: CircleAvatar(
                             radius: 10,
-                            backgroundColor: emotion != null
-                                ? emotionColors[emotion] ?? Colors.grey[300]
-                                : Colors.grey[200],
+                            backgroundColor: emotion != null ? emotionColors[emotion] ?? Colors.grey[300] : Colors.grey[200],
                             child: Text(
                               emotion != null ? emotionEmojis[emotion]! : "",
                               style: const TextStyle(fontSize: 13),

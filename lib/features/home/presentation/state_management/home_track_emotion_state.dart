@@ -41,6 +41,5 @@ class HomeTrackEmotionState extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [note, video, loading, error, success, selectedActivity];
+  List<Object?> get props => [note, video, loading, error, success, selectedActivity];
 }

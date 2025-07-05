@@ -22,13 +22,7 @@ class HomePage extends StatelessWidget {
             .homeSummaryData
             ?.moodTracks
             ?.map(
-              (e) => MoodEntryCard(
-                  moodLabel: e.recordMood ?? '',
-                  moodEmoji: '',
-                  date: e.createdAt?.toString() ?? '',
-                  time: '',
-                  tags: [''],
-                  note: ''),
+              (e) => MoodEntryCard(moodLabel: e.recordMood ?? '', moodEmoji: '', date: e.createdAt?.toString() ?? '', time: '', tags: [''], note: ''),
             )
             .toList() ??
         [];
@@ -37,17 +31,10 @@ class HomePage extends StatelessWidget {
         var settings = myProfileService.userProfile?.settings;
         if (myProfileService.userProfile == null) {
           context.goNamed(MyProfileRoute.init.data.name);
-        } else if (settings != null &&
-            settings['brightness'] != null &&
-            settings['color'] != null &&
-            settings['contrastLevel'] != null &&
-            settings['emojiType'] != null) {
+        } else if (settings != null && settings['brightness'] != null && settings['color'] != null && settings['contrastLevel'] != null && settings['emojiType'] != null) {
           context.read<StyleSettingCubit>().changeAll(
-                brightness: settings['brightness'] == Brightness.dark.name
-                    ? Brightness.dark
-                    : Brightness.light,
-                color: colors.elementAt(settings['colorIndex'] ?? 0)['color']
-                    as Color,
+                brightness: settings['brightness'] == Brightness.dark.name ? Brightness.dark : Brightness.light,
+                color: colors.elementAt(settings['colorIndex'] ?? 0)['color'] as Color,
                 contrastLevel: settings['contrastLevel'] ?? 0.0,
                 emojiType: settings['emojiType'] ?? 'ghost',
                 colorIndex: settings['colorIndex'] ?? 0,
@@ -85,12 +72,9 @@ class HomePage extends StatelessWidget {
                   icon: Icon(Icons.add_box),
                 ),
               ),
-            if (moodTracks?.isNotEmpty ?? false)
-              WeeklyMoodChart(moodTracks: moodTracks!),
-            if (moodTracks?.isNotEmpty ?? false)
-              MoodStabilityWidget(moodTracks: moodTracks!),
-            if (moodTracks?.isNotEmpty ?? false)
-              AnnualMoodRadarWidget(moodTracks: moodTracks!),
+            if (moodTracks?.isNotEmpty ?? false) WeeklyMoodChart(moodTracks: moodTracks!),
+            if (moodTracks?.isNotEmpty ?? false) MoodStabilityWidget(moodTracks: moodTracks!),
+            if (moodTracks?.isNotEmpty ?? false) AnnualMoodRadarWidget(moodTracks: moodTracks!),
           ],
         ),
       ),

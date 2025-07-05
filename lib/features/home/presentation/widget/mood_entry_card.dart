@@ -53,14 +53,12 @@ class MoodEntryCard extends StatelessWidget {
                     children: [
                       Text(
                         moodLabel,
-                        style: theme.textTheme.titleLarge
-                            ?.copyWith(fontWeight: FontWeight.bold),
+                        style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         '$date · $time',
-                        style: theme.textTheme.bodySmall
-                            ?.copyWith(color: Colors.grey[600]),
+                        style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
                       ),
                     ],
                   ),
@@ -81,7 +79,7 @@ class MoodEntryCard extends StatelessWidget {
                 ),
               ],
             ),
-            // info: 
+            // info:
             const SizedBox(height: 16),
             Wrap(
               spacing: 8,
@@ -91,24 +89,21 @@ class MoodEntryCard extends StatelessWidget {
                 final emoji = parts.first;
                 final label = parts.sublist(1).join(' ');
                 return Chip(
-                  label: Text(label,
-                      style: const TextStyle(fontWeight: FontWeight.w500)),
+                  label: Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
                   avatar: Text(emoji, style: const TextStyle(fontSize: 18)),
                   backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18),
                     side: const BorderSide(color: Color(0xFFE0E0E0)),
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 );
               }).toList(),
             ),
             const SizedBox(height: 16),
             Text(
               note,
-              style:
-                  theme.textTheme.bodyMedium?.copyWith(color: Colors.grey[800]),
+              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey[800]),
             ),
           ],
         ),

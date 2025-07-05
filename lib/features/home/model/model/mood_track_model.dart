@@ -13,10 +13,10 @@ class MoodTrack {
 
   factory MoodTrack.fromJson(Map<String, dynamic> json) {
     return MoodTrack(
-      imageMood: json['imageMood']??'',
-      recordMood: json['emotionType']??'',
-      createdAt: DateTime.tryParse(json['createdAt']??''),
-      updatedAt: DateTime.tryParse(json['updatedAt']??''),
+      imageMood: json['imageMood'] ?? '',
+      recordMood: json['emotionType'] ?? '',
+      createdAt: DateTime.tryParse(json['createdAt'] ?? ''),
+      updatedAt: DateTime.tryParse(json['updatedAt'] ?? ''),
     );
   }
 

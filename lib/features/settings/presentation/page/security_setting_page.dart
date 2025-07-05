@@ -61,7 +61,7 @@ class SecuritySettingPage extends StatelessWidget {
                     var response = false;
                     await showConditionalDialog(
                       context,
-                      'Estas seguro de querer borrar tu cuenta?',
+                      '¿Está seguro de querer borrar su cuenta?',
                       onAcceptPressed: () => response = true,
                       dialogSettingOptionName: SettingsEnums.shouldShowDeleteAccountPopDialog.name,
                       shouldShowCheckBox: false,

@@ -122,7 +122,7 @@ class _WeeklyMoodChartState extends State<WeeklyMoodChart> {
                 ),
                 IconButton(
                   onPressed: () => setState(
-                        () {
+                    () {
                       now = now.add(Duration(days: 7));
                     },
                   ),

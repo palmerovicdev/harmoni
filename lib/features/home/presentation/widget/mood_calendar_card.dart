@@ -5,16 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../model/model/mood_track_model.dart';
 
-enum EmotionType {
-  angry,
-  fearful,
-  happy,
-  sad,
-  neutral,
-  disgusted,
-  surprised,
-  other
-}
+enum EmotionType { angry, fearful, happy, sad, neutral, disgusted, surprised, other }
 
 const _emotionAssets = <EmotionType, String>{
   EmotionType.angry: Assets.circleAngryCircle,
@@ -61,18 +52,14 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
 
     for (final track in widget.moodTracks) {
       final created = track.createdAt ?? now;
-      final dateKey = DateTime(created.year, created.month, created.day)
-          .copyWith(
-              hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0);
+      final dateKey = DateTime(created.year, created.month, created.day).copyWith(hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0);
 
       // Salta si no pertenece al mes actual
       if (dateKey.isBefore(monthStart) || dateKey.isAfter(monthEnd)) {
         continue;
       }
 
-      final emo = _parseEmotion(track.imageMood) ??
-          _parseEmotion(track.recordMood) ??
-          EmotionType.other;
+      final emo = _parseEmotion(track.imageMood) ?? _parseEmotion(track.recordMood) ?? EmotionType.other;
 
       counts.putIfAbsent(dateKey, () => {});
       counts[dateKey]![emo] = (counts[dateKey]![emo] ?? 0) + 1;
@@ -88,14 +75,11 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
   List<DateTime> _getDaysInMonth() {
     final monthStart = currentMonth;
     final monthEnd = DateTime(now.year, now.month + 1, 0);
-    final startOfWeek =
-        monthStart.subtract(Duration(days: monthStart.weekday - 1));
+    final startOfWeek = monthStart.subtract(Duration(days: monthStart.weekday - 1));
     final endOfWeek = monthEnd.add(Duration(days: 7 - monthEnd.weekday));
 
     final days = <DateTime>[];
-    for (var day = startOfWeek;
-        day.isBefore(endOfWeek.add(Duration(days: 1)));
-        day = day.add(Duration(days: 1))) {
+    for (var day = startOfWeek; day.isBefore(endOfWeek.add(Duration(days: 1))); day = day.add(Duration(days: 1))) {
       days.add(day);
     }
     return days;
@@ -173,13 +157,10 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
                         child: Center(
                           child: Text(
                             day,
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurfaceVariant,
-                                    ),
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                ),
                           ),
                         ),
                       ))
@@ -201,20 +182,12 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
                 final day = daysInMonth[index];
                 final isCurrentMonth = day.month == now.month;
                 final isToday = _isSameDay(day, DateTime.now());
-                final emotion = dominant[DateTime(day.year, day.month, day.day)
-                    .copyWith(
-                        hour: 0,
-                        minute: 0,
-                        second: 0,
-                        millisecond: 0,
-                        microsecond: 0)];
+                final emotion = dominant[DateTime(day.year, day.month, day.day).copyWith(hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0)];
 
                 return Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: isToday
-                        ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
-                        : null,
+                    color: isToday ? Theme.of(context).colorScheme.primary.withOpacity(0.1) : null,
                     border: isToday
                         ? Border.all(
                             color: Theme.of(context).colorScheme.primary,
@@ -227,19 +200,9 @@ class _MonthlyMoodCalendarState extends State<MonthlyMoodCalendar> {
                       Center(
                         child: Text(
                           '${day.day}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                color: isCurrentMonth
-                                    ? Theme.of(context).colorScheme.onSurface
-                                    : Theme.of(context)
-                                        .colorScheme
-                                        .onSurfaceVariant
-                                        .withOpacity(0.4),
-                                fontWeight: isToday
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: isCurrentMonth ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.4),
+                                fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
                               ),
                         ),
                       ),

@@ -7,6 +7,7 @@ class RoutesData {
 
 enum HomeRoute {
   home(RoutesData(name: 'home', path: '/home')),
+  calendar(RoutesData(name: 'calendar', path: '/calendar')),
   trackEmotion(RoutesData(name: 'trackEmotion', path: '/trackEmotion')),
   camera(RoutesData(name: 'camera', path: '/camera'));
 

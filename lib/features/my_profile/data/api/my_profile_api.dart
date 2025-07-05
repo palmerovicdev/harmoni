@@ -26,8 +26,7 @@ abstract class MyProfileApi {
 }
 
 class MyProfileApiBackImpl implements MyProfileApi {
-  final String _myProfileBaseUrl =
-      '${getConnectionService().getBaseUrl()}/myProfile';
+  final String _myProfileBaseUrl = '${getConnectionService().getBaseUrl()}/myProfile';
   final String _userBaseUrl = '${getConnectionService().getBaseUrl()}/auth';
 
   @override

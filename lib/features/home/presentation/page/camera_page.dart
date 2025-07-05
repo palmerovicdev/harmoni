@@ -289,17 +289,17 @@ class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, Ti
     } on CameraException catch (e) {
       switch (e.code) {
         case 'CameraAccessDenied':
-          showInSnackBar('You have denied camera access.');
+          showInSnackBar('Has denegado el acceso a la cámara.');
         case 'CameraAccessDeniedWithoutPrompt':
-          showInSnackBar('Please go to Settings app to enable camera access.');
+          showInSnackBar('Por favor ve a la aplicación Configuración para habilitar el acceso a la cámara.');
         case 'CameraAccessRestricted':
-          showInSnackBar('Camera access is restricted.');
+          showInSnackBar('El acceso a la cámara está restringido.');
         case 'AudioAccessDenied':
-          showInSnackBar('You have denied audio access.');
+          showInSnackBar('Has denegado el acceso al audio.');
         case 'AudioAccessDeniedWithoutPrompt':
-          showInSnackBar('Please go to Settings app to enable audio access.');
+          showInSnackBar('Por favor ve a la aplicación Configuración para habilitar el acceso al audio.');
         case 'AudioAccessRestricted':
-          showInSnackBar('Audio access is restricted.');
+          showInSnackBar('El acceso al audio está restringido.');
         default:
           _showCameraException(e);
       }

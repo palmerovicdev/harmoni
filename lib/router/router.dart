@@ -17,6 +17,7 @@ import 'package:harmoni/features/settings/presentation/page/style_setting_page.d
 import 'package:harmoni/router/router_observer.dart';
 
 import '../features/home/presentation/page/camera_page.dart';
+import '../features/home/presentation/page/home_calendar_page.dart';
 import '../features/my_profile/presentation/page/all_done_page.dart';
 import '../features/settings/presentation/page/help_setting_page.dart';
 import '../features/settings/presentation/page/my_profile_setting_page.dart';
@@ -41,6 +42,11 @@ GoRouter router = GoRouter(
             path: HomeRoute.home.data.path,
             name: HomeRoute.home.data.name,
             pageBuilder: (context, state) => MaterialPage(child: HomePage()),
+          ),
+          GoRoute(
+            path: HomeRoute.calendar.data.name,
+            name: HomeRoute.calendar.data.name,
+            pageBuilder: (context, state) => MaterialPage(child: MoodCalendarPage()),
           ),
           GoRoute(
             path: MyProfileRoute.my_profile.data.path,
