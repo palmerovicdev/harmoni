@@ -47,90 +47,93 @@ class SignInPage extends StatelessWidget {
             leading: PopWidget(),
             key: _appBarKey,
           ),
-          body: SingleChildScrollView(
-            child: SizedBox(
-              height: MediaQuery.sizeOf(context).height - appBarHeight,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Space.small.gap,
-                  Padding(
-                    padding: EdgeInsets.only(left: width),
+          body: SizedBox(
+            height: MediaQuery.sizeOf(context).height - appBarHeight,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Space.small.gap,
+                Padding(
+                  padding: EdgeInsets.only(left: width),
+                  child: Text(
+                    'Hola otra vez! 👋',
+                    style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Space.smaller_small.gap,
+                Padding(
+                  padding: EdgeInsets.only(left: width),
+                  child: SizedBox(
+                    width: screenWidth * 0.6,
                     child: Text(
-                      'Hola otra vez! 👋',
-                      style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                      'Siga dando seguimiento a sus emociones.',
+                      style: textTheme.bodyLarge?.copyWith(
+                        color: isDark(context) ? Colors.white54 : Colors.black54,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.start,
                     ),
                   ),
-                  Space.smaller_small.gap,
-                  Padding(
-                    padding: EdgeInsets.only(left: width),
+                ),
+                Space.small.gap,
+                Padding(
+                  padding: EdgeInsets.only(left: width),
+                  child: Text(
+                    'Email',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Space.smaller_small.gap,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width),
+                  child: EmailInputFieldWidget(
+                    controller: emailEditingController,
+                  ),
+                ),
+                Space.small.gap,
+                Padding(
+                  padding: EdgeInsets.only(left: width),
+                  child: Text(
+                    'Contraseña',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Space.smaller_small.gap,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width),
+                  child: PasswordInputFieldWidget(controller: passwordEditingController),
+                ),
+                Space.medium.gap,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: screenWidth * 0.82,
+                      child: Divider(
+                        thickness: 1,
+                        color: colorScheme.primary,
+                      ),
+                    ),
+                  ],
+                ),
+                Space.medium.gap,
+                Expanded(child: SizedBox()),
+                SizedBox(
+                  width: screenWidth,
+                  child: AlreadyHaveAccountOrNotWidget(
+                    isSignUp: false,
+                  ),
+                ),
+                Space.medium.gap,
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: width),
                     child: SizedBox(
-                      width: screenWidth * 0.6,
-                      child: Text(
-                        'Siga dando seguimiento a sus emociones.',
-                        style: textTheme.bodyLarge?.copyWith(
-                          color: isDark(context) ? Colors.white54 : Colors.black54,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                    ),
-                  ),
-                  Space.small.gap,
-                  Padding(
-                    padding: EdgeInsets.only(left: width),
-                    child: Text(
-                      'Email',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  Space.smaller_small.gap,
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width),
-                    child: EmailInputFieldWidget(controller: emailEditingController),
-                  ),
-                  Space.small.gap,
-                  Padding(
-                    padding: EdgeInsets.only(left: width),
-                    child: Text(
-                      'Contraseña',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  Space.smaller_small.gap,
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width),
-                    child: PasswordInputFieldWidget(controller: passwordEditingController),
-                  ),
-                  Space.medium.gap,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: screenWidth * 0.82,
-                        child: Divider(
-                          thickness: 1,
-                          color: colorScheme.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Space.medium.gap,
-                  Expanded(child: SizedBox()),
-                  SizedBox(
-                    width: screenWidth,
-                    child: AlreadyHaveAccountOrNotWidget(
-                      isSignUp: false,
-                    ),
-                  ),
-                  Space.medium.gap,
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: width),
-                      child: SizedBox(
-                        width: double.infinity,
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 64.0),
                         child: ActionButtonWidget(
                           text: "Autenticarse",
                           shouldFocusAttention: true,
@@ -167,9 +170,8 @@ class SignInPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Space.large.gap,
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );

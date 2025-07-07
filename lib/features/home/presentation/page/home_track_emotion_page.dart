@@ -7,6 +7,7 @@ import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/router/general_routes.dart';
 
 import '../../../../core/widgets/emotional_stability_notification.dart';
+import '../../../my_profile/service/my_profile_service.dart';
 import '../../model/model/activity_model.dart';
 import '../../service/home_service.dart';
 import '../state_management/home_track_emotion_cubit.dart';
@@ -60,12 +61,7 @@ class HomeTrackEmotionPage extends StatelessWidget {
         builder: (context, state) {
           final cubit = context.read<HomeTrackEmotionCubit>();
           final theme = Theme.of(context);
-          var activities = getHomeService().homeSummaryData?.activities ??
-              [
-                Activity(id: 1, color: Colors.blue.value, name: "Leer"),
-                Activity(id: 2, color: Colors.orange.value, name: "Caminar"),
-                Activity(id: 3, color: Colors.yellow.value, name: "Jugar"),
-              ];
+          var activities2 = activities;
           return Scaffold(
             appBar: AppBar(
               title: const Text('Agregar emoción'),
@@ -94,6 +90,7 @@ class HomeTrackEmotionPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: TextField(
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black),
                         minLines: 3,
                         maxLines: 5,
                         controller: controller,
@@ -121,14 +118,13 @@ class HomeTrackEmotionPage extends StatelessWidget {
                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       ),
                       hint: const Text('Selecciona una actividad'),
-                      items: activities.map((activity) {
+                      items: activities2.map((activity) {
                         return DropdownMenuItem<Activity>(
                           value: activity,
                           child: Text(activity.name ?? 'Sin nombre'),
                         );
                       }).toList(),
                       onChanged: (Activity? activity) {
-                        print('Activity selected: ${activity?.name} (ID: ${activity?.id})');
                         cubit.selectActivity(activity);
                       },
                     ),

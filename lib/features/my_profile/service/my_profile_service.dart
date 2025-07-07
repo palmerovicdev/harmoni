@@ -54,22 +54,6 @@ class MyProfileService {
     // if (!await isFirstTimeOpen()) return;
     // TODO 6/11/25 palmerodev : activate this line when the app is ready to be released
 
-    var activities = [
-      Activity(id: null, name: 'Trabajar', color: Colors.blue.value),
-      Activity(id: null, name: 'Relajarse', color: Colors.cyan.value),
-      Activity(id: null, name: 'Estudiar', color: Colors.purpleAccent.value),
-      Activity(id: null, name: 'Hacer ejercicio', color: Colors.green.value),
-      Activity(id: null, name: 'Leer', color: Colors.orange.value),
-      Activity(id: null, name: 'Cocinar', color: Colors.redAccent.value),
-      Activity(id: null, name: 'Socializar', color: Colors.pinkAccent.value),
-      Activity(id: null, name: 'Meditar', color: Colors.teal.value),
-      Activity(id: null, name: 'Ver series', color: Colors.amber.value),
-      Activity(id: null, name: 'Jugar videojuegos', color: Colors.deepPurple.value),
-      Activity(id: null, name: 'Salir a caminar', color: Colors.lightGreen.value),
-      Activity(id: null, name: 'Tocar música', color: Colors.indigo.value),
-      Activity(id: null, name: 'Dibujar', color: Colors.deepOrange.value),
-    ];
-
     getHomeRepository().createActivities(activities);
   }
 
@@ -157,3 +141,19 @@ enum EmailValidationResult { invalid, repeated, success }
 enum PasswordValidationResult { invalid, tooShort, tooLong, success }
 
 enum NameValidationResult { invalid, repeated, success }
+
+var activities = [
+  Activity(id: 1, name: 'Trabajar', color: Colors.blue.value),
+  Activity(id: 2, name: 'Relajarse', color: Colors.cyan.value),
+  Activity(id: 3, name: 'Estudiar', color: Colors.purpleAccent.value),
+  Activity(id: 4, name: 'Hacer ejercicio', color: Colors.green.value),
+  Activity(id: 5, name: 'Leer', color: Colors.orange.value),
+  Activity(id: 6, name: 'Cocinar', color: Colors.redAccent.value),
+  Activity(id: 7, name: 'Socializar', color: Colors.pinkAccent.value),
+  Activity(id: 8, name: 'Meditar', color: Colors.teal.value),
+  Activity(id: 9, name: 'Ver series', color: Colors.amber.value),
+  Activity(id: 10, name: 'Jugar videojuegos', color: Colors.deepPurple.value),
+  Activity(id: 11, name: 'Salir a caminar', color: Colors.lightGreen.value),
+  Activity(id: 12, name: 'Tocar música', color: Colors.indigo.value),
+  Activity(id: 13, name: 'Dibujar', color: Colors.deepOrange.value),
+];

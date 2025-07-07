@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "¿Cómo funciona el calendario de emociones?": "El calendario muestra tus emociones registradas día a día. Cada día que registres una emoción aparecerá con un emoji y color correspondiente. Puedes ver tus patrones emocionales a lo largo del tiempo."
+    },
+    {
+      "¿Qué diferencia hay entre la vista mensual y anual?": "La vista mensual te muestra un calendario tradicional con las emociones de cada día del mes. La vista anual ('Año en Píxeles') te muestra todo el año en formato compacto para identificar patrones a largo plazo."
+    },
+    {
+      "¿Cómo navego entre diferentes meses y años?": "Usa las flechas izquierda y derecha en la parte superior del calendario para moverte entre meses. En la vista anual, las flechas te permiten cambiar de año."
+    },
+    {
+      "¿Qué significan los colores y emojis en el calendario?": "Cada emoción tiene un color y emoji específico: alegría (verde), tristeza (azul), ira (rojo), miedo (morado), etc. El tipo de emoji (círculo, fantasma, rectángulo) se puede cambiar en configuración."
+    },
+    {
+      "¿Puedo ver detalles de un día específico?": "Sí, puedes tocar cualquier día que tenga una emoción registrada para ver más detalles sobre tus emociones de ese día."
+    },
+    {
+      "¿Cómo se determina la emoción del día?": "Si registras varias emociones en un día, el calendario muestra la emoción dominante (la que registraste más veces). Si hay empate, se muestra la más reciente."
+    },
+    {
+      "¿Puedo ver mis patrones semanales?": "Sí, la aplicación analiza automáticamente tus patrones semanales y te muestra insights como qué días de la semana sueles sentirte mejor y cuáles pueden ser más desafiantes."
+    },
+    {
+      "¿Qué son los 'Mejores Horarios'?": "Es una funcionalidad que analiza a qué horas del día registras emociones más positivas, ayudándote a identificar tus momentos óptimos del día para diferentes actividades."
+    },
+    {
+      "¿Cómo puedo cambiar entre la vista mensual y anual?": "En la parte inferior del calendario encontrarás dos botones: 'Mensual' y 'Anual'. Toca el que desees para cambiar entre las vistas."
+    },
+    {
+      "¿Qué pasa si no registré emociones en algunos días?": "Los días sin registros aparecerán vacíos en el calendario. Entre más consistente seas registrando tus emociones, mejor será el análisis de patrones."
+    },
+    {
+      "¿Puedo exportar o compartir mi calendario emocional?": "Actualmente la aplicación no incluye función de exportación, pero puedes usar las capturas de pantalla para guardar o compartir tu progreso emocional."
+    },
+    {
+      "¿El calendario muestra emociones de audio e imagen?": "Sí, el calendario combina tanto las emociones detectadas por análisis de imagen como las de audio para darte una vista completa de tu estado emocional diario."
+    }
+  ]
+}

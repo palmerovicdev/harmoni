@@ -49,7 +49,8 @@ Future<void> showConditionalDialog(
     context: context,
     builder: (context) {
       var screenWidth = MediaQuery.sizeOf(context).width;
-      var colorWithOpacity = Theme.of(context).colorScheme.primary.withValues(alpha: 0.05);
+      var colorWithOpacity =
+          Theme.of(context).colorScheme.primary.withValues(alpha: 0.05);
       var shouldShowAgain = true;
       return AlertDialog(
         title: Text(message),
@@ -72,9 +73,10 @@ Future<void> showConditionalDialog(
                         children: [
                           TextSpan(
                             text: 'No mostrar otra vez',
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                    ),
                           ),
                         ],
                       ),
@@ -95,12 +97,15 @@ Future<void> showConditionalDialog(
                 ))),
             onPressed: () {
               getMyProfileService().userProfile?.settings?.update(
-                    dialogSettingOptionName ?? SettingsEnums.shouldShowLogOutDialog.name,
+                    dialogSettingOptionName ??
+                        SettingsEnums.shouldShowLogOutDialog.name,
                     (value) => value = shouldShowAgain,
                     ifAbsent: () => shouldShowAgain,
                   );
-              logI('Saving user profile in pop: ${jsonEncode(getMyProfileService().userProfile)}');
-              getMyProfileService().saveSettings(getMyProfileService().userProfile?.settings ?? {});
+              logI(
+                  'Saving user profile in pop: ${jsonEncode(getMyProfileService().userProfile)}');
+              getMyProfileService().saveSettings(
+                  getMyProfileService().userProfile?.settings ?? {});
               Navigator.of(context).pop();
             },
             child: const Text("Cancelar"),
@@ -108,12 +113,15 @@ Future<void> showConditionalDialog(
           TextButton(
             onPressed: () {
               getMyProfileService().userProfile?.settings?.update(
-                    dialogSettingOptionName ?? SettingsEnums.shouldShowLogOutDialog.name,
+                    dialogSettingOptionName ??
+                        SettingsEnums.shouldShowLogOutDialog.name,
                     (value) => value = shouldShowAgain,
                     ifAbsent: () => shouldShowAgain,
                   );
-              logI('Saving user profile in pop: ${jsonEncode(getMyProfileService().userProfile)}');
-              getMyProfileService().saveSettings(getMyProfileService().userProfile?.settings ?? {});
+              logI(
+                  'Saving user profile in pop: ${jsonEncode(getMyProfileService().userProfile)}');
+              getMyProfileService().saveSettings(
+                  getMyProfileService().userProfile?.settings ?? {});
               onAcceptPressed.call();
               Navigator.of(context).pop();
             },
@@ -199,16 +207,54 @@ enum EmotionType {
   }
 }
 
-const emotionAssets = <EmotionType, String>{
-  EmotionType.angry: Assets.circleAngryCircle,
-  EmotionType.fearful: Assets.circleFearfulCircle,
-  EmotionType.happy: Assets.circleHappyCircle,
-  EmotionType.sad: Assets.circleSadCircle,
-  EmotionType.neutral: Assets.circleNeutralCircle,
-  EmotionType.disgusted: Assets.circleDisgustedCircle,
-  EmotionType.surprised: Assets.circleSurpriseCircle,
-  EmotionType.other: Assets.circleOtherCircle,
-};
+Map<EmotionType, String> get emotionAssets {
+  const circle = 'circle';
+  const ghost = 'ghost';
+  const rect = 'rect';
+  return switch (
+      getMyProfileService().userProfile?.settings?['emojiType'] as String?) {
+    circle => {
+        EmotionType.angry: Assets.circleAngryCircle,
+        EmotionType.fearful: Assets.circleFearfulCircle,
+        EmotionType.happy: Assets.circleHappyCircle,
+        EmotionType.sad: Assets.circleSadCircle,
+        EmotionType.neutral: Assets.circleNeutralCircle,
+        EmotionType.disgusted: Assets.circleDisgustedCircle,
+        EmotionType.surprised: Assets.circleSurpriseCircle,
+        EmotionType.other: Assets.circleOtherCircle,
+      },
+    ghost => {
+        EmotionType.angry: Assets.ghostAngryGhost,
+        EmotionType.fearful: Assets.ghostFearfulGhost,
+        EmotionType.happy: Assets.ghostHappyGhost,
+        EmotionType.sad: Assets.ghostSadGhost,
+        EmotionType.neutral: Assets.ghostNeutralGhost,
+        EmotionType.disgusted: Assets.ghostDisgustedGhost,
+        EmotionType.surprised: Assets.ghostSupriseGhost,
+        EmotionType.other: Assets.ghostOtherGhost,
+      },
+    rect => {
+        EmotionType.angry: Assets.rectAngryRect,
+        EmotionType.fearful: Assets.rectFearfulRect,
+        EmotionType.happy: Assets.rectHappyRect,
+        EmotionType.sad: Assets.rectSadRect,
+        EmotionType.neutral: Assets.rectNeutralRect,
+        EmotionType.disgusted: Assets.rectDisgustedRect,
+        EmotionType.surprised: Assets.rectSurpriseRect,
+        EmotionType.other: Assets.rectOtherRect,
+      },
+    _ => {
+        EmotionType.angry: Assets.circleAngryCircle,
+        EmotionType.fearful: Assets.circleFearfulCircle,
+        EmotionType.happy: Assets.circleHappyCircle,
+        EmotionType.sad: Assets.circleSadCircle,
+        EmotionType.neutral: Assets.circleNeutralCircle,
+        EmotionType.disgusted: Assets.circleDisgustedCircle,
+        EmotionType.surprised: Assets.circleSurpriseCircle,
+        EmotionType.other: Assets.circleOtherCircle,
+      },
+  };
+}
 
 const emotionColors = <EmotionType, Color>{
   EmotionType.angry: Color(0xFFf54334),
@@ -219,4 +265,19 @@ const emotionColors = <EmotionType, Color>{
   EmotionType.disgusted: Color(0xFF8373BA),
   EmotionType.surprised: Color(0xFFEBD5E5),
   EmotionType.other: Color(0xFFD3E3DD),
+};
+
+const spanishMonth = <String, String>{
+  'January': 'Enero',
+  'February': 'Febrero',
+  'March': 'Marzo',
+  'April': 'Abril',
+  'May': 'Mayo',
+  'June': 'Junio',
+  'July': 'Julio',
+  'August': 'Agosto',
+  'September': 'Septiembre',
+  'October': 'Octubre',
+  'November': 'Noviembre',
+  'December': 'Diciembre',
 };

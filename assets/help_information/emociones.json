@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "¿Qué emociones puede detectar Harmoni?": "Harmoni puede detectar las emociones básicas universales: alegría, tristeza, ira, miedo, sorpresa, disgusto, y también estados emocionales más complejos como ansiedad, tranquilidad y frustración."
+    },
+    {
+      "¿Cómo detecta Harmoni mis emociones?": "La aplicación utiliza dos métodos principales: análisis de expresiones faciales a través de la cámara y análisis de patrones de voz mediante el micrófono. Nuestro modelo de IA procesa estos datos para identificar tu estado emocional actual."
+    },
+    {
+      "¿Mis datos emocionales están seguros?": "Sí, todos tus datos emocionales son procesados de forma segura y encriptados. No compartimos información personal con terceros y puedes eliminar tus datos en cualquier momento."
+    },
+    {
+      "¿Cómo me ayuda el seguimiento de emociones?": "El seguimiento continuo de tus emociones te permite identificar patrones, triggers emocionales, y la relación entre tus actividades y tu estado de ánimo, ayudándote a tomar decisiones más conscientes sobre tu bienestar."
+    },
+    {
+      "¿Con qué frecuencia debo registrar mis emociones?": "Recomendamos registrar tus emociones al menos 2-3 veces al día en diferentes momentos para obtener un panorama más completo de tu estado emocional y sus variaciones a lo largo del día."
+    }
+  ]
+}

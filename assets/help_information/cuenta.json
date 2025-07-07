@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "¿Cómo puedo editar mi información personal?": "Ve a Configuración > Cuenta para editar tu nombre, email, género y edad. Los cambios se guardan automáticamente al presionar el botón de guardar."
+    },
+    {
+      "¿Puedo cambiar mi contraseña?": "Sí, puedes cambiar tu contraseña desde Configuración > Seguridad > Cambiar contraseña. Necesitarás ingresar tu contraseña actual y la nueva contraseña (mínimo 8 caracteres)."
+    },
+    {
+      "¿Cómo personalizo la apariencia de la aplicación?": "En Configuración > Apariencia puedes cambiar entre tema claro y oscuro, seleccionar diferentes colores de tema, ajustar el contraste y elegir el tipo de emoji que prefieras (círculo, fantasma o rectángulo)."
+    },
+    {
+      "¿Puedo cerrar sesión de mi cuenta?": "Sí, puedes cerrar sesión desde Configuración > Cerrar cuenta. La aplicación te pedirá confirmación antes de cerrar tu sesión."
+    },
+    {
+      "¿Cómo elimino mi cuenta permanentemente?": "Para eliminar tu cuenta ve a Configuración > Seguridad > Borrar cuenta. Esta acción es irreversible y eliminará todos tus datos de forma permanente."
+    },
+    {
+      "¿Dónde encuentro ayuda en la aplicación?": "Ve a Configuración > Ayuda para acceder a diferentes categorías de ayuda: General, Emociones, Cuenta y Calendario. Cada categoría contiene preguntas frecuentes específicas."
+    },
+    {
+      "¿Qué configuraciones puedo ajustar en mi cuenta?": "Puedes ajustar: información personal (nombre, email, edad, género), preferencias de apariencia (tema, colores, emojis), configuraciones de seguridad (contraseña), y opciones de notificaciones."
+    },
+    {
+      "¿Se guardan automáticamente mis preferencias?": "Sí, la mayoría de tus preferencias como tema, colores y configuraciones se guardan automáticamente. Para cambios en información personal, necesitas presionar el botón de guardar."
+    },
+    {
+      "¿Puedo usar diferentes tipos de emojis?": "Sí, en Configuración > Apariencia > Tipo de emoji puedes elegir entre tres estilos: círculo, fantasma o rectángulo para personalizar cómo se muestran las emociones."
+    },
+    {
+      "¿Cómo accedo a la configuración de mi cuenta?": "Toca el ícono de perfil en la navegación principal, luego selecciona el ícono de configuración (engranaje) para acceder a todas las opciones de tu cuenta."
+    },
+    {
+      "¿Puedo cambiar mi email?": "Sí, puedes actualizar tu dirección de email desde Configuración > Cuenta. Asegúrate de usar un email válido ya que lo necesitarás para acceder a tu cuenta."
+    },
+    {
+      "¿Hay opciones de accesibilidad?": "Sí, puedes ajustar el contraste de colores en Configuración > Apariencia para mejorar la legibilidad según tus necesidades visuales."
+    }
+  ]
+}

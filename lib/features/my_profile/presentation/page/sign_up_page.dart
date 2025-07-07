@@ -13,7 +13,6 @@ import '../../../../router/general_routes.dart';
 import '../../service/my_profile_service.dart';
 import '../widget/action_button_widget.dart';
 import '../widget/password_input_field_widget.dart';
-import '../widget/terms_and_condition_widget.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
@@ -26,7 +25,6 @@ class SignUpPage extends StatelessWidget {
     var textTheme = Theme.of(context).textTheme;
     var colorScheme = Theme.of(context).colorScheme;
     var width = 24.0;
-    var hasReadTermsAndConditions = false;
     var passwordEditingController = TextEditingController();
     var emailEditingController = TextEditingController();
     return BlocBuilder<SignUpCubit, SignUpState>(
@@ -37,99 +35,97 @@ class SignUpPage extends StatelessWidget {
           return LoadingWidget();
         }
         return Scaffold(
-          body: SingleChildScrollView(
-            child: SizedBox(
-              height: MediaQuery.sizeOf(context).height - appBarHeight,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Space.large.gap,
-                  PopWidget(),
-                  Space.small.gap,
-                  Padding(
-                    padding: EdgeInsets.only(left: width),
+          appBar: AppBar(
+            leading: PopWidget(),
+            key: _appBarKey,
+          ),
+          body: SizedBox(
+            height: MediaQuery.sizeOf(context).height - appBarHeight,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Space.small.gap,
+                Padding(
+                  padding: EdgeInsets.only(left: width),
+                  child: Text(
+                    'Únase a Harmoni hoy ✨',
+                    style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Space.smaller_small.gap,
+                Padding(
+                  padding: EdgeInsets.only(left: width),
+                  child: SizedBox(
+                    width: screenWidth * 0.6,
                     child: Text(
-                      'Únase a Harmoni hoy ✨',
-                      style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                      'Comience a dar seguimiento a sus emociones.',
+                      style: textTheme.bodyLarge?.copyWith(
+                        color: isDark(context) ? Colors.white54 : Colors.black54,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.start,
                     ),
                   ),
-                  Space.smaller_small.gap,
-                  Padding(
-                    padding: EdgeInsets.only(left: width),
+                ),
+                Space.small.gap,
+                Padding(
+                  padding: EdgeInsets.only(left: width),
+                  child: Text(
+                    'Email',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Space.smaller_small.gap,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width),
+                  child: EmailInputFieldWidget(
+                    controller: emailEditingController,
+                  ),
+                ),
+                Space.small.gap,
+                Padding(
+                  padding: EdgeInsets.only(left: width),
+                  child: Text(
+                    'Contraseña',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Space.smaller_small.gap,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width),
+                  child: PasswordInputFieldWidget(controller: passwordEditingController),
+                ),
+                Space.medium.gap,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: screenWidth * 0.82,
+                      child: Divider(
+                        thickness: 1,
+                        color: colorScheme.primary,
+                      ),
+                    ),
+                  ],
+                ),
+                Space.medium.gap,
+                Expanded(child: SizedBox()),
+                SizedBox(
+                  width: screenWidth,
+                  child: AlreadyHaveAccountOrNotWidget(
+                    isSignUp: true,
+                  ),
+                ),
+                Space.medium.gap,
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: width),
                     child: SizedBox(
-                      width: screenWidth * 0.6,
-                      child: Text(
-                        'Comience a dar seguimiento a sus emociones.',
-                        style: textTheme.bodyLarge?.copyWith(
-                          color: isDark(context) ? Colors.white54 : Colors.black54,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                    ),
-                  ),
-                  Space.small.gap,
-                  Padding(
-                    padding: EdgeInsets.only(left: width),
-                    child: Text(
-                      'Email',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  Space.smaller_small.gap,
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width),
-                    child: EmailInputFieldWidget(
-                      controller: emailEditingController,
-                    ),
-                  ),
-                  Space.small.gap,
-                  Padding(
-                    padding: EdgeInsets.only(left: width),
-                    child: Text(
-                      'Contraseña',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  Space.smaller_small.gap,
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width),
-                    child: PasswordInputFieldWidget(controller: passwordEditingController),
-                  ),
-                  Space.small.gap,
-                  Padding(
-                    padding: EdgeInsets.only(left: width),
-                    child: TermsAndConditionWidget(onChanged: (value) => hasReadTermsAndConditions = value),
-                  ),
-                  Space.medium.gap,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: screenWidth * 0.82,
-                        child: Divider(
-                          thickness: 1,
-                          color: colorScheme.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Space.medium.gap,
-                  Expanded(child: SizedBox()),
-                  SizedBox(
-                    width: screenWidth,
-                    child: AlreadyHaveAccountOrNotWidget(
-                      isSignUp: true,
-                    ),
-                  ),
-                  Space.medium.gap,
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: width),
-                      child: SizedBox(
-                        width: double.infinity,
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 64.0),
                         child: ActionButtonWidget(
                           text: "Crear Cuenta",
                           shouldFocusAttention: true,
@@ -151,10 +147,6 @@ class SignUpPage extends StatelessWidget {
                               );
                               return;
                             }
-                            if (!hasReadTermsAndConditions) {
-                              showErrorDialog(context.mounted ? context : context, 'Por favor, lea y acepte los términos y condiciones antes de continuar');
-                              return;
-                            }
                             var isSuccessSignUp = context.mounted ? context.read<SignUpCubit>().signUp(emailEditingController.text, passwordEditingController.text) : false;
                             if (!isSuccessSignUp) {
                               showErrorDialog(context.mounted ? context : context, 'Ha ocurrido un error al crear su cuenta. Por favor, inténtelo de nuevo más tarde.');
@@ -166,9 +158,8 @@ class SignUpPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Space.large.gap,
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );

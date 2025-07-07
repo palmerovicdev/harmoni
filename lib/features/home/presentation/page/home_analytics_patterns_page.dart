@@ -17,7 +17,6 @@ class AnalyticsPatternsPage extends StatefulWidget {
 }
 
 class _AnalyticsPatternsPageState extends State<AnalyticsPatternsPage> {
-  bool _isLoading = false;
 
   @override
   void initState() {
@@ -27,7 +26,6 @@ class _AnalyticsPatternsPageState extends State<AnalyticsPatternsPage> {
 
   Future<void> _loadData() async {
     setState(() {
-      _isLoading = true;
     });
 
     try {
@@ -41,7 +39,6 @@ class _AnalyticsPatternsPageState extends State<AnalyticsPatternsPage> {
     } finally {
       if (mounted) {
         setState(() {
-          _isLoading = false;
         });
       }
     }

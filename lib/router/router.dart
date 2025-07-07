@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
-import 'package:harmoni/features/home/presentation/page/emotional_patterns_page.dart';
+import 'package:harmoni/features/home/presentation/page/home_analytics_patterns_page.dart';
 import 'package:harmoni/features/home/presentation/page/home_page.dart';
 import 'package:harmoni/features/home/presentation/page/home_track_emotion_page.dart';
 import 'package:harmoni/features/home/presentation/page/home_wrapper_page.dart';
@@ -47,7 +47,7 @@ GoRouter router = GoRouter(
           GoRoute(
             path: HomeRoute.analytics.data.path,
             name: HomeRoute.analytics.data.name,
-            pageBuilder: (context, state) => MaterialPage(child: EmotionalPatternsPage()),
+            pageBuilder: (context, state) => MaterialPage(child: AnalyticsPatternsPage()),
           ),
           GoRoute(
             path: HomeRoute.calendar.data.path,

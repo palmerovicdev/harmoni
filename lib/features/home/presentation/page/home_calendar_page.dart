@@ -54,7 +54,7 @@ class _MoodCalendarPageState extends State<MoodCalendarPage> {
                         ),
                         child: Center(
                           child: Text(
-                            'Monthly',
+                            'Mensual',
                             style: TextStyle(
                               color: showMonthly ? colorScheme.onTertiary : colorScheme.onSecondary,
                               fontWeight: FontWeight.w600,
@@ -78,7 +78,7 @@ class _MoodCalendarPageState extends State<MoodCalendarPage> {
                         ),
                         child: Center(
                           child: Text(
-                            'Yearly',
+                            'Anual',
                             style: TextStyle(
                               color: !showMonthly ? colorScheme.onTertiary : colorScheme.onSecondary,
                               fontWeight: FontWeight.w600,
@@ -124,7 +124,9 @@ class _MonthlyCalendar extends StatelessWidget {
       }
     }
     var colorScheme = Theme.of(context).colorScheme;
-
+    var date = DateFormat('MMMM, yyyy').format(month);
+    var commaIndex = date.indexOf(',');
+    date = '${spanishMonth[date.substring(0, commaIndex)]},${date.substring(commaIndex + 1)}';
     return Card(
       margin: const EdgeInsets.all(16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -141,7 +143,7 @@ class _MonthlyCalendar extends StatelessWidget {
                   onPressed: () => onMonthChanged(DateTime(month.year, month.month - 1)),
                 ),
                 Text(
-                  DateFormat('MMMM, yyyy').format(month),
+                  date,
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 IconButton(
@@ -153,7 +155,7 @@ class _MonthlyCalendar extends StatelessWidget {
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+              children: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom']
                   .map((d) => Expanded(
                         child: Center(
                           child: Text(d, style: TextStyle(fontWeight: FontWeight.w600, color: colorScheme.onSurface)),
@@ -190,7 +192,7 @@ class _MonthlyCalendar extends StatelessWidget {
                           radius: 9,
                           backgroundColor: colorScheme.surfaceContainer,
                           child: SvgPicture.asset(
-                            emotion != null ? emotionAssets[emotion]! : Assets.circleOtherCircle,
+                            emotion != null ? emotionAssets[emotion]! : emotionAssets[EmotionType.other]!,
                           ),
                         ),
                         const SizedBox(height: 2),
@@ -292,7 +294,7 @@ class _YearInPixels extends StatelessWidget {
                           child: CircleAvatar(
                             backgroundColor: colorScheme.surfaceContainer,
                             radius: 9,
-                            child: SvgPicture.asset(emotion != null ? emotionAssets[emotion]! : Assets.circleOtherCircle),
+                            child: SvgPicture.asset(emotion != null ? emotionAssets[emotion]! : emotionAssets[EmotionType.other]!),
                           ),
                         ),
                       );
