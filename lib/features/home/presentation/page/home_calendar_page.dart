@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:harmoni/core/service_locator/service_locator.dart';
-import 'package:harmoni/generated/assets.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/helpers/utils.dart';

@@ -63,3 +63,4 @@ flutter:
     - assets/images/
     - assets/help_information/
     - pubspec.yaml
+    - assets/mocked_data/

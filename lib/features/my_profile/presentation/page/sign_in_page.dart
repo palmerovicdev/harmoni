@@ -161,7 +161,7 @@ class SignInPage extends StatelessWidget {
                                 return;
                               }
                               if (context.mounted) {
-                                // await getHomeService().homeSummary();
+                                await getHomeService().homeSummary();
                                 context.pushNamed(HomeRoute.home.data.name);
                               }
                             }

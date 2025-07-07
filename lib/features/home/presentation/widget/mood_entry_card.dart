@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:harmoni/core/helpers/utils.dart';
+
 import '../../../../generated/assets.dart';
 
 class MoodEntryCard extends StatelessWidget {
@@ -56,7 +57,7 @@ class MoodEntryCard extends StatelessWidget {
   }
 
   Color _getMoodColor(String moodLabel) {
-    return emotionColors[EmotionType.fromEmotionName(moodLabel.toLowerCase())]??Colors.transparent;
+    return emotionColors[EmotionType.fromEmotionName(moodLabel.toLowerCase())] ?? Colors.transparent;
   }
 
   @override

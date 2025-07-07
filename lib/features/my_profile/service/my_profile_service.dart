@@ -52,7 +52,6 @@ class MyProfileService {
 
   Future<void> setupInitialDataForUser() async {
     // if (!await isFirstTimeOpen()) return;
-    // TODO 6/11/25 palmerodev : activate this line when the app is ready to be released
 
     getHomeRepository().createActivities(activities);
   }

@@ -109,7 +109,7 @@ class AgePage extends StatelessWidget {
                     var cubit = context.read<AgeCubit>();
                     isFromSettings ? cubit.updateAge(fixedExtentScrollController.selectedItem + 12) : cubit.saveAge(fixedExtentScrollController.selectedItem + 12);
                     getMyProfileService().signUp();
-                    // await getHomeService().homeSummary();
+                    await getHomeService().homeSummary();
 
                     isFromSettings ? context.pushNamed(MyProfileRoute.allDone.data.name, extra: true) : context.pushNamed(HomeRoute.home.data.name);
                   },

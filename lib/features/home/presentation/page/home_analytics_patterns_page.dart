@@ -17,7 +17,6 @@ class AnalyticsPatternsPage extends StatefulWidget {
 }
 
 class _AnalyticsPatternsPageState extends State<AnalyticsPatternsPage> {
-
   @override
   void initState() {
     super.initState();
@@ -25,8 +24,7 @@ class _AnalyticsPatternsPageState extends State<AnalyticsPatternsPage> {
   }
 
   Future<void> _loadData() async {
-    setState(() {
-    });
+    setState(() {});
 
     try {
       await getHomeService().homeSummary();
@@ -38,8 +36,7 @@ class _AnalyticsPatternsPageState extends State<AnalyticsPatternsPage> {
       }
     } finally {
       if (mounted) {
-        setState(() {
-        });
+        setState(() {});
       }
     }
   }

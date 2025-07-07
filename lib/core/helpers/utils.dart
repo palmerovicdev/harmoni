@@ -49,8 +49,7 @@ Future<void> showConditionalDialog(
     context: context,
     builder: (context) {
       var screenWidth = MediaQuery.sizeOf(context).width;
-      var colorWithOpacity =
-          Theme.of(context).colorScheme.primary.withValues(alpha: 0.05);
+      var colorWithOpacity = Theme.of(context).colorScheme.primary.withValues(alpha: 0.05);
       var shouldShowAgain = true;
       return AlertDialog(
         title: Text(message),
@@ -73,10 +72,9 @@ Future<void> showConditionalDialog(
                         children: [
                           TextSpan(
                             text: 'No mostrar otra vez',
-                            style:
-                                Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
                           ),
                         ],
                       ),
@@ -97,15 +95,12 @@ Future<void> showConditionalDialog(
                 ))),
             onPressed: () {
               getMyProfileService().userProfile?.settings?.update(
-                    dialogSettingOptionName ??
-                        SettingsEnums.shouldShowLogOutDialog.name,
+                    dialogSettingOptionName ?? SettingsEnums.shouldShowLogOutDialog.name,
                     (value) => value = shouldShowAgain,
                     ifAbsent: () => shouldShowAgain,
                   );
-              logI(
-                  'Saving user profile in pop: ${jsonEncode(getMyProfileService().userProfile)}');
-              getMyProfileService().saveSettings(
-                  getMyProfileService().userProfile?.settings ?? {});
+              logI('Saving user profile in pop: ${jsonEncode(getMyProfileService().userProfile)}');
+              getMyProfileService().saveSettings(getMyProfileService().userProfile?.settings ?? {});
               Navigator.of(context).pop();
             },
             child: const Text("Cancelar"),
@@ -113,15 +108,12 @@ Future<void> showConditionalDialog(
           TextButton(
             onPressed: () {
               getMyProfileService().userProfile?.settings?.update(
-                    dialogSettingOptionName ??
-                        SettingsEnums.shouldShowLogOutDialog.name,
+                    dialogSettingOptionName ?? SettingsEnums.shouldShowLogOutDialog.name,
                     (value) => value = shouldShowAgain,
                     ifAbsent: () => shouldShowAgain,
                   );
-              logI(
-                  'Saving user profile in pop: ${jsonEncode(getMyProfileService().userProfile)}');
-              getMyProfileService().saveSettings(
-                  getMyProfileService().userProfile?.settings ?? {});
+              logI('Saving user profile in pop: ${jsonEncode(getMyProfileService().userProfile)}');
+              getMyProfileService().saveSettings(getMyProfileService().userProfile?.settings ?? {});
               onAcceptPressed.call();
               Navigator.of(context).pop();
             },
@@ -211,8 +203,7 @@ Map<EmotionType, String> get emotionAssets {
   const circle = 'circle';
   const ghost = 'ghost';
   const rect = 'rect';
-  return switch (
-      getMyProfileService().userProfile?.settings?['emojiType'] as String?) {
+  return switch (getMyProfileService().userProfile?.settings?['emojiType'] as String?) {
     circle => {
         EmotionType.angry: Assets.circleAngryCircle,
         EmotionType.fearful: Assets.circleFearfulCircle,

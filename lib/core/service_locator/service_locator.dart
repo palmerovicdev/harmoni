@@ -33,6 +33,9 @@ loadAllInformation() async {
   var general = jsonDecode(await rootBundle.loadString(Assets.helpInformationGeneral));
   helpInformation = <String, dynamic>{
     'general': general['questions'],
+    'emociones': jsonDecode(await rootBundle.loadString(Assets.helpInformationEmociones))['questions'],
+    'cuenta': jsonDecode(await rootBundle.loadString(Assets.helpInformationCuenta))['questions'],
+    'calendario': jsonDecode(await rootBundle.loadString(Assets.helpInformationCalendario))['questions'],
   };
   logI('Values for help information: ${jsonEncode(helpInformation)}');
 }

@@ -50,16 +50,97 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (moodTracks?.isEmpty ?? true)
-                Center(
-                  child: Text('No hay datos para mostrar', style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
-                ),
+              if (moodTracks?.isEmpty ?? true) ...[
+                SizedBox(height: 120),
+                _buildEmptyState(context, theme),
+              ],
               if (moodTracks?.isNotEmpty ?? false) WeeklyMoodChart(moodTracks: moodTracks!),
               if (moodTracks?.isNotEmpty ?? false) MoodStabilityWidget(moodTracks: moodTracks!),
               if (moodTracks?.isNotEmpty ?? false) AnnualMoodRadarWidget(moodTracks: moodTracks!),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(BuildContext context, ThemeData theme) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 32),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 120,
+            height: 120,
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(60),
+            ),
+            child: Icon(
+              Icons.mood,
+              size: 64,
+              color: theme.colorScheme.primary,
+            ),
+          ),
+          SizedBox(height: 24),
+          Text(
+            '¡Bienvenido a Harmoni!',
+            style: theme.textTheme.headlineMedium?.copyWith(
+              color: theme.colorScheme.onSurface,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 12),
+          Text(
+            'Comienza tu viaje de bienestar emocional registrando tu primera emoción',
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 32),
+          FilledButton.icon(
+            onPressed: () => context.pushNamed(HomeRoute.trackEmotion.data.name),
+            icon: Icon(Icons.add_circle_outline),
+            label: Text('Registrar primera emoción'),
+            style: FilledButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+            ),
+          ),
+          SizedBox(height: 24),
+          Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: theme.colorScheme.outline.withValues(alpha: 0.2),
+              ),
+            ),
+            child: Column(
+              children: [
+                Icon(
+                  Icons.lightbulb_outline,
+                  color: theme.colorScheme.secondary,
+                  size: 20,
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'Tip: Registra tus emociones regularmente para obtener insights valiosos sobre tu bienestar',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSecondaryContainer,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

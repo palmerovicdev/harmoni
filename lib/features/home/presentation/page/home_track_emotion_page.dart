@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:harmoni/core/service_locator/service_locator.dart';
 import 'package:harmoni/router/general_routes.dart';
 
 import '../../../../core/widgets/emotional_stability_notification.dart';
