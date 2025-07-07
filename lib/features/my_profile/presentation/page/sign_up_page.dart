@@ -39,127 +39,129 @@ class SignUpPage extends StatelessWidget {
             leading: PopWidget(),
             key: _appBarKey,
           ),
-          body: SizedBox(
-            height: MediaQuery.sizeOf(context).height - appBarHeight,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Space.small.gap,
-                Padding(
-                  padding: EdgeInsets.only(left: width),
-                  child: Text(
-                    'Únase a Harmoni hoy ✨',
-                    style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Space.smaller_small.gap,
-                Padding(
-                  padding: EdgeInsets.only(left: width),
-                  child: SizedBox(
-                    width: screenWidth * 0.6,
+          body: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.sizeOf(context).height - appBarHeight,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Space.small.gap,
+                  Padding(
+                    padding: EdgeInsets.only(left: width),
                     child: Text(
-                      'Comience a dar seguimiento a sus emociones.',
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: isDark(context) ? Colors.white54 : Colors.black54,
-                        fontWeight: FontWeight.w500,
+                      'Únase a Harmoni hoy ✨',
+                      style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Space.smaller_small.gap,
+                  Padding(
+                    padding: EdgeInsets.only(left: width),
+                    child: SizedBox(
+                      width: screenWidth * 0.6,
+                      child: Text(
+                        'Comience a dar seguimiento a sus emociones.',
+                        style: textTheme.bodyLarge?.copyWith(
+                          color: isDark(context) ? Colors.white54 : Colors.black54,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.start,
                       ),
+                    ),
+                  ),
+                  Space.small.gap,
+                  Padding(
+                    padding: EdgeInsets.only(left: width),
+                    child: Text(
+                      'Email',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
                       textAlign: TextAlign.start,
                     ),
                   ),
-                ),
-                Space.small.gap,
-                Padding(
-                  padding: EdgeInsets.only(left: width),
-                  child: Text(
-                    'Email',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                Space.smaller_small.gap,
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width),
-                  child: EmailInputFieldWidget(
-                    controller: emailEditingController,
-                  ),
-                ),
-                Space.small.gap,
-                Padding(
-                  padding: EdgeInsets.only(left: width),
-                  child: Text(
-                    'Contraseña',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                Space.smaller_small.gap,
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width),
-                  child: PasswordInputFieldWidget(controller: passwordEditingController),
-                ),
-                Space.medium.gap,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: screenWidth * 0.82,
-                      child: Divider(
-                        thickness: 1,
-                        color: colorScheme.primary,
-                      ),
-                    ),
-                  ],
-                ),
-                Space.medium.gap,
-                Expanded(child: SizedBox()),
-                SizedBox(
-                  width: screenWidth,
-                  child: AlreadyHaveAccountOrNotWidget(
-                    isSignUp: true,
-                  ),
-                ),
-                Space.medium.gap,
-                Center(
-                  child: Padding(
+                  Space.smaller_small.gap,
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: width),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 64.0),
-                        child: ActionButtonWidget(
-                          text: "Crear Cuenta",
-                          shouldFocusAttention: true,
-                          onPressed: () async {
-                            var validationResult = await context.read<SignUpCubit>().validateEmail(emailEditingController.text);
-                            if (validationResult != EmailValidationResult.success.name) {
-                              showErrorDialog(
+                    child: EmailInputFieldWidget(
+                      controller: emailEditingController,
+                    ),
+                  ),
+                  Space.small.gap,
+                  Padding(
+                    padding: EdgeInsets.only(left: width),
+                    child: Text(
+                      'Contraseña',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                  Space.smaller_small.gap,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: width),
+                    child: PasswordInputFieldWidget(controller: passwordEditingController),
+                  ),
+                  Space.medium.gap,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: screenWidth * 0.82,
+                        child: Divider(
+                          thickness: 1,
+                          color: colorScheme.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Space.medium.gap,
+                  Expanded(child: SizedBox()),
+                  SizedBox(
+                    width: screenWidth,
+                    child: AlreadyHaveAccountOrNotWidget(
+                      isSignUp: true,
+                    ),
+                  ),
+                  Space.medium.gap,
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 64.0),
+                          child: ActionButtonWidget(
+                            text: "Crear Cuenta",
+                            shouldFocusAttention: true,
+                            onPressed: () async {
+                              var validationResult = await context.read<SignUpCubit>().validateEmail(emailEditingController.text);
+                              if (validationResult != EmailValidationResult.success.name) {
+                                showErrorDialog(
+                                    context.mounted ? context : context,
+                                    'Por favor, introduzca un email válido.${validationResult == EmailValidationResult.repeated.name ? ' '
+                                        'Este email ya ha sido registrado antes.' : 'La dirección de correo electrónico no es válida.'}');
+                                return;
+                              }
+                              var isValidPassword = context.mounted ? context.read<SignUpCubit>().validatePassword(passwordEditingController.text) : 'success';
+                              if (isValidPassword != PasswordValidationResult.success.name) {
+                                showErrorDialog(
                                   context.mounted ? context : context,
-                                  'Por favor, introduzca un email válido.${validationResult == EmailValidationResult.repeated.name ? ' '
-                                      'Este email ya ha sido registrado antes.' : 'La dirección de correo electrónico no es válida.'}');
-                              return;
-                            }
-                            var isValidPassword = context.mounted ? context.read<SignUpCubit>().validatePassword(passwordEditingController.text) : 'success';
-                            if (isValidPassword != PasswordValidationResult.success.name) {
-                              showErrorDialog(
-                                context.mounted ? context : context,
-                                'Por favor, introduzca una contraseña válida.${isValidPassword == 'tooShort' ? ' La contraseña '
-                                    'debe tener al menos 6 caracteres.' : isValidPassword == 'tooLong' ? ' La contraseña debe tener menos de 16 caracteres.' : ''}',
-                              );
-                              return;
-                            }
-                            var isSuccessSignUp = context.mounted ? context.read<SignUpCubit>().signUp(emailEditingController.text, passwordEditingController.text) : false;
-                            if (!isSuccessSignUp) {
-                              showErrorDialog(context.mounted ? context : context, 'Ha ocurrido un error al crear su cuenta. Por favor, inténtelo de nuevo más tarde.');
-                              return;
-                            }
-                            if (context.mounted) context.push(MyProfileRoute.name.data.path, extra: false);
-                          },
+                                  'Por favor, introduzca una contraseña válida.${isValidPassword == 'tooShort' ? ' La contraseña '
+                                      'debe tener al menos 6 caracteres.' : isValidPassword == 'tooLong' ? ' La contraseña debe tener menos de 16 caracteres.' : ''}',
+                                );
+                                return;
+                              }
+                              var isSuccessSignUp = context.mounted ? context.read<SignUpCubit>().signUp(emailEditingController.text, passwordEditingController.text) : false;
+                              if (!isSuccessSignUp) {
+                                showErrorDialog(context.mounted ? context : context, 'Ha ocurrido un error al crear su cuenta. Por favor, inténtelo de nuevo más tarde.');
+                                return;
+                              }
+                              if (context.mounted) context.push(MyProfileRoute.name.data.path, extra: false);
+                            },
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

@@ -23,7 +23,13 @@ class HomePage extends StatelessWidget {
             .homeSummaryData
             ?.moodTracks
             ?.map(
-              (e) => MoodEntryCard(moodLabel: e.recordMood ?? '', moodEmoji: '', date: e.createdAt?.toString() ?? '', time: '', tags: [''], note: ''),
+              (e) => MoodEntryCard(
+                  moodLabel: e.recordMood ?? '',
+                  moodEmoji: '',
+                  date: e.createdAt?.toString() ?? '',
+                  time: '',
+                  tags: [''],
+                  note: ''),
             )
             .toList() ??
         [];
@@ -32,10 +38,17 @@ class HomePage extends StatelessWidget {
         var settings = myProfileService.userProfile?.settings;
         if (myProfileService.userProfile == null) {
           context.goNamed(MyProfileRoute.init.data.name);
-        } else if (settings != null && settings['brightness'] != null && settings['color'] != null && settings['contrastLevel'] != null && settings['emojiType'] != null) {
+        } else if (settings != null &&
+            settings['brightness'] != null &&
+            settings['color'] != null &&
+            settings['contrastLevel'] != null &&
+            settings['emojiType'] != null) {
           context.read<StyleSettingCubit>().changeAll(
-                brightness: settings['brightness'] == Brightness.dark.name ? Brightness.dark : Brightness.light,
-                color: colors.elementAt(settings['colorIndex'] ?? 0)['color'] as Color,
+                brightness: settings['brightness'] == Brightness.dark.name
+                    ? Brightness.dark
+                    : Brightness.light,
+                color: colors.elementAt(settings['colorIndex'] ?? 0)['color']
+                    as Color,
                 contrastLevel: settings['contrastLevel'] ?? 0.0,
                 emojiType: settings['emojiType'] ?? 'ghost',
                 colorIndex: settings['colorIndex'] ?? 0,
@@ -44,7 +57,9 @@ class HomePage extends StatelessWidget {
       },
     );
     return Scaffold(
-      floatingActionButton: IconButton(onPressed: () => context.pushNamed(HomeRoute.trackEmotion.data.name), icon: Icon(Icons.add)),
+      floatingActionButton: IconButton(
+          onPressed: () => context.pushNamed(HomeRoute.trackEmotion.data.name),
+          icon: Icon(Icons.add)),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -54,9 +69,12 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 120),
                 _buildEmptyState(context, theme),
               ],
-              if (moodTracks?.isNotEmpty ?? false) WeeklyMoodChart(moodTracks: moodTracks!),
-              if (moodTracks?.isNotEmpty ?? false) MoodStabilityWidget(moodTracks: moodTracks!),
-              if (moodTracks?.isNotEmpty ?? false) AnnualMoodRadarWidget(moodTracks: moodTracks!),
+              if (moodTracks?.isNotEmpty ?? false)
+                WeeklyMoodChart(moodTracks: moodTracks!),
+              if (moodTracks?.isNotEmpty ?? false)
+                MoodStabilityWidget(moodTracks: moodTracks!),
+              if (moodTracks?.isNotEmpty ?? false)
+                AnnualMoodRadarWidget(moodTracks: moodTracks!),
             ],
           ),
         ),
@@ -102,7 +120,8 @@ class HomePage extends StatelessWidget {
           ),
           SizedBox(height: 32),
           FilledButton.icon(
-            onPressed: () => context.pushNamed(HomeRoute.trackEmotion.data.name),
+            onPressed: () =>
+                context.pushNamed(HomeRoute.trackEmotion.data.name),
             icon: Icon(Icons.add_circle_outline),
             label: Text('Registrar primera emoción'),
             style: FilledButton.styleFrom(
@@ -116,7 +135,8 @@ class HomePage extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
+              color:
+                  theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: theme.colorScheme.outline.withValues(alpha: 0.2),

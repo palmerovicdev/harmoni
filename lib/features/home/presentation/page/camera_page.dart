@@ -24,7 +24,8 @@ void _logError(String code, String? message) {
   print('Error: $code${message == null ? '' : '\nError Message: $message'}');
 }
 
-class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, TickerProviderStateMixin {
+class _CameraHomeState extends State<CameraHome>
+    with WidgetsBindingObserver, TickerProviderStateMixin {
   CameraController? controller;
   XFile? imageFile;
   XFile? videoFile;
@@ -106,31 +107,129 @@ class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, Ti
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isRecording = controller?.value.isRecordingVideo ?? false;
+
     return Scaffold(
+      backgroundColor: Colors.black,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: PopWidget(),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Container(
+          margin: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.black.withValues(alpha: 0.5),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: IconTheme(
+            data: const IconThemeData(color: Colors.white),
+            child: const PopWidget(
+              shouldAddPadding: false,
+            ),
+          ),
+        ),
+        actions: [
+          // Indicador de grabación
+          if (isRecording)
+            Container(
+              margin: const EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.error,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 8,
+                    height: 8,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  const Text(
+                    'REC',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
       ),
       body: Column(
         children: <Widget>[
+          // Vista previa de la cámara
           Expanded(
             child: Container(
+              margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.black,
+                borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: controller != null && controller!.value.isRecordingVideo ? Colors.redAccent : Colors.grey,
-                  width: 3.0,
+                  color: isRecording
+                      ? theme.colorScheme.error
+                      : theme.colorScheme.outline.withValues(alpha: 0.3),
+                  width: 2,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: isRecording
+                        ? theme.colorScheme.error.withValues(alpha: 0.3)
+                        : Colors.black.withValues(alpha: 0.3),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(1.0),
-                child: Center(
-                  child: _cameraPreviewWidget(),
-                ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(18),
+                child: _cameraPreviewWidget(),
               ),
             ),
           ),
-          _captureControlRowWidget(),
-          _modeControlRowWidget(),
+          // Controles de captura
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surface,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(32),
+                topRight: Radius.circular(32),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, -10),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Indicador de arrastrar
+                Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.outline.withValues(alpha: 0.5),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                _captureControlRowWidget(),
+                const SizedBox(height: 16),
+                _modeControlRowWidget(),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -138,14 +237,40 @@ class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, Ti
 
   Widget _cameraPreviewWidget() {
     final CameraController? cameraController = controller;
+    final theme = Theme.of(context);
 
     if (cameraController == null || !cameraController.value.isInitialized) {
-      return const Text(
-        'Tap a camera',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 24.0,
-          fontWeight: FontWeight.w900,
+      return Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              theme.colorScheme.primary.withValues(alpha: 0.1),
+              theme.colorScheme.primary.withValues(alpha: 0.05),
+            ],
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.camera_alt_outlined,
+                size: 64,
+                color: theme.colorScheme.primary,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Preparando cámara...',
+                style: TextStyle(
+                  color: theme.colorScheme.onSurface,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
         ),
       );
     } else {
@@ -154,12 +279,47 @@ class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, Ti
         onPointerUp: (_) => _pointers--,
         child: CameraPreview(
           controller!,
-          child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+          child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
             return GestureDetector(
               behavior: HitTestBehavior.opaque,
               onScaleStart: _handleScaleStart,
               onScaleUpdate: _handleScaleUpdate,
-              onTapDown: (TapDownDetails details) => onViewFinderTap(details, constraints),
+              onTapDown: (TapDownDetails details) =>
+                  onViewFinderTap(details, constraints),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withValues(alpha: 0.2),
+                    ],
+                    stops: const [0.7, 1.0],
+                  ),
+                ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: const EdgeInsets.all(16),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.5),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      'Toca para enfocar • Pellizca para hacer zoom',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             );
           }),
         ),
@@ -176,23 +336,26 @@ class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, Ti
       return;
     }
 
-    _currentScale = (_baseScale * details.scale).clamp(_minAvailableZoom, _maxAvailableZoom);
+    _currentScale = (_baseScale * details.scale)
+        .clamp(_minAvailableZoom, _maxAvailableZoom);
 
     await controller!.setZoomLevel(_currentScale);
   }
 
   Widget _modeControlRowWidget() {
-    return Column(
+    final theme = Theme.of(context);
+    final isLocked = controller?.value.isCaptureOrientationLocked ?? false;
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(controller?.value.isCaptureOrientationLocked ?? false ? Icons.screen_lock_rotation : Icons.screen_rotation),
-              color: Colors.blue,
-              onPressed: controller != null ? onCaptureOrientationLockButtonPressed : null,
-            ),
-          ],
+        // Botón de rotación
+        _buildControlButton(
+          icon: isLocked ? Icons.screen_lock_rotation : Icons.screen_rotation,
+          label: 'Rotación',
+          onPressed:
+              controller != null ? onCaptureOrientationLockButtonPressed : null,
+          isActive: isLocked,
         ),
       ],
     );
@@ -200,33 +363,130 @@ class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, Ti
 
   Widget _captureControlRowWidget() {
     final CameraController? cameraController = controller;
+    final theme = Theme.of(context);
+    final isRecording = cameraController?.value.isRecordingVideo ?? false;
+    final isPaused = cameraController?.value.isRecordingPaused ?? false;
+    final isPreviewPaused = cameraController?.value.isPreviewPaused ?? false;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.videocam),
-          color: Colors.blue,
-          onPressed: cameraController != null && cameraController.value.isInitialized && !cameraController.value.isRecordingVideo ? onVideoRecordButtonPressed : null,
+        // Botón de iniciar grabación
+        _buildControlButton(
+          icon: Icons.videocam,
+          label: 'Grabar',
+          onPressed: cameraController != null &&
+                  cameraController.value.isInitialized &&
+                  !isRecording
+              ? onVideoRecordButtonPressed
+              : null,
+          isActive: false,
         ),
-        IconButton(
-          icon: cameraController != null && cameraController.value.isRecordingPaused ? const Icon(Icons.play_arrow) : const Icon(Icons.pause),
-          color: Colors.blue,
-          onPressed: cameraController != null && cameraController.value.isInitialized && cameraController.value.isRecordingVideo
-              ? cameraController.value.isRecordingPaused
+
+        // Botón de pausa/reanudar
+        _buildControlButton(
+          icon: isPaused ? Icons.play_arrow : Icons.pause,
+          label: isPaused ? 'Reanudar' : 'Pausar',
+          onPressed: cameraController != null &&
+                  cameraController.value.isInitialized &&
+                  isRecording
+              ? isPaused
                   ? onResumeButtonPressed
                   : onPauseButtonPressed
               : null,
+          isActive: false,
         ),
-        IconButton(
-          icon: const Icon(Icons.stop),
-          color: Colors.red,
-          onPressed: cameraController != null && cameraController.value.isInitialized && cameraController.value.isRecordingVideo ? onStopButtonPressed : null,
+
+        // Botón de parar grabación
+        _buildControlButton(
+          icon: Icons.stop,
+          label: 'Parar',
+          onPressed: cameraController != null &&
+                  cameraController.value.isInitialized &&
+                  isRecording
+              ? onStopButtonPressed
+              : null,
+          isActive: false,
+          isDestructive: true,
         ),
-        IconButton(
-          icon: const Icon(Icons.pause_presentation),
-          color: cameraController != null && cameraController.value.isPreviewPaused ? Colors.red : Colors.blue,
-          onPressed: cameraController == null ? null : onPausePreviewButtonPressed,
+
+        // Botón de pausa de preview
+        _buildControlButton(
+          icon: Icons.pause_presentation,
+          label: 'Vista previa',
+          onPressed:
+              cameraController != null ? onPausePreviewButtonPressed : null,
+          isActive: isPreviewPaused,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildControlButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback? onPressed,
+    required bool isActive,
+    bool isDestructive = false,
+  }) {
+    final theme = Theme.of(context);
+    final isEnabled = onPressed != null;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 56,
+          height: 56,
+          decoration: BoxDecoration(
+            color: isActive
+                ? theme.colorScheme.primary
+                : isDestructive
+                    ? theme.colorScheme.error
+                    : theme.colorScheme.surfaceContainer,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: (isActive
+                        ? theme.colorScheme.primary
+                        : isDestructive
+                            ? theme.colorScheme.error
+                            : Colors.black)
+                    .withValues(alpha: 0.2),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: isEnabled ? onPressed : null,
+              borderRadius: BorderRadius.circular(28),
+              child: Icon(
+                icon,
+                color: isActive
+                    ? theme.colorScheme.onPrimary
+                    : isDestructive
+                        ? theme.colorScheme.onError
+                        : isEnabled
+                            ? theme.colorScheme.onSurface
+                            : theme.colorScheme.onSurface
+                                .withValues(alpha: 0.38),
+                size: 28,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: isEnabled
+                ? theme.colorScheme.onSurface
+                : theme.colorScheme.onSurface.withValues(alpha: 0.38),
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ],
     );
@@ -235,7 +495,8 @@ class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, Ti
   String timestamp() => DateTime.now().millisecondsSinceEpoch.toString();
 
   void showInSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   void onViewFinderTap(TapDownDetails details, BoxConstraints constraints) {
@@ -261,7 +522,8 @@ class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, Ti
     }
   }
 
-  Future<void> _initializeCameraController(CameraDescription cameraDescription) async {
+  Future<void> _initializeCameraController(
+      CameraDescription cameraDescription) async {
     final CameraController cameraController = CameraController(
       cameraDescription,
       kIsWeb ? ResolutionPreset.max : ResolutionPreset.medium,
@@ -276,28 +538,35 @@ class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, Ti
         setState(() {});
       }
       if (cameraController.value.hasError) {
-        showInSnackBar('Camera error ${cameraController.value.errorDescription}');
+        showInSnackBar(
+            'Camera error ${cameraController.value.errorDescription}');
       }
     });
 
     try {
       await cameraController.initialize();
       await Future.wait(<Future<Object?>>[
-        cameraController.getMaxZoomLevel().then((double value) => _maxAvailableZoom = value),
-        cameraController.getMinZoomLevel().then((double value) => _minAvailableZoom = value),
+        cameraController
+            .getMaxZoomLevel()
+            .then((double value) => _maxAvailableZoom = value),
+        cameraController
+            .getMinZoomLevel()
+            .then((double value) => _minAvailableZoom = value),
       ]);
     } on CameraException catch (e) {
       switch (e.code) {
         case 'CameraAccessDenied':
           showInSnackBar('Has denegado el acceso a la cámara.');
         case 'CameraAccessDeniedWithoutPrompt':
-          showInSnackBar('Por favor ve a la aplicación Configuración para habilitar el acceso a la cámara.');
+          showInSnackBar(
+              'Por favor ve a la aplicación Configuración para habilitar el acceso a la cámara.');
         case 'CameraAccessRestricted':
           showInSnackBar('El acceso a la cámara está restringido.');
         case 'AudioAccessDenied':
           showInSnackBar('Has denegado el acceso al audio.');
         case 'AudioAccessDeniedWithoutPrompt':
-          showInSnackBar('Por favor ve a la aplicación Configuración para habilitar el acceso al audio.');
+          showInSnackBar(
+              'Por favor ve a la aplicación Configuración para habilitar el acceso al audio.');
         case 'AudioAccessRestricted':
           showInSnackBar('El acceso al audio está restringido.');
         default:
@@ -371,7 +640,8 @@ class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, Ti
           showInSnackBar('Capture orientation unlocked');
         } else {
           await cameraController.lockCaptureOrientation();
-          showInSnackBar('Capture orientation locked to ${cameraController.value.lockedCaptureOrientation.toString().split('.').last}');
+          showInSnackBar(
+              'Capture orientation locked to ${cameraController.value.lockedCaptureOrientation.toString().split('.').last}');
         }
       }
     } on CameraException catch (e) {
@@ -588,7 +858,9 @@ class _CameraHomeState extends State<CameraHome> with WidgetsBindingObserver, Ti
       return;
     }
 
-    final VideoPlayerController vController = kIsWeb ? VideoPlayerController.networkUrl(Uri.parse(videoFile!.path)) : VideoPlayerController.file(File(videoFile!.path));
+    final VideoPlayerController vController = kIsWeb
+        ? VideoPlayerController.networkUrl(Uri.parse(videoFile!.path))
+        : VideoPlayerController.file(File(videoFile!.path));
 
     videoPlayerListener = () {
       if (videoController != null) {
